@@ -180,7 +180,8 @@ export function computeProductWorldOffset(
   const trim = trims.get(wallNumber) ?? { trimStart: 0, trimEnd: 0 }
   const xAlongWall = trim.trimStart + product.x
 
-  // Normal offset: wall interior surface (thickness/2) + product depth into room
+  // Normal offset: push product origin (front, Y=0) into room by depth
+  // so back (Y=depth) ends up at inner wall surface after Z-flip in ProductView
   const normalOffset = geom.thickness / 2 + product.depth
   const mx = geom.start[0] + xAlongWall * geom.tangent[0] + normalOffset * geom.normal[0]
   const my = geom.start[1] + xAlongWall * geom.tangent[1] + normalOffset * geom.normal[1]

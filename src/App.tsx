@@ -8,6 +8,9 @@ import WallOpenings from './render/WallOpenings'
 import ProductView from './render/ProductView'
 import DebugOverlaysComponent from './render/DebugOverlays'
 import ProbeScene from './render/ProbeScene'
+import { parseMoz } from './mozaik/mozParser'
+import { createRectangularRoom } from './mozaik/roomFactory'
+import { findNextAvailableX, placeProductOnWall, usableWallLength } from './mozaik/wallPlacement'
 import { writeMoz } from './export/mozWriter'
 import { writeDes } from './export/desWriter'
 import { findNextRoomNumber, exportDesRoom } from './export/jobFolder'
@@ -20,6 +23,25 @@ async function scanTextureFolder(folder: FileSystemDirectoryHandle): Promise<str
   const files: string[] = []
   for await (const entry of folder.values()) {
     if (entry.kind === 'file' && /\.(jpg|jpeg|png)$/i.test(entry.name)) {
+      files.push(entry.name)
+    }
+  }
+  return files.sort()
+}
+
+/** Scan a library folder for .moz product files. Checks Products/ subfolder first. */
+async function scanLibraryFolder(folder: FileSystemDirectoryHandle): Promise<string[]> {
+  // Mozaik libraries store .moz files in a "Products" subfolder
+  let targetFolder = folder
+  try {
+    targetFolder = await folder.getDirectoryHandle('Products')
+  } catch {
+    // No Products subfolder — scan root instead
+  }
+
+  const files: string[] = []
+  for await (const entry of targetFolder.values()) {
+    if (entry.kind === 'file' && /\.moz$/i.test(entry.name)) {
       files.push(entry.name)
     }
   }
@@ -45,6 +67,27 @@ function AppInner() {
       if (folder) {
         dispatch({ type: 'SET_JOB_FOLDER', folder })
         console.log(`[JOB] Restored job folder: ${folder.name}`)
+      }
+    })
+    loadFolderHandle('libraryFolder').then(async (folder) => {
+      if (folder) {
+        dispatch({ type: 'SET_LIBRARY_FOLDER', folder })
+        console.log(`[LIBRARY] Restored library folder: ${folder.name}`)
+        const filenames = await scanLibraryFolder(folder)
+        dispatch({ type: 'SET_AVAILABLE_LIBRARY_FILES', filenames })
+        console.log(`[LIBRARY] Scanned ${filenames.length} .moz files`)
+      }
+    })
+    loadFolderHandle('sketchUpFolder').then((folder) => {
+      if (folder) {
+        dispatch({ type: 'SET_SKETCHUP_FOLDER', folder })
+        console.log(`[SKETCHUP] Restored SketchUp folder: ${folder.name}`)
+      }
+    })
+    loadFolderHandle('modelsFolder').then((folder) => {
+      if (folder) {
+        dispatch({ type: 'SET_MODELS_FOLDER', folder })
+        console.log(`[MODELS] Restored models folder: ${folder.name}`)
       }
     })
   }, [dispatch])
@@ -102,6 +145,125 @@ function AppInner() {
     }
   }, [dispatch])
 
+  const linkLibraryFolder = useCallback(async () => {
+    try {
+      const folder = await window.showDirectoryPicker({ mode: 'read' })
+      dispatch({ type: 'SET_LIBRARY_FOLDER', folder })
+      await saveFolderHandle('libraryFolder', folder)
+      console.log(`[LIBRARY] Linked library folder: ${folder.name}`)
+      const filenames = await scanLibraryFolder(folder)
+      dispatch({ type: 'SET_AVAILABLE_LIBRARY_FILES', filenames })
+      console.log(`[LIBRARY] Scanned ${filenames.length} .moz files`)
+    } catch {
+      console.log('[LIBRARY] Folder picker cancelled')
+    }
+  }, [dispatch])
+
+  const linkSketchUpFolder = useCallback(async () => {
+    try {
+      const folder = await window.showDirectoryPicker({ mode: 'read' })
+      dispatch({ type: 'SET_SKETCHUP_FOLDER', folder })
+      await saveFolderHandle('sketchUpFolder', folder)
+      console.log(`[SKETCHUP] Linked SketchUp folder: ${folder.name}`)
+    } catch {
+      console.log('[SKETCHUP] Folder picker cancelled')
+    }
+  }, [dispatch])
+
+  const linkModelsFolder = useCallback(async () => {
+    try {
+      const folder = await window.showDirectoryPicker({ mode: 'read' })
+      dispatch({ type: 'SET_MODELS_FOLDER', folder })
+      await saveFolderHandle('modelsFolder', folder)
+      console.log(`[MODELS] Linked models folder: ${folder.name}`)
+    } catch {
+      console.log('[MODELS] Folder picker cancelled')
+    }
+  }, [dispatch])
+
+  const generateGlbScript = useCallback(async () => {
+    if (!state.sketchUpFolder) return
+    try {
+      // Deep-scan the SketchUp folder recursively for all .skp files
+      const skpFiles: string[] = []
+      async function scanRecursive(dir: FileSystemDirectoryHandle) {
+        for await (const entry of dir.values()) {
+          if (entry.kind === 'file' && /\.skp$/i.test(entry.name)) {
+            skpFiles.push(entry.name)
+          } else if (entry.kind === 'directory') {
+            try {
+              const subDir = await dir.getDirectoryHandle(entry.name)
+              await scanRecursive(subDir)
+            } catch { /* skip inaccessible */ }
+          }
+        }
+      }
+      await scanRecursive(state.sketchUpFolder)
+
+      // Check the GLB models folder for already-converted files
+      let alreadyConverted = 0
+      if (state.modelsFolder) {
+        const glbFiles = new Set<string>()
+        for await (const entry of state.modelsFolder.values()) {
+          if (entry.kind === 'file' && /\.glb$/i.test(entry.name)) {
+            glbFiles.add(entry.name.toLowerCase())
+          }
+        }
+        alreadyConverted = skpFiles.filter(f => glbFiles.has(f.replace(/\.skp$/i, '.glb').toLowerCase())).length
+      }
+      const toConvert = skpFiles.length - alreadyConverted
+
+      const script = `# SketchUp Ruby — Batch convert ALL SKP to GLB
+# Paste this into Window > Ruby Console (or Extensions > Developer > Ruby Console)
+src = UI.select_directory(title: "Select Mozaik shared folder (source)")
+out = UI.select_directory(title: "Select GLB output folder")
+if src && out
+  files = Dir.glob(File.join(src, "**", "*.skp"))
+  total = files.length
+  done = 0
+  files.each_with_index do |f, i|
+    base = File.basename(f).sub(/\\.skp$/i, ".glb")
+    dest = File.join(out, base)
+    if File.exist?(dest)
+      puts "  skip \#{base}"
+      next
+    end
+    Sketchup.open_file(f)
+    Sketchup.active_model.export(dest, false)
+    done += 1
+    puts "  [\#{i+1}/\#{total}] \#{base}"
+  end
+  UI.messagebox("Done! Converted \#{done} of \#{total} files to GLB.")
+end`
+
+      await navigator.clipboard.writeText(script)
+      alert(`Script copied to clipboard!\n\n${skpFiles.length} .skp files found across all subfolders, ${alreadyConverted} already have .glb, ${toConvert} to convert.\n\nPaste into SketchUp Ruby Console.`)
+      console.log(`[GLB] Generated recursive script: ${skpFiles.length} .skp files (${alreadyConverted} already converted)`)
+    } catch (e) {
+      console.error('[GLB] Failed to generate script:', e)
+      alert(`Failed to scan SketchUp folder: ${e}`)
+    }
+  }, [state.sketchUpFolder, state.modelsFolder])
+
+  const loadFromLibrary = useCallback(async (filename: string) => {
+    if (!state.libraryFolder) return
+    try {
+      // Mozaik libraries store .moz files in a "Products" subfolder
+      let targetFolder: FileSystemDirectoryHandle = state.libraryFolder
+      try {
+        targetFolder = await state.libraryFolder.getDirectoryHandle('Products')
+      } catch { /* root fallback */ }
+      const fileHandle = await targetFolder.getFileHandle(filename)
+      const file = await fileHandle.getFile()
+      const text = await file.text()
+      const mozFile = parseMoz(text)
+      dispatch({ type: 'LOAD_MOZ', file: mozFile })
+      console.log(`[LIBRARY] Loaded "${mozFile.product.prodName}" from ${filename}`)
+    } catch (e) {
+      console.error(`[LIBRARY] Failed to load "${filename}":`, e)
+    }
+  }, [dispatch, state.libraryFolder])
+
   const exportDes = useCallback(async () => {
     if (!state.room || !state.jobFolder) return
     try {
@@ -118,6 +280,47 @@ function AppInner() {
 
   const selectTexture = useCallback(
     (filename: string | null) => dispatch({ type: 'SET_SELECTED_TEXTURE', filename }),
+    [dispatch],
+  )
+
+  const handleCreateRoom = useCallback(
+    (width: number, depth: number) => {
+      const room = createRectangularRoom({ width, depth })
+      dispatch({ type: 'CREATE_ROOM', room })
+      console.log(`[ROOM] Created ${width}×${depth}mm room`)
+    },
+    [dispatch],
+  )
+
+  const handlePlaceProduct = useCallback(
+    (productIndex: number, wallNumber: number) => {
+      if (!state.room) return
+      const mozFile = state.standaloneProducts[productIndex]
+      if (!mozFile) return
+      const usable = usableWallLength(wallNumber, state.room.walls, state.room.wallJoints)
+      const nextX = findNextAvailableX(state.room.products, wallNumber, mozFile.product.width, usable)
+      if (nextX === null) {
+        alert('No space on this wall for that product')
+        return
+      }
+      const placed = placeProductOnWall(mozFile.product, wallNumber, nextX)
+      dispatch({ type: 'PLACE_PRODUCT', product: placed })
+      console.log(`[ROOM] Placed "${mozFile.product.prodName}" on wall ${wallNumber} at x=${nextX}`)
+    },
+    [dispatch, state.room, state.standaloneProducts],
+  )
+
+  const handleUpdateProductDimension = useCallback(
+    (index: number, field: 'width' | 'depth', value: number) => {
+      dispatch({ type: 'UPDATE_ROOM_PRODUCT', index, field, value })
+    },
+    [dispatch],
+  )
+
+  const handleRemoveProduct = useCallback(
+    (index: number) => {
+      dispatch({ type: 'REMOVE_ROOM_PRODUCT', index })
+    },
     [dispatch],
   )
 
@@ -150,6 +353,19 @@ function AppInner() {
         onSelectTexture={selectTexture}
         onExportDes={exportDes}
         onExportMoz={exportMoz}
+        libraryFolder={state.libraryFolder}
+        availableLibraryFiles={state.availableLibraryFiles}
+        onLinkLibraryFolder={linkLibraryFolder}
+        onLoadFromLibrary={loadFromLibrary}
+        onGenerateGlbScript={generateGlbScript}
+        sketchUpFolder={state.sketchUpFolder}
+        onLinkSketchUpFolder={linkSketchUpFolder}
+        modelsFolder={state.modelsFolder}
+        onLinkModelsFolder={linkModelsFolder}
+        onCreateRoom={handleCreateRoom}
+        onPlaceProduct={handlePlaceProduct}
+        onUpdateProductDimension={handleUpdateProductDimension}
+        onRemoveProduct={handleRemoveProduct}
       />
       <div className="flex-1">
         <Scene>
@@ -172,9 +388,8 @@ function AppInner() {
 
           {/* Render room products — placed on their referenced walls */}
           {state.room?.products.map((product, i) => {
-            const offset = state.room
-              ? computeProductWorldOffset(product, state.room.walls, state.room.wallJoints)
-              : null
+            const offset = computeProductWorldOffset(product, state.room!.walls, state.room!.wallJoints)
+            if (!offset) console.warn(`[RENDER] Product "${product.prodName}" on wall "${product.wall}" — offset is null!`)
             return (
               <ProductView
                 key={`room-${i}`}
@@ -186,12 +401,13 @@ function AppInner() {
                 textureFolder={state.textureFolder}
                 textureId={resolvedTextureId}
                 textureFilename={resolvedTextureFilename}
+                modelsFolder={state.modelsFolder}
               />
             )
           })}
 
-          {/* Render standalone MOZ products */}
-          {state.standaloneProducts.map((mf, i) => (
+          {/* Render standalone MOZ products — only when no room (preview mode) */}
+          {!state.room && state.standaloneProducts.map((mf, i) => (
             <ProductView
               key={`moz-${i}`}
               product={mf.product}
@@ -200,6 +416,7 @@ function AppInner() {
               textureFolder={state.textureFolder}
               textureId={resolvedTextureId}
               textureFilename={resolvedTextureFilename}
+              modelsFolder={state.modelsFolder}
             />
           ))}
         </Scene>

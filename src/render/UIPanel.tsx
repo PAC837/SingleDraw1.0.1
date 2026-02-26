@@ -1,6 +1,8 @@
 import type { DebugOverlays, MozRoom, MozFile, RenderMode } from '../mozaik/types'
 import { formatDim } from '../math/units'
 import FileLoader from './FileLoader'
+import CreateRoomPanel from './CreateRoomPanel'
+import PlaceProductPanel from './PlaceProductPanel'
 
 interface UIPanelProps {
   room: MozRoom | null
@@ -21,6 +23,19 @@ interface UIPanelProps {
   onSelectTexture: (filename: string | null) => void
   onExportDes: () => void
   onExportMoz: (index: number) => void
+  libraryFolder: FileSystemDirectoryHandle | null
+  availableLibraryFiles: string[]
+  onLinkLibraryFolder: () => void
+  onLoadFromLibrary: (filename: string) => void
+  onGenerateGlbScript: () => void
+  sketchUpFolder: FileSystemDirectoryHandle | null
+  onLinkSketchUpFolder: () => void
+  modelsFolder: FileSystemDirectoryHandle | null
+  onLinkModelsFolder: () => void
+  onCreateRoom: (width: number, depth: number) => void
+  onPlaceProduct: (productIndex: number, wallNumber: number) => void
+  onUpdateProductDimension: (productIndex: number, field: 'width' | 'depth', value: number) => void
+  onRemoveProduct: (productIndex: number) => void
 }
 
 function Toggle({
@@ -72,6 +87,9 @@ export default function UIPanel({
   room, products, overlays, selectedWall, useInches, renderMode, jobFolder, textureFolder,
   availableTextures, selectedTexture,
   onToggleOverlay, onToggleUnits, onSetRenderMode, onLinkJobFolder, onLinkTextureFolder, onSelectTexture, onExportDes, onExportMoz,
+  libraryFolder, availableLibraryFiles, onLinkLibraryFolder, onLoadFromLibrary, onGenerateGlbScript,
+  sketchUpFolder, onLinkSketchUpFolder, modelsFolder, onLinkModelsFolder,
+  onCreateRoom, onPlaceProduct, onUpdateProductDimension, onRemoveProduct,
 }: UIPanelProps) {
   const fmt = (mm: number) => formatDim(mm, useInches)
 
@@ -102,6 +120,84 @@ export default function UIPanel({
         </h2>
         <FileLoader />
       </div>
+
+      {/* Libraries */}
+      <div className="p-4 border-b border-gray-800">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+          Libraries
+        </h2>
+        <div className="space-y-2">
+          <button
+            onClick={onLinkLibraryFolder}
+            className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
+          >
+            {libraryFolder ? `Library: ${libraryFolder.name}` : 'Link Library Folder...'}
+          </button>
+          {libraryFolder && availableLibraryFiles?.length > 0 && (
+            <select
+              value=""
+              onChange={(e) => { if (e.target.value) onLoadFromLibrary(e.target.value) }}
+              className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-gray-700 text-white"
+            >
+              <option value="">Select a product...</option>
+              {availableLibraryFiles.map((f) => (
+                <option key={f} value={f}>{f.replace(/\.moz$/i, '')}</option>
+              ))}
+            </select>
+          )}
+        </div>
+      </div>
+
+      {/* 3D Models */}
+      <div className="p-4 border-b border-gray-800">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+          3D Models
+        </h2>
+        <div className="space-y-2">
+          <button
+            onClick={onLinkSketchUpFolder}
+            className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
+          >
+            {sketchUpFolder ? `SketchUp: ${sketchUpFolder.name}` : 'Link SketchUp Folder...'}
+          </button>
+          <button
+            onClick={onLinkModelsFolder}
+            className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
+          >
+            {modelsFolder ? `GLB: ${modelsFolder.name}` : 'Link GLB Folder...'}
+          </button>
+          {sketchUpFolder && (
+            <button
+              onClick={onGenerateGlbScript}
+              className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
+            >
+              Generate SKP → GLB Script
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Create Room */}
+      <div className="p-4 border-b border-gray-800">
+        <CreateRoomPanel hasRoom={!!room} onCreateRoom={onCreateRoom} />
+      </div>
+
+      {/* Place Products */}
+      {room && products.length > 0 && (
+        <div className="p-4 border-b border-gray-800">
+          <PlaceProductPanel
+            standaloneProducts={products}
+            roomProducts={room.products}
+            walls={room.walls}
+            joints={room.wallJoints}
+            selectedWall={selectedWall}
+            useInches={useInches}
+            onPlaceProduct={onPlaceProduct}
+            onUpdateProductDimension={onUpdateProductDimension}
+            onRemoveProduct={onRemoveProduct}
+          />
+        </div>
+      )}
 
       {/* Job Folder + Export */}
       <div className="p-4 border-b border-gray-800">

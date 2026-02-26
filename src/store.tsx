@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react'
-import type { AppState, RenderMode, MozRoom, MozFile, DebugOverlays } from './mozaik/types'
+import type { AppState, RenderMode, MozRoom, MozFile, MozProduct, DebugOverlays } from './mozaik/types'
 
 const defaultOverlays: DebugOverlays = {
   originMarker: true,
@@ -22,6 +22,10 @@ const initialState: AppState = {
   textureFolder: null,
   availableTextures: [],
   selectedTexture: null,
+  libraryFolder: null,
+  availableLibraryFiles: [],
+  sketchUpFolder: null,
+  modelsFolder: null,
 }
 
 type Action =
@@ -35,8 +39,16 @@ type Action =
   | { type: 'SET_TEXTURE_FOLDER'; folder: FileSystemDirectoryHandle }
   | { type: 'SET_AVAILABLE_TEXTURES'; filenames: string[] }
   | { type: 'SET_SELECTED_TEXTURE'; filename: string | null }
+  | { type: 'CREATE_ROOM'; room: MozRoom }
+  | { type: 'PLACE_PRODUCT'; product: MozProduct }
+  | { type: 'UPDATE_ROOM_PRODUCT'; index: number; field: 'width' | 'depth'; value: number }
+  | { type: 'REMOVE_ROOM_PRODUCT'; index: number }
   | { type: 'CLEAR_ROOM' }
   | { type: 'CLEAR_PRODUCTS' }
+  | { type: 'SET_LIBRARY_FOLDER'; folder: FileSystemDirectoryHandle }
+  | { type: 'SET_AVAILABLE_LIBRARY_FILES'; filenames: string[] }
+  | { type: 'SET_SKETCHUP_FOLDER'; folder: FileSystemDirectoryHandle }
+  | { type: 'SET_MODELS_FOLDER'; folder: FileSystemDirectoryHandle }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -63,10 +75,46 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, availableTextures: action.filenames }
     case 'SET_SELECTED_TEXTURE':
       return { ...state, selectedTexture: action.filename }
+    case 'CREATE_ROOM':
+      return { ...state, room: action.room, selectedWall: null }
+    case 'PLACE_PRODUCT':
+      if (!state.room) return state
+      return {
+        ...state,
+        room: { ...state.room, products: [...state.room.products, action.product] },
+      }
+    case 'UPDATE_ROOM_PRODUCT':
+      if (!state.room) return state
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          products: state.room.products.map((p, i) =>
+            i === action.index ? { ...p, [action.field]: action.value } : p
+          ),
+        },
+      }
+    case 'REMOVE_ROOM_PRODUCT':
+      if (!state.room) return state
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          products: state.room.products.filter((_, i) => i !== action.index),
+        },
+      }
     case 'CLEAR_ROOM':
       return { ...state, room: null }
     case 'CLEAR_PRODUCTS':
       return { ...state, standaloneProducts: [] }
+    case 'SET_LIBRARY_FOLDER':
+      return { ...state, libraryFolder: action.folder }
+    case 'SET_AVAILABLE_LIBRARY_FILES':
+      return { ...state, availableLibraryFiles: action.filenames }
+    case 'SET_SKETCHUP_FOLDER':
+      return { ...state, sketchUpFolder: action.folder }
+    case 'SET_MODELS_FOLDER':
+      return { ...state, modelsFolder: action.folder }
     default:
       return state
   }

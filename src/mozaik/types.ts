@@ -103,6 +103,7 @@ export interface MozPart {
   quan: number
   layer: number
   shapePoints: MozShapePoint[]
+  suPartName: string   // SketchUp model filename, e.g. "Black Closet Rod (Oval).skp"
 }
 
 /** Product-level data from <Product> in DES or MOZ root. */
@@ -174,4 +175,8 @@ export interface AppState {
   textureFolder: FileSystemDirectoryHandle | null
   availableTextures: string[]       // filenames scanned from texture folder
   selectedTexture: string | null    // user-picked filename (overrides DES primaryTextureId)
+  libraryFolder: FileSystemDirectoryHandle | null
+  availableLibraryFiles: string[]   // sorted .moz filenames from library folder
+  sketchUpFolder: FileSystemDirectoryHandle | null  // Mozaik shared folder — deep-scanned for .skp files
+  modelsFolder: FileSystemDirectoryHandle | null    // flat folder of .glb files for rendering
 }

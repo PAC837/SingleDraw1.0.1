@@ -52,6 +52,26 @@ When reading any Mozaik file (DES/MOZ/MOS/SBK/BAK), always announce:
 
 If a needed file is missing: **stop and ask the user**. Specify exactly what is needed and why. Never fabricate Mozaik data.
 
+## Mozaik Part & Product Positioning
+
+**Part geometry:**
+- Part dimensions: `L` = length (longest span), `W` = width (shorter span)
+- BoxGeometry: `args={[L, thick, W]}` — thick = 19mm (wood panels) or 3mm (metal brackets)
+- Part center offset: `Vector3(L/2, W/2, thick/2)` rotated by part quaternion, then added to part `(x, y, z)`
+
+**Texture grain direction:**
+- Grain ALWAYS runs along part L axis unless "cross-grain" is selected in Mozaik
+- Mozaik texture images have grain along the V (vertical) axis in the image
+- Fix: texture rotated 90° (`tex.rotation = π/2`) with swapped repeat `(partW/uvw, partL/uvh)`
+- UVW/UVH from Textures.dat = tile dimensions in mm (typically 609.6mm = 24")
+
+**Product placement on walls:**
+- `product.x` = distance along wall from usable start (inside corner after joint trim)
+- `product.elev` = elevation above floor (Z in Mozaik)
+- `product.wall` = `"wallNumber_section"` format (e.g., "3_1"). Section is typically 1.
+- World offset = `trimStart + product.x` along wall tangent, plus `wallThickness/2 + productDepth` along inward normal
+- Products auto-place left-to-right, cannot overlap bounding boxes, cannot extend past wall edges
+
 ## Key Invariants
 
 - **Round-trip fidelity**: import → export → re-import must yield identical values (epsilon = 0 unless Mozaik quantizes, only relax if proven).

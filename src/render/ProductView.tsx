@@ -6,6 +6,7 @@ import { mozPosToThree, mozQuatToThree } from '../math/basis'
 import { mozEulerToQuaternion } from '../math/rotations'
 import { DEG2RAD } from '../math/constants'
 import { useProductTexture, useTextureByFilename, lookupTexture } from './useProductTexture'
+import { useProductModel } from './useProductModel'
 
 interface ProductViewProps {
   product: MozProduct
@@ -16,6 +17,7 @@ interface ProductViewProps {
   textureFolder?: FileSystemDirectoryHandle | null
   textureId?: number | null
   textureFilename?: string | null
+  modelsFolder?: FileSystemDirectoryHandle | null
 }
 
 /** Color by part type for visual differentiation. */
@@ -69,12 +71,14 @@ interface PartMeshProps {
   renderMode?: RenderMode
   baseTexture?: Texture | null
   textureId?: number | null
+  modelsFolder?: FileSystemDirectoryHandle | null
 }
 
-function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null }: PartMeshProps) {
+function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null }: PartMeshProps) {
   const length = Math.max(part.l, 1)
   const width = Math.max(part.w, 1)
   const thick = panelThickness(part.type)
+  const glbModel = useProductModel(modelsFolder, part.suPartName)
 
   const { position, quaternion } = useMemo(() => {
     const mozQuat = mozEulerToQuaternion(part.rotation)
@@ -92,6 +96,19 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
 
     return { position: pos, quaternion: threeQuat }
   }, [part, length, width, thick])
+
+  // GLB model available — render it instead of box geometry
+  if (glbModel) {
+    // Position at part origin (no center offset — GLB has its own geometry)
+    const modelPos = mozPosToThree(part.x, part.y, part.z)
+    const mozQuat = mozEulerToQuaternion(part.rotation)
+    const modelQuat = mozQuatToThree(mozQuat)
+    return (
+      <group position={modelPos} quaternion={modelQuat}>
+        <primitive object={glbModel} />
+      </group>
+    )
+  }
 
   // Clean wireframe: EdgesGeometry shows only box edges (no face diagonals)
   const edgesGeo = useMemo(() => {
@@ -135,7 +152,7 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
 
 export default function ProductView({
   product, worldOffset, wallAngleDeg, renderMode = 'ghosted', showBoundingBox = false,
-  textureFolder = null, textureId = null, textureFilename = null,
+  textureFolder = null, textureId = null, textureFilename = null, modelsFolder = null,
 }: ProductViewProps) {
   // Priority: filename-based (user override) → textureId-based (DES default)
   const texById = useProductTexture(textureFilename ? null : textureFolder, textureFilename ? null : textureId)
@@ -157,7 +174,7 @@ export default function ProductView({
   )
 
   return (
-    <group position={groupPos} rotation={[0, groupRotY, 0]}>
+    <group position={groupPos} rotation={[0, groupRotY, 0]} scale={[1, 1, -1]}>
       {product.parts.map((part, i) => (
         <PartMesh
           key={`${part.name}-${i}`}
@@ -165,6 +182,7 @@ export default function ProductView({
           renderMode={renderMode}
           baseTexture={baseTexture}
           textureId={textureId}
+          modelsFolder={modelsFolder}
         />
       ))}
 

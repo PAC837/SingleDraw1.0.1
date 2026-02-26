@@ -105,5 +105,6 @@ function parsePart(el: Element): MozPart {
     quan: getAttrInt(el, 'Quan', 1),
     layer: getAttrInt(el, 'Layer'),
     shapePoints,
+    suPartName: getAttrStr(el, 'SUPartName', ''),
   }
 }
