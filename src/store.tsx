@@ -1,12 +1,11 @@
 import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react'
-import type { AppState, MozRoom, MozFile, DebugOverlays } from './mozaik/types'
+import type { AppState, RenderMode, MozRoom, MozFile, DebugOverlays } from './mozaik/types'
 
 const defaultOverlays: DebugOverlays = {
   originMarker: true,
   axisGizmo: true,
   floorGrid: true,
   wallNormals: false,
-  productForwardArrow: false,
   boundingBoxes: false,
   doubleSidedWalls: false,
   probeScene: false,
@@ -18,6 +17,8 @@ const initialState: AppState = {
   overlays: defaultOverlays,
   selectedWall: null,
   useInches: false,
+  renderMode: 'ghosted',
+  jobFolder: null,
 }
 
 type Action =
@@ -26,6 +27,8 @@ type Action =
   | { type: 'TOGGLE_OVERLAY'; key: keyof DebugOverlays }
   | { type: 'SELECT_WALL'; wallNumber: number | null }
   | { type: 'TOGGLE_UNITS' }
+  | { type: 'SET_RENDER_MODE'; mode: RenderMode }
+  | { type: 'SET_JOB_FOLDER'; folder: FileSystemDirectoryHandle }
   | { type: 'CLEAR_ROOM' }
   | { type: 'CLEAR_PRODUCTS' }
 
@@ -44,6 +47,10 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, selectedWall: action.wallNumber }
     case 'TOGGLE_UNITS':
       return { ...state, useInches: !state.useInches }
+    case 'SET_RENDER_MODE':
+      return { ...state, renderMode: action.mode }
+    case 'SET_JOB_FOLDER':
+      return { ...state, jobFolder: action.folder }
     case 'CLEAR_ROOM':
       return { ...state, room: null }
     case 'CLEAR_PRODUCTS':

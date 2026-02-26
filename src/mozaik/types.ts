@@ -152,11 +152,13 @@ export interface DebugOverlays {
   axisGizmo: boolean
   floorGrid: boolean
   wallNormals: boolean
-  productForwardArrow: boolean
   boundingBoxes: boolean
   doubleSidedWalls: boolean
   probeScene: boolean
 }
+
+/** Render mode for 3D materials. */
+export type RenderMode = 'ghosted' | 'solid' | 'wireframe'
 
 /** Top-level application state. */
 export interface AppState {
@@ -165,4 +167,6 @@ export interface AppState {
   overlays: DebugOverlays
   selectedWall: number | null
   useInches: boolean
+  renderMode: RenderMode
+  jobFolder: FileSystemDirectoryHandle | null
 }

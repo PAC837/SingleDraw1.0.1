@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { StoreProvider, useAppState, useAppDispatch } from './store'
-import type { DebugOverlays } from './mozaik/types'
+import type { DebugOverlays, RenderMode } from './mozaik/types'
 import Scene from './render/Scene'
 import UIPanel from './render/UIPanel'
 import RoomWalls from './render/RoomWalls'
@@ -9,6 +9,8 @@ import ProductView from './render/ProductView'
 import DebugOverlaysComponent from './render/DebugOverlays'
 import ProbeScene from './render/ProbeScene'
 import { writeMoz } from './export/mozWriter'
+import { writeDes } from './export/desWriter'
+import { pickJobFolder, findNextRoomNumber, exportDesRoom } from './export/jobFolder'
 import { computeProductWorldOffset } from './math/wallMath'
 
 function AppInner() {
@@ -42,6 +44,30 @@ function AppInner() {
     [state.standaloneProducts],
   )
 
+  const linkJobFolder = useCallback(async () => {
+    try {
+      const folder = await pickJobFolder()
+      dispatch({ type: 'SET_JOB_FOLDER', folder })
+      console.log(`[JOB] Linked job folder: ${folder.name}`)
+    } catch (e) {
+      console.log('[JOB] Folder picker cancelled')
+    }
+  }, [dispatch])
+
+  const exportDes = useCallback(async () => {
+    if (!state.room || !state.jobFolder) return
+    try {
+      const content = writeDes(state.room)
+      const nextNum = await findNextRoomNumber(state.jobFolder)
+      const filename = await exportDesRoom(state.jobFolder, content, nextNum)
+      console.log(`[EXPORT] Exported ${filename} to ${state.jobFolder.name}`)
+      alert(`Exported ${filename}`)
+    } catch (e) {
+      console.error('[EXPORT] DES export failed:', e)
+      alert(`Export failed: ${e}`)
+    }
+  }, [state.room, state.jobFolder])
+
   return (
     <div className="flex h-screen w-screen bg-[var(--bg-dark)]">
       <UIPanel
@@ -50,8 +76,13 @@ function AppInner() {
         overlays={state.overlays}
         selectedWall={state.selectedWall}
         useInches={state.useInches}
+        renderMode={state.renderMode}
+        jobFolder={state.jobFolder}
         onToggleOverlay={toggleOverlay}
         onToggleUnits={() => dispatch({ type: 'TOGGLE_UNITS' })}
+        onSetRenderMode={(mode: RenderMode) => dispatch({ type: 'SET_RENDER_MODE', mode })}
+        onLinkJobFolder={linkJobFolder}
+        onExportDes={exportDes}
         onExportMoz={exportMoz}
       />
       <div className="flex-1">
@@ -67,6 +98,7 @@ function AppInner() {
                 doubleSided={state.overlays.doubleSidedWalls}
                 selectedWall={state.selectedWall}
                 onSelectWall={selectWall}
+                renderMode={state.renderMode}
               />
               <WallOpenings room={state.room} />
             </>
@@ -83,13 +115,20 @@ function AppInner() {
                 product={product}
                 worldOffset={offset?.position}
                 wallAngleDeg={offset?.wallAngleDeg}
+                renderMode={state.renderMode}
+                showBoundingBox={state.overlays.boundingBoxes}
               />
             )
           })}
 
           {/* Render standalone MOZ products */}
           {state.standaloneProducts.map((mf, i) => (
-            <ProductView key={`moz-${i}`} product={mf.product} />
+            <ProductView
+              key={`moz-${i}`}
+              product={mf.product}
+              renderMode={state.renderMode}
+              showBoundingBox={state.overlays.boundingBoxes}
+            />
           ))}
         </Scene>
       </div>

@@ -1,4 +1,4 @@
-import type { DebugOverlays, MozRoom, MozFile } from '../mozaik/types'
+import type { DebugOverlays, MozRoom, MozFile, RenderMode } from '../mozaik/types'
 import { formatDim } from '../math/units'
 import FileLoader from './FileLoader'
 
@@ -8,8 +8,13 @@ interface UIPanelProps {
   overlays: DebugOverlays
   selectedWall: number | null
   useInches: boolean
+  renderMode: RenderMode
+  jobFolder: FileSystemDirectoryHandle | null
   onToggleOverlay: (key: keyof DebugOverlays) => void
   onToggleUnits: () => void
+  onSetRenderMode: (mode: RenderMode) => void
+  onLinkJobFolder: () => void
+  onExportDes: () => void
   onExportMoz: (index: number) => void
 }
 
@@ -31,9 +36,36 @@ function Toggle({
   )
 }
 
+function RenderModeSelector({
+  mode, onChange,
+}: { mode: RenderMode; onChange: (m: RenderMode) => void }) {
+  const modes: { value: RenderMode; label: string }[] = [
+    { value: 'ghosted', label: 'Ghost' },
+    { value: 'solid', label: 'Solid' },
+    { value: 'wireframe', label: 'Wire' },
+  ]
+  return (
+    <div className="flex gap-1">
+      {modes.map((m) => (
+        <button
+          key={m.value}
+          onClick={() => onChange(m.value)}
+          className={`text-xs px-2 py-1 rounded transition-colors ${
+            mode === m.value
+              ? 'bg-[var(--yellow)] text-black font-medium'
+              : 'bg-gray-800 hover:bg-gray-700'
+          }`}
+        >
+          {m.label}
+        </button>
+      ))}
+    </div>
+  )
+}
+
 export default function UIPanel({
-  room, products, overlays, selectedWall, useInches,
-  onToggleOverlay, onToggleUnits, onExportMoz,
+  room, products, overlays, selectedWall, useInches, renderMode, jobFolder,
+  onToggleOverlay, onToggleUnits, onSetRenderMode, onLinkJobFolder, onExportDes, onExportMoz,
 }: UIPanelProps) {
   const fmt = (mm: number) => formatDim(mm, useInches)
 
@@ -65,17 +97,42 @@ export default function UIPanel({
         <FileLoader />
       </div>
 
-      {/* Debug Overlays */}
+      {/* Job Folder + Export */}
       <div className="p-4 border-b border-gray-800">
         <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
-          Debug Overlays
+          Export
         </h2>
+        <div className="space-y-2">
+          <button
+            onClick={onLinkJobFolder}
+            className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
+          >
+            {jobFolder ? `Job: ${jobFolder.name}` : 'Link Job Folder...'}
+          </button>
+          {room && jobFolder && (
+            <button
+              onClick={onExportDes}
+              className="w-full text-xs px-3 py-2 bg-[var(--yellow)] text-black font-medium rounded hover:opacity-90 transition-opacity"
+            >
+              Export DES to Job
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Render Mode + Debug Overlays */}
+      <div className="p-4 border-b border-gray-800">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+          Render
+        </h2>
+        <div className="mb-3">
+          <RenderModeSelector mode={renderMode} onChange={onSetRenderMode} />
+        </div>
         <div className="space-y-2">
           <Toggle label="Origin Marker" checked={overlays.originMarker} onChange={() => onToggleOverlay('originMarker')} />
           <Toggle label="Axis Gizmo" checked={overlays.axisGizmo} onChange={() => onToggleOverlay('axisGizmo')} />
           <Toggle label="Floor Grid" checked={overlays.floorGrid} onChange={() => onToggleOverlay('floorGrid')} />
           <Toggle label="Wall Normals" checked={overlays.wallNormals} onChange={() => onToggleOverlay('wallNormals')} />
-          <Toggle label="Product Forward" checked={overlays.productForwardArrow} onChange={() => onToggleOverlay('productForwardArrow')} />
           <Toggle label="Bounding Boxes" checked={overlays.boundingBoxes} onChange={() => onToggleOverlay('boundingBoxes')} />
           <Toggle label="Double-Sided Walls" checked={overlays.doubleSidedWalls} onChange={() => onToggleOverlay('doubleSidedWalls')} />
           <Toggle label="Probe Scene" checked={overlays.probeScene} onChange={() => onToggleOverlay('probeScene')} />

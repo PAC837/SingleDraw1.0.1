@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { DoubleSide, FrontSide } from 'three'
-import type { MozRoom } from '../mozaik/types'
+import type { MozRoom, RenderMode } from '../mozaik/types'
 import { computeWallGeometries, computeWallTrims } from '../math/wallMath'
 import { mozPosToThree } from '../math/basis'
 import { DEG2RAD } from '../math/constants'
@@ -10,9 +10,10 @@ interface RoomWallsProps {
   doubleSided: boolean
   selectedWall: number | null
   onSelectWall: (wallNumber: number) => void
+  renderMode?: RenderMode
 }
 
-export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWall }: RoomWallsProps) {
+export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWall, renderMode = 'ghosted' }: RoomWallsProps) {
   const geometries = useMemo(
     () => computeWallGeometries(room.walls),
     [room.walls],
@@ -54,13 +55,28 @@ export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWal
             }}
           >
             <boxGeometry args={[renderLen, g.height, g.thickness]} />
-            <meshStandardMaterial
-              color={color}
-              transparent
-              opacity={opacity}
-              side={doubleSided ? DoubleSide : FrontSide}
-              depthWrite={false}
-            />
+            {renderMode === 'wireframe' ? (
+              <meshStandardMaterial
+                color={color}
+                wireframe
+                side={doubleSided ? DoubleSide : FrontSide}
+              />
+            ) : renderMode === 'solid' ? (
+              <meshStandardMaterial
+                color={color}
+                transparent
+                opacity={isSelected ? 0.9 : 0.85}
+                side={doubleSided ? DoubleSide : FrontSide}
+              />
+            ) : (
+              <meshStandardMaterial
+                color={color}
+                transparent
+                opacity={opacity}
+                side={doubleSided ? DoubleSide : FrontSide}
+                depthWrite={false}
+              />
+            )}
           </mesh>
         )
       })}

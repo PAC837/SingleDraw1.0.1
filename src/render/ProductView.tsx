@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Quaternion, Vector3 } from 'three'
-import type { MozProduct, MozPart } from '../mozaik/types'
+import type { MozProduct, MozPart, RenderMode } from '../mozaik/types'
 import { mozPosToThree, mozQuatToThree } from '../math/basis'
 import { mozEulerToQuaternion } from '../math/rotations'
 import { DEG2RAD } from '../math/constants'
@@ -11,6 +11,8 @@ interface ProductViewProps {
   worldOffset?: [number, number, number]
   /** Wall angle in degrees (Mozaik Z rotation) for wall-placed products */
   wallAngleDeg?: number
+  renderMode?: RenderMode
+  showBoundingBox?: boolean
 }
 
 /** Color by part type for visual differentiation. */
@@ -35,7 +37,7 @@ function panelThickness(type: string): number {
   }
 }
 
-function PartMesh({ part }: { part: MozPart }) {
+function PartMesh({ part, renderMode = 'ghosted' }: { part: MozPart; renderMode?: RenderMode }) {
   // Part dimensions in Mozaik part-local space:
   //   L along local X, W along local Y, thickness along local Z
   const length = Math.max(part.l, 1)
@@ -73,19 +75,25 @@ function PartMesh({ part }: { part: MozPart }) {
   //   Three.js X = Mozaik X = L
   //   Three.js Y = Mozaik Z = thick
   //   Three.js Z = Mozaik -Y = W (magnitude)
+  const color = partColor(part.type)
+
   return (
     <mesh position={position} quaternion={quaternion}>
       <boxGeometry args={[length, thick, width]} />
-      <meshStandardMaterial
-        color={partColor(part.type)}
-        transparent
-        opacity={0.8}
-      />
+      {renderMode === 'wireframe' ? (
+        <meshStandardMaterial color={color} wireframe />
+      ) : renderMode === 'solid' ? (
+        <meshStandardMaterial color={color} />
+      ) : (
+        <meshStandardMaterial color={color} transparent opacity={0.8} />
+      )}
     </mesh>
   )
 }
 
-export default function ProductView({ product, worldOffset, wallAngleDeg }: ProductViewProps) {
+export default function ProductView({
+  product, worldOffset, wallAngleDeg, renderMode = 'ghosted', showBoundingBox = false,
+}: ProductViewProps) {
   const groupPos = useMemo(() => {
     if (worldOffset) {
       return mozPosToThree(worldOffset[0], worldOffset[1], worldOffset[2])
@@ -107,19 +115,21 @@ export default function ProductView({ product, worldOffset, wallAngleDeg }: Prod
   return (
     <group position={groupPos} rotation={[0, groupRotY, 0]}>
       {product.parts.map((part, i) => (
-        <PartMesh key={`${part.name}-${i}`} part={part} />
+        <PartMesh key={`${part.name}-${i}`} part={part} renderMode={renderMode} />
       ))}
 
       {/* Product bounding box outline */}
-      <mesh position={bbPos}>
-        <boxGeometry args={[product.width, product.height, product.depth]} />
-        <meshStandardMaterial
-          color="#FFE500"
-          wireframe
-          transparent
-          opacity={0.2}
-        />
-      </mesh>
+      {showBoundingBox && (
+        <mesh position={bbPos}>
+          <boxGeometry args={[product.width, product.height, product.depth]} />
+          <meshStandardMaterial
+            color="#FFE500"
+            wireframe
+            transparent
+            opacity={0.2}
+          />
+        </mesh>
+      )}
     </group>
   )
 }
