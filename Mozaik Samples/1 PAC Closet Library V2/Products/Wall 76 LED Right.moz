@@ -1,0 +1,102 @@
+2
+11
+Mozaik Product Properties File
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Product UniqueID="23761621" OrderID="0" ProdName="Wall 76 LED Right" IDTag="57" ProductDesc="" SourceLib="1 PAC Closet Library V2" NonGraphic="False" ImageFile="FM-Panel.JPG" SketchUpFile="" UseSUModel="0" AutoFill="False" AutoDimension="True" Mirror="True" SUDirty="True" OrderDirty="True" Width="19" Height="1908" Depth="356" WStretch="False" HStretch="False" DStretch="False" minW="0" minH="2133.6" minD="0" MaxW="0" MaxH="2463.8" MaxD="0" ModularWidths="False" ModularHeights="True" ModularDepths="True" ModularFFHeights="False" X="432.0000" Elev="223.9998" Rot="0" Outset="0" Wall="0" CabNo="22" Numbered="True" SnapTo="0" IsRectShape="False" DoorOR="" TopDrwOR="" MidDrwOR="" BotDrwOR="" DrwPullOR="" DoorPullOR="" HingeOR="" GuideOR="" GuideORSlowCloseOn="False" GuideORSpacerState="1" ShelfPinsOR="" DrawerFrontFastenerOR="" LockOR="" LegOR="" SpotLightOR="" LinearLightOR="" EndDoorOR="" BackDoorOR="" HardwareTextureORId="-1" LToeAdj="0" RToeAdj="0" TopDepthAdj="0" BottomDepthAdj="0" CurrentConst="0" ShowElevDepth="False" ExtEnds="0" Flags="1111111111111111" NoParts="False" DoorStyle="MDF Flat Panel Square" FinInt="False" AutomateInterior="False" GrainMatched="0" ScribeRefWasExterior="True" PrevInteriorScribeStileWidths="" PrevInteriorScribeSideThicknesses="" Count="1" LockConst="True" EndsToFloor="0" CornerVoidAssigned="False" Notes="" Price="90" PricePerM="0" PricePerSqM="0" Upcharge="0" Weight="0" IncludeInCabCount="True" IncludeInLinearCalculations="True" IncludeInSqCalculations="True" PricingColumn="" NotchForLeftPanelEndFrontToe="True" NotchForLeftPanelEndBackToe="True" NotchForRightPanelEndFrontToe="True" NotchForRightPanelEndBackToe="True" NotchForLeftEndFrontToe="True" NotchForLeftEndBackToe="False" NotchForRightEndFrontToe="True" NotchForRightEndBackToe="False" ParmVersion="17">
+  <MatORSel CategoryId="3">
+    <MaterialTemplateSelection RootTemplateId="-1" />
+  </MatORSel>
+  <ProductOptions />
+  <CabProdParts>
+    <CabProdPart Name=" LED" ReportName=" LED" UsageType="0" HighDetail="True" Comment="" CommentLocked="False" Quan="0" W="6" L="1908" Color="" ColorLocked="False" Type="GLASS" Q_EQ="0 | If LEDConfig = 1 Or LEDConfig = 4 Then Quan= 1" W_EQ="LEDWidth" L_EQ="H | If LEDLength &gt; 0 Then Length= LEDLength" Layer="1" X="6.35" Y="85" Z="0" X_EQ="PartTH" Y_EQ="LEDSetback+LEDStaggerLeft" Z_EQ="0 | If LEDLength &gt; 0 Then Z Pos= H-LEDLength" A1="0" A2="270" A3="0" R1="X" R2="Y" R3="Z" Face="0" A1_EQ="0" A2_EQ="270" A3_EQ="" Radius="0" RadAxis="0" SUPartName="" SUPartD="0">
+      <PartShapeXml Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="1" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="1" X="1908" Y="0" PtType="0" Data="0" EdgeType="2" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="2" X="1908" Y="6" PtType="0" Data="0" EdgeType="3" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="3" X="0" Y="6" PtType="0" Data="0" EdgeType="4" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </PartShapeXml>
+      <PartTag SourceCode="0" TypeCode="-1" IsAddedByCustomParm="False" IsModifiedByCustomParm="False">
+        <PartTagReference Key="Manual" Value="1" />
+      </PartTag>
+    </CabProdPart>
+    <CabProdPart Name=" LED" ReportName=" LED" UsageType="0" HighDetail="True" Comment="" CommentLocked="False" Quan="1" W="6" L="1908" Color="" ColorLocked="False" Type="GLASS" Q_EQ="0 | If LEDConfig = 2 Or LEDConfig = 4 Then Quan= 1" W_EQ="LEDWidth" L_EQ="H | If LEDLength &gt; 0 Then Length= LEDLength" Layer="1" X="12.954" Y="91" Z="0" X_EQ="Fend.th-PartTH" Y_EQ="LEDSetback+LEDStaggerLeft+LEDWidth" Z_EQ="0 | If LEDLength &gt; 0 Then Z Pos= H-LEDLength" A1="180" A2="270" A3="0" R1="X" R2="Y" R3="Z" Face="0" A1_EQ="180" A2_EQ="270" A3_EQ="" Radius="0" RadAxis="0" SUPartName="" SUPartD="0">
+      <PartShapeXml Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="1" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="1" X="1908" Y="0" PtType="0" Data="0" EdgeType="2" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="2" X="1908" Y="6" PtType="0" Data="0" EdgeType="3" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="3" X="0" Y="6" PtType="0" Data="0" EdgeType="4" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </PartShapeXml>
+      <PartTag SourceCode="0" TypeCode="-1" IsAddedByCustomParm="False" IsModifiedByCustomParm="False">
+        <PartTagReference Key="PartCopy" Value="1" />
+      </PartTag>
+    </CabProdPart>
+    <CabProdPart Name="Linear Light" ReportName="Linear Light" UsageType="0" HighDetail="True" Comment="" CommentLocked="False" Quan="1" W="6.35" L="1908" Color="" ColorLocked="False" Type="Metal" Q_EQ="0 | If LEDConfig = 2 Or LEDConfig = 4 Then Quan= 1" W_EQ="" L_EQ="H | If LEDLength &gt; 0 Then Length= LEDLength" Layer="16" X="18.804" Y="91.175" Z="1908" X_EQ="Fend.th-0.5" Y_EQ="LEDSetback+(PartW/2)+(LEDWidth/2) | If D &gt;= LEDDeepLimit Then Y Pos= LEDDeepSetback" Z_EQ="H-LEDDown+LEDUp" A1="0" A2="90" A3="180" R1="X" R2="Y" R3="Z" Face="0" A1_EQ="0" A2_EQ="90" A3_EQ="180" Radius="0" RadAxis="0" SUPartName="" SUPartD="0" ThicknessOR="5.08" TextureORId="2">
+      <PartShapeXml Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="1" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="1" X="1908" Y="0" PtType="0" Data="0" EdgeType="2" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="2" X="1908" Y="6" PtType="0" Data="0" EdgeType="3" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="3" X="0" Y="6" PtType="0" Data="0" EdgeType="4" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </PartShapeXml>
+      <PartTag SourceCode="0" TypeCode="-1" IsAddedByCustomParm="False" IsModifiedByCustomParm="False" />
+    </CabProdPart>
+    <CabProdPart Name="Linear Light" ReportName="Linear Light" UsageType="0" HighDetail="True" Comment="" CommentLocked="False" Quan="1" W="6.35" L="1908" Color="" ColorLocked="False" Type="Metal" Q_EQ="" W_EQ="" L_EQ="H | If LEDLength &gt; 0 Then Length= LEDLength" Layer="16" X="13.724" Y="84.825" Z="1908" X_EQ="0.5 | If LEDConfig = 2 Then X Pos= Fend.th-PartTH-.5" Y_EQ="LEDSetback-(PartW/2)+(LEDWidth/2) | If D &gt;= LEDDeepLimit Then Y Pos= LEDDeepSetback" Z_EQ="H-LEDDown+LEDUp" A1="180" A2="90" A3="180" R1="X" R2="Y" R3="Z" Face="0" A1_EQ="180" A2_EQ="90" A3_EQ="180" Radius="0" RadAxis="0" SUPartName="" SUPartD="0" ThicknessOR="5.08">
+      <PartShapeXml Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="1" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="1" X="1908" Y="0" PtType="0" Data="0" EdgeType="2" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="2" X="1908" Y="6" PtType="0" Data="0" EdgeType="3" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="3" X="0" Y="6" PtType="0" Data="0" EdgeType="4" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </PartShapeXml>
+      <PartTag SourceCode="5" TypeCode="88" IsAddedByCustomParm="False" IsModifiedByCustomParm="False">
+        <PartTagReference Key="LightCount" Value="1" />
+      </PartTag>
+    </CabProdPart>
+    <CabProdPart Name="Fin End (L)" ReportName="FEnd (L)" UsageType="0" HighDetail="True" Comment="Finished End" CommentLocked="False" Quan="1" W="356" L="1908" Color="None" ColorLocked="False" Type="FEnd" Q_EQ="" W_EQ="" L_EQ="" Layer="2" X="0" Y="356" Z="0" X_EQ="" Y_EQ="" Z_EQ="" A1="-90" A2="180" A3="0" R1="Y" R2="Z" R3="X" Face="0" A1_EQ="" A2_EQ="" A3_EQ="" Radius="0" RadAxis="0" SUPartName="" SUPartD="0">
+      <PartShapeXml Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Back" />
+        <ShapePoint ID="1" X="1908" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+        <ShapePoint ID="2" X="1908" Y="356" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Front" />
+        <ShapePoint ID="3" X="0" Y="356" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+      </PartShapeXml>
+      <PartOpsXml Version="2">
+        <OperationGroove Width="6" Len="1908" Ang="180" W_Eq="LEDWidth" L_Eq="PartL | If LEDLength &gt; 0 Then Length= LEDLength" Ang_Eq="" ApplyDadoLogic="True" ID="2" X="1908" Y="268" Depth="6" Hide="False" X_Eq="PartL-LEDDown+LEDUp" Y_Eq="PartW-(LEDSetback+((LEDWidth/2)+LEDStaggerRight))" Depth_Eq="LEDDepth" Hide_Eq="0 | If LEDDepth &gt; PartTH Then Hide(0/1)= 1 | If LEDConfig = 1 Or LEDConfig = 3 Then Hide(0/1)= 1" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="51003" />
+        </OperationGroove>
+        <OperationGroove Width="6" Len="1908" Ang="180" W_Eq="LEDWidth" L_Eq="PartL | If LEDLength &gt; 0 Then Length= LEDLength" Ang_Eq="" ApplyDadoLogic="True" ID="3" X="1908" Y="268" Depth="6" Hide="True" X_Eq="PartL-LEDDown+LEDUp" Y_Eq="(LEDSetback+((LEDWidth/2)+LEDStaggerLeft)) | If D &gt;= LEDDeepLimit Then Y= (LEDDeepSetback+((LEDWidth/2)+LEDStaggerLeft))" Depth_Eq="LEDDepth" Hide_Eq="0 | If LEDDepth &gt; PartTH Then Hide(0/1)= 1 | If LEDConfig = 2 Or LEDConfig = 3 Then Hide(0/1)= 1" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="True">
+          <OpIdTag TypeCode="0" LegacyNumber="51004">
+            <OpIdTagReference Key="Count" Value="1" />
+          </OpIdTag>
+        </OperationGroove>
+      </PartOpsXml>
+      <PartTag SourceCode="1" TypeCode="22" IsAddedByCustomParm="False" IsModifiedByCustomParm="False">
+        <PartTagReference Key="FaceIdx" Value="4" />
+      </PartTag>
+    </CabProdPart>
+  </CabProdParts>
+  <CabProdParms>
+    <CabProdParm ProdID="0" Name="SysHoles" Desc="Linebore Holes for 32mm system" Type="2" Category="12" Value="8" Options="Use Line Bore,Shotgun Bore,Series of Holes,1 Hole per shelf,3 Holes per shelf,5 Holes per shelf,7 Holes per shelf,None" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="SysHolesW" Desc="Linebore Holes for 32mm system (Wall)" Type="2" Category="12" Value="8" Options="Use Line Bore,Shotgun Bore,Series of Holes,1 Hole per shelf,3 Holes per shelf,5 Holes per shelf,7 Holes per shelf,None" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="SysHolesT" Desc="Linebore Holes for 32mm system (Tall)" Type="2" Category="12" Value="8" Options="Use Line Bore,Shotgun Bore,Series of Holes,1 Hole per shelf,3 Holes per shelf,5 Holes per shelf,7 Holes per shelf,None" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="HangRail" Desc="Add notch to vertical panel for hang rail" Type="1" Category="13" Value="0" Options="" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="LEDConfig" Desc="Change this for individual panel only" Type="2" Category="15" Value="2" Options="Left Side,Right Side,None,Both Sides" MaxVal="0" MinVal="0" />
+  </CabProdParms>
+  <CustomParmEnabledORs />
+  <ProductDoors />
+  <ProductDrawers />
+  <ProductRolloutShelves />
+  <JointFastenerCounts />
+  <ShelfPinCounts />
+  <ProductMoldings />
+  <ProductInterior MaxIntSecID="1" DelT="False" DelB="False" DelL="False" DelR="False" />
+  <FrontFace MaxSecID="0" />
+  <LeftFace MaxSecID="0" />
+  <RightFace MaxSecID="0" />
+  <BackFace MaxSecID="0" />
+  <TopShapeXml Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+    <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="14" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    <ShapePoint ID="1" X="19" Y="0" PtType="0" Data="0" EdgeType="14" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    <ShapePoint ID="2" X="19" Y="356" PtType="0" Data="0" EdgeType="14" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    <ShapePoint ID="3" X="0" Y="356" PtType="0" Data="0" EdgeType="7" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+  </TopShapeXml>
+  <ProductType Type="8" SubType="22" SubSubType="1" />
+  <LabelDimensionOverrideMap />
+</Product>

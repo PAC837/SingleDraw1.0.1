@@ -1,0 +1,53 @@
+2
+11
+Mozaik Product Properties File
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Product UniqueID="22817522" OrderID="0" ProdName="Wall Mount Panel 48" IDTag="0" ProductDesc="" SourceLib="1 PAC Closet Library" NonGraphic="False" ImageFile="Wall Hung Panel.JPG" SketchUpFile="" UseSUModel="0" AutoFill="False" AutoDimension="True" Mirror="True" SUDirty="False" OrderDirty="False" Width="19.05" Height="1219.2" Depth="356" WStretch="False" HStretch="True" DStretch="False" minW="0" minH="0" minD="0" MaxW="0" MaxH="0" MaxD="0" ModularWidths="False" ModularHeights="True" ModularDepths="True" ModularFFHeights="False" X="0" Elev="0" Rot="0" Outset="0" Wall="0" CabNo="0" Numbered="True" SnapTo="0" IsRectShape="False" DoorOR="" TopDrwOR="" MidDrwOR="" BotDrwOR="" DrwPullOR="" DoorPullOR="" HingeOR="" GuideOR="" GuideORSlowCloseOn="False" GuideORSpacerState="1" ShelfPinsOR="" DrawerFrontFastenerOR="" LockOR="" LegOR="" SpotLightOR="" LinearLightOR="" EndDoorOR="" BackDoorOR="" HardwareTextureORId="-1" LToeAdj="0" RToeAdj="0" TopDepthAdj="0" BottomDepthAdj="0" CurrentConst="0" ShowElevDepth="False" ExtEnds="0" Flags="0010000000000011" NoParts="False" DoorStyle="" FinInt="False" AutomateInterior="False" GrainMatched="0" ScribeRefWasExterior="True" PrevInteriorScribeStileWidths="" PrevInteriorScribeSideThicknesses="" Count="1" LockConst="True" EndsToFloor="0" CornerVoidAssigned="False" Notes="" Price="0" PricePerM="0" PricePerSqM="0" Upcharge="0" Weight="0" IncludeInCabCount="True" IncludeInLinearCalculations="True" IncludeInSqCalculations="True" PricingColumn="" NotchForLeftPanelEndFrontToe="True" NotchForLeftPanelEndBackToe="True" NotchForRightPanelEndFrontToe="True" NotchForRightPanelEndBackToe="True" NotchForLeftEndFrontToe="True" NotchForLeftEndBackToe="False" NotchForRightEndFrontToe="True" NotchForRightEndBackToe="False" ParmVersion="17">
+  <ProductOptions />
+  <CabProdParts>
+    <CabProdPart Name=" WM Panel" ReportName=" WM Panel" UsageType="0" Comment="" CommentLocked="True" Quan="1" W="356" L="1219.2" Color="None" ColorLocked="False" Type="FEnd" Q_EQ="" W_EQ="" L_EQ="" Layer="2" X="0" Y="356" Z="0" X_EQ="" Y_EQ="" Z_EQ="" A1="-90" A2="180" A3="0" R1="Y" R2="Z" R3="X" Face="0" A1_EQ="" A2_EQ="" A3_EQ="" Radius="0" RadAxis="0" SUPartName="" SUPartD="0">
+      <PartShapeXml Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Back" />
+        <ShapePoint ID="0" X="1136.7" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="1136.7" Y="12.7" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="1200.2" Y="12.7" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="1200.2" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="1" X="1219.2" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+        <ShapePoint ID="2" X="1219.2" Y="356" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Front" />
+        <ShapePoint ID="3" X="0" Y="356" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+      </PartShapeXml>
+      <PartTag SourceCode="1" TypeCode="22" IsAddedByCustomParm="False" IsModifiedByCustomParm="False">
+        <PartTagReference Key="FaceIdx" Value="4" />
+      </PartTag>
+    </CabProdPart>
+  </CabProdParts>
+  <CabProdParms>
+    <CabProdParm ProdID="0" Name="SysHoles" Desc="Linebore Holes for 32mm system" Type="2" Category="12" Value="8" Options="Use Line Bore,Shotgun Bore,Series of Holes,1 Hole per shelf,3 Holes per shelf,5 Holes per shelf,7 Holes per shelf,None" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="ToeH" Desc="Toe Height" Type="0" Category="5" Value="0" Options="" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="ToeR" Desc="Toe Recess" Type="0" Category="5" Value="0" Options="" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="SysHolesW" Desc="Linebore Holes for 32mm system (Wall)" Type="2" Category="12" Value="8" Options="Use Line Bore,Shotgun Bore,Series of Holes,1 Hole per shelf,3 Holes per shelf,5 Holes per shelf,7 Holes per shelf,None" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="SysHolesT" Desc="Linebore Holes for 32mm system (Tall)" Type="2" Category="12" Value="8" Options="Use Line Bore,Shotgun Bore,Series of Holes,1 Hole per shelf,3 Holes per shelf,5 Holes per shelf,7 Holes per shelf,None" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="FinBackToeR" Desc="Finished Back Toe Recess" Type="0" Category="5" Value="0" Options="" MaxVal="0" MinVal="0" />
+  </CabProdParms>
+  <CustomParmEnabledORs />
+  <ProductDoors />
+  <ProductDrawers />
+  <ProductRolloutShelves />
+  <JointFastenerCounts />
+  <LegCounts />
+  <ShelfPinCounts />
+  <ProductMoldings />
+  <ProductInterior MaxIntSecID="1" DelT="False" DelB="False" DelL="False" DelR="False" />
+  <FrontFace MaxSecID="0" />
+  <LeftFace MaxSecID="0" />
+  <RightFace MaxSecID="0" />
+  <BackFace MaxSecID="0" />
+  <TopShapeXml Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+    <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="14" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    <ShapePoint ID="1" X="19.05" Y="0" PtType="0" Data="0" EdgeType="14" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    <ShapePoint ID="2" X="19.05" Y="356" PtType="0" Data="0" EdgeType="14" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    <ShapePoint ID="3" X="0" Y="356" PtType="0" Data="0" EdgeType="7" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+  </TopShapeXml>
+  <ProductType Type="8" SubType="22" SubSubType="1" />
+  <LabelDimensionOverrideMap />
+</Product>

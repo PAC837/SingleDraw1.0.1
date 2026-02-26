@@ -1,0 +1,21 @@
+3
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Job>
+  <Abbr />
+  <CustomerName />
+  <CreatedDate>1771718400</CreatedDate>
+  <ModifiedDate>1772059807.74672</ModifiedDate>
+  <Address1 />
+  <Address2 />
+  <Phone />
+  <CustomerEmail />
+  <Note />
+  <UseSplitMatTemps>True</UseSplitMatTemps>
+  <TagId>-1</TagId>
+  <StatusId>-1</StatusId>
+  <Category>Active</Category>
+  <Locked>False</Locked>
+  <OwnerId>0</OwnerId>
+  <JobNotes />
+  <CloudRenderSettings Version="1" ResX="1200" ResY="1200" AspectRatio="1:1" TransparentBg="True" UseRoomHdri="True" GlobalLight="White" CeilingCastsShadow="False" Exposure="1" />
+</Job>

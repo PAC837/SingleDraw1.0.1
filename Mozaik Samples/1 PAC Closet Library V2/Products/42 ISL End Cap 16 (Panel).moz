@@ -1,0 +1,87 @@
+2
+11
+Mozaik Product Properties File
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Product UniqueID="23928672" OrderID="0" ProdName="42 ISL End Cap 16 (Panel)" IDTag="160" ProductDesc="" SourceLib="1 PAC Closet Library V2" NonGraphic="False" ImageFile="FM-Panel.JPG" SketchUpFile="" UseSUModel="0" AutoFill="False" AutoDimension="True" Mirror="True" SUDirty="True" OrderDirty="True" Width="19.05" Height="1044.001" Depth="406.0012" WStretch="False" HStretch="False" DStretch="False" minW="0" minH="2133.6" minD="0" MaxW="0" MaxH="2463.8" MaxD="0" ModularWidths="False" ModularHeights="True" ModularDepths="True" ModularFFHeights="False" X="19.05" Elev="0" Rot="0" Outset="0" Wall="0" CabNo="0" Numbered="True" SnapTo="0" IsRectShape="False" DoorOR="" TopDrwOR="" MidDrwOR="" BotDrwOR="" DrwPullOR="" DoorPullOR="" HingeOR="" GuideOR="" GuideORSlowCloseOn="False" GuideORSpacerState="1" ShelfPinsOR="" DrawerFrontFastenerOR="" LockOR="" LegOR="" SpotLightOR="" LinearLightOR="" EndDoorOR="" BackDoorOR="" HardwareTextureORId="-1" LToeAdj="0" RToeAdj="0" TopDepthAdj="0" BottomDepthAdj="0" CurrentConst="0" ShowElevDepth="False" ExtEnds="0" Flags="1111111111111111" NoParts="False" DoorStyle="MDF Flat Panel Square" FinInt="False" AutomateInterior="False" GrainMatched="0" ScribeRefWasExterior="True" PrevInteriorScribeStileWidths="" PrevInteriorScribeSideThicknesses="" Count="1" LockConst="True" EndsToFloor="0" CornerVoidAssigned="False" Notes="Back edge is extended the same amount as your Finished End thickness. To accomodate a panel" Price="90.00" PricePerM="0" PricePerSqM="0" Upcharge="0" Weight="0" IncludeInCabCount="True" IncludeInLinearCalculations="True" IncludeInSqCalculations="True" PricingColumn="" NotchForLeftPanelEndFrontToe="True" NotchForLeftPanelEndBackToe="True" NotchForRightPanelEndFrontToe="True" NotchForRightPanelEndBackToe="True" NotchForLeftEndFrontToe="True" NotchForLeftEndBackToe="False" NotchForRightEndFrontToe="True" NotchForRightEndBackToe="False" ParmVersion="17">
+  <ProductOptions />
+  <CabProdParts>
+    <CabProdPart Name="Fin End (L)" ReportName="FEnd (L)" UsageType="0" HighDetail="True" Comment="Finished End" CommentLocked="False" Quan="1" W="466.8512" L="1044.001" Color="None" ColorLocked="False" Type="FEnd" Q_EQ="" W_EQ="D+Door.th+DoorOutset+ExtendBack+Uback.th" L_EQ="" Layer="2" X="0" Y="425.0512" Z="0" X_EQ="" Y_EQ="D+ExtendBack" Z_EQ="" A1="-90" A2="180" A3="0" R1="Y" R2="Z" R3="X" Face="0" A1_EQ="" A2_EQ="" A3_EQ="" Radius="0" RadAxis="0" SUPartName="" SUPartD="0">
+      <PartShapeXml Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Back" />
+        <ShapePoint ID="1" X="1044.001" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+        <ShapePoint ID="2" X="1044.001" Y="466.8512" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Front" />
+        <ShapePoint ID="3" X="0" Y="466.8512" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+      </PartShapeXml>
+      <PartOpsXml Version="2">
+        <OperationHole Diameter="5" Diameter_Eq="5" ID="62" X="50.8" Y="9.400399" Depth="14" Hide="True" X_Eq="TitusElevation" Y_Eq="FEnd.th-TItusInset" Depth_Eq="14 | If HoleConfig = 4 Then Depth= PartTH" Hide_Eq="1 | If HoleConfig = 2 Or HoleConfig = 4 Then Hide(0/1)= 0" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="50032">
+            <OpIdTagReference Key="Count" Value="11" />
+          </OpIdTag>
+        </OperationHole>
+        <OperationHole Diameter="5" Diameter_Eq="5" ID="67" X="993.201" Y="9.400399" Depth="14" Hide="True" X_Eq="PartL-TitusSetDown" Y_Eq="FEnd.th-TItusInset" Depth_Eq="14 | If HoleConfig = 4 Then Depth= PartTH" Hide_Eq="1 | If HoleConfig = 2 Or HoleConfig = 4 Then Hide(0/1)= 0" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="50027">
+            <OpIdTagReference Key="Count" Value="8" />
+          </OpIdTag>
+        </OperationHole>
+        <OperationHole Diameter="5" Diameter_Eq="5" ID="68" X="522.0005" Y="9.400399" Depth="14" Hide="True" X_Eq="PartL/2" Y_Eq="FEnd.th-TItusInset" Depth_Eq="14 | If HoleConfig = 4 Then Depth= PartTH" Hide_Eq="1 | If HoleConfig = 2 Or HoleConfig = 4 Then Hide(0/1)= 0" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="50031">
+            <OpIdTagReference Key="Count" Value="7" />
+          </OpIdTag>
+        </OperationHole>
+        <OperationHole Diameter="5" Diameter_Eq="5" ID="69" X="50.8" Y="9.400391" Depth="14" Hide="True" X_Eq="TitusElevation" Y_Eq="PartW-(FEnd.th-TItusInset)" Depth_Eq="14 | If HoleConfig = 4 Then Depth= PartTH" Hide_Eq="1 | If HoleConfig = 1 Then Hide(0/1)= 0" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="True">
+          <OpIdTag TypeCode="0" LegacyNumber="50033">
+            <OpIdTagReference Key="Count" Value="1" />
+          </OpIdTag>
+        </OperationHole>
+        <OperationHole Diameter="5" Diameter_Eq="5" ID="70" X="993.201" Y="9.400391" Depth="14" Hide="True" X_Eq="PartL-TitusSetDown" Y_Eq="PartW-(FEnd.th-TItusInset)" Depth_Eq="14 | If HoleConfig = 4 Then Depth= PartTH" Hide_Eq="1 | If HoleConfig = 1 Then Hide(0/1)= 0" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="True">
+          <OpIdTag TypeCode="0" LegacyNumber="50029">
+            <OpIdTagReference Key="Count" Value="2" />
+          </OpIdTag>
+        </OperationHole>
+        <OperationHole Diameter="5" Diameter_Eq="5" ID="71" X="522.0005" Y="9.400391" Depth="14" Hide="True" X_Eq="PartL/2" Y_Eq="PartW-(FEnd.th-TItusInset)" Depth_Eq="14 | If HoleConfig = 4 Then Depth= PartTH" Hide_Eq="1 | If HoleConfig = 1 Then Hide(0/1)= 0" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="True">
+          <OpIdTag TypeCode="0" LegacyNumber="50034">
+            <OpIdTagReference Key="Count" Value="3" />
+          </OpIdTag>
+        </OperationHole>
+      </PartOpsXml>
+      <PartTag SourceCode="1" TypeCode="22" IsAddedByCustomParm="False" IsModifiedByCustomParm="False">
+        <PartTagReference Key="FaceIdx" Value="4" />
+      </PartTag>
+    </CabProdPart>
+  </CabProdParts>
+  <CabProdParms>
+    <CabProdParm ProdID="0" Name="SysHoles" Desc="Linebore Holes for 32mm system" Type="2" Category="12" Value="8" Options="Use Line Bore,Shotgun Bore,Series of Holes,1 Hole per shelf,3 Holes per shelf,5 Holes per shelf,7 Holes per shelf,None" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="SysHolesW" Desc="Linebore Holes for 32mm system (Wall)" Type="2" Category="12" Value="8" Options="Use Line Bore,Shotgun Bore,Series of Holes,1 Hole per shelf,3 Holes per shelf,5 Holes per shelf,7 Holes per shelf,None" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="SysHolesT" Desc="Linebore Holes for 32mm system (Tall)" Type="2" Category="12" Value="8" Options="Use Line Bore,Shotgun Bore,Series of Holes,1 Hole per shelf,3 Holes per shelf,5 Holes per shelf,7 Holes per shelf,None" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="HangRail" Desc="Add notch to vertical panel for hang rail" Type="1" Category="13" Value="0" Options="" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="BaseboardNotch" Desc="Add notch to vertical panel for baseboard" Type="1" Category="13" Value="0" Options="" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="Backs" Desc="Cabinet Unfinished Backs" Type="2" Category="8" Value="4" Options="All Cabs, Wall Only, Base Only, None" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="ExtendBack" Desc="" Type="0" Category="0" Value="19.05" Options="" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="TitusElevation" Desc="Female Hole Elevation from bottom" Type="0" Category="0" Value="50.8" Options="" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="TitusSetDown" Desc="Female Hole Set down from top" Type="0" Category="0" Value="50.8" Options="" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="Center" Desc="Center Titus (0=off 1=on)" Type="0" Category="0" Value="25.4" Options="" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="TitusInset" Desc="Female Hole Distance from edge" Type="0" Category="0" Value="9.4996" Options="" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="HoleConfig" Desc="Single Island Cap Hole Configuration" Type="2" Category="0" Value="3" Options="Left,Right,None,Both" MaxVal="0" MinVal="0" />
+    <CabProdParm ProdID="0" Name="FloorFEB" Desc="Base Cab Ends to Floor" Type="1" Category="3" Value="1" Options="" MaxVal="0" MinVal="0" />
+  </CabProdParms>
+  <CustomParmEnabledORs />
+  <ProductDoors />
+  <ProductDrawers />
+  <ProductRolloutShelves />
+  <JointFastenerCounts />
+  <ShelfPinCounts />
+  <ProductMoldings />
+  <ProductInterior MaxIntSecID="1" DelT="False" DelB="False" DelL="False" DelR="False" />
+  <FrontFace MaxSecID="0" />
+  <LeftFace MaxSecID="0" />
+  <RightFace MaxSecID="0" />
+  <BackFace MaxSecID="0" />
+  <TopShapeXml Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+    <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="14" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    <ShapePoint ID="1" X="19.05" Y="0" PtType="0" Data="0" EdgeType="14" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    <ShapePoint ID="2" X="19.05" Y="406.0012" PtType="0" Data="0" EdgeType="14" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    <ShapePoint ID="3" X="0" Y="406.0012" PtType="0" Data="0" EdgeType="7" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+  </TopShapeXml>
+  <ProductType Type="3" SubType="1" SubSubType="7" />
+  <LabelDimensionOverrideMap />
+</Product>

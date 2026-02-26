@@ -1,0 +1,34 @@
+2
+11
+Mozaik Product Properties File
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Product UniqueID="22494719" OrderID="0" ProdName="Back Wall Panel 96" IDTag="188" ProductDesc="" SourceLib="1 PAC Closet Library - Copy (2)" NonGraphic="False" ImageFile="" SketchUpFile="" UseSUModel="0" AutoFill="False" AutoDimension="True" Mirror="True" SUDirty="True" OrderDirty="True" Width="1219.2" Height="2420" Depth="19.05" WStretch="True" HStretch="False" DStretch="False" minW="0" minH="0" minD="0" MaxW="0" MaxH="0" MaxD="0" ModularWidths="False" ModularHeights="True" ModularDepths="False" ModularFFHeights="True" X="0" Elev="0" Rot="0" Outset="0" Wall="0" CabNo="0" Numbered="False" SnapTo="0" IsRectShape="True" DoorOR="" TopDrwOR="" MidDrwOR="" BotDrwOR="" DrwPullOR="" DoorPullOR="" HingeOR="" GuideOR="" GuideORSlowCloseOn="False" GuideORSpacerState="1" ShelfPinsOR="" DrawerFrontFastenerOR="" LockOR="" LegOR="" SpotLightOR="" LinearLightOR="" EndDoorOR="" BackDoorOR="" HardwareTextureORId="-1" LToeAdj="0" RToeAdj="0" TopDepthAdj="0" BottomDepthAdj="0" CurrentConst="2" ShowElevDepth="False" ExtEnds="0" Flags="1111111111111111" NoParts="False" DoorStyle="MDF Flat Panel Square" FinInt="False" AutomateInterior="False" GrainMatched="0" ScribeRefWasExterior="True" PrevInteriorScribeStileWidths="" PrevInteriorScribeSideThicknesses="" Count="1" LockConst="False" EndsToFloor="0" CornerVoidAssigned="False" Notes="" Price="90" PricePerM="147.6378" PricePerSqM="0" Upcharge="0" Weight="0" IncludeInCabCount="True" IncludeInLinearCalculations="True" IncludeInSqCalculations="True" PricingColumn="" NotchForLeftPanelEndFrontToe="True" NotchForLeftPanelEndBackToe="True" NotchForRightPanelEndFrontToe="True" NotchForRightPanelEndBackToe="True" NotchForLeftEndFrontToe="True" NotchForLeftEndBackToe="False" NotchForRightEndFrontToe="True" NotchForRightEndBackToe="False" ParmVersion="17">
+  <ProductOptions />
+  <CabProdParts>
+    <CabProdPart Name="Fin Panel" ReportName="Fin Panel" UsageType="0" Comment="FEnd" CommentLocked="True" Quan="1" W="1219.2" L="2420" Color="None" ColorLocked="False" Type="FEnd" Q_EQ="" W_EQ="" L_EQ="" Layer="4" X="0" Y="0" Z="0" X_EQ="" Y_EQ="" Z_EQ="" A1="-90" A2="-90" A3="0" R1="Y" R2="Z" R3="X" Face="0" A1_EQ="" A2_EQ="" A3_EQ="" Radius="0" RadAxis="0" SUPartName="" SUPartD="0">
+      <PartShapeXml Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Front" />
+        <ShapePoint ID="1" X="2420" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+        <ShapePoint ID="2" X="2420" Y="1219.2" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Back" />
+        <ShapePoint ID="3" X="0" Y="1219.2" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+      </PartShapeXml>
+      <PartTag SourceCode="2" TypeCode="24" IsAddedByCustomParm="False" IsModifiedByCustomParm="False" />
+    </CabProdPart>
+  </CabProdParts>
+  <CabProdParms />
+  <CustomParmEnabledORs />
+  <ProductDoors />
+  <ProductDrawers />
+  <ProductRolloutShelves />
+  <JointFastenerCounts />
+  <ShelfPinCounts />
+  <ProductMoldings />
+  <ProductInterior MaxIntSecID="0" DelT="False" DelB="False" DelL="False" DelR="False" />
+  <FrontFace MaxSecID="0" />
+  <LeftFace MaxSecID="0" />
+  <RightFace MaxSecID="0" />
+  <BackFace MaxSecID="0" />
+  <TopShapeXml Version="2" Name="" Type="0" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False" />
+  <ProductType Type="2" SubType="14" SubSubType="1" />
+  <LabelDimensionOverrideMap />
+</Product>
