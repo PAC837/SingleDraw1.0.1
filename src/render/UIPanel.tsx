@@ -10,10 +10,15 @@ interface UIPanelProps {
   useInches: boolean
   renderMode: RenderMode
   jobFolder: FileSystemDirectoryHandle | null
+  textureFolder: FileSystemDirectoryHandle | null
+  availableTextures: string[]
+  selectedTexture: string | null
   onToggleOverlay: (key: keyof DebugOverlays) => void
   onToggleUnits: () => void
   onSetRenderMode: (mode: RenderMode) => void
   onLinkJobFolder: () => void
+  onLinkTextureFolder: () => void
+  onSelectTexture: (filename: string | null) => void
   onExportDes: () => void
   onExportMoz: (index: number) => void
 }
@@ -64,8 +69,9 @@ function RenderModeSelector({
 }
 
 export default function UIPanel({
-  room, products, overlays, selectedWall, useInches, renderMode, jobFolder,
-  onToggleOverlay, onToggleUnits, onSetRenderMode, onLinkJobFolder, onExportDes, onExportMoz,
+  room, products, overlays, selectedWall, useInches, renderMode, jobFolder, textureFolder,
+  availableTextures, selectedTexture,
+  onToggleOverlay, onToggleUnits, onSetRenderMode, onLinkJobFolder, onLinkTextureFolder, onSelectTexture, onExportDes, onExportMoz,
 }: UIPanelProps) {
   const fmt = (mm: number) => formatDim(mm, useInches)
 
@@ -116,6 +122,33 @@ export default function UIPanel({
             >
               Export DES to Job
             </button>
+          )}
+        </div>
+      </div>
+
+      {/* Textures */}
+      <div className="p-4 border-b border-gray-800">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+          Textures
+        </h2>
+        <div className="space-y-2">
+          <button
+            onClick={onLinkTextureFolder}
+            className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
+          >
+            {textureFolder ? `Textures: ${textureFolder.name}` : 'Link Textures Folder...'}
+          </button>
+          {textureFolder && availableTextures.length > 0 && (
+            <select
+              value={selectedTexture ?? ''}
+              onChange={(e) => onSelectTexture(e.target.value || null)}
+              className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-gray-700 text-white"
+            >
+              <option value="">Auto (from DES)</option>
+              {availableTextures.map((f) => (
+                <option key={f} value={f}>{f.replace(/\.\w+$/, '')}</option>
+              ))}
+            </select>
           )}
         </div>
       </div>

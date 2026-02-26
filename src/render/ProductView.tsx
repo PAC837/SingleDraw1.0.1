@@ -1,18 +1,21 @@
 import { useMemo } from 'react'
-import { Quaternion, Vector3 } from 'three'
+import { Quaternion, Vector3, RepeatWrapping, BoxGeometry, EdgesGeometry } from 'three'
+import type { Texture } from 'three'
 import type { MozProduct, MozPart, RenderMode } from '../mozaik/types'
 import { mozPosToThree, mozQuatToThree } from '../math/basis'
 import { mozEulerToQuaternion } from '../math/rotations'
 import { DEG2RAD } from '../math/constants'
+import { useProductTexture, useTextureByFilename, lookupTexture } from './useProductTexture'
 
 interface ProductViewProps {
   product: MozProduct
-  /** Optional world offset for product positioning (Mozaik space) */
   worldOffset?: [number, number, number]
-  /** Wall angle in degrees (Mozaik Z rotation) for wall-placed products */
   wallAngleDeg?: number
   renderMode?: RenderMode
   showBoundingBox?: boolean
+  textureFolder?: FileSystemDirectoryHandle | null
+  textureId?: number | null
+  textureFilename?: string | null
 }
 
 /** Color by part type for visual differentiation. */
@@ -37,55 +40,94 @@ function panelThickness(type: string): number {
   }
 }
 
-function PartMesh({ part, renderMode = 'ghosted' }: { part: MozPart; renderMode?: RenderMode }) {
-  // Part dimensions in Mozaik part-local space:
-  //   L along local X, W along local Y, thickness along local Z
+/** Clone a texture with per-part tiling based on part dimensions and UVW/UVH. */
+function usePartTexture(
+  baseTexture: Texture | null,
+  textureId: number | null,
+  partL: number,
+  partW: number,
+): Texture | null {
+  return useMemo(() => {
+    if (!baseTexture) return null
+    const entry = textureId ? lookupTexture(textureId) : null
+    const uvw = entry?.uvw ?? 609.6
+    const uvh = entry?.uvh ?? 609.6
+
+    const tex = baseTexture.clone()
+    tex.wrapS = RepeatWrapping
+    tex.wrapT = RepeatWrapping
+    tex.repeat.set(partW / uvw, partL / uvh)
+    tex.rotation = Math.PI / 2
+    tex.center.set(0.5, 0.5)
+    tex.needsUpdate = true
+    return tex
+  }, [baseTexture, textureId, partL, partW])
+}
+
+interface PartMeshProps {
+  part: MozPart
+  renderMode?: RenderMode
+  baseTexture?: Texture | null
+  textureId?: number | null
+}
+
+function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null }: PartMeshProps) {
   const length = Math.max(part.l, 1)
   const width = Math.max(part.w, 1)
   const thick = panelThickness(part.type)
 
   const { position, quaternion } = useMemo(() => {
-    // Mozaik rotation: part-local → Mozaik world
     const mozQuat = mozEulerToQuaternion(part.rotation)
 
-    // Hardware handles (pulls) need -90° Z rotation
     if (part.name.toLowerCase().includes('pull')) {
       const pullFix = new Quaternion().setFromAxisAngle(new Vector3(0, 0, 1), -90 * DEG2RAD)
       mozQuat.premultiply(pullFix)
     }
 
-    // Mozaik XYZ is a CORNER position — the part extends (+L, +W, +thick) in local frame.
-    // Three.js BoxGeometry is centered, so we must compute the center position.
-    // Center offset in part-local: (L/2, W/2, thick/2)
-    // Rotate to Mozaik world frame, then add to corner position.
     const centerLocal = new Vector3(length / 2, width / 2, thick / 2)
     const centerOffset = centerLocal.applyQuaternion(mozQuat)
 
-    const centerMozX = part.x + centerOffset.x
-    const centerMozY = part.y + centerOffset.y
-    const centerMozZ = part.z + centerOffset.z
-
-    const pos = mozPosToThree(centerMozX, centerMozY, centerMozZ)
+    const pos = mozPosToThree(part.x + centerOffset.x, part.y + centerOffset.y, part.z + centerOffset.z)
     const threeQuat = mozQuatToThree(mozQuat)
 
     return { position: pos, quaternion: threeQuat }
   }, [part, length, width, thick])
 
-  // Box args in Three.js local frame (basis-changed from Mozaik local):
-  //   Three.js X = Mozaik X = L
-  //   Three.js Y = Mozaik Z = thick
-  //   Three.js Z = Mozaik -Y = W (magnitude)
+  // Clean wireframe: EdgesGeometry shows only box edges (no face diagonals)
+  const edgesGeo = useMemo(() => {
+    const box = new BoxGeometry(length, thick, width)
+    const edges = new EdgesGeometry(box)
+    box.dispose()
+    return edges
+  }, [length, thick, width])
+
+  const isMetal = part.type.toLowerCase() === 'metal'
+  const partTex = usePartTexture(isMetal ? null : baseTexture, textureId, length, width)
   const color = partColor(part.type)
+
+  if (renderMode === 'wireframe') {
+    return (
+      <lineSegments position={position} quaternion={quaternion} geometry={edgesGeo}>
+        <lineBasicMaterial color={color} />
+      </lineSegments>
+    )
+  }
 
   return (
     <mesh position={position} quaternion={quaternion}>
       <boxGeometry args={[length, thick, width]} />
-      {renderMode === 'wireframe' ? (
-        <meshStandardMaterial color={color} wireframe />
-      ) : renderMode === 'solid' ? (
-        <meshStandardMaterial color={color} />
+      {renderMode === 'solid' ? (
+        partTex ? (
+          <meshStandardMaterial key="solid-tex" map={partTex} roughness={0.7} metalness={0.1} />
+        ) : (
+          <meshStandardMaterial key="solid" color={color} roughness={0.7} metalness={0.1} />
+        )
       ) : (
-        <meshStandardMaterial color={color} transparent opacity={0.8} />
+        partTex ? (
+          <meshStandardMaterial key="ghosted-tex" map={partTex} transparent opacity={0.8} roughness={0.8} metalness={0} />
+        ) : (
+          <meshStandardMaterial key="ghosted" color={color} transparent opacity={0.8} roughness={0.8} metalness={0} />
+        )
       )}
     </mesh>
   )
@@ -93,20 +135,22 @@ function PartMesh({ part, renderMode = 'ghosted' }: { part: MozPart; renderMode?
 
 export default function ProductView({
   product, worldOffset, wallAngleDeg, renderMode = 'ghosted', showBoundingBox = false,
+  textureFolder = null, textureId = null, textureFilename = null,
 }: ProductViewProps) {
+  // Priority: filename-based (user override) → textureId-based (DES default)
+  const texById = useProductTexture(textureFilename ? null : textureFolder, textureFilename ? null : textureId)
+  const texByFile = useTextureByFilename(textureFilename ? textureFolder : null, textureFilename)
+  const baseTexture = texByFile ?? texById
+
   const groupPos = useMemo(() => {
     if (worldOffset) {
       return mozPosToThree(worldOffset[0], worldOffset[1], worldOffset[2])
     }
-    // Standalone product: center at origin, use elevation only
     return mozPosToThree(0, 0, product.elev)
   }, [product, worldOffset])
 
-  // Product-level rotation: wall angle + product.rot around Mozaik Z → Three.js Y
   const groupRotY = ((wallAngleDeg ?? 0) + product.rot) * DEG2RAD
 
-  // Bounding box center offset: Mozaik origin is front-left-bottom of product
-  // Center = (W/2, D/2, H/2) in Mozaik space
   const bbPos = useMemo(
     () => mozPosToThree(product.width / 2, product.depth / 2, product.height / 2),
     [product],
@@ -115,19 +159,19 @@ export default function ProductView({
   return (
     <group position={groupPos} rotation={[0, groupRotY, 0]}>
       {product.parts.map((part, i) => (
-        <PartMesh key={`${part.name}-${i}`} part={part} renderMode={renderMode} />
+        <PartMesh
+          key={`${part.name}-${i}`}
+          part={part}
+          renderMode={renderMode}
+          baseTexture={baseTexture}
+          textureId={textureId}
+        />
       ))}
 
-      {/* Product bounding box outline */}
       {showBoundingBox && (
         <mesh position={bbPos}>
           <boxGeometry args={[product.width, product.height, product.depth]} />
-          <meshStandardMaterial
-            color="#FFE500"
-            wireframe
-            transparent
-            opacity={0.2}
-          />
+          <meshStandardMaterial color="#FFE500" wireframe transparent opacity={0.2} />
         </mesh>
       )}
     </group>

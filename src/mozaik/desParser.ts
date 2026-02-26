@@ -16,6 +16,9 @@ export function parseDes(fileText: string): MozRoom {
   const doc = parseXmlString(xml)
   const root = doc.documentElement // <Room>
 
+  const { primaryTextureId, wallTextureId } = parseTextureIds(root)
+  console.log(`[DES] Texture IDs — primary: ${primaryTextureId}, walls: ${wallTextureId}`)
+
   return {
     uniqueId: getAttrStr(root, 'UniqueID'),
     name: getAttrStr(root, 'Name'),
@@ -25,6 +28,8 @@ export function parseDes(fileText: string): MozRoom {
     wallJoints: parseWallJoints(root),
     fixtures: parseFixtures(root),
     products: parseProducts(root),
+    primaryTextureId,
+    wallTextureId,
     rawText: fileText,
   }
 }
@@ -186,4 +191,44 @@ function parseShapePoints(shapeEl: Element): MozShapePoint[] {
     edgeType: getAttrInt(el, 'EdgeType'),
     sideName: getAttrStr(el, 'SideName'),
   }))
+}
+
+/** Extract texture IDs from RoomSet and first MaterialTemplateSelection. */
+function parseTextureIds(root: Element): { primaryTextureId: number | null; wallTextureId: number | null } {
+  let wallTextureId: number | null = null
+  let primaryTextureId: number | null = null
+
+  // RoomSet has WallsTextureId attribute
+  const roomSet = getChild(root, 'RoomSet')
+  if (roomSet) {
+    const wId = getAttrInt(roomSet, 'WallsTextureId')
+    if (wId) wallTextureId = wId
+  }
+
+  // First MaterialTemplateSelection with TextureIdOverrideByPartType entries
+  // Find the most common texture ID across part type overrides
+  const matSels = root.querySelectorAll('MaterialTemplateSelection')
+  for (const sel of matSels) {
+    const overrides = getChildren(sel, 'TextureIdOverrideByPartType')
+    if (overrides.length === 0) continue
+
+    // Count texture IDs to find the primary one
+    const counts = new Map<number, number>()
+    for (const ov of overrides) {
+      const id = getAttrInt(ov, 'Id')
+      if (id) counts.set(id, (counts.get(id) ?? 0) + 1)
+    }
+
+    // Most frequent = primary texture
+    let maxCount = 0
+    for (const [id, count] of counts) {
+      if (count > maxCount) {
+        maxCount = count
+        primaryTextureId = id
+      }
+    }
+    break // use first MaterialTemplateSelection block
+  }
+
+  return { primaryTextureId, wallTextureId }
 }

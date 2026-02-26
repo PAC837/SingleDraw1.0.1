@@ -143,6 +143,8 @@ export interface MozRoom {
   wallJoints: MozWallJoint[]
   fixtures: MozFixture[]
   products: MozProduct[]
+  primaryTextureId: number | null   // from MaterialTemplateSelection (cabinet parts)
+  wallTextureId: number | null      // from RoomSet WallsTextureId
   rawText: string      // original file text for round-trip
 }
 
@@ -169,4 +171,7 @@ export interface AppState {
   useInches: boolean
   renderMode: RenderMode
   jobFolder: FileSystemDirectoryHandle | null
+  textureFolder: FileSystemDirectoryHandle | null
+  availableTextures: string[]       // filenames scanned from texture folder
+  selectedTexture: string | null    // user-picked filename (overrides DES primaryTextureId)
 }

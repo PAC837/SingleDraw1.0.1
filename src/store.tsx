@@ -19,6 +19,9 @@ const initialState: AppState = {
   useInches: false,
   renderMode: 'ghosted',
   jobFolder: null,
+  textureFolder: null,
+  availableTextures: [],
+  selectedTexture: null,
 }
 
 type Action =
@@ -29,6 +32,9 @@ type Action =
   | { type: 'TOGGLE_UNITS' }
   | { type: 'SET_RENDER_MODE'; mode: RenderMode }
   | { type: 'SET_JOB_FOLDER'; folder: FileSystemDirectoryHandle }
+  | { type: 'SET_TEXTURE_FOLDER'; folder: FileSystemDirectoryHandle }
+  | { type: 'SET_AVAILABLE_TEXTURES'; filenames: string[] }
+  | { type: 'SET_SELECTED_TEXTURE'; filename: string | null }
   | { type: 'CLEAR_ROOM' }
   | { type: 'CLEAR_PRODUCTS' }
 
@@ -51,6 +57,12 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, renderMode: action.mode }
     case 'SET_JOB_FOLDER':
       return { ...state, jobFolder: action.folder }
+    case 'SET_TEXTURE_FOLDER':
+      return { ...state, textureFolder: action.folder }
+    case 'SET_AVAILABLE_TEXTURES':
+      return { ...state, availableTextures: action.filenames }
+    case 'SET_SELECTED_TEXTURE':
+      return { ...state, selectedTexture: action.filename }
     case 'CLEAR_ROOM':
       return { ...state, room: null }
     case 'CLEAR_PRODUCTS':

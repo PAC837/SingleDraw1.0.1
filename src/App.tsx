@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { StoreProvider, useAppState, useAppDispatch } from './store'
 import type { DebugOverlays, RenderMode } from './mozaik/types'
 import Scene from './render/Scene'
@@ -10,12 +10,44 @@ import DebugOverlaysComponent from './render/DebugOverlays'
 import ProbeScene from './render/ProbeScene'
 import { writeMoz } from './export/mozWriter'
 import { writeDes } from './export/desWriter'
-import { pickJobFolder, findNextRoomNumber, exportDesRoom } from './export/jobFolder'
+import { findNextRoomNumber, exportDesRoom } from './export/jobFolder'
+import { saveFolderHandle, loadFolderHandle } from './export/folderStore'
 import { computeProductWorldOffset } from './math/wallMath'
+import { lookupTextureByFilename } from './render/useProductTexture'
+
+/** Scan a folder for image files and return sorted filenames. */
+async function scanTextureFolder(folder: FileSystemDirectoryHandle): Promise<string[]> {
+  const files: string[] = []
+  for await (const entry of folder.values()) {
+    if (entry.kind === 'file' && /\.(jpg|jpeg|png)$/i.test(entry.name)) {
+      files.push(entry.name)
+    }
+  }
+  return files.sort()
+}
 
 function AppInner() {
   const state = useAppState()
   const dispatch = useAppDispatch()
+
+  // Restore persisted folder handles on mount
+  useEffect(() => {
+    loadFolderHandle('textureFolder').then(async (folder) => {
+      if (folder) {
+        dispatch({ type: 'SET_TEXTURE_FOLDER', folder })
+        console.log(`[TEXTURE] Restored texture folder: ${folder.name}`)
+        const filenames = await scanTextureFolder(folder)
+        dispatch({ type: 'SET_AVAILABLE_TEXTURES', filenames })
+        console.log(`[TEXTURE] Scanned ${filenames.length} textures`)
+      }
+    })
+    loadFolderHandle('jobFolder').then((folder) => {
+      if (folder) {
+        dispatch({ type: 'SET_JOB_FOLDER', folder })
+        console.log(`[JOB] Restored job folder: ${folder.name}`)
+      }
+    })
+  }, [dispatch])
 
   const toggleOverlay = useCallback(
     (key: keyof DebugOverlays) => dispatch({ type: 'TOGGLE_OVERLAY', key }),
@@ -46,11 +78,27 @@ function AppInner() {
 
   const linkJobFolder = useCallback(async () => {
     try {
-      const folder = await pickJobFolder()
+      const folder = await window.showDirectoryPicker({ mode: 'readwrite' })
       dispatch({ type: 'SET_JOB_FOLDER', folder })
+      await saveFolderHandle('jobFolder', folder)
       console.log(`[JOB] Linked job folder: ${folder.name}`)
-    } catch (e) {
+    } catch {
       console.log('[JOB] Folder picker cancelled')
+    }
+  }, [dispatch])
+
+  const linkTextureFolder = useCallback(async () => {
+    try {
+      const folder = await window.showDirectoryPicker({ mode: 'read' })
+      dispatch({ type: 'SET_TEXTURE_FOLDER', folder })
+      await saveFolderHandle('textureFolder', folder)
+      console.log(`[TEXTURE] Linked texture folder: ${folder.name}`)
+      const filenames = await scanTextureFolder(folder)
+      dispatch({ type: 'SET_AVAILABLE_TEXTURES', filenames })
+      dispatch({ type: 'SET_SELECTED_TEXTURE', filename: null })
+      console.log(`[TEXTURE] Scanned ${filenames.length} textures`)
+    } catch {
+      console.log('[TEXTURE] Folder picker cancelled')
     }
   }, [dispatch])
 
@@ -68,6 +116,19 @@ function AppInner() {
     }
   }, [state.room, state.jobFolder])
 
+  const selectTexture = useCallback(
+    (filename: string | null) => dispatch({ type: 'SET_SELECTED_TEXTURE', filename }),
+    [dispatch],
+  )
+
+  // Resolve texture: user override → DES primaryTextureId → none
+  // If user picked a filename, reverse-lookup its textureId for UVW/UVH tiling
+  const primaryTextureId = state.room?.primaryTextureId ?? null
+  const resolvedTextureId = state.selectedTexture
+    ? (lookupTextureByFilename(state.selectedTexture)?.id ?? null)
+    : primaryTextureId
+  const resolvedTextureFilename = state.selectedTexture ?? null
+
   return (
     <div className="flex h-screen w-screen bg-[var(--bg-dark)]">
       <UIPanel
@@ -78,10 +139,15 @@ function AppInner() {
         useInches={state.useInches}
         renderMode={state.renderMode}
         jobFolder={state.jobFolder}
+        textureFolder={state.textureFolder}
+        availableTextures={state.availableTextures}
+        selectedTexture={state.selectedTexture}
         onToggleOverlay={toggleOverlay}
         onToggleUnits={() => dispatch({ type: 'TOGGLE_UNITS' })}
         onSetRenderMode={(mode: RenderMode) => dispatch({ type: 'SET_RENDER_MODE', mode })}
         onLinkJobFolder={linkJobFolder}
+        onLinkTextureFolder={linkTextureFolder}
+        onSelectTexture={selectTexture}
         onExportDes={exportDes}
         onExportMoz={exportMoz}
       />
@@ -117,6 +183,9 @@ function AppInner() {
                 wallAngleDeg={offset?.wallAngleDeg}
                 renderMode={state.renderMode}
                 showBoundingBox={state.overlays.boundingBoxes}
+                textureFolder={state.textureFolder}
+                textureId={resolvedTextureId}
+                textureFilename={resolvedTextureFilename}
               />
             )
           })}
@@ -128,6 +197,9 @@ function AppInner() {
               product={mf.product}
               renderMode={state.renderMode}
               showBoundingBox={state.overlays.boundingBoxes}
+              textureFolder={state.textureFolder}
+              textureId={resolvedTextureId}
+              textureFilename={resolvedTextureFilename}
             />
           ))}
         </Scene>

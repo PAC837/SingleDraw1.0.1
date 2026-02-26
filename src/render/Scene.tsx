@@ -19,6 +19,7 @@ export default function Scene({ children }: SceneProps) {
       gl={{ antialias: true }}
     >
       <ambientLight intensity={0.4} />
+      <hemisphereLight args={['#b1c8e0', '#3d2817', 0.5]} />
       <directionalLight position={[5000, 10000, 5000]} intensity={0.7} />
       <directionalLight position={[-3000, 8000, -3000]} intensity={0.3} />
       {children}
