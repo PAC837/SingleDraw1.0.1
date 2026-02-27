@@ -6,13 +6,14 @@
  */
 
 import { useEffect, useState } from 'react'
-import { Group } from 'three'
+import { Box3, Group, Vector3 } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 // Cache parsed GLTF scenes by glb filename
 const modelCache = new Map<string, Group>()
 const pendingLoads = new Map<string, Promise<Group | null>>()
 const warnedMissing = new Set<string>()
+const missingListeners = new Set<() => void>()
 
 const loader = new GLTFLoader()
 
@@ -38,8 +39,19 @@ async function loadModelFromFolder(
     })
 
     const scene = gltf.scene
+
+    // Validate model has visible geometry — reject broken/empty/tiny models
+    const bbox = new Box3().setFromObject(scene)
+    const size = new Vector3()
+    bbox.getSize(size)
+    const maxDim = Math.max(size.x, size.y, size.z)
+    if (maxDim < 1) {
+      console.warn(`[MODEL] "${glbFilename}" has no visible geometry (bbox ${size.x.toFixed(1)}×${size.y.toFixed(1)}×${size.z.toFixed(1)}) — using placeholder`)
+      return null
+    }
+
     modelCache.set(glbFilename, scene)
-    console.log(`[MODEL] Loaded "${glbFilename}" from ${folder.name} (${(buffer.byteLength / 1024).toFixed(0)} KB)`)
+    console.log(`[MODEL] Loaded "${glbFilename}" from ${folder.name} (${(buffer.byteLength / 1024).toFixed(0)} KB, bbox ${size.x.toFixed(1)}×${size.y.toFixed(1)}×${size.z.toFixed(1)})`)
     return scene
   } catch {
     // File not found in folder
@@ -47,9 +59,21 @@ async function loadModelFromFolder(
 
   if (!warnedMissing.has(glbFilename)) {
     warnedMissing.add(glbFilename)
+    missingListeners.forEach(fn => fn())
     console.warn(`[MODEL] "${glbFilename}" not found in models folder`)
   }
   return null
+}
+
+/** React hook: returns list of GLB filenames that were requested but not found. */
+export function useMissingModels(): string[] {
+  const [, setTick] = useState(0)
+  useEffect(() => {
+    const listener = () => setTick(t => t + 1)
+    missingListeners.add(listener)
+    return () => { missingListeners.delete(listener) }
+  }, [])
+  return Array.from(warnedMissing)
 }
 
 /**

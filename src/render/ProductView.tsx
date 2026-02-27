@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Quaternion, Vector3, RepeatWrapping, BoxGeometry, EdgesGeometry } from 'three'
+import { Quaternion, Vector3, RepeatWrapping, BoxGeometry, CylinderGeometry, EdgesGeometry } from 'three'
 import type { Texture } from 'three'
 import type { MozProduct, MozPart, RenderMode } from '../mozaik/types'
 import { mozPosToThree, mozQuatToThree } from '../math/basis'
@@ -35,7 +35,8 @@ function partColor(type: string): string {
 }
 
 /** Infer panel thickness (Mozaik local Z) by part type. Parts only store W and L. */
-function panelThickness(type: string): number {
+function panelThickness(type: string, name: string, partW: number): number {
+  if (name.toLowerCase().includes('rod')) return partW  // cylindrical cross-section ≈ diameter
   switch (type.toLowerCase()) {
     case 'metal': return 3   // metal brackets/hangers
     default: return 19       // 3/4" standard panel (wood parts, toe, fend, shelves)
@@ -77,7 +78,8 @@ interface PartMeshProps {
 function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null }: PartMeshProps) {
   const length = Math.max(part.l, 1)
   const width = Math.max(part.w, 1)
-  const thick = panelThickness(part.type)
+  const isRodPart = part.name.toLowerCase().includes('rod')
+  const thick = panelThickness(part.type, part.name, width)
   const glbModel = useProductModel(modelsFolder, part.suPartName)
 
   const { position, quaternion } = useMemo(() => {
@@ -97,9 +99,22 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
     return { position: pos, quaternion: threeQuat }
   }, [part, length, width, thick])
 
+  // All hooks must be called before any early returns (React rules of hooks)
+  const edgesGeo = useMemo(() => {
+    const geo = isRodPart
+      ? new CylinderGeometry(width / 2, width / 2, length, 16)
+      : new BoxGeometry(length, thick, width)
+    const edges = new EdgesGeometry(geo)
+    geo.dispose()
+    return edges
+  }, [length, thick, width, isRodPart])
+
+  const isMetal = part.type.toLowerCase() === 'metal'
+  const partTex = usePartTexture(isMetal ? null : baseTexture, textureId, length, width)
+  const color = partColor(part.type)
+
   // GLB model available — render it instead of box geometry
   if (glbModel) {
-    // Position at part origin (no center offset — GLB has its own geometry)
     const modelPos = mozPosToThree(part.x, part.y, part.z)
     const mozQuat = mozEulerToQuaternion(part.rotation)
     const modelQuat = mozQuatToThree(mozQuat)
@@ -110,23 +125,33 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
     )
   }
 
-  // Clean wireframe: EdgesGeometry shows only box edges (no face diagonals)
-  const edgesGeo = useMemo(() => {
-    const box = new BoxGeometry(length, thick, width)
-    const edges = new EdgesGeometry(box)
-    box.dispose()
-    return edges
-  }, [length, thick, width])
-
-  const isMetal = part.type.toLowerCase() === 'metal'
-  const partTex = usePartTexture(isMetal ? null : baseTexture, textureId, length, width)
-  const color = partColor(part.type)
-
   if (renderMode === 'wireframe') {
-    return (
+    return isRodPart ? (
+      <group position={position} quaternion={quaternion}>
+        <lineSegments rotation={[0, 0, Math.PI / 2]} geometry={edgesGeo}>
+          <lineBasicMaterial color={color} />
+        </lineSegments>
+      </group>
+    ) : (
       <lineSegments position={position} quaternion={quaternion} geometry={edgesGeo}>
         <lineBasicMaterial color={color} />
       </lineSegments>
+    )
+  }
+
+  // Rod parts without GLB → cylinder
+  if (isRodPart) {
+    return (
+      <group position={position} quaternion={quaternion}>
+        <mesh rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[width / 2, width / 2, length, 16]} />
+          {renderMode === 'solid' ? (
+            <meshStandardMaterial color={color} roughness={0.7} metalness={0.3} />
+          ) : (
+            <meshStandardMaterial color={color} transparent opacity={0.8} roughness={0.8} metalness={0.1} />
+          )}
+        </mesh>
+      </group>
     )
   }
 

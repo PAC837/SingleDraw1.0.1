@@ -12,7 +12,7 @@ export interface CreateRoomParams {
   thickness?: number  // mm, default 101.6 (4")
 }
 
-/** Create a complete MozRoom for a 4-wall rectangular room. CW winding, origin at front-left-bottom. */
+/** Create a complete MozRoom for a 4-wall rectangular room. Mozaik convention (left→back→right→front), origin at front-left-bottom. */
 export function createRectangularRoom(params: CreateRoomParams): MozRoom {
   const width = params.width
   const depth = params.depth
@@ -24,7 +24,7 @@ export function createRectangularRoom(params: CreateRoomParams): MozRoom {
   const parms = createDefaultParms(height, thickness)
 
   return {
-    uniqueId: `room-${Date.now()}`,
+    uniqueId: String(Date.now() % 100000000),
     name: `${Math.round(width)}x${Math.round(depth)} Room`,
     roomType: 0,
     parms,
@@ -38,17 +38,17 @@ export function createRectangularRoom(params: CreateRoomParams): MozRoom {
   }
 }
 
-/** Create 4 walls for a rectangular room. CW winding, origin at front-left-bottom. */
+/** Create 4 walls for a rectangular room. Matches Mozaik's wall convention (left→back→right→front). */
 function createWalls(width: number, depth: number, height: number, thickness: number): MozWall[] {
   return [
-    // Wall 1: front wall — left to right along X
-    createWall(1, 0, 0, 0, width, height, thickness),
-    // Wall 2: right wall — front to back along Y
-    createWall(2, width, 0, 90, depth, height, thickness),
-    // Wall 3: back wall — right to left along -X
-    createWall(3, width, depth, 180, width, height, thickness),
-    // Wall 4: left wall — back to front along -Y
-    createWall(4, 0, depth, 270, depth, height, thickness),
+    // Wall 1: left wall — front to back along +Y
+    createWall(1, 0, 0, 90, depth, height, thickness),
+    // Wall 2: back wall — left to right along +X
+    createWall(2, 0, depth, 0, width, height, thickness),
+    // Wall 3: right wall — back to front along -Y
+    createWall(3, width, depth, 270, depth, height, thickness),
+    // Wall 4: front wall — right to left along -X
+    createWall(4, width, 0, 180, width, height, thickness),
   ]
 }
 

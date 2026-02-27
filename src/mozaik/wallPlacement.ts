@@ -29,8 +29,8 @@ export function productsOnWall(products: MozProduct[], wallNumber: number): MozP
 
 /**
  * Find the next available X position on a wall for a product of given width.
- * Packs against the wall END (highest x first) so products fill visually
- * left-to-right when facing the wall from inside a CCW room.
+ * Packs from wall start (X=0) so products fill left-to-right when facing
+ * the wall from inside the room. Matches Mozaik's convention.
  */
 export function findNextAvailableX(
   products: MozProduct[],
@@ -45,24 +45,24 @@ export function findNextAvailableX(
     .map((p) => [p.x, p.x + p.width] as [number, number])
     .sort((a, b) => a[0] - b[0])
 
-  // No products yet — place at far end
+  // No products yet — place at wall start
   if (intervals.length === 0) {
-    return productWidth <= wallUsableLength ? wallUsableLength - productWidth : null
+    return productWidth <= wallUsableLength ? 0 : null
+  }
+
+  // Gap before first product (nearest to wall start)
+  if (intervals[0][0] >= productWidth) return 0
+
+  // Gaps between products (scan from start toward end)
+  for (let i = 0; i < intervals.length - 1; i++) {
+    const gapStart = intervals[i][1]
+    const gapEnd = intervals[i + 1][0]
+    if (gapEnd - gapStart >= productWidth) return gapStart
   }
 
   // Gap after last product (nearest to wall end)
   const lastEnd = intervals[intervals.length - 1][1]
-  if (wallUsableLength - lastEnd >= productWidth) return wallUsableLength - productWidth
-
-  // Gaps between products (scan from far end toward start)
-  for (let i = intervals.length - 1; i > 0; i--) {
-    const gapStart = intervals[i - 1][1]
-    const gapEnd = intervals[i][0]
-    if (gapEnd - gapStart >= productWidth) return gapEnd - productWidth
-  }
-
-  // Gap before first product (nearest to wall start)
-  if (intervals[0][0] >= productWidth) return intervals[0][0] - productWidth
+  if (wallUsableLength - lastEnd >= productWidth) return lastEnd
 
   return null
 }
@@ -75,7 +75,7 @@ export function placeProductOnWall(
 ): MozProduct {
   return {
     ...sourceProduct,
-    uniqueId: `placed-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+    uniqueId: String(Date.now() % 100000000 + Math.floor(Math.random() * 1000)),
     wall: `${wallNumber}_1`,
     x: xPosition,
     elev: 0,

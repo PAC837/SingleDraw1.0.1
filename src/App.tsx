@@ -21,6 +21,7 @@ import { saveFolderHandle, loadFolderHandle } from './export/folderStore'
 import { computeProductWorldOffset, computeWallGeometries } from './math/wallMath'
 import { mozPosToThree } from './math/basis'
 import { lookupTextureByFilename } from './render/useProductTexture'
+import { useMissingModels } from './render/useProductModel'
 
 /** Scan a folder for image files and return sorted filenames. */
 async function scanTextureFolder(folder: FileSystemDirectoryHandle): Promise<string[]> {
@@ -89,6 +90,7 @@ async function scanLibraryFolder(folder: FileSystemDirectoryHandle): Promise<str
 function AppInner() {
   const state = useAppState()
   const dispatch = useAppDispatch()
+  const missingModels = useMissingModels()
 
   // Restore persisted folder handles on mount
   useEffect(() => {
@@ -442,7 +444,7 @@ end`
         onUpdateProductDimension={handleUpdateProductDimension}
         onRemoveProduct={handleRemoveProduct}
       />
-      <div className="flex-1">
+      <div className="flex-1 relative">
         <Scene orbitTarget={roomCenter}>
           <DebugOverlaysComponent overlays={state.overlays} room={state.room} />
 
@@ -505,6 +507,13 @@ end`
             />
           ))}
         </Scene>
+
+        {missingModels.length > 0 && (
+          <div className="absolute bottom-2 left-2 right-2 bg-yellow-900/80 text-yellow-200 text-xs p-2 rounded max-h-24 overflow-y-auto font-mono">
+            <div className="font-bold mb-1">Missing GLB models ({missingModels.length}):</div>
+            {missingModels.map(name => <div key={name}>{name}</div>)}
+          </div>
+        )}
       </div>
     </div>
   )

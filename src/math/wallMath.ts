@@ -178,7 +178,8 @@ export function computeProductWorldOffset(
   // Offset product.x by trimStart — X=0 means "at the inside corner"
   const trims = computeWallTrims(walls, joints)
   const trim = trims.get(wallNumber) ?? { trimStart: 0, trimEnd: 0 }
-  const xAlongWall = trim.trimStart + product.x
+  // Shift by product.width to compensate for +180° rotation reversing width direction
+  const xAlongWall = trim.trimStart + product.x + product.width
 
   // Normal offset: push product origin (front, Y=0) into room by depth
   // so back (Y=depth) ends up at inner wall surface after Z-flip in ProductView
@@ -187,7 +188,7 @@ export function computeProductWorldOffset(
   const my = geom.start[1] + xAlongWall * geom.tangent[1] + normalOffset * geom.normal[1]
   const mz = product.elev
 
-  return { position: [mx, my, mz], wallAngleDeg: wall.ang }
+  return { position: [mx, my, mz], wallAngleDeg: (wall.ang + 180) % 360 }
 }
 
 /** Get a human-readable wall chain report. */
