@@ -7,7 +7,7 @@ import { useMemo } from 'react'
 import { Shape, ShapeGeometry, RepeatWrapping, DoubleSide } from 'three'
 import type { Texture } from 'three'
 import type { MozRoom } from '../mozaik/types'
-import { computeWallGeometries } from '../math/wallMath'
+import { computeRoomPolygons } from '../math/wallMath'
 import { useFloorTexture } from './useProductTexture'
 
 interface RoomFloorProps {
@@ -20,15 +20,15 @@ export default function RoomFloor({ room, textureFolder, selectedFloorTexture }:
   const floorTex = useFloorTexture(textureFolder, selectedFloorTexture)
 
   const geometry = useMemo(() => {
-    const geos = computeWallGeometries(room.walls)
-    if (geos.length < 3) return null
+    const { inner } = computeRoomPolygons(room.walls)
+    if (inner.length < 3) return null
 
-    // Use raw Mozaik XY coords for the Shape. The -π/2 X rotation transforms
-    // Shape(x, y) → World(x, -y) which matches mozPosToThree(mx, my, 0) = (mx, 0, -my).
+    // Use inner polygon (wall inner faces) so floor stops at room interior.
+    // The -π/2 X rotation transforms Shape(x, y) → World(x, -y).
     const shape = new Shape()
-    shape.moveTo(geos[0].start[0], geos[0].start[1])
-    for (let i = 1; i < geos.length; i++) {
-      shape.lineTo(geos[i].start[0], geos[i].start[1])
+    shape.moveTo(inner[0][0], inner[0][1])
+    for (let i = 1; i < inner.length; i++) {
+      shape.lineTo(inner[i][0], inner[i][1])
     }
     shape.closePath()
 

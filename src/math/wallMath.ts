@@ -191,6 +191,109 @@ export function computeProductWorldOffset(
   return { position: [mx, my, mz], wallAngleDeg: (wall.ang + 180) % 360 }
 }
 
+/** 2D line-line intersection: P1 + t*D1 = P2 + s*D2. Returns intersection point or null if parallel. */
+function lineIntersect2D(
+  p1: [number, number], d1: [number, number],
+  p2: [number, number], d2: [number, number],
+): [number, number] | null {
+  const cross = d1[0] * d2[1] - d1[1] * d2[0]
+  if (Math.abs(cross) < 1e-6) return null
+  const dx = p2[0] - p1[0]
+  const dy = p2[1] - p1[1]
+  const t = (dx * d2[1] - dy * d2[0]) / cross
+  return [p1[0] + t * d1[0], p1[1] + t * d1[1]]
+}
+
+/**
+ * Compute inner and outer perimeter polygons for the room.
+ * Inner = wall centerline offset by thickness/2 toward room (along normal).
+ * Outer = wall centerline offset by thickness/2 away from room (against normal).
+ * At each corner, adjacent face lines are intersected to find the true corner point.
+ */
+export function computeRoomPolygons(
+  walls: MozWall[],
+): { inner: [number, number][]; outer: [number, number][] } {
+  const geos = computeWallGeometries(walls)
+  if (geos.length < 3) return { inner: [], outer: [] }
+
+  const inner: [number, number][] = []
+  const outer: [number, number][] = []
+
+  for (let i = 0; i < geos.length; i++) {
+    const prev = geos[(i - 1 + geos.length) % geos.length]
+    const curr = geos[i]
+
+    // Inner face lines: offset by +thickness/2 along inward normal
+    const pInner: [number, number] = [
+      prev.start[0] + (prev.thickness / 2) * prev.normal[0],
+      prev.start[1] + (prev.thickness / 2) * prev.normal[1],
+    ]
+    const cInner: [number, number] = [
+      curr.start[0] + (curr.thickness / 2) * curr.normal[0],
+      curr.start[1] + (curr.thickness / 2) * curr.normal[1],
+    ]
+    const innerPt = lineIntersect2D(pInner, prev.tangent, cInner, curr.tangent)
+    inner.push(innerPt ?? cInner)
+
+    // Outer face lines: offset by -thickness/2 along inward normal (= toward outside)
+    const pOuter: [number, number] = [
+      prev.start[0] - (prev.thickness / 2) * prev.normal[0],
+      prev.start[1] - (prev.thickness / 2) * prev.normal[1],
+    ]
+    const cOuter: [number, number] = [
+      curr.start[0] - (curr.thickness / 2) * curr.normal[0],
+      curr.start[1] - (curr.thickness / 2) * curr.normal[1],
+    ]
+    const outerPt = lineIntersect2D(pOuter, prev.tangent, cOuter, curr.tangent)
+    outer.push(outerPt ?? cOuter)
+  }
+
+  return { inner, outer }
+}
+
+/**
+ * Compute how far each wall's outer edge extends beyond its trimmed box at each corner.
+ * Used to build mitered wall mesh geometry (trapezoidal prism).
+ * Returns Map<wallNumber, { startExt, endExt }> in mm along the wall tangent.
+ */
+export function computeWallMiterExtensions(
+  walls: MozWall[],
+  joints: MozWallJoint[],
+): Map<number, { startExt: number; endExt: number }> {
+  const geos = computeWallGeometries(walls)
+  const { outer } = computeRoomPolygons(walls)
+  const trims = computeWallTrims(walls, joints)
+  const result = new Map<number, { startExt: number; endExt: number }>()
+
+  for (let i = 0; i < geos.length; i++) {
+    const g = geos[i]
+    const nextI = (i + 1) % geos.length
+    const trim = trims.get(g.wallNumber) ?? { trimStart: 0, trimEnd: 0 }
+
+    // Box outer edge start point (in world coords)
+    const boxOuterStartX = g.start[0] + trim.trimStart * g.tangent[0] - (g.thickness / 2) * g.normal[0]
+    const boxOuterStartY = g.start[1] + trim.trimStart * g.tangent[1] - (g.thickness / 2) * g.normal[1]
+
+    // Distance from outer miter point to box outer start, projected along tangent
+    const startExt = (boxOuterStartX - outer[i][0]) * g.tangent[0]
+                   + (boxOuterStartY - outer[i][1]) * g.tangent[1]
+
+    // Box outer edge end point
+    const endDist = g.end[0] === g.start[0] && g.end[1] === g.start[1]
+      ? 0 : Math.sqrt((g.end[0] - g.start[0]) ** 2 + (g.end[1] - g.start[1]) ** 2)
+    const boxOuterEndX = g.start[0] + (endDist - trim.trimEnd) * g.tangent[0] - (g.thickness / 2) * g.normal[0]
+    const boxOuterEndY = g.start[1] + (endDist - trim.trimEnd) * g.tangent[1] - (g.thickness / 2) * g.normal[1]
+
+    // Distance from box outer end to outer miter point, projected along tangent
+    const endExt = (outer[nextI][0] - boxOuterEndX) * g.tangent[0]
+                 + (outer[nextI][1] - boxOuterEndY) * g.tangent[1]
+
+    result.set(g.wallNumber, { startExt: Math.max(0, startExt), endExt: Math.max(0, endExt) })
+  }
+
+  return result
+}
+
 /** Get a human-readable wall chain report. */
 export function wallChainReport(walls: MozWall[]): string {
   const lines: string[] = []

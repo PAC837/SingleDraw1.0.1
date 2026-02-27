@@ -1,8 +1,9 @@
 import { useMemo } from 'react'
-import { DoubleSide, FrontSide, BoxGeometry, EdgesGeometry, RepeatWrapping } from 'three'
+import { DoubleSide, FrontSide, EdgesGeometry, RepeatWrapping, BufferGeometry, Float32BufferAttribute } from 'three'
 import type { Vector3, Texture } from 'three'
+import RoomOutline from './RoomOutline'
 import type { MozRoom, RenderMode } from '../mozaik/types'
-import { computeWallGeometries, computeWallTrims } from '../math/wallMath'
+import { computeWallGeometries, computeWallTrims, computeWallMiterExtensions } from '../math/wallMath'
 import { mozPosToThree } from '../math/basis'
 import { DEG2RAD } from '../math/constants'
 import { useWallTexture } from './useProductTexture'
@@ -17,9 +18,67 @@ interface RoomWallsProps {
   selectedWallTexture: string | null
 }
 
+/** Create a trapezoidal prism for a mitered wall. Inner face stays at renderLen, outer face extends. */
+function createMiteredWallGeo(
+  renderLen: number, height: number, thickness: number,
+  startExt: number, endExt: number,
+): BufferGeometry {
+  const rl2 = renderLen / 2
+  const h2 = height / 2
+  const t2 = thickness / 2
+
+  // 8 corners in local space (x=along wall, y=height, z=across wall)
+  // Inner face (z=+t2): stays at renderLen (unchanged)
+  // Outer face (z=-t2): extends by startExt/endExt at each end
+  const v: [number, number, number][] = [
+    [-rl2,            -h2, t2],   // 0: inner start bottom
+    [ rl2,            -h2, t2],   // 1: inner end bottom
+    [ rl2,             h2, t2],   // 2: inner end top
+    [-rl2,             h2, t2],   // 3: inner start top
+    [-rl2 - startExt, -h2, -t2],  // 4: outer start bottom
+    [ rl2 + endExt,   -h2, -t2],  // 5: outer end bottom
+    [ rl2 + endExt,    h2, -t2],  // 6: outer end top
+    [-rl2 - startExt,  h2, -t2],  // 7: outer start top
+  ]
+
+  // 12 triangles (6 quad faces), non-indexed so each face gets flat normals
+  const tris: [number, number, number][] = [
+    [0,1,2], [0,2,3],   // Inner face (+z)
+    [5,4,7], [5,7,6],   // Outer face (-z)
+    [3,2,6], [3,6,7],   // Top face (+y)
+    [4,5,1], [4,1,0],   // Bottom face (-y)
+    [4,0,3], [4,3,7],   // Start miter face
+    [1,5,6], [1,6,2],   // End miter face
+  ]
+
+  // UVs: simple 0-1 per quad face
+  const quadUVs: [number, number][][] = [
+    [[0,0],[1,0],[1,1]], [[0,0],[1,1],[0,1]],   // Inner
+    [[1,0],[0,0],[0,1]], [[1,0],[0,1],[1,1]],   // Outer
+    [[0,1],[1,1],[1,0]], [[0,1],[1,0],[0,0]],   // Top
+    [[0,0],[1,0],[1,1]], [[0,0],[1,1],[0,1]],   // Bottom
+    [[0,0],[1,0],[1,1]], [[0,0],[1,1],[0,1]],   // Start miter
+    [[0,0],[1,0],[1,1]], [[0,0],[1,1],[0,1]],   // End miter
+  ]
+
+  const pos: number[] = []
+  const uvs: number[] = []
+  for (let f = 0; f < tris.length; f++) {
+    const [a, b, c] = tris[f]
+    pos.push(...v[a], ...v[b], ...v[c])
+    uvs.push(...quadUVs[f][0], ...quadUVs[f][1], ...quadUVs[f][2])
+  }
+
+  const geo = new BufferGeometry()
+  geo.setAttribute('position', new Float32BufferAttribute(pos, 3))
+  geo.setAttribute('uv', new Float32BufferAttribute(uvs, 2))
+  geo.computeVertexNormals()
+  return geo
+}
+
 function WallMesh({
   renderLen, height, thickness, pos, rotY, color, opacity, doubleSided, renderMode,
-  isSelected, onSelect, wallTexture,
+  isSelected, onSelect, wallTexture, startExt, endExt,
 }: {
   renderLen: number; height: number; thickness: number
   pos: Vector3; rotY: number
@@ -28,9 +87,10 @@ function WallMesh({
   isSelected: boolean
   onSelect: () => void
   wallTexture: Texture | null
+  startExt: number; endExt: number
 }) {
 
-  // Tile the wall texture to repeat every ~1000mm
+  // Tile the wall texture to repeat every ~1000mm (based on inner face = renderLen)
   const tiledTex = useMemo(() => {
     if (!wallTexture) return null
     const tex = wallTexture.clone() as Texture
@@ -41,20 +101,18 @@ function WallMesh({
     return tex
   }, [wallTexture, renderLen, height])
 
-  const edgesGeo = useMemo(() => {
-    const box = new BoxGeometry(renderLen, height, thickness)
-    const edges = new EdgesGeometry(box)
-    box.dispose()
-    return edges
-  }, [renderLen, height, thickness])
+  const wallGeo = useMemo(
+    () => createMiteredWallGeo(renderLen, height, thickness, startExt, endExt),
+    [renderLen, height, thickness, startExt, endExt],
+  )
 
-  // Slightly larger edges for the accent glow halo on selected walls
+  // Mitered glow halo edges for selected walls (slightly oversized)
   const glowEdgesGeo = useMemo(() => {
-    const box = new BoxGeometry(renderLen + 20, height + 10, thickness + 20)
-    const edges = new EdgesGeometry(box)
-    box.dispose()
+    const glow = createMiteredWallGeo(renderLen + 20, height + 10, thickness + 20, startExt + 10, endExt + 10)
+    const edges = new EdgesGeometry(glow)
+    glow.dispose()
     return edges
-  }, [renderLen, height, thickness])
+  }, [renderLen, height, thickness, startExt, endExt])
 
   const side = doubleSided ? DoubleSide : FrontSide
 
@@ -71,9 +129,6 @@ function WallMesh({
             <lineBasicMaterial color="#AAFF00" />
           </lineSegments>
         )}
-        <lineSegments geometry={edgesGeo}>
-          <lineBasicMaterial color="#000000" />
-        </lineSegments>
       </group>
     )
   }
@@ -83,9 +138,9 @@ function WallMesh({
       <mesh
         position={pos}
         rotation={[0, rotY, 0]}
+        geometry={wallGeo}
         onClick={(e) => { e.stopPropagation(); onSelect() }}
       >
-        <boxGeometry args={[renderLen, height, thickness]} />
         {renderMode === 'solid' ? (
           <meshStandardMaterial
             key={`solid-${tiledTex?.id ?? 'none'}`}
@@ -94,6 +149,7 @@ function WallMesh({
             roughness={0.6}
             metalness={0}
             side={side}
+            polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1}
           />
         ) : (
           <meshStandardMaterial
@@ -104,6 +160,7 @@ function WallMesh({
             opacity={opacity}
             side={side}
             depthWrite={false}
+            polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1}
           />
         )}
       </mesh>
@@ -112,9 +169,6 @@ function WallMesh({
           <lineBasicMaterial color="#AAFF00" />
         </lineSegments>
       )}
-      <lineSegments position={pos} rotation={[0, rotY, 0]} geometry={edgesGeo}>
-        <lineBasicMaterial color="#000000" />
-      </lineSegments>
     </>
   )
 }
@@ -131,11 +185,18 @@ export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWal
     [room.walls, room.wallJoints],
   )
 
+  const miters = useMemo(
+    () => computeWallMiterExtensions(room.walls, room.wallJoints),
+    [room.walls, room.wallJoints],
+  )
+
   return (
     <group>
+      <RoomOutline room={room} />
       {geometries.map((g) => {
         const wall = room.walls.find((w) => w.wallNumber === g.wallNumber)!
         const trim = trims.get(g.wallNumber) ?? { trimStart: 0, trimEnd: 0 }
+        const miter = miters.get(g.wallNumber) ?? { startExt: 0, endExt: 0 }
 
         const renderLen = wall.len - trim.trimStart - trim.trimEnd
         const shiftAlongWall = (trim.trimStart - trim.trimEnd) / 2
@@ -162,6 +223,8 @@ export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWal
             isSelected={isSelected}
             onSelect={() => onSelectWall(g.wallNumber)}
             wallTexture={wallTex}
+            startExt={miter.startExt}
+            endExt={miter.endExt}
           />
         )
       })}
