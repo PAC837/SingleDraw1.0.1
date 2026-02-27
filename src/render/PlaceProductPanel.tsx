@@ -34,7 +34,7 @@ export default function PlaceProductPanel({
 
   return (
     <>
-      <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+      <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
         Place Products
       </h2>
 
@@ -44,7 +44,7 @@ export default function PlaceProductPanel({
           <select
             value={selectedProductIdx}
             onChange={(e) => setSelectedProductIdx(Number(e.target.value))}
-            className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-gray-700 text-white"
+            className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
           >
             {standaloneProducts.map((mf, i) => (
               <option key={i} value={i}>
@@ -56,7 +56,7 @@ export default function PlaceProductPanel({
           {selectedWall !== null ? (
             <button
               onClick={() => onPlaceProduct(selectedProductIdx, selectedWall)}
-              className="w-full text-xs px-3 py-2 bg-[var(--yellow)] text-black font-medium rounded hover:opacity-90 transition-opacity"
+              className="w-full text-xs px-3 py-2 bg-[var(--accent)] text-black font-medium rounded hover:opacity-90 transition-opacity"
             >
               Add to Wall {selectedWall}
             </button>
@@ -99,7 +99,7 @@ export default function PlaceProductPanel({
                     type="number"
                     value={Math.round(product.width)}
                     onChange={(e) => onUpdateProductDimension(index, 'width', Number(e.target.value))}
-                    className="w-full text-xs px-1 py-0.5 bg-gray-800 rounded border border-gray-700 text-white"
+                    className="w-full text-xs px-1 py-0.5 bg-gray-800 rounded border border-[var(--accent)] text-white"
                   />
                 </label>
                 <label className="flex-1">
@@ -108,7 +108,7 @@ export default function PlaceProductPanel({
                     type="number"
                     value={Math.round(product.depth)}
                     onChange={(e) => onUpdateProductDimension(index, 'depth', Number(e.target.value))}
-                    className="w-full text-xs px-1 py-0.5 bg-gray-800 rounded border border-gray-700 text-white"
+                    className="w-full text-xs px-1 py-0.5 bg-gray-800 rounded border border-[var(--accent)] text-white"
                   />
                 </label>
               </div>

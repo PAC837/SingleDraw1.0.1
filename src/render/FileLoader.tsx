@@ -65,7 +65,7 @@ export default function FileLoader() {
         <label className="block text-xs text-[var(--text-secondary)] mb-1 uppercase tracking-wider">
           Room File (DES)
         </label>
-        <label className="block w-full cursor-pointer bg-[var(--bg-dark)] border border-gray-700 rounded px-3 py-2 text-sm hover:border-[var(--yellow)] transition-colors text-center">
+        <label className="block w-full cursor-pointer bg-[var(--bg-dark)] border border-[var(--accent)] rounded px-3 py-2 text-sm transition-colors text-center">
           Load DES
           <input
             ref={desRef}
@@ -80,7 +80,7 @@ export default function FileLoader() {
         <label className="block text-xs text-[var(--text-secondary)] mb-1 uppercase tracking-wider">
           Product File (MOZ)
         </label>
-        <label className="block w-full cursor-pointer bg-[var(--bg-dark)] border border-gray-700 rounded px-3 py-2 text-sm hover:border-[var(--yellow)] transition-colors text-center">
+        <label className="block w-full cursor-pointer bg-[var(--bg-dark)] border border-[var(--accent)] rounded px-3 py-2 text-sm transition-colors text-center">
           Load MOZ
           <input
             ref={mozRef}

@@ -4,7 +4,7 @@ import type { AppState, RenderMode, MozRoom, MozFile, MozProduct, DebugOverlays 
 const defaultOverlays: DebugOverlays = {
   originMarker: true,
   axisGizmo: true,
-  floorGrid: true,
+  floorGrid: false,
   wallNormals: false,
   boundingBoxes: false,
   doubleSidedWalls: false,
@@ -22,6 +22,10 @@ const initialState: AppState = {
   textureFolder: null,
   availableTextures: [],
   selectedTexture: null,
+  availableFloorTextures: [],
+  selectedFloorTexture: null,
+  availableWallTextures: [],
+  selectedWallTexture: null,
   libraryFolder: null,
   availableLibraryFiles: [],
   sketchUpFolder: null,
@@ -39,6 +43,10 @@ type Action =
   | { type: 'SET_TEXTURE_FOLDER'; folder: FileSystemDirectoryHandle }
   | { type: 'SET_AVAILABLE_TEXTURES'; filenames: string[] }
   | { type: 'SET_SELECTED_TEXTURE'; filename: string | null }
+  | { type: 'SET_AVAILABLE_FLOOR_TEXTURES'; filenames: string[] }
+  | { type: 'SET_SELECTED_FLOOR_TEXTURE'; filename: string | null }
+  | { type: 'SET_AVAILABLE_WALL_TEXTURES'; filenames: string[] }
+  | { type: 'SET_SELECTED_WALL_TEXTURE'; filename: string | null }
   | { type: 'CREATE_ROOM'; room: MozRoom }
   | { type: 'PLACE_PRODUCT'; product: MozProduct }
   | { type: 'UPDATE_ROOM_PRODUCT'; index: number; field: 'width' | 'depth'; value: number }
@@ -75,6 +83,14 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, availableTextures: action.filenames }
     case 'SET_SELECTED_TEXTURE':
       return { ...state, selectedTexture: action.filename }
+    case 'SET_AVAILABLE_FLOOR_TEXTURES':
+      return { ...state, availableFloorTextures: action.filenames }
+    case 'SET_SELECTED_FLOOR_TEXTURE':
+      return { ...state, selectedFloorTexture: action.filename }
+    case 'SET_AVAILABLE_WALL_TEXTURES':
+      return { ...state, availableWallTextures: action.filenames }
+    case 'SET_SELECTED_WALL_TEXTURE':
+      return { ...state, selectedWallTexture: action.filename }
     case 'CREATE_ROOM':
       return { ...state, room: action.room, selectedWall: null }
     case 'PLACE_PRODUCT':

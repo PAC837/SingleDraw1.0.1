@@ -189,7 +189,7 @@ export default function ProductView({
       {showBoundingBox && (
         <mesh position={bbPos}>
           <boxGeometry args={[product.width, product.height, product.depth]} />
-          <meshStandardMaterial color="#FFE500" wireframe transparent opacity={0.2} />
+          <meshStandardMaterial color="#AAFF00" wireframe transparent opacity={0.2} />
         </mesh>
       )}
     </group>

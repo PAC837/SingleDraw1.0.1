@@ -121,6 +121,7 @@ export interface MozProduct {
   wall: string         // wall reference, e.g., "3_1" or "0"
   parts: MozPart[]
   rawAttributes: Record<string, string>
+  rawInnerXml: string  // everything between <Product> and </Product> from MOZ file
 }
 
 /** MOZ file wrapper (binary header + XML product). */
@@ -175,6 +176,10 @@ export interface AppState {
   textureFolder: FileSystemDirectoryHandle | null
   availableTextures: string[]       // filenames scanned from texture folder
   selectedTexture: string | null    // user-picked filename (overrides DES primaryTextureId)
+  availableFloorTextures: string[]  // filenames scanned from Floors subfolder
+  selectedFloorTexture: string | null
+  availableWallTextures: string[]   // filenames scanned from Walls subfolder
+  selectedWallTexture: string | null
   libraryFolder: FileSystemDirectoryHandle | null
   availableLibraryFiles: string[]   // sorted .moz filenames from library folder
   sketchUpFolder: FileSystemDirectoryHandle | null  // Mozaik shared folder — deep-scanned for .skp files

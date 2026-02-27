@@ -25,7 +25,13 @@ export function parseMoz(fileContent: string): MozFile {
   const doc = parseXmlString(rawXml)
   const root = doc.documentElement // <Product>
 
-  const product = parseProduct(root)
+  // Extract inner XML: everything between <Product ...> and </Product>
+  const productStart = rawXml.indexOf('<Product')
+  const openTagEnd = rawXml.indexOf('>', productStart) + 1
+  const closeTagStart = rawXml.lastIndexOf('</Product>')
+  const rawInnerXml = closeTagStart > openTagEnd ? rawXml.slice(openTagEnd, closeTagStart) : ''
+
+  const product = parseProduct(root, rawInnerXml)
 
   console.log(`[MOZ] Product: "${product.prodName}" (ID: ${product.uniqueId})`)
   console.log(`[MOZ] Dimensions: W=${product.width} H=${product.height} D=${product.depth}`)
@@ -50,7 +56,7 @@ export function parseMoz(fileContent: string): MozFile {
   }
 }
 
-function parseProduct(el: Element): MozProduct {
+function parseProduct(el: Element, rawInnerXml: string = ''): MozProduct {
   const partsEl = getChild(el, 'CabProdParts')
   const parts = partsEl ? getChildren(partsEl, 'CabProdPart').map(parsePart) : []
 
@@ -68,6 +74,7 @@ function parseProduct(el: Element): MozProduct {
     wall: getAttrStr(el, 'Wall', '0'),
     parts,
     rawAttributes: getAllAttrs(el),
+    rawInnerXml,
   }
 }
 

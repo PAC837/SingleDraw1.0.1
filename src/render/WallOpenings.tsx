@@ -58,7 +58,7 @@ export default function WallOpenings({ room }: WallOpeningsProps) {
           >
             <planeGeometry args={[fixture.width, fixture.height]} />
             <meshStandardMaterial
-              color="#FFE500"
+              color="#AAFF00"
               transparent
               opacity={0.3}
               side={DoubleSide}

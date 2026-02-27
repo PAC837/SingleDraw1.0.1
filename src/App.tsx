@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { StoreProvider, useAppState, useAppDispatch } from './store'
 import type { DebugOverlays, RenderMode } from './mozaik/types'
 import Scene from './render/Scene'
@@ -8,6 +8,9 @@ import WallOpenings from './render/WallOpenings'
 import ProductView from './render/ProductView'
 import DebugOverlaysComponent from './render/DebugOverlays'
 import ProbeScene from './render/ProbeScene'
+import FloorPlane from './render/FloorPlane'
+import RoomFloor from './render/RoomFloor'
+import CameraClipPlane from './render/CameraClipPlane'
 import { parseMoz } from './mozaik/mozParser'
 import { createRectangularRoom } from './mozaik/roomFactory'
 import { findNextAvailableX, placeProductOnWall, usableWallLength } from './mozaik/wallPlacement'
@@ -15,13 +18,48 @@ import { writeMoz } from './export/mozWriter'
 import { writeDes } from './export/desWriter'
 import { findNextRoomNumber, exportDesRoom } from './export/jobFolder'
 import { saveFolderHandle, loadFolderHandle } from './export/folderStore'
-import { computeProductWorldOffset } from './math/wallMath'
+import { computeProductWorldOffset, computeWallGeometries } from './math/wallMath'
+import { mozPosToThree } from './math/basis'
 import { lookupTextureByFilename } from './render/useProductTexture'
 
 /** Scan a folder for image files and return sorted filenames. */
 async function scanTextureFolder(folder: FileSystemDirectoryHandle): Promise<string[]> {
   const files: string[] = []
   for await (const entry of folder.values()) {
+    if (entry.kind === 'file' && /\.(jpg|jpeg|png)$/i.test(entry.name)) {
+      files.push(entry.name)
+    }
+  }
+  return files.sort()
+}
+
+/** Scan a texture folder's "Floors" subfolder for floor texture images. */
+async function scanFloorTextures(folder: FileSystemDirectoryHandle): Promise<string[]> {
+  let floorsFolder: FileSystemDirectoryHandle
+  try {
+    floorsFolder = await folder.getDirectoryHandle('Floor')
+  } catch {
+    return []
+  }
+  const files: string[] = []
+  for await (const entry of floorsFolder.values()) {
+    if (entry.kind === 'file' && /\.(jpg|jpeg|png)$/i.test(entry.name)) {
+      files.push(entry.name)
+    }
+  }
+  return files.sort()
+}
+
+/** Scan a texture folder's "Walls" subfolder for wall texture images. */
+async function scanWallTextures(folder: FileSystemDirectoryHandle): Promise<string[]> {
+  let wallsFolder: FileSystemDirectoryHandle
+  try {
+    wallsFolder = await folder.getDirectoryHandle('Walls')
+  } catch {
+    return []
+  }
+  const files: string[] = []
+  for await (const entry of wallsFolder.values()) {
     if (entry.kind === 'file' && /\.(jpg|jpeg|png)$/i.test(entry.name)) {
       files.push(entry.name)
     }
@@ -61,6 +99,12 @@ function AppInner() {
         const filenames = await scanTextureFolder(folder)
         dispatch({ type: 'SET_AVAILABLE_TEXTURES', filenames })
         console.log(`[TEXTURE] Scanned ${filenames.length} textures`)
+        const floorFiles = await scanFloorTextures(folder)
+        dispatch({ type: 'SET_AVAILABLE_FLOOR_TEXTURES', filenames: floorFiles })
+        console.log(`[TEXTURE] Floor textures (Floors/ subfolder): ${floorFiles.length}`)
+        const wallFiles = await scanWallTextures(folder)
+        dispatch({ type: 'SET_AVAILABLE_WALL_TEXTURES', filenames: wallFiles })
+        console.log(`[TEXTURE] Wall textures (Walls/ subfolder): ${wallFiles.length}`)
       }
     })
     loadFolderHandle('jobFolder').then((folder) => {
@@ -140,6 +184,14 @@ function AppInner() {
       dispatch({ type: 'SET_AVAILABLE_TEXTURES', filenames })
       dispatch({ type: 'SET_SELECTED_TEXTURE', filename: null })
       console.log(`[TEXTURE] Scanned ${filenames.length} textures`)
+      const floorFiles = await scanFloorTextures(folder)
+      dispatch({ type: 'SET_AVAILABLE_FLOOR_TEXTURES', filenames: floorFiles })
+      dispatch({ type: 'SET_SELECTED_FLOOR_TEXTURE', filename: null })
+      console.log(`[TEXTURE] Floor textures (Floors/ subfolder): ${floorFiles.length}`)
+      const wallFiles = await scanWallTextures(folder)
+      dispatch({ type: 'SET_AVAILABLE_WALL_TEXTURES', filenames: wallFiles })
+      dispatch({ type: 'SET_SELECTED_WALL_TEXTURE', filename: null })
+      console.log(`[TEXTURE] Wall textures (Walls/ subfolder): ${wallFiles.length}`)
     } catch {
       console.log('[TEXTURE] Folder picker cancelled')
     }
@@ -332,6 +384,23 @@ end`
     : primaryTextureId
   const resolvedTextureFilename = state.selectedTexture ?? null
 
+  // Pre-compute wall geometries for product wall-normal lookup
+  const wallGeometries = useMemo(
+    () => state.room ? computeWallGeometries(state.room.walls) : [],
+    [state.room?.walls],
+  )
+
+  // Orbit target: center of the room footprint (or origin if no room)
+  const roomCenter = useMemo((): [number, number, number] => {
+    if (!state.room || state.room.walls.length === 0) return [0, 0, 0]
+    const geos = wallGeometries.length > 0 ? wallGeometries : computeWallGeometries(state.room.walls)
+    const cx = geos.reduce((s, g) => s + g.start[0], 0) / geos.length
+    const cy = geos.reduce((s, g) => s + g.start[1], 0) / geos.length
+    const h = state.room.parms.H_Walls / 2
+    const center = mozPosToThree(cx, cy, h)
+    return [center.x, center.y, center.z]
+  }, [wallGeometries, state.room?.parms.H_Walls])
+
   return (
     <div className="flex h-screen w-screen bg-[var(--bg-dark)]">
       <UIPanel
@@ -351,6 +420,12 @@ end`
         onLinkJobFolder={linkJobFolder}
         onLinkTextureFolder={linkTextureFolder}
         onSelectTexture={selectTexture}
+        availableFloorTextures={state.availableFloorTextures}
+        selectedFloorTexture={state.selectedFloorTexture}
+        onSelectFloorTexture={(filename: string | null) => dispatch({ type: 'SET_SELECTED_FLOOR_TEXTURE', filename })}
+        availableWallTextures={state.availableWallTextures}
+        selectedWallTexture={state.selectedWallTexture}
+        onSelectWallTexture={(filename: string | null) => dispatch({ type: 'SET_SELECTED_WALL_TEXTURE', filename })}
         onExportDes={exportDes}
         onExportMoz={exportMoz}
         libraryFolder={state.libraryFolder}
@@ -368,19 +443,29 @@ end`
         onRemoveProduct={handleRemoveProduct}
       />
       <div className="flex-1">
-        <Scene>
+        <Scene orbitTarget={roomCenter}>
           <DebugOverlaysComponent overlays={state.overlays} room={state.room} />
 
           {state.overlays.probeScene && <ProbeScene />}
 
+          <CameraClipPlane roomCenter={roomCenter} enabled={state.renderMode === 'solid'} />
+          <FloorPlane />
+
           {state.room && state.room.walls.length > 0 && (
             <>
+              <RoomFloor
+                room={state.room}
+                textureFolder={state.textureFolder}
+                selectedFloorTexture={state.selectedFloorTexture}
+              />
               <RoomWalls
                 room={state.room}
                 doubleSided={state.overlays.doubleSidedWalls}
                 selectedWall={state.selectedWall}
                 onSelectWall={selectWall}
                 renderMode={state.renderMode}
+                textureFolder={state.textureFolder}
+                selectedWallTexture={state.selectedWallTexture}
               />
               <WallOpenings room={state.room} />
             </>

@@ -137,6 +137,122 @@ async function loadTextureByFilename(
   }
 }
 
+// Cache for floor textures (keyed by "floor:filename")
+const floorTextureCache = new Map<string, Texture>()
+
+/**
+ * Load a floor texture from the "Floors" subfolder of the texture folder.
+ */
+export function useFloorTexture(
+  textureFolder: FileSystemDirectoryHandle | null,
+  filename: string | null,
+): Texture | null {
+  const [texture, setTexture] = useState<Texture | null>(null)
+
+  useEffect(() => {
+    if (!textureFolder || !filename) {
+      setTexture(null)
+      return
+    }
+
+    const cacheKey = `floor:${filename}`
+    const cached = floorTextureCache.get(cacheKey)
+    if (cached) {
+      setTexture(cached)
+      return
+    }
+
+    let cancelled = false
+    ;(async () => {
+      try {
+        const floorsFolder = await textureFolder.getDirectoryHandle('Floor')
+        const fileHandle = await floorsFolder.getFileHandle(filename)
+        const file = await fileHandle.getFile()
+        const url = URL.createObjectURL(file)
+
+        const loader = new TextureLoader()
+        const tex = await new Promise<Texture>((resolve, reject) => {
+          loader.load(url, resolve, undefined, reject)
+        })
+
+        tex.colorSpace = SRGBColorSpace
+        tex.wrapS = RepeatWrapping
+        tex.wrapT = RepeatWrapping
+        tex.needsUpdate = true
+
+        floorTextureCache.set(cacheKey, tex)
+        console.log(`[TEXTURE] Loaded floor texture: "${filename}"`)
+        if (!cancelled) setTexture(tex)
+      } catch (e) {
+        console.warn(`[TEXTURE] Failed to load floor texture "${filename}":`, e)
+        if (!cancelled) setTexture(null)
+      }
+    })()
+
+    return () => { cancelled = true }
+  }, [textureFolder, filename])
+
+  return texture
+}
+
+// Cache for wall textures (keyed by "wall:filename")
+const wallTextureCache = new Map<string, Texture>()
+
+/**
+ * Load a wall texture from the "Walls" subfolder of the texture folder.
+ */
+export function useWallTexture(
+  textureFolder: FileSystemDirectoryHandle | null,
+  filename: string | null,
+): Texture | null {
+  const [texture, setTexture] = useState<Texture | null>(null)
+
+  useEffect(() => {
+    if (!textureFolder || !filename) {
+      setTexture(null)
+      return
+    }
+
+    const cacheKey = `wall:${filename}`
+    const cached = wallTextureCache.get(cacheKey)
+    if (cached) {
+      setTexture(cached)
+      return
+    }
+
+    let cancelled = false
+    ;(async () => {
+      try {
+        const wallsFolder = await textureFolder.getDirectoryHandle('Walls')
+        const fileHandle = await wallsFolder.getFileHandle(filename)
+        const file = await fileHandle.getFile()
+        const url = URL.createObjectURL(file)
+
+        const loader = new TextureLoader()
+        const tex = await new Promise<Texture>((resolve, reject) => {
+          loader.load(url, resolve, undefined, reject)
+        })
+
+        tex.colorSpace = SRGBColorSpace
+        tex.wrapS = RepeatWrapping
+        tex.wrapT = RepeatWrapping
+        tex.needsUpdate = true
+
+        wallTextureCache.set(cacheKey, tex)
+        console.log(`[TEXTURE] Loaded wall texture: "${filename}"`)
+        if (!cancelled) setTexture(tex)
+      } catch (e) {
+        console.warn(`[TEXTURE] Failed to load wall texture "${filename}":`, e)
+        if (!cancelled) setTexture(null)
+      }
+    })()
+
+    return () => { cancelled = true }
+  }, [textureFolder, filename])
+
+  return texture
+}
+
 async function loadTextureFromFolder(
   folder: FileSystemDirectoryHandle,
   textureId: number,

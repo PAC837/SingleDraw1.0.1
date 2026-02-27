@@ -15,13 +15,13 @@ function OriginMarker() {
     <group>
       <mesh>
         <sphereGeometry args={[20, 16, 16]} />
-        <meshStandardMaterial color="#ffffff" />
+        <meshStandardMaterial color="#333333" />
       </mesh>
       <Html distanceFactor={3000} style={{ pointerEvents: 'none' }}>
         <div style={{
-          color: '#fff',
+          color: '#333',
           fontSize: '10px',
-          background: 'rgba(0,0,0,0.7)',
+          background: 'rgba(255,255,255,0.85)',
           padding: '1px 4px',
           borderRadius: '2px',
         }}>
@@ -58,8 +58,8 @@ function FloorGrid() {
       args={[20000, 20000]}
       cellSize={500}
       sectionSize={2500}
-      cellColor="#282828"
-      sectionColor="#404040"
+      cellColor="#e0e0e0"
+      sectionColor="#cccccc"
       fadeDistance={25000}
       position={[0, 0, 0]}
     />

@@ -21,6 +21,12 @@ interface UIPanelProps {
   onLinkJobFolder: () => void
   onLinkTextureFolder: () => void
   onSelectTexture: (filename: string | null) => void
+  availableFloorTextures: string[]
+  selectedFloorTexture: string | null
+  onSelectFloorTexture: (filename: string | null) => void
+  availableWallTextures: string[]
+  selectedWallTexture: string | null
+  onSelectWallTexture: (filename: string | null) => void
   onExportDes: () => void
   onExportMoz: (index: number) => void
   libraryFolder: FileSystemDirectoryHandle | null
@@ -47,9 +53,9 @@ function Toggle({
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="accent-[var(--yellow)]"
+        className="accent-[var(--accent)]"
       />
-      <span className={checked ? 'text-white' : 'text-[var(--text-secondary)]'}>
+      <span className={checked ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}>
         {label}
       </span>
     </label>
@@ -72,7 +78,7 @@ function RenderModeSelector({
           onClick={() => onChange(m.value)}
           className={`text-xs px-2 py-1 rounded transition-colors ${
             mode === m.value
-              ? 'bg-[var(--yellow)] text-black font-medium'
+              ? 'bg-[var(--accent)] text-black font-medium'
               : 'bg-gray-800 hover:bg-gray-700'
           }`}
         >
@@ -85,8 +91,8 @@ function RenderModeSelector({
 
 export default function UIPanel({
   room, products, overlays, selectedWall, useInches, renderMode, jobFolder, textureFolder,
-  availableTextures, selectedTexture,
-  onToggleOverlay, onToggleUnits, onSetRenderMode, onLinkJobFolder, onLinkTextureFolder, onSelectTexture, onExportDes, onExportMoz,
+  availableTextures, selectedTexture, availableFloorTextures, selectedFloorTexture, availableWallTextures, selectedWallTexture,
+  onToggleOverlay, onToggleUnits, onSetRenderMode, onLinkJobFolder, onLinkTextureFolder, onSelectTexture, onSelectFloorTexture, onSelectWallTexture, onExportDes, onExportMoz,
   libraryFolder, availableLibraryFiles, onLinkLibraryFolder, onLoadFromLibrary, onGenerateGlbScript,
   sketchUpFolder, onLinkSketchUpFolder, modelsFolder, onLinkModelsFolder,
   onCreateRoom, onPlaceProduct, onUpdateProductDimension, onRemoveProduct,
@@ -99,11 +105,11 @@ export default function UIPanel({
       <div className="p-4 border-b border-gray-800">
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold">
-            Single<span className="text-[var(--yellow)]">Draw</span>
+            Single<span className="text-[var(--accent)]">Draw</span>
           </h1>
           <button
             onClick={onToggleUnits}
-            className="text-xs px-2 py-1 rounded border border-gray-700 hover:bg-gray-800 transition-colors"
+            className="text-xs px-2 py-1 rounded border border-[var(--accent)] hover:bg-gray-800 transition-colors"
           >
             {useInches ? 'in' : 'mm'}
           </button>
@@ -115,21 +121,44 @@ export default function UIPanel({
 
       {/* File Loading */}
       <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
           Files
         </h2>
         <FileLoader />
       </div>
 
+      {/* Job Folder + Export */}
+      <div className="p-4 border-b border-gray-800">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
+          Export
+        </h2>
+        <div className="space-y-2">
+          <button
+            onClick={onLinkJobFolder}
+            className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] hover:bg-gray-700 transition-colors text-left"
+          >
+            {jobFolder ? `Job: ${jobFolder.name}` : 'Link Job Folder...'}
+          </button>
+          {room && jobFolder && (
+            <button
+              onClick={onExportDes}
+              className="w-full text-xs px-3 py-2 bg-[var(--accent)] text-black font-medium rounded hover:opacity-90 transition-opacity"
+            >
+              Export DES to Job
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Libraries */}
       <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
           Libraries
         </h2>
         <div className="space-y-2">
           <button
             onClick={onLinkLibraryFolder}
-            className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
+            className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] hover:bg-gray-700 transition-colors text-left"
           >
             {libraryFolder ? `Library: ${libraryFolder.name}` : 'Link Library Folder...'}
           </button>
@@ -137,7 +166,7 @@ export default function UIPanel({
             <select
               value=""
               onChange={(e) => { if (e.target.value) onLoadFromLibrary(e.target.value) }}
-              className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-gray-700 text-white"
+              className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
             >
               <option value="">Select a product...</option>
               {availableLibraryFiles.map((f) => (
@@ -150,26 +179,26 @@ export default function UIPanel({
 
       {/* 3D Models */}
       <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
           3D Models
         </h2>
         <div className="space-y-2">
           <button
             onClick={onLinkSketchUpFolder}
-            className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
+            className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] hover:bg-gray-700 transition-colors text-left"
           >
             {sketchUpFolder ? `SketchUp: ${sketchUpFolder.name}` : 'Link SketchUp Folder...'}
           </button>
           <button
             onClick={onLinkModelsFolder}
-            className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
+            className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] hover:bg-gray-700 transition-colors text-left"
           >
             {modelsFolder ? `GLB: ${modelsFolder.name}` : 'Link GLB Folder...'}
           </button>
           {sketchUpFolder && (
             <button
               onClick={onGenerateGlbScript}
-              className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
+              className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] hover:bg-gray-700 transition-colors text-left"
             >
               Generate SKP → GLB Script
             </button>
@@ -199,59 +228,77 @@ export default function UIPanel({
         </div>
       )}
 
-      {/* Job Folder + Export */}
-      <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
-          Export
-        </h2>
-        <div className="space-y-2">
-          <button
-            onClick={onLinkJobFolder}
-            className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
-          >
-            {jobFolder ? `Job: ${jobFolder.name}` : 'Link Job Folder...'}
-          </button>
-          {room && jobFolder && (
-            <button
-              onClick={onExportDes}
-              className="w-full text-xs px-3 py-2 bg-[var(--yellow)] text-black font-medium rounded hover:opacity-90 transition-opacity"
-            >
-              Export DES to Job
-            </button>
-          )}
-        </div>
-      </div>
-
       {/* Textures */}
       <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
           Textures
         </h2>
         <div className="space-y-2">
           <button
             onClick={onLinkTextureFolder}
-            className="w-full text-xs px-3 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors text-left"
+            className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] hover:bg-gray-700 transition-colors text-left"
           >
             {textureFolder ? `Textures: ${textureFolder.name}` : 'Link Textures Folder...'}
           </button>
           {textureFolder && availableTextures.length > 0 && (
-            <select
-              value={selectedTexture ?? ''}
-              onChange={(e) => onSelectTexture(e.target.value || null)}
-              className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-gray-700 text-white"
-            >
-              <option value="">Auto (from DES)</option>
-              {availableTextures.map((f) => (
-                <option key={f} value={f}>{f.replace(/\.\w+$/, '')}</option>
-              ))}
-            </select>
+            <>
+              <label className="text-xs text-gray-400">Product</label>
+              <select
+                value={selectedTexture ?? ''}
+                onChange={(e) => onSelectTexture(e.target.value || null)}
+                className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
+              >
+                <option value="">Auto (from DES)</option>
+                {availableTextures.map((f) => (
+                  <option key={f} value={f}>{f.replace(/\.\w+$/, '')}</option>
+                ))}
+              </select>
+            </>
+          )}
+          {textureFolder && (
+            <>
+              <label className="text-xs text-gray-400">Wall</label>
+              {availableWallTextures.length > 0 ? (
+                <select
+                  value={selectedWallTexture ?? ''}
+                  onChange={(e) => onSelectWallTexture(e.target.value || null)}
+                  className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
+                >
+                  <option value="">No wall texture</option>
+                  {availableWallTextures.map((f) => (
+                    <option key={f} value={f}>{f.replace(/\.\w+$/, '')}</option>
+                  ))}
+                </select>
+              ) : (
+                <p className="text-xs text-gray-600 italic">No Walls/ subfolder</p>
+              )}
+            </>
+          )}
+          {textureFolder && (
+            <>
+              <label className="text-xs text-gray-400">Floor</label>
+              {availableFloorTextures.length > 0 ? (
+                <select
+                  value={selectedFloorTexture ?? ''}
+                  onChange={(e) => onSelectFloorTexture(e.target.value || null)}
+                  className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
+                >
+                  <option value="">No floor texture</option>
+                  {availableFloorTextures.map((f) => (
+                    <option key={f} value={f}>{f.replace(/\.\w+$/, '')}</option>
+                  ))}
+                </select>
+              ) : (
+                <p className="text-xs text-gray-600 italic">No Floors/ subfolder</p>
+              )}
+            </>
           )}
         </div>
       </div>
 
       {/* Render Mode + Debug Overlays */}
       <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
           Render
         </h2>
         <div className="mb-3">
@@ -271,7 +318,7 @@ export default function UIPanel({
       {/* Room Info */}
       {room && (
         <div className="p-4 border-b border-gray-800">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
             Room
           </h2>
           <div className="text-sm space-y-1">
@@ -283,9 +330,9 @@ export default function UIPanel({
             <p><span className="text-[var(--text-secondary)]">Wall Thickness:</span> {fmt(room.parms.WallThickness)}</p>
             {selectedWall !== null && (() => {
               const wall = room.walls.find(w => w.wallNumber === selectedWall)
-              if (!wall) return <p className="text-[var(--yellow)]">Selected: Wall {selectedWall}</p>
+              if (!wall) return <p className="text-[var(--accent)]">Selected: Wall {selectedWall}</p>
               return (
-                <div className="mt-2 pt-2 border-t border-gray-700 text-[var(--yellow)]">
+                <div className="mt-2 pt-2 border-t border-gray-800 text-[var(--accent)]">
                   <p className="font-medium">Wall {selectedWall}</p>
                   <p><span className="text-[var(--text-secondary)]">Length:</span> {fmt(wall.len)}</p>
                   <p><span className="text-[var(--text-secondary)]">Height:</span> {fmt(wall.height)}</p>
@@ -301,7 +348,7 @@ export default function UIPanel({
       {/* Products */}
       {products.length > 0 && (
         <div className="p-4 border-b border-gray-800">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
             Products ({products.length})
           </h2>
           <div className="space-y-2">
@@ -329,7 +376,7 @@ export default function UIPanel({
       {/* Room products */}
       {room && room.products.length > 0 && (
         <div className="p-4">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-3">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
             Room Products ({room.products.length})
           </h2>
           <div className="space-y-2">

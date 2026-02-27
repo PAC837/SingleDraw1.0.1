@@ -148,6 +148,7 @@ function parseProduct(el: Element): MozProduct {
     wall: getAttrStr(el, 'Wall', '0'),
     parts,
     rawAttributes: getAllAttrs(el),
+    rawInnerXml: '',  // DES-loaded products use rawText passthrough
   }
 }
 
