@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react'
-import type { AppState, RenderMode, MozRoom, MozFile, MozProduct, DebugOverlays } from './mozaik/types'
+import type { AppState, RenderMode, MozRoom, MozFile, MozProduct, MozWall, DebugOverlays, DragTarget } from './mozaik/types'
+import { updateWallLength, updateWallHeight, moveJoint, splitWallAtCenter, rebuildJoints } from './math/wallEditor'
 
 const defaultOverlays: DebugOverlays = {
   originMarker: true,
@@ -16,6 +17,8 @@ const initialState: AppState = {
   standaloneProducts: [],
   overlays: defaultOverlays,
   selectedWall: null,
+  wallEditorActive: false,
+  dragTarget: null,
   useInches: false,
   renderMode: 'ghosted',
   jobFolder: null,
@@ -57,6 +60,11 @@ type Action =
   | { type: 'SET_AVAILABLE_LIBRARY_FILES'; filenames: string[] }
   | { type: 'SET_SKETCHUP_FOLDER'; folder: FileSystemDirectoryHandle }
   | { type: 'SET_MODELS_FOLDER'; folder: FileSystemDirectoryHandle }
+  | { type: 'TOGGLE_WALL_EDITOR' }
+  | { type: 'SET_DRAG_TARGET'; target: DragTarget | null }
+  | { type: 'UPDATE_WALL'; wallNumber: number; fields: Partial<Pick<MozWall, 'len' | 'height' | 'posX' | 'posY' | 'ang'>> }
+  | { type: 'SPLIT_WALL'; wallNumber: number }
+  | { type: 'MOVE_JOINT'; jointIndex: number; newX: number; newY: number }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -131,6 +139,57 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, sketchUpFolder: action.folder }
     case 'SET_MODELS_FOLDER':
       return { ...state, modelsFolder: action.folder }
+    case 'TOGGLE_WALL_EDITOR':
+      return { ...state, wallEditorActive: !state.wallEditorActive, selectedWall: null, dragTarget: null }
+    case 'SET_DRAG_TARGET':
+      return { ...state, dragTarget: action.target }
+    case 'UPDATE_WALL': {
+      if (!state.room) return state
+      let newWalls = state.room.walls
+      if (action.fields.len !== undefined) {
+        newWalls = updateWallLength(newWalls, action.wallNumber, action.fields.len)
+      }
+      if (action.fields.height !== undefined) {
+        newWalls = updateWallHeight(newWalls, action.wallNumber, action.fields.height)
+      }
+      // Direct field updates (posX, posY, ang) — apply to the specific wall
+      const directFields: Partial<Pick<MozWall, 'posX' | 'posY' | 'ang'>> = {}
+      if (action.fields.posX !== undefined) directFields.posX = action.fields.posX
+      if (action.fields.posY !== undefined) directFields.posY = action.fields.posY
+      if (action.fields.ang !== undefined) directFields.ang = action.fields.ang
+      if (Object.keys(directFields).length > 0) {
+        newWalls = newWalls.map(w =>
+          w.wallNumber === action.wallNumber ? { ...w, ...directFields } : w
+        )
+      }
+      const newJoints = rebuildJoints(newWalls)
+      return {
+        ...state,
+        room: { ...state.room, walls: newWalls, wallJoints: newJoints, rawText: '' },
+      }
+    }
+    case 'SPLIT_WALL': {
+      if (!state.room) return state
+      const result = splitWallAtCenter(
+        state.room.walls, state.room.wallJoints, state.room.products, action.wallNumber,
+      )
+      return {
+        ...state,
+        room: { ...state.room, walls: result.walls, wallJoints: result.joints, products: result.products, rawText: '' },
+        selectedWall: null,
+      }
+    }
+    case 'MOVE_JOINT': {
+      if (!state.room) return state
+      const movedWalls = moveJoint(
+        state.room.walls, state.room.wallJoints, action.jointIndex, action.newX, action.newY,
+      )
+      const movedJoints = rebuildJoints(movedWalls)
+      return {
+        ...state,
+        room: { ...state.room, walls: movedWalls, wallJoints: movedJoints, rawText: '' },
+      }
+    }
     default:
       return state
   }

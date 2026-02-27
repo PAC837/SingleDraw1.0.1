@@ -164,12 +164,19 @@ export interface DebugOverlays {
 /** Render mode for 3D materials. */
 export type RenderMode = 'ghosted' | 'solid' | 'wireframe'
 
+/** Drag target for wall editor interactions. */
+export type DragTarget =
+  | { type: 'joint'; jointIndex: number }
+  | { type: 'endpoint'; wallNumber: number; corner: 0 | 1 }
+
 /** Top-level application state. */
 export interface AppState {
   room: MozRoom | null
   standaloneProducts: MozFile[]
   overlays: DebugOverlays
   selectedWall: number | null
+  wallEditorActive: boolean
+  dragTarget: DragTarget | null
   useInches: boolean
   renderMode: RenderMode
   jobFolder: FileSystemDirectoryHandle | null

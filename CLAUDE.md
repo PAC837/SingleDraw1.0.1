@@ -72,6 +72,30 @@ If a needed file is missing: **stop and ask the user**. Specify exactly what is 
 - World offset = `trimStart + product.x` along wall tangent, plus `wallThickness/2 + productDepth` along inward normal
 - Products auto-place left-to-right, cannot overlap bounding boxes, cannot extend past wall edges
 
+## Wall Editor & Plan View
+
+**Wall editor files:**
+- `src/math/wallEditor.ts` — wall split, length/height update, joint rebuild logic
+- `src/render/PlanViewOverlay.tsx` — dimension labels + draggable joint handles (R3F overlay)
+- `src/render/WallEditorPanel.tsx` — floating panel for wall length/height inputs
+- `src/render/WallEditorButton.tsx` — toolbar toggle button
+
+**Joint rules:**
+- All wall joints use `miterBack: true` — this tells Mozaik to miter corners properly
+- `rebuildJoints()` regenerates the joint array whenever walls change (split, move, resize)
+- Joint connects `wall[i].end → wall[i+1].start` in ring order
+
+**Plan view camera (OrthoCamera in Scene.tsx):**
+- Orthographic camera looking straight down (Y-up → camera.up = (0,0,-1))
+- OrbitControls with `enableRotate=false` for pan/zoom only
+- Settle frames enforce camera position for first few frames after mount/target change
+- **Do NOT add polar angle props to OrbitControls** — breaks the 3D view
+- Cleanup restores perspective camera centered on room via `targetRef`
+
+**Unit display:**
+- `formatDim()` in `src/math/units.ts` — fractional inches (nearest 1/16) or mm
+- `mmToInches()` / `inchesToMm()` for input field conversion in WallEditorPanel
+
 ## Key Invariants
 
 - **Round-trip fidelity**: import → export → re-import must yield identical values (epsilon = 0 unless Mozaik quantizes, only relax if proven).

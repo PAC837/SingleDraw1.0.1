@@ -259,36 +259,48 @@ export function computeRoomPolygons(
 export function computeWallMiterExtensions(
   walls: MozWall[],
   joints: MozWallJoint[],
-): Map<number, { startExt: number; endExt: number }> {
+): Map<number, { startExt: number; endExt: number; innerStartExt: number; innerEndExt: number }> {
   const geos = computeWallGeometries(walls)
-  const { outer } = computeRoomPolygons(walls)
+  const { inner, outer } = computeRoomPolygons(walls)
   const trims = computeWallTrims(walls, joints)
-  const result = new Map<number, { startExt: number; endExt: number }>()
+  const result = new Map<number, { startExt: number; endExt: number; innerStartExt: number; innerEndExt: number }>()
 
   for (let i = 0; i < geos.length; i++) {
     const g = geos[i]
     const nextI = (i + 1) % geos.length
     const trim = trims.get(g.wallNumber) ?? { trimStart: 0, trimEnd: 0 }
 
-    // Box outer edge start point (in world coords)
+    const endDist = g.end[0] === g.start[0] && g.end[1] === g.start[1]
+      ? 0 : Math.sqrt((g.end[0] - g.start[0]) ** 2 + (g.end[1] - g.start[1]) ** 2)
+
+    // --- Outer face extensions (convex / outside corners) ---
     const boxOuterStartX = g.start[0] + trim.trimStart * g.tangent[0] - (g.thickness / 2) * g.normal[0]
     const boxOuterStartY = g.start[1] + trim.trimStart * g.tangent[1] - (g.thickness / 2) * g.normal[1]
-
-    // Distance from outer miter point to box outer start, projected along tangent
     const startExt = (boxOuterStartX - outer[i][0]) * g.tangent[0]
                    + (boxOuterStartY - outer[i][1]) * g.tangent[1]
 
-    // Box outer edge end point
-    const endDist = g.end[0] === g.start[0] && g.end[1] === g.start[1]
-      ? 0 : Math.sqrt((g.end[0] - g.start[0]) ** 2 + (g.end[1] - g.start[1]) ** 2)
     const boxOuterEndX = g.start[0] + (endDist - trim.trimEnd) * g.tangent[0] - (g.thickness / 2) * g.normal[0]
     const boxOuterEndY = g.start[1] + (endDist - trim.trimEnd) * g.tangent[1] - (g.thickness / 2) * g.normal[1]
-
-    // Distance from box outer end to outer miter point, projected along tangent
     const endExt = (outer[nextI][0] - boxOuterEndX) * g.tangent[0]
                  + (outer[nextI][1] - boxOuterEndY) * g.tangent[1]
 
-    result.set(g.wallNumber, { startExt: Math.max(0, startExt), endExt: Math.max(0, endExt) })
+    // --- Inner face extensions (concave / inside corners) ---
+    const boxInnerStartX = g.start[0] + trim.trimStart * g.tangent[0] + (g.thickness / 2) * g.normal[0]
+    const boxInnerStartY = g.start[1] + trim.trimStart * g.tangent[1] + (g.thickness / 2) * g.normal[1]
+    const innerStartExt = (boxInnerStartX - inner[i][0]) * g.tangent[0]
+                        + (boxInnerStartY - inner[i][1]) * g.tangent[1]
+
+    const boxInnerEndX = g.start[0] + (endDist - trim.trimEnd) * g.tangent[0] + (g.thickness / 2) * g.normal[0]
+    const boxInnerEndY = g.start[1] + (endDist - trim.trimEnd) * g.tangent[1] + (g.thickness / 2) * g.normal[1]
+    const innerEndExt = (inner[nextI][0] - boxInnerEndX) * g.tangent[0]
+                      + (inner[nextI][1] - boxInnerEndY) * g.tangent[1]
+
+    result.set(g.wallNumber, {
+      startExt: Math.max(0, startExt),
+      endExt: Math.max(0, endExt),
+      innerStartExt: Math.max(0, innerStartExt),
+      innerEndExt: Math.max(0, innerEndExt),
+    })
   }
 
   return result

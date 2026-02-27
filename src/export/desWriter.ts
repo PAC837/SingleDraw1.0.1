@@ -17,9 +17,10 @@ function esc(value: string | number | boolean): string {
   return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
-/** Format a number for DES output — avoid trailing zeros but keep precision. */
+/** Format a number for DES output — max 4 decimal places, strip trailing zeros. */
 function num(n: number): string {
-  return String(n)
+  if (Number.isInteger(n)) return String(n)
+  return parseFloat(n.toFixed(4)).toString()
 }
 
 /** Mozaik uses PascalCase booleans: "True" / "False". */
@@ -27,8 +28,43 @@ function bool(b: boolean): string {
   return b ? 'True' : 'False'
 }
 
+/** Renumber walls sequentially (1, 2, 3...) and update all references. */
+function renumberForExport(room: MozRoom): MozRoom {
+  const wallMap = new Map<number, number>()
+  room.walls.forEach((w, i) => wallMap.set(w.wallNumber, i + 1))
+
+  const walls = room.walls.map((w, i) => ({
+    ...w,
+    wallNumber: i + 1,
+    idTag: i + 1,
+  }))
+
+  const wallJoints = room.wallJoints.map(j => ({
+    ...j,
+    wall1: wallMap.get(j.wall1) ?? j.wall1,
+    wall2: wallMap.get(j.wall2) ?? j.wall2,
+  }))
+
+  const products = room.products.map(p => {
+    if (!p.wall || p.wall === '0') return p
+    const [wn, ...rest] = p.wall.split('_')
+    const oldNum = parseInt(wn, 10)
+    const newNum = wallMap.get(oldNum)
+    if (newNum == null) return p
+    return { ...p, wall: [String(newNum), ...rest].join('_') }
+  })
+
+  const fixtures = room.fixtures.map(f => ({
+    ...f,
+    wall: wallMap.get(f.wall) ?? f.wall,
+  }))
+
+  return { ...room, walls, wallJoints, products, fixtures }
+}
+
 /** Generate complete DES file content from a MozRoom. */
-function generateDesXml(room: MozRoom): string {
+function generateDesXml(inputRoom: MozRoom): string {
+  const room = renumberForExport(inputRoom)
   const lines: string[] = []
 
   // DES files start with a version number line before the XML
@@ -37,7 +73,7 @@ function generateDesXml(room: MozRoom): string {
 
   // <Room> root element
   const idTagCount = Math.max(
-    room.walls.length,
+    ...room.walls.map(w => w.idTag),
     ...room.products.map(p => p.idTag),
     ...room.fixtures.map(f => f.idTag),
     4,
@@ -103,7 +139,11 @@ function generateDesXml(room: MozRoom): string {
   lines.push('  <ToeSkins />')
   lines.push('  <Notes />')
   lines.push('  <RenderSettings Version="1" AmbientLight="0" DirectionalLight="0.5" EnvironmentLight="0.5" Exposure="1" TonemappingAmount="1" AutoExpose="True" EnvHdriFile="DefaultHDRI.hdr" EnvHdriExposure="1" EnvHdriSpecScale="1" EnvHdriSphereScale="1" EnvHdriYaw="0" AlwaysFillSkpModels="False" LineWidth="2" LineOpacity="1" AoIntensity="0.7" AoRadius="2" AoCurve="-0.5" />')
-  lines.push('  <Annotations Version="1" />')
+  lines.push('  <Annotations Version="1">')
+  lines.push('    <AnnotationSet>')
+  lines.push('      <AnnotationLocator IsFP="True" ElevationWallId="-1" ProductSpaceType="-1" RoomMode="0" />')
+  lines.push('    </AnnotationSet>')
+  lines.push('  </Annotations>')
   lines.push('  <RoomNotes />')
   lines.push('</Room>')
 

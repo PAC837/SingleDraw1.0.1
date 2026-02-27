@@ -18,27 +18,28 @@ interface RoomWallsProps {
   selectedWallTexture: string | null
 }
 
-/** Create a trapezoidal prism for a mitered wall. Inner face stays at renderLen, outer face extends. */
+/** Create a trapezoidal prism for a mitered wall. Both inner and outer faces extend at corners. */
 function createMiteredWallGeo(
   renderLen: number, height: number, thickness: number,
   startExt: number, endExt: number,
+  innerStartExt: number, innerEndExt: number,
 ): BufferGeometry {
   const rl2 = renderLen / 2
   const h2 = height / 2
   const t2 = thickness / 2
 
   // 8 corners in local space (x=along wall, y=height, z=across wall)
-  // Inner face (z=+t2): stays at renderLen (unchanged)
-  // Outer face (z=-t2): extends by startExt/endExt at each end
+  // Inner face (z=+t2): extends at concave (inside) corners
+  // Outer face (z=-t2): extends at convex (outside) corners
   const v: [number, number, number][] = [
-    [-rl2,            -h2, t2],   // 0: inner start bottom
-    [ rl2,            -h2, t2],   // 1: inner end bottom
-    [ rl2,             h2, t2],   // 2: inner end top
-    [-rl2,             h2, t2],   // 3: inner start top
-    [-rl2 - startExt, -h2, -t2],  // 4: outer start bottom
-    [ rl2 + endExt,   -h2, -t2],  // 5: outer end bottom
-    [ rl2 + endExt,    h2, -t2],  // 6: outer end top
-    [-rl2 - startExt,  h2, -t2],  // 7: outer start top
+    [-rl2 - innerStartExt, -h2, t2],   // 0: inner start bottom
+    [ rl2 + innerEndExt,   -h2, t2],   // 1: inner end bottom
+    [ rl2 + innerEndExt,    h2, t2],   // 2: inner end top
+    [-rl2 - innerStartExt,  h2, t2],   // 3: inner start top
+    [-rl2 - startExt,      -h2, -t2],  // 4: outer start bottom
+    [ rl2 + endExt,        -h2, -t2],  // 5: outer end bottom
+    [ rl2 + endExt,         h2, -t2],  // 6: outer end top
+    [-rl2 - startExt,       h2, -t2],  // 7: outer start top
   ]
 
   // 12 triangles (6 quad faces), non-indexed so each face gets flat normals
@@ -78,7 +79,7 @@ function createMiteredWallGeo(
 
 function WallMesh({
   renderLen, height, thickness, pos, rotY, color, opacity, doubleSided, renderMode,
-  isSelected, onSelect, wallTexture, startExt, endExt,
+  isSelected, onSelect, wallTexture, startExt, endExt, innerStartExt, innerEndExt,
 }: {
   renderLen: number; height: number; thickness: number
   pos: Vector3; rotY: number
@@ -88,6 +89,7 @@ function WallMesh({
   onSelect: () => void
   wallTexture: Texture | null
   startExt: number; endExt: number
+  innerStartExt: number; innerEndExt: number
 }) {
 
   // Tile the wall texture to repeat every ~1000mm (based on inner face = renderLen)
@@ -102,17 +104,17 @@ function WallMesh({
   }, [wallTexture, renderLen, height])
 
   const wallGeo = useMemo(
-    () => createMiteredWallGeo(renderLen, height, thickness, startExt, endExt),
-    [renderLen, height, thickness, startExt, endExt],
+    () => createMiteredWallGeo(renderLen, height, thickness, startExt, endExt, innerStartExt, innerEndExt),
+    [renderLen, height, thickness, startExt, endExt, innerStartExt, innerEndExt],
   )
 
   // Mitered glow halo edges for selected walls (slightly oversized)
   const glowEdgesGeo = useMemo(() => {
-    const glow = createMiteredWallGeo(renderLen + 20, height + 10, thickness + 20, startExt + 10, endExt + 10)
+    const glow = createMiteredWallGeo(renderLen + 20, height + 10, thickness + 20, startExt + 10, endExt + 10, innerStartExt + 10, innerEndExt + 10)
     const edges = new EdgesGeometry(glow)
     glow.dispose()
     return edges
-  }, [renderLen, height, thickness, startExt, endExt])
+  }, [renderLen, height, thickness, startExt, endExt, innerStartExt, innerEndExt])
 
   const side = doubleSided ? DoubleSide : FrontSide
 
@@ -196,7 +198,7 @@ export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWal
       {geometries.map((g) => {
         const wall = room.walls.find((w) => w.wallNumber === g.wallNumber)!
         const trim = trims.get(g.wallNumber) ?? { trimStart: 0, trimEnd: 0 }
-        const miter = miters.get(g.wallNumber) ?? { startExt: 0, endExt: 0 }
+        const miter = miters.get(g.wallNumber) ?? { startExt: 0, endExt: 0, innerStartExt: 0, innerEndExt: 0 }
 
         const renderLen = wall.len - trim.trimStart - trim.trimEnd
         const shiftAlongWall = (trim.trimStart - trim.trimEnd) / 2
@@ -225,6 +227,8 @@ export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWal
             wallTexture={wallTex}
             startExt={miter.startExt}
             endExt={miter.endExt}
+            innerStartExt={miter.innerStartExt}
+            innerEndExt={miter.innerEndExt}
           />
         )
       })}

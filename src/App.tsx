@@ -11,6 +11,9 @@ import ProbeScene from './render/ProbeScene'
 import FloorPlane from './render/FloorPlane'
 import RoomFloor from './render/RoomFloor'
 import CameraClipPlane from './render/CameraClipPlane'
+import WallEditorButton from './render/WallEditorButton'
+import WallEditorPanel from './render/WallEditorPanel'
+import PlanViewOverlay from './render/PlanViewOverlay'
 import { parseMoz } from './mozaik/mozParser'
 import { createRectangularRoom } from './mozaik/roomFactory'
 import { findNextAvailableX, placeProductOnWall, usableWallLength } from './mozaik/wallPlacement'
@@ -401,7 +404,7 @@ end`
     const h = state.room.parms.H_Walls / 2
     const center = mozPosToThree(cx, cy, h)
     return [center.x, center.y, center.z]
-  }, [wallGeometries, state.room?.parms.H_Walls])
+  }, [wallGeometries, state.room?.parms.H_Walls, state.room?.walls])
 
   return (
     <div className="flex h-screen w-screen bg-[var(--bg-dark)]">
@@ -445,7 +448,7 @@ end`
         onRemoveProduct={handleRemoveProduct}
       />
       <div className="flex-1 relative">
-        <Scene orbitTarget={roomCenter}>
+        <Scene orbitTarget={roomCenter} orthographic={state.wallEditorActive}>
           <DebugOverlaysComponent overlays={state.overlays} room={state.room} />
 
           {state.overlays.probeScene && <ProbeScene />}
@@ -470,6 +473,15 @@ end`
                 selectedWallTexture={state.selectedWallTexture}
               />
               <WallOpenings room={state.room} />
+              {state.wallEditorActive && (
+                <PlanViewOverlay
+                  room={state.room}
+                  useInches={state.useInches}
+                  dragTarget={state.dragTarget}
+                  onSetDragTarget={(target) => dispatch({ type: 'SET_DRAG_TARGET', target })}
+                  onMoveJoint={(jointIndex, newX, newY) => dispatch({ type: 'MOVE_JOINT', jointIndex, newX, newY })}
+                />
+              )}
             </>
           )}
 
@@ -507,6 +519,26 @@ end`
             />
           ))}
         </Scene>
+
+        <WallEditorButton
+          active={state.wallEditorActive}
+          disabled={!state.room}
+          onToggle={() => dispatch({ type: 'TOGGLE_WALL_EDITOR' })}
+        />
+
+        {state.wallEditorActive && state.selectedWall !== null && state.room && (() => {
+          const wall = state.room.walls.find(w => w.wallNumber === state.selectedWall)
+          if (!wall) return null
+          return (
+            <WallEditorPanel
+              wall={wall}
+              useInches={state.useInches}
+              onUpdateLength={(len) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { len } })}
+              onUpdateHeight={(height) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { height } })}
+              onSplitWall={() => dispatch({ type: 'SPLIT_WALL', wallNumber: wall.wallNumber })}
+            />
+          )
+        })()}
 
         {missingModels.length > 0 && (
           <div className="absolute bottom-2 left-2 right-2 bg-yellow-900/80 text-yellow-200 text-xs p-2 rounded max-h-24 overflow-y-auto font-mono">
