@@ -38,38 +38,29 @@ async function scanTextureFolder(folder: FileSystemDirectoryHandle): Promise<str
   return files.sort()
 }
 
-/** Scan a texture folder's "Floors" subfolder for floor texture images. */
-async function scanFloorTextures(folder: FileSystemDirectoryHandle): Promise<string[]> {
-  let floorsFolder: FileSystemDirectoryHandle
+/** Scan a named subfolder for type subfolders containing texture images. */
+async function scanSubfolderTextures(
+  folder: FileSystemDirectoryHandle, subfolderName: string,
+): Promise<Record<string, string[]>> {
+  let subFolder: FileSystemDirectoryHandle
   try {
-    floorsFolder = await folder.getDirectoryHandle('Floor')
+    subFolder = await folder.getDirectoryHandle(subfolderName)
   } catch {
-    return []
+    return {}
   }
-  const files: string[] = []
-  for await (const entry of floorsFolder.values()) {
-    if (entry.kind === 'file' && /\.(jpg|jpeg|png)$/i.test(entry.name)) {
-      files.push(entry.name)
-    }
+  const result: Record<string, string[]> = {}
+  for await (const entry of subFolder.values()) {
+    if (entry.kind !== 'directory') continue
+    try {
+      const typeDir = await subFolder.getDirectoryHandle(entry.name)
+      const files: string[] = []
+      for await (const file of typeDir.values()) {
+        if (file.kind === 'file' && /\.(jpg|jpeg|png)$/i.test(file.name)) files.push(file.name)
+      }
+      if (files.length > 0) result[entry.name] = files.sort()
+    } catch { /* skip inaccessible subfolder */ }
   }
-  return files.sort()
-}
-
-/** Scan a texture folder's "Walls" subfolder for wall texture images. */
-async function scanWallTextures(folder: FileSystemDirectoryHandle): Promise<string[]> {
-  let wallsFolder: FileSystemDirectoryHandle
-  try {
-    wallsFolder = await folder.getDirectoryHandle('Walls')
-  } catch {
-    return []
-  }
-  const files: string[] = []
-  for await (const entry of wallsFolder.values()) {
-    if (entry.kind === 'file' && /\.(jpg|jpeg|png)$/i.test(entry.name)) {
-      files.push(entry.name)
-    }
-  }
-  return files.sort()
+  return result
 }
 
 /** Scan a library folder for .moz product files. Checks Products/ subfolder first. */
@@ -105,12 +96,21 @@ function AppInner() {
         const filenames = await scanTextureFolder(folder)
         dispatch({ type: 'SET_AVAILABLE_TEXTURES', filenames })
         console.log(`[TEXTURE] Scanned ${filenames.length} textures`)
-        const floorFiles = await scanFloorTextures(folder)
-        dispatch({ type: 'SET_AVAILABLE_FLOOR_TEXTURES', filenames: floorFiles })
-        console.log(`[TEXTURE] Floor textures (Floors/ subfolder): ${floorFiles.length}`)
-        const wallFiles = await scanWallTextures(folder)
-        dispatch({ type: 'SET_AVAILABLE_WALL_TEXTURES', filenames: wallFiles })
-        console.log(`[TEXTURE] Wall textures (Walls/ subfolder): ${wallFiles.length}`)
+        try {
+          const floorTextures = await scanSubfolderTextures(folder, 'SingleDraw_Floor')
+          dispatch({ type: 'SET_SINGLEDRAW_FLOOR_TEXTURES', textures: floorTextures })
+          console.log(`[TEXTURE] Floor types: ${Object.keys(floorTextures).length}`)
+        } catch (e) { console.warn('[TEXTURE] Floor scan failed:', e) }
+        try {
+          const wallTextures = await scanSubfolderTextures(folder, 'SingleDraw_Walls')
+          dispatch({ type: 'SET_SINGLEDRAW_WALL_TEXTURES', textures: wallTextures })
+          console.log(`[TEXTURE] Wall types: ${Object.keys(wallTextures).length}`)
+        } catch (e) { console.warn('[TEXTURE] Wall scan failed:', e) }
+        try {
+          const sdTextures = await scanSubfolderTextures(folder, 'SingleDraw_Textures')
+          dispatch({ type: 'SET_SINGLEDRAW_TEXTURES', textures: sdTextures })
+          console.log(`[TEXTURE] SingleDraw brands: ${Object.keys(sdTextures).length}`)
+        } catch (e) { console.warn('[TEXTURE] SingleDraw scan failed:', e) }
       }
     })
     loadFolderHandle('jobFolder').then((folder) => {
@@ -190,14 +190,24 @@ function AppInner() {
       dispatch({ type: 'SET_AVAILABLE_TEXTURES', filenames })
       dispatch({ type: 'SET_SELECTED_TEXTURE', filename: null })
       console.log(`[TEXTURE] Scanned ${filenames.length} textures`)
-      const floorFiles = await scanFloorTextures(folder)
-      dispatch({ type: 'SET_AVAILABLE_FLOOR_TEXTURES', filenames: floorFiles })
-      dispatch({ type: 'SET_SELECTED_FLOOR_TEXTURE', filename: null })
-      console.log(`[TEXTURE] Floor textures (Floors/ subfolder): ${floorFiles.length}`)
-      const wallFiles = await scanWallTextures(folder)
-      dispatch({ type: 'SET_AVAILABLE_WALL_TEXTURES', filenames: wallFiles })
-      dispatch({ type: 'SET_SELECTED_WALL_TEXTURE', filename: null })
-      console.log(`[TEXTURE] Wall textures (Walls/ subfolder): ${wallFiles.length}`)
+      try {
+        const floorTextures = await scanSubfolderTextures(folder, 'SingleDraw_Floor')
+        dispatch({ type: 'SET_SINGLEDRAW_FLOOR_TEXTURES', textures: floorTextures })
+        dispatch({ type: 'SET_FLOOR_TYPE', floorType: null })
+        console.log(`[TEXTURE] Floor types: ${Object.keys(floorTextures).length}`)
+      } catch (e) { console.warn('[TEXTURE] Floor scan failed:', e) }
+      try {
+        const wallTextures = await scanSubfolderTextures(folder, 'SingleDraw_Walls')
+        dispatch({ type: 'SET_SINGLEDRAW_WALL_TEXTURES', textures: wallTextures })
+        dispatch({ type: 'SET_WALL_TYPE', wallType: null })
+        console.log(`[TEXTURE] Wall types: ${Object.keys(wallTextures).length}`)
+      } catch (e) { console.warn('[TEXTURE] Wall scan failed:', e) }
+      try {
+        const sdTextures = await scanSubfolderTextures(folder, 'SingleDraw_Textures')
+        dispatch({ type: 'SET_SINGLEDRAW_TEXTURES', textures: sdTextures })
+        dispatch({ type: 'SET_SINGLEDRAW_BRAND', brand: null })
+        console.log(`[TEXTURE] SingleDraw brands: ${Object.keys(sdTextures).length}`)
+      } catch (e) { console.warn('[TEXTURE] SingleDraw scan failed:', e) }
     } catch {
       console.log('[TEXTURE] Folder picker cancelled')
     }
@@ -426,12 +436,21 @@ end`
         onLinkJobFolder={linkJobFolder}
         onLinkTextureFolder={linkTextureFolder}
         onSelectTexture={selectTexture}
-        availableFloorTextures={state.availableFloorTextures}
+        singleDrawFloorTextures={state.singleDrawFloorTextures}
+        selectedFloorType={state.selectedFloorType}
         selectedFloorTexture={state.selectedFloorTexture}
+        onSetFloorType={(floorType: string | null) => dispatch({ type: 'SET_FLOOR_TYPE', floorType })}
         onSelectFloorTexture={(filename: string | null) => dispatch({ type: 'SET_SELECTED_FLOOR_TEXTURE', filename })}
-        availableWallTextures={state.availableWallTextures}
+        singleDrawWallTextures={state.singleDrawWallTextures}
+        selectedWallType={state.selectedWallType}
         selectedWallTexture={state.selectedWallTexture}
+        onSetWallType={(wallType: string | null) => dispatch({ type: 'SET_WALL_TYPE', wallType })}
         onSelectWallTexture={(filename: string | null) => dispatch({ type: 'SET_SELECTED_WALL_TEXTURE', filename })}
+        singleDrawTextures={state.singleDrawTextures}
+        selectedSingleDrawBrand={state.selectedSingleDrawBrand}
+        selectedSingleDrawTexture={state.selectedSingleDrawTexture}
+        onSetSingleDrawBrand={(brand: string | null) => dispatch({ type: 'SET_SINGLEDRAW_BRAND', brand })}
+        onSetSingleDrawTexture={(filename: string | null) => dispatch({ type: 'SET_SINGLEDRAW_TEXTURE', filename })}
         onExportDes={exportDes}
         onExportMoz={exportMoz}
         libraryFolder={state.libraryFolder}
@@ -462,6 +481,7 @@ end`
               <RoomFloor
                 room={state.room}
                 textureFolder={state.textureFolder}
+                selectedFloorType={state.selectedFloorType}
                 selectedFloorTexture={state.selectedFloorTexture}
               />
               <RoomWalls
@@ -471,6 +491,7 @@ end`
                 onSelectWall={selectWall}
                 renderMode={state.renderMode}
                 textureFolder={state.textureFolder}
+                selectedWallType={state.selectedWallType}
                 selectedWallTexture={state.selectedWallTexture}
               />
               <WallOpenings room={state.room} />
@@ -501,6 +522,8 @@ end`
                 textureFolder={state.textureFolder}
                 textureId={resolvedTextureId}
                 textureFilename={resolvedTextureFilename}
+                singleDrawBrand={state.selectedSingleDrawBrand}
+                singleDrawTexture={state.selectedSingleDrawTexture}
                 modelsFolder={state.modelsFolder}
               />
             )
@@ -516,6 +539,8 @@ end`
               textureFolder={state.textureFolder}
               textureId={resolvedTextureId}
               textureFilename={resolvedTextureFilename}
+              singleDrawBrand={state.selectedSingleDrawBrand}
+              singleDrawTexture={state.selectedSingleDrawTexture}
               modelsFolder={state.modelsFolder}
             />
           ))}
@@ -534,24 +559,15 @@ end`
           const prevWall = state.room.walls[(wallIdx - 1 + state.room.walls.length) % state.room.walls.length]
           const nextWall = state.room.walls[(wallIdx + 1) % state.room.walls.length]
           const hasTallerNeighbor = prevWall.height > wall.height || nextWall.height > wall.height
-          const n = state.room!.walls.length
-          const leftJointIdx = (wallIdx - 1 + n) % n
-          const rightJointIdx = wallIdx
-          const leftJoined = state.room!.wallJoints[leftJointIdx]?.miterBack ?? true
-          const rightJoined = state.room!.wallJoints[rightJointIdx]?.miterBack ?? true
           return (
             <WallEditorPanel
               wall={wall}
               useInches={state.useInches}
               hasTallerNeighbor={hasTallerNeighbor}
-              leftJoined={leftJoined}
-              rightJoined={rightJoined}
               onUpdateLength={(len) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { len } })}
               onUpdateHeight={(height) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { height } })}
               onSplitWall={() => dispatch({ type: 'SPLIT_WALL', wallNumber: wall.wallNumber })}
               onToggleFollowAngle={() => dispatch({ type: 'TOGGLE_FOLLOW_ANGLE', wallNumber: wall.wallNumber })}
-              onToggleLeftCorner={() => dispatch({ type: 'TOGGLE_JOINT_MITER', jointIndex: leftJointIdx })}
-              onToggleRightCorner={() => dispatch({ type: 'TOGGLE_JOINT_MITER', jointIndex: rightJointIdx })}
             />
           )
         })()}
@@ -564,7 +580,9 @@ end`
             selectedWall={state.selectedWall}
             onSelectWall={selectWall}
             textureFolder={state.textureFolder}
+            selectedFloorType={state.selectedFloorType}
             selectedFloorTexture={state.selectedFloorTexture}
+            selectedWallType={state.selectedWallType}
             selectedWallTexture={state.selectedWallTexture}
           />
         )}

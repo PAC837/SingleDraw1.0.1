@@ -5,7 +5,7 @@ import type { MozProduct, MozPart, RenderMode } from '../mozaik/types'
 import { mozPosToThree, mozQuatToThree } from '../math/basis'
 import { mozEulerToQuaternion } from '../math/rotations'
 import { DEG2RAD } from '../math/constants'
-import { useProductTexture, useTextureByFilename, lookupTexture } from './useProductTexture'
+import { useProductTexture, useTextureByFilename, useSingleDrawTexture, lookupTexture } from './useProductTexture'
 import { useProductModel } from './useProductModel'
 
 interface ProductViewProps {
@@ -17,6 +17,8 @@ interface ProductViewProps {
   textureFolder?: FileSystemDirectoryHandle | null
   textureId?: number | null
   textureFilename?: string | null
+  singleDrawBrand?: string | null
+  singleDrawTexture?: string | null
   modelsFolder?: FileSystemDirectoryHandle | null
 }
 
@@ -177,12 +179,14 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
 
 export default function ProductView({
   product, worldOffset, wallAngleDeg, renderMode = 'ghosted', showBoundingBox = false,
-  textureFolder = null, textureId = null, textureFilename = null, modelsFolder = null,
+  textureFolder = null, textureId = null, textureFilename = null,
+  singleDrawBrand = null, singleDrawTexture = null, modelsFolder = null,
 }: ProductViewProps) {
-  // Priority: filename-based (user override) → textureId-based (DES default)
+  // Priority: SingleDraw (brand picker) → filename-based (user override) → textureId-based (DES default)
   const texById = useProductTexture(textureFilename ? null : textureFolder, textureFilename ? null : textureId)
   const texByFile = useTextureByFilename(textureFilename ? textureFolder : null, textureFilename)
-  const baseTexture = texByFile ?? texById
+  const texSingleDraw = useSingleDrawTexture(textureFolder, singleDrawBrand, singleDrawTexture)
+  const baseTexture = texSingleDraw ?? texByFile ?? texById
 
   const groupPos = useMemo(() => {
     if (worldOffset) {

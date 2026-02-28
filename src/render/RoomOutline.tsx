@@ -1,5 +1,5 @@
 /**
- * Single room outline with mitered corners.
+ * Room outline with per-wall coloring for selection.
  * Uses polygon intersection points for all corners (miter and butt alike).
  * The miterBack flag only affects DES export, not visual rendering.
  */
@@ -7,31 +7,40 @@
 import { useMemo } from 'react'
 import { BufferGeometry, Float32BufferAttribute } from 'three'
 import type { MozRoom } from '../mozaik/types'
-import { computeRoomPolygons, computeWallGeometries, computeWallTrims } from '../math/wallMath'
+import { computeRoomPolygons, computeWallGeometries, computeWallTrims, computeWallMiterExtensions } from '../math/wallMath'
 import { mozPosToThree } from '../math/basis'
 
 interface RoomOutlineProps {
   room: MozRoom
+  selectedWall: number | null
 }
 
-export default function RoomOutline({ room }: RoomOutlineProps) {
-  const geometry = useMemo(() => {
+interface WallEdges {
+  wallNumber: number
+  geometry: BufferGeometry
+}
+
+export default function RoomOutline({ room, selectedWall }: RoomOutlineProps) {
+  const wallEdges = useMemo(() => {
     const geos = computeWallGeometries(room.walls)
     if (geos.length < 3) return null
 
     const { inner, outer } = computeRoomPolygons(room.walls)
     const trims = computeWallTrims(room.walls, room.wallJoints)
-    const verts: number[] = []
+    const miters = computeWallMiterExtensions(room.walls, room.wallJoints)
 
-    const addLine = (ax: number, ay: number, az: number, bx: number, by: number, bz: number) => {
-      const a = mozPosToThree(ax, ay, az)
-      const b = mozPosToThree(bx, by, bz)
-      verts.push(a.x, a.y, a.z, b.x, b.y, b.z)
-    }
+    const result: WallEdges[] = []
 
     for (let i = 0; i < geos.length; i++) {
       const next = (i + 1) % geos.length
       const g = geos[i]
+      const verts: number[] = []
+
+      const addLine = (ax: number, ay: number, az: number, bx: number, by: number, bz: number) => {
+        const a = mozPosToThree(ax, ay, az)
+        const b = mozPosToThree(bx, by, bz)
+        verts.push(a.x, a.y, a.z, b.x, b.y, b.z)
+      }
 
       // Butt joint at this wall's start? Use flat face positions instead of polygon points.
       // Top-of-slope corners always render mitered (no butt visual).
@@ -45,17 +54,24 @@ export default function RoomOutline({ room }: RoomOutlineProps) {
                          (prevWall.followAngle && wall.height > prevWall.height)
       const buttStart = rawButtStart && !topAtStart
 
+      const miter = miters.get(g.wallNumber) ?? { startExt: 0, endExt: 0, innerStartExt: 0, innerEndExt: 0 }
       let iS: [number, number], oS: [number, number]
       if (buttStart) {
+        // Dominant face keeps polygon point (touching), back face uses flat position
         const trim = trims.get(g.wallNumber) ?? { trimStart: 0, trimEnd: 0 }
-        iS = [
+        const flatInner: [number, number] = [
           g.start[0] + trim.trimStart * g.tangent[0] + (g.thickness / 2) * g.normal[0],
           g.start[1] + trim.trimStart * g.tangent[1] + (g.thickness / 2) * g.normal[1],
         ]
-        oS = [
+        const flatOuter: [number, number] = [
           g.start[0] + trim.trimStart * g.tangent[0] - (g.thickness / 2) * g.normal[0],
           g.start[1] + trim.trimStart * g.tangent[1] - (g.thickness / 2) * g.normal[1],
         ]
+        if (miter.startExt >= miter.innerStartExt) {
+          oS = outer[i]; iS = flatInner   // outer dominant: keep outer, flat inner
+        } else {
+          iS = inner[i]; oS = flatOuter   // inner dominant: keep inner, flat outer
+        }
       } else {
         iS = inner[i]
         oS = outer[i]
@@ -74,8 +90,13 @@ export default function RoomOutline({ room }: RoomOutlineProps) {
         const endDist = Math.sqrt((g.end[0] - g.start[0]) ** 2 + (g.end[1] - g.start[1]) ** 2)
         const ex = g.start[0] + (endDist - trim.trimEnd) * g.tangent[0]
         const ey = g.start[1] + (endDist - trim.trimEnd) * g.tangent[1]
-        iE = [ex + (g.thickness / 2) * g.normal[0], ey + (g.thickness / 2) * g.normal[1]]
-        oE = [ex - (g.thickness / 2) * g.normal[0], ey - (g.thickness / 2) * g.normal[1]]
+        const flatInnerE: [number, number] = [ex + (g.thickness / 2) * g.normal[0], ey + (g.thickness / 2) * g.normal[1]]
+        const flatOuterE: [number, number] = [ex - (g.thickness / 2) * g.normal[0], ey - (g.thickness / 2) * g.normal[1]]
+        if (miter.endExt >= miter.innerEndExt) {
+          oE = outer[next]; iE = flatInnerE  // outer dominant
+        } else {
+          iE = inner[next]; oE = flatOuterE  // inner dominant
+        }
       } else {
         iE = inner[next]
         oE = outer[next]
@@ -103,18 +124,24 @@ export default function RoomOutline({ room }: RoomOutlineProps) {
       addLine(oE[0], oE[1], 0, oE[0], oE[1], hEnd)
       addLine(iE[0], iE[1], 0, oE[0], oE[1], 0)
       addLine(iE[0], iE[1], hEnd, oE[0], oE[1], hEnd)
+
+      const geo = new BufferGeometry()
+      geo.setAttribute('position', new Float32BufferAttribute(verts, 3))
+      result.push({ wallNumber: g.wallNumber, geometry: geo })
     }
 
-    const geo = new BufferGeometry()
-    geo.setAttribute('position', new Float32BufferAttribute(verts, 3))
-    return geo
+    return result
   }, [room.walls, room.wallJoints])
 
-  if (!geometry) return null
+  if (!wallEdges) return null
 
   return (
-    <lineSegments geometry={geometry}>
-      <lineBasicMaterial color="#000000" />
-    </lineSegments>
+    <group>
+      {wallEdges.map(({ wallNumber, geometry }) => (
+        <lineSegments key={wallNumber} geometry={geometry}>
+          <lineBasicMaterial color={wallNumber === selectedWall ? '#AAFF00' : '#000000'} />
+        </lineSegments>
+      ))}
+    </group>
   )
 }

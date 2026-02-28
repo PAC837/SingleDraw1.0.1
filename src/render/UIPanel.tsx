@@ -3,6 +3,7 @@ import { formatDim } from '../math/units'
 import FileLoader from './FileLoader'
 import CreateRoomPanel from './CreateRoomPanel'
 import PlaceProductPanel from './PlaceProductPanel'
+import ProductPreview from './ProductPreview'
 
 interface UIPanelProps {
   room: MozRoom | null
@@ -21,12 +22,21 @@ interface UIPanelProps {
   onLinkJobFolder: () => void
   onLinkTextureFolder: () => void
   onSelectTexture: (filename: string | null) => void
-  availableFloorTextures: string[]
+  singleDrawFloorTextures: Record<string, string[]>
+  selectedFloorType: string | null
   selectedFloorTexture: string | null
+  onSetFloorType: (type: string | null) => void
   onSelectFloorTexture: (filename: string | null) => void
-  availableWallTextures: string[]
+  singleDrawWallTextures: Record<string, string[]>
+  selectedWallType: string | null
   selectedWallTexture: string | null
+  onSetWallType: (type: string | null) => void
   onSelectWallTexture: (filename: string | null) => void
+  singleDrawTextures: Record<string, string[]>
+  selectedSingleDrawBrand: string | null
+  selectedSingleDrawTexture: string | null
+  onSetSingleDrawBrand: (brand: string | null) => void
+  onSetSingleDrawTexture: (filename: string | null) => void
   onExportDes: () => void
   onExportMoz: (index: number) => void
   libraryFolder: FileSystemDirectoryHandle | null
@@ -91,8 +101,11 @@ function RenderModeSelector({
 
 export default function UIPanel({
   room, products, overlays, selectedWall, useInches, renderMode, jobFolder, textureFolder,
-  availableTextures, selectedTexture, availableFloorTextures, selectedFloorTexture, availableWallTextures, selectedWallTexture,
-  onToggleOverlay, onToggleUnits, onSetRenderMode, onLinkJobFolder, onLinkTextureFolder, onSelectTexture, onSelectFloorTexture, onSelectWallTexture, onExportDes, onExportMoz,
+  availableTextures, selectedTexture,
+  singleDrawFloorTextures, selectedFloorType, selectedFloorTexture, onSetFloorType, onSelectFloorTexture,
+  singleDrawWallTextures, selectedWallType, selectedWallTexture, onSetWallType, onSelectWallTexture,
+  singleDrawTextures, selectedSingleDrawBrand, selectedSingleDrawTexture, onSetSingleDrawBrand, onSetSingleDrawTexture,
+  onToggleOverlay, onToggleUnits, onSetRenderMode, onLinkJobFolder, onLinkTextureFolder, onSelectTexture, onExportDes, onExportMoz,
   libraryFolder, availableLibraryFiles, onLinkLibraryFolder, onLoadFromLibrary, onGenerateGlbScript,
   sketchUpFolder, onLinkSketchUpFolder, modelsFolder, onLinkModelsFolder,
   onCreateRoom, onPlaceProduct, onUpdateProductDimension, onRemoveProduct,
@@ -258,38 +271,99 @@ export default function UIPanel({
           {textureFolder && (
             <>
               <label className="text-xs text-gray-400">Wall</label>
-              {availableWallTextures.length > 0 ? (
-                <select
-                  value={selectedWallTexture ?? ''}
-                  onChange={(e) => onSelectWallTexture(e.target.value || null)}
-                  className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
-                >
-                  <option value="">No wall texture</option>
-                  {availableWallTextures.map((f) => (
-                    <option key={f} value={f}>{f.replace(/\.\w+$/, '')}</option>
-                  ))}
-                </select>
+              {Object.keys(singleDrawWallTextures).length > 0 ? (
+                <>
+                  <select
+                    value={selectedWallType ?? ''}
+                    onChange={(e) => onSetWallType(e.target.value || null)}
+                    className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
+                  >
+                    <option value="">Select wall type...</option>
+                    {Object.keys(singleDrawWallTextures).sort().map((t) => (
+                      <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
+                  {selectedWallType && singleDrawWallTextures[selectedWallType] && (
+                    <select
+                      value={selectedWallTexture ?? ''}
+                      onChange={(e) => onSelectWallTexture(e.target.value || null)}
+                      className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
+                    >
+                      <option value="">No wall texture</option>
+                      {singleDrawWallTextures[selectedWallType].map((f) => (
+                        <option key={f} value={f}>{f.replace(/\.\w+$/, '')}</option>
+                      ))}
+                    </select>
+                  )}
+                </>
               ) : (
-                <p className="text-xs text-gray-600 italic">No Walls/ subfolder</p>
+                <p className="text-xs text-gray-600 italic">No SingleDraw_Walls/ subfolder</p>
               )}
             </>
           )}
           {textureFolder && (
             <>
               <label className="text-xs text-gray-400">Floor</label>
-              {availableFloorTextures.length > 0 ? (
-                <select
-                  value={selectedFloorTexture ?? ''}
-                  onChange={(e) => onSelectFloorTexture(e.target.value || null)}
-                  className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
-                >
-                  <option value="">No floor texture</option>
-                  {availableFloorTextures.map((f) => (
-                    <option key={f} value={f}>{f.replace(/\.\w+$/, '')}</option>
-                  ))}
-                </select>
+              {Object.keys(singleDrawFloorTextures).length > 0 ? (
+                <>
+                  <select
+                    value={selectedFloorType ?? ''}
+                    onChange={(e) => onSetFloorType(e.target.value || null)}
+                    className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
+                  >
+                    <option value="">Select floor type...</option>
+                    {Object.keys(singleDrawFloorTextures).sort().map((t) => (
+                      <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
+                  {selectedFloorType && singleDrawFloorTextures[selectedFloorType] && (
+                    <select
+                      value={selectedFloorTexture ?? ''}
+                      onChange={(e) => onSelectFloorTexture(e.target.value || null)}
+                      className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
+                    >
+                      <option value="">No floor texture</option>
+                      {singleDrawFloorTextures[selectedFloorType].map((f) => (
+                        <option key={f} value={f}>{f.replace(/\.\w+$/, '')}</option>
+                      ))}
+                    </select>
+                  )}
+                </>
               ) : (
-                <p className="text-xs text-gray-600 italic">No Floors/ subfolder</p>
+                <p className="text-xs text-gray-600 italic">No SingleDraw_Floor/ subfolder</p>
+              )}
+            </>
+          )}
+          {textureFolder && (
+            <>
+              <label className="text-xs text-gray-400">SingleDraw Textures</label>
+              {Object.keys(singleDrawTextures).length > 0 ? (
+                <>
+                  <select
+                    value={selectedSingleDrawBrand ?? ''}
+                    onChange={(e) => onSetSingleDrawBrand(e.target.value || null)}
+                    className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
+                  >
+                    <option value="">Select brand...</option>
+                    {Object.keys(singleDrawTextures).sort().map((brand) => (
+                      <option key={brand} value={brand}>{brand}</option>
+                    ))}
+                  </select>
+                  {selectedSingleDrawBrand && singleDrawTextures[selectedSingleDrawBrand] && (
+                    <select
+                      value={selectedSingleDrawTexture ?? ''}
+                      onChange={(e) => onSetSingleDrawTexture(e.target.value || null)}
+                      className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
+                    >
+                      <option value="">No texture</option>
+                      {singleDrawTextures[selectedSingleDrawBrand].map((f) => (
+                        <option key={f} value={f}>{f.replace(/\.\w+$/, '')}</option>
+                      ))}
+                    </select>
+                  )}
+                </>
+              ) : (
+                <p className="text-xs text-gray-600 italic">No SingleDraw_Textures/ subfolder</p>
               )}
             </>
           )}
@@ -361,6 +435,7 @@ export default function UIPanel({
                 <p className="text-xs text-[var(--text-secondary)]">
                   Parts: {mf.product.parts.length}
                 </p>
+                <ProductPreview product={mf.product} />
                 <button
                   onClick={() => onExportMoz(i)}
                   className="mt-1 text-xs px-2 py-1 bg-gray-800 rounded hover:bg-gray-700 transition-colors"

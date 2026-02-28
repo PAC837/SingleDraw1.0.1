@@ -19,7 +19,9 @@ interface MiniRoomPreviewProps {
   selectedWall: number | null
   onSelectWall: (wallNumber: number) => void
   textureFolder: FileSystemDirectoryHandle | null
+  selectedFloorType: string | null
   selectedFloorTexture: string | null
+  selectedWallType: string | null
   selectedWallTexture: string | null
 }
 
@@ -66,7 +68,7 @@ function MiniCameraSetup({ roomCenter }: { roomCenter: [number, number, number] 
 
 export default function MiniRoomPreview({
   room, renderMode, roomCenter, selectedWall, onSelectWall,
-  textureFolder, selectedFloorTexture, selectedWallTexture,
+  textureFolder, selectedFloorType, selectedFloorTexture, selectedWallType, selectedWallTexture,
 }: MiniRoomPreviewProps) {
   return (
     <div
@@ -106,6 +108,7 @@ export default function MiniRoomPreview({
         <RoomFloor
           room={room}
           textureFolder={textureFolder}
+          selectedFloorType={selectedFloorType}
           selectedFloorTexture={selectedFloorTexture}
         />
         <RoomWalls
@@ -115,6 +118,7 @@ export default function MiniRoomPreview({
           onSelectWall={onSelectWall}
           renderMode={renderMode}
           textureFolder={textureFolder}
+          selectedWallType={selectedWallType}
           selectedWallTexture={selectedWallTexture}
         />
       </Canvas>

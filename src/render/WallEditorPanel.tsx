@@ -11,17 +11,13 @@ interface WallEditorPanelProps {
   wall: MozWall
   useInches: boolean
   hasTallerNeighbor: boolean
-  leftJoined: boolean
-  rightJoined: boolean
   onUpdateLength: (len: number) => void
   onUpdateHeight: (height: number) => void
   onSplitWall: () => void
   onToggleFollowAngle: () => void
-  onToggleLeftCorner: () => void
-  onToggleRightCorner: () => void
 }
 
-export default function WallEditorPanel({ wall, useInches, hasTallerNeighbor, leftJoined, rightJoined, onUpdateLength, onUpdateHeight, onSplitWall, onToggleFollowAngle, onToggleLeftCorner, onToggleRightCorner }: WallEditorPanelProps) {
+export default function WallEditorPanel({ wall, useInches, hasTallerNeighbor, onUpdateLength, onUpdateHeight, onSplitWall, onToggleFollowAngle }: WallEditorPanelProps) {
   const display = (mm: number) => useInches ? mmToInches(mm).toFixed(2) : String(mm)
 
   const [lenStr, setLenStr] = useState(display(wall.len))
@@ -101,29 +97,6 @@ export default function WallEditorPanel({ wall, useInches, hasTallerNeighbor, le
       >
         {wall.followAngle ? 'Follow Angle: ON' : 'Follow Angle'}
       </button>
-
-      <div className="flex gap-1">
-        <button
-          onClick={onToggleLeftCorner}
-          className={`flex-1 text-xs px-2 py-1.5 rounded border transition-colors ${
-            leftJoined
-              ? 'bg-blue-900/50 border-blue-500 text-blue-300'
-              : 'bg-gray-800 border-gray-600 text-gray-400 hover:bg-gray-700'
-          }`}
-        >
-          L: {leftJoined ? 'Joined' : 'Unjoined'}
-        </button>
-        <button
-          onClick={onToggleRightCorner}
-          className={`flex-1 text-xs px-2 py-1.5 rounded border transition-colors ${
-            rightJoined
-              ? 'bg-blue-900/50 border-blue-500 text-blue-300'
-              : 'bg-gray-800 border-gray-600 text-gray-400 hover:bg-gray-700'
-          }`}
-        >
-          R: {rightJoined ? 'Joined' : 'Unjoined'}
-        </button>
-      </div>
 
       <div className="text-xs text-[var(--text-secondary)]">
         Angle: {wall.ang}° &nbsp;|&nbsp; Thick: {formatDim(wall.thickness, useInches)}

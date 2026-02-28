@@ -13,11 +13,12 @@ import { useFloorTexture } from './useProductTexture'
 interface RoomFloorProps {
   room: MozRoom
   textureFolder: FileSystemDirectoryHandle | null
+  selectedFloorType: string | null
   selectedFloorTexture: string | null
 }
 
-export default function RoomFloor({ room, textureFolder, selectedFloorTexture }: RoomFloorProps) {
-  const floorTex = useFloorTexture(textureFolder, selectedFloorTexture)
+export default function RoomFloor({ room, textureFolder, selectedFloorType, selectedFloorTexture }: RoomFloorProps) {
+  const floorTex = useFloorTexture(textureFolder, selectedFloorType, selectedFloorTexture)
 
   const geometry = useMemo(() => {
     const { inner } = computeRoomPolygons(room.walls)
@@ -58,6 +59,9 @@ export default function RoomFloor({ room, textureFolder, selectedFloorTexture }:
         color={tiledTex ? '#ffffff' : '#f0f0f0'}
         roughness={0.9}
         side={DoubleSide}
+        polygonOffset
+        polygonOffsetFactor={1}
+        polygonOffsetUnits={1}
       />
     </mesh>
   )

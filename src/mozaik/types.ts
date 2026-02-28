@@ -186,10 +186,15 @@ export interface AppState {
   textureFolder: FileSystemDirectoryHandle | null
   availableTextures: string[]       // filenames scanned from texture folder
   selectedTexture: string | null    // user-picked filename (overrides DES primaryTextureId)
-  availableFloorTextures: string[]  // filenames scanned from Floors subfolder
+  singleDrawFloorTextures: Record<string, string[]>  // type → filenames from SingleDraw_Floor/
+  selectedFloorType: string | null
   selectedFloorTexture: string | null
-  availableWallTextures: string[]   // filenames scanned from Walls subfolder
+  singleDrawWallTextures: Record<string, string[]>  // type → filenames from SingleDraw_Walls/
+  selectedWallType: string | null
   selectedWallTexture: string | null
+  singleDrawTextures: Record<string, string[]>   // brand → filenames from SingleDraw_Textures/
+  selectedSingleDrawBrand: string | null
+  selectedSingleDrawTexture: string | null
   libraryFolder: FileSystemDirectoryHandle | null
   availableLibraryFiles: string[]   // sorted .moz filenames from library folder
   sketchUpFolder: FileSystemDirectoryHandle | null  // Mozaik shared folder — deep-scanned for .skp files

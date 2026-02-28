@@ -141,21 +141,22 @@ async function loadTextureByFilename(
 const floorTextureCache = new Map<string, Texture>()
 
 /**
- * Load a floor texture from the "Floors" subfolder of the texture folder.
+ * Load a floor texture from SingleDraw_Floor/{type}/{filename}.
  */
 export function useFloorTexture(
   textureFolder: FileSystemDirectoryHandle | null,
+  type: string | null,
   filename: string | null,
 ): Texture | null {
   const [texture, setTexture] = useState<Texture | null>(null)
 
   useEffect(() => {
-    if (!textureFolder || !filename) {
+    if (!textureFolder || !type || !filename) {
       setTexture(null)
       return
     }
 
-    const cacheKey = `floor:${filename}`
+    const cacheKey = `floor:${type}/${filename}`
     const cached = floorTextureCache.get(cacheKey)
     if (cached) {
       setTexture(cached)
@@ -165,8 +166,9 @@ export function useFloorTexture(
     let cancelled = false
     ;(async () => {
       try {
-        const floorsFolder = await textureFolder.getDirectoryHandle('Floor')
-        const fileHandle = await floorsFolder.getFileHandle(filename)
+        const floorsFolder = await textureFolder.getDirectoryHandle('SingleDraw_Floor')
+        const typeFolder = await floorsFolder.getDirectoryHandle(type)
+        const fileHandle = await typeFolder.getFileHandle(filename)
         const file = await fileHandle.getFile()
         const url = URL.createObjectURL(file)
 
@@ -181,16 +183,16 @@ export function useFloorTexture(
         tex.needsUpdate = true
 
         floorTextureCache.set(cacheKey, tex)
-        console.log(`[TEXTURE] Loaded floor texture: "${filename}"`)
+        console.log(`[TEXTURE] Loaded floor texture: "${type}/${filename}"`)
         if (!cancelled) setTexture(tex)
       } catch (e) {
-        console.warn(`[TEXTURE] Failed to load floor texture "${filename}":`, e)
+        console.warn(`[TEXTURE] Failed to load floor texture "${type}/${filename}":`, e)
         if (!cancelled) setTexture(null)
       }
     })()
 
     return () => { cancelled = true }
-  }, [textureFolder, filename])
+  }, [textureFolder, type, filename])
 
   return texture
 }
@@ -199,21 +201,22 @@ export function useFloorTexture(
 const wallTextureCache = new Map<string, Texture>()
 
 /**
- * Load a wall texture from the "Walls" subfolder of the texture folder.
+ * Load a wall texture from SingleDraw_Walls/{type}/{filename}.
  */
 export function useWallTexture(
   textureFolder: FileSystemDirectoryHandle | null,
+  type: string | null,
   filename: string | null,
 ): Texture | null {
   const [texture, setTexture] = useState<Texture | null>(null)
 
   useEffect(() => {
-    if (!textureFolder || !filename) {
+    if (!textureFolder || !type || !filename) {
       setTexture(null)
       return
     }
 
-    const cacheKey = `wall:${filename}`
+    const cacheKey = `wall:${type}/${filename}`
     const cached = wallTextureCache.get(cacheKey)
     if (cached) {
       setTexture(cached)
@@ -223,8 +226,9 @@ export function useWallTexture(
     let cancelled = false
     ;(async () => {
       try {
-        const wallsFolder = await textureFolder.getDirectoryHandle('Walls')
-        const fileHandle = await wallsFolder.getFileHandle(filename)
+        const wallsFolder = await textureFolder.getDirectoryHandle('SingleDraw_Walls')
+        const typeFolder = await wallsFolder.getDirectoryHandle(type)
+        const fileHandle = await typeFolder.getFileHandle(filename)
         const file = await fileHandle.getFile()
         const url = URL.createObjectURL(file)
 
@@ -239,16 +243,76 @@ export function useWallTexture(
         tex.needsUpdate = true
 
         wallTextureCache.set(cacheKey, tex)
-        console.log(`[TEXTURE] Loaded wall texture: "${filename}"`)
+        console.log(`[TEXTURE] Loaded wall texture: "${type}/${filename}"`)
         if (!cancelled) setTexture(tex)
       } catch (e) {
-        console.warn(`[TEXTURE] Failed to load wall texture "${filename}":`, e)
+        console.warn(`[TEXTURE] Failed to load wall texture "${type}/${filename}":`, e)
         if (!cancelled) setTexture(null)
       }
     })()
 
     return () => { cancelled = true }
-  }, [textureFolder, filename])
+  }, [textureFolder, type, filename])
+
+  return texture
+}
+
+// Cache for SingleDraw textures (keyed by "sd:brand/filename")
+const singleDrawTextureCache = new Map<string, Texture>()
+
+/**
+ * Load a texture from SingleDraw_Textures/{brand}/{filename}.
+ */
+export function useSingleDrawTexture(
+  textureFolder: FileSystemDirectoryHandle | null,
+  brand: string | null,
+  filename: string | null,
+): Texture | null {
+  const [texture, setTexture] = useState<Texture | null>(null)
+
+  useEffect(() => {
+    if (!textureFolder || !brand || !filename) {
+      setTexture(null)
+      return
+    }
+
+    const cacheKey = `sd:${brand}/${filename}`
+    const cached = singleDrawTextureCache.get(cacheKey)
+    if (cached) {
+      setTexture(cached)
+      return
+    }
+
+    let cancelled = false
+    ;(async () => {
+      try {
+        const sdFolder = await textureFolder.getDirectoryHandle('SingleDraw_Textures')
+        const brandFolder = await sdFolder.getDirectoryHandle(brand)
+        const fileHandle = await brandFolder.getFileHandle(filename)
+        const file = await fileHandle.getFile()
+        const url = URL.createObjectURL(file)
+
+        const loader = new TextureLoader()
+        const tex = await new Promise<Texture>((resolve, reject) => {
+          loader.load(url, resolve, undefined, reject)
+        })
+
+        tex.colorSpace = SRGBColorSpace
+        tex.wrapS = RepeatWrapping
+        tex.wrapT = RepeatWrapping
+        tex.needsUpdate = true
+
+        singleDrawTextureCache.set(cacheKey, tex)
+        console.log(`[TEXTURE] Loaded SingleDraw texture: "${brand}/${filename}"`)
+        if (!cancelled) setTexture(tex)
+      } catch (e) {
+        console.warn(`[TEXTURE] Failed to load SingleDraw "${brand}/${filename}":`, e)
+        if (!cancelled) setTexture(null)
+      }
+    })()
+
+    return () => { cancelled = true }
+  }, [textureFolder, brand, filename])
 
   return texture
 }

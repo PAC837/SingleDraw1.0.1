@@ -19,16 +19,16 @@ function SceneOrbitControls({ target, disableRotate }: { target?: [number, numbe
 
   useEffect(() => {
     applied.current = false
-    if (ref.current && target) {
+    if (ref.current && target && !disableRotate) {
       ref.current.target.set(target[0], target[1], target[2])
       ref.current.update()
       applied.current = true
     }
-  }, [target])
+  }, [target, disableRotate])
 
   // Fallback: if OrbitControls wasn't ready during useEffect, apply on next frame
   useFrame(() => {
-    if (!applied.current && ref.current && target) {
+    if (!applied.current && ref.current && target && !disableRotate) {
       ref.current.target.set(target[0], target[1], target[2])
       ref.current.update()
       applied.current = true

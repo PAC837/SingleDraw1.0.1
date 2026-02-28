@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { DoubleSide, FrontSide, EdgesGeometry, RepeatWrapping, BufferGeometry, Float32BufferAttribute } from 'three'
+import { DoubleSide, FrontSide, RepeatWrapping, BufferGeometry, Float32BufferAttribute } from 'three'
 import type { Vector3, Texture } from 'three'
 import RoomOutline from './RoomOutline'
 import type { MozRoom, RenderMode } from '../mozaik/types'
@@ -15,6 +15,7 @@ interface RoomWallsProps {
   onSelectWall: (wallNumber: number) => void
   renderMode?: RenderMode
   textureFolder: FileSystemDirectoryHandle | null
+  selectedWallType: string | null
   selectedWallTexture: string | null
 }
 
@@ -115,16 +116,6 @@ function WallMesh({
     [renderLen, height, thickness, startExt, endExt, innerStartExt, innerEndExt, startHeight, endHeight],
   )
 
-  // Mitered glow halo edges for selected walls (slightly oversized)
-  const glowEdgesGeo = useMemo(() => {
-    const sh = startHeight !== undefined ? startHeight + 5 : undefined
-    const eh = endHeight !== undefined ? endHeight + 5 : undefined
-    const glow = createMiteredWallGeo(renderLen + 20, height + 10, thickness + 20, startExt + 10, endExt + 10, innerStartExt + 10, innerEndExt + 10, sh, eh)
-    const edges = new EdgesGeometry(glow)
-    glow.dispose()
-    return edges
-  }, [renderLen, height, thickness, startExt, endExt, innerStartExt, innerEndExt, startHeight, endHeight])
-
   const side = doubleSided ? DoubleSide : FrontSide
 
   if (renderMode === 'wireframe') {
@@ -135,11 +126,6 @@ function WallMesh({
           <boxGeometry args={[renderLen, height, thickness]} />
           <meshBasicMaterial visible={false} />
         </mesh>
-        {isSelected && (
-          <lineSegments geometry={glowEdgesGeo}>
-            <lineBasicMaterial color="#AAFF00" />
-          </lineSegments>
-        )}
       </group>
     )
   }
@@ -175,17 +161,12 @@ function WallMesh({
           />
         )}
       </mesh>
-      {isSelected && (
-        <lineSegments position={pos} rotation={[0, rotY, 0]} geometry={glowEdgesGeo}>
-          <lineBasicMaterial color="#AAFF00" />
-        </lineSegments>
-      )}
     </>
   )
 }
 
-export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWall, renderMode = 'ghosted', textureFolder, selectedWallTexture }: RoomWallsProps) {
-  const wallTex = useWallTexture(textureFolder, selectedWallTexture)
+export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWall, renderMode = 'ghosted', textureFolder, selectedWallType, selectedWallTexture }: RoomWallsProps) {
+  const wallTex = useWallTexture(textureFolder, selectedWallType, selectedWallTexture)
   const geometries = useMemo(
     () => computeWallGeometries(room.walls),
     [room.walls],
@@ -203,7 +184,7 @@ export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWal
 
   return (
     <group>
-      <RoomOutline room={room} />
+      <RoomOutline room={room} selectedWall={selectedWall} />
       {geometries.map((g, gIdx) => {
         const wall = room.walls.find((w) => w.wallNumber === g.wallNumber)!
         const trim = trims.get(g.wallNumber) ?? { trimStart: 0, trimEnd: 0 }
@@ -253,10 +234,10 @@ export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWal
             isSelected={isSelected}
             onSelect={() => onSelectWall(g.wallNumber)}
             wallTexture={wallTex}
-            startExt={buttStart ? 0 : miter.startExt}
-            endExt={buttEnd ? 0 : miter.endExt}
-            innerStartExt={buttStart ? 0 : miter.innerStartExt}
-            innerEndExt={buttEnd ? 0 : miter.innerEndExt}
+            startExt={buttStart ? (miter.startExt >= miter.innerStartExt ? miter.startExt : 0) : miter.startExt}
+            endExt={buttEnd ? (miter.endExt >= miter.innerEndExt ? miter.endExt : 0) : miter.endExt}
+            innerStartExt={buttStart ? (miter.innerStartExt > miter.startExt ? miter.innerStartExt : 0) : miter.innerStartExt}
+            innerEndExt={buttEnd ? (miter.innerEndExt > miter.endExt ? miter.innerEndExt : 0) : miter.innerEndExt}
             startHeight={g.startHeight}
             endHeight={g.endHeight}
           />

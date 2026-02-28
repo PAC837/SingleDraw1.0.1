@@ -25,10 +25,15 @@ const initialState: AppState = {
   textureFolder: null,
   availableTextures: [],
   selectedTexture: null,
-  availableFloorTextures: [],
+  singleDrawFloorTextures: {},
+  selectedFloorType: null,
   selectedFloorTexture: null,
-  availableWallTextures: [],
+  singleDrawWallTextures: {},
+  selectedWallType: null,
   selectedWallTexture: null,
+  singleDrawTextures: {},
+  selectedSingleDrawBrand: null,
+  selectedSingleDrawTexture: null,
   libraryFolder: null,
   availableLibraryFiles: [],
   sketchUpFolder: null,
@@ -46,10 +51,15 @@ type Action =
   | { type: 'SET_TEXTURE_FOLDER'; folder: FileSystemDirectoryHandle }
   | { type: 'SET_AVAILABLE_TEXTURES'; filenames: string[] }
   | { type: 'SET_SELECTED_TEXTURE'; filename: string | null }
-  | { type: 'SET_AVAILABLE_FLOOR_TEXTURES'; filenames: string[] }
+  | { type: 'SET_SINGLEDRAW_FLOOR_TEXTURES'; textures: Record<string, string[]> }
+  | { type: 'SET_FLOOR_TYPE'; floorType: string | null }
   | { type: 'SET_SELECTED_FLOOR_TEXTURE'; filename: string | null }
-  | { type: 'SET_AVAILABLE_WALL_TEXTURES'; filenames: string[] }
+  | { type: 'SET_SINGLEDRAW_WALL_TEXTURES'; textures: Record<string, string[]> }
+  | { type: 'SET_WALL_TYPE'; wallType: string | null }
   | { type: 'SET_SELECTED_WALL_TEXTURE'; filename: string | null }
+  | { type: 'SET_SINGLEDRAW_TEXTURES'; textures: Record<string, string[]> }
+  | { type: 'SET_SINGLEDRAW_BRAND'; brand: string | null }
+  | { type: 'SET_SINGLEDRAW_TEXTURE'; filename: string | null }
   | { type: 'CREATE_ROOM'; room: MozRoom }
   | { type: 'PLACE_PRODUCT'; product: MozProduct }
   | { type: 'UPDATE_ROOM_PRODUCT'; index: number; field: 'width' | 'depth'; value: number }
@@ -93,14 +103,24 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, availableTextures: action.filenames }
     case 'SET_SELECTED_TEXTURE':
       return { ...state, selectedTexture: action.filename }
-    case 'SET_AVAILABLE_FLOOR_TEXTURES':
-      return { ...state, availableFloorTextures: action.filenames }
+    case 'SET_SINGLEDRAW_FLOOR_TEXTURES':
+      return { ...state, singleDrawFloorTextures: action.textures }
+    case 'SET_FLOOR_TYPE':
+      return { ...state, selectedFloorType: action.floorType, selectedFloorTexture: null }
     case 'SET_SELECTED_FLOOR_TEXTURE':
       return { ...state, selectedFloorTexture: action.filename }
-    case 'SET_AVAILABLE_WALL_TEXTURES':
-      return { ...state, availableWallTextures: action.filenames }
+    case 'SET_SINGLEDRAW_WALL_TEXTURES':
+      return { ...state, singleDrawWallTextures: action.textures }
+    case 'SET_WALL_TYPE':
+      return { ...state, selectedWallType: action.wallType, selectedWallTexture: null }
     case 'SET_SELECTED_WALL_TEXTURE':
       return { ...state, selectedWallTexture: action.filename }
+    case 'SET_SINGLEDRAW_TEXTURES':
+      return { ...state, singleDrawTextures: action.textures }
+    case 'SET_SINGLEDRAW_BRAND':
+      return { ...state, selectedSingleDrawBrand: action.brand, selectedSingleDrawTexture: null }
+    case 'SET_SINGLEDRAW_TEXTURE':
+      return { ...state, selectedSingleDrawTexture: action.filename }
     case 'CREATE_ROOM':
       return { ...state, room: action.room, selectedWall: null }
     case 'PLACE_PRODUCT':
