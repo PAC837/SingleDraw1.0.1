@@ -10,12 +10,20 @@ import { formatDim, mmToInches, inchesToMm } from '../math/units'
 interface WallEditorPanelProps {
   wall: MozWall
   useInches: boolean
+  hasTallerNeighbor: boolean
+  leftJoined: boolean
+  rightJoined: boolean
+  leftDisabled: boolean
+  rightDisabled: boolean
   onUpdateLength: (len: number) => void
   onUpdateHeight: (height: number) => void
   onSplitWall: () => void
+  onToggleFollowAngle: () => void
+  onToggleLeftCorner: () => void
+  onToggleRightCorner: () => void
 }
 
-export default function WallEditorPanel({ wall, useInches, onUpdateLength, onUpdateHeight, onSplitWall }: WallEditorPanelProps) {
+export default function WallEditorPanel({ wall, useInches, hasTallerNeighbor, leftJoined, rightJoined, leftDisabled, rightDisabled, onUpdateLength, onUpdateHeight, onSplitWall, onToggleFollowAngle, onToggleLeftCorner, onToggleRightCorner }: WallEditorPanelProps) {
   const display = (mm: number) => useInches ? mmToInches(mm).toFixed(2) : String(mm)
 
   const [lenStr, setLenStr] = useState(display(wall.len))
@@ -81,6 +89,49 @@ export default function WallEditorPanel({ wall, useInches, onUpdateLength, onUpd
           <span className="text-xs text-[var(--text-secondary)] w-16 text-right">{formatDim(wall.height, useInches)}</span>
         </div>
       </label>
+
+      <button
+        onClick={onToggleFollowAngle}
+        disabled={!hasTallerNeighbor && !wall.followAngle}
+        className={`w-full text-xs px-3 py-1.5 rounded border transition-colors ${
+          wall.followAngle
+            ? 'bg-[var(--accent)] text-black font-medium border-[var(--accent)]'
+            : hasTallerNeighbor
+              ? 'bg-gray-800 border-[var(--accent)] hover:bg-gray-700'
+              : 'bg-gray-800 border-gray-600 text-gray-500 cursor-not-allowed'
+        }`}
+      >
+        {wall.followAngle ? 'Follow Angle: ON' : 'Follow Angle'}
+      </button>
+
+      <div className="flex gap-1">
+        <button
+          onClick={onToggleLeftCorner}
+          disabled={leftDisabled}
+          className={`flex-1 text-xs px-2 py-1.5 rounded border transition-colors ${
+            leftDisabled
+              ? 'bg-gray-800 border-gray-600 text-gray-500 cursor-not-allowed'
+              : leftJoined
+                ? 'bg-blue-900/50 border-blue-500 text-blue-300'
+                : 'bg-gray-800 border-gray-600 text-gray-400 hover:bg-gray-700'
+          }`}
+        >
+          L: {leftJoined ? 'Joined' : 'Unjoined'}
+        </button>
+        <button
+          onClick={onToggleRightCorner}
+          disabled={rightDisabled}
+          className={`flex-1 text-xs px-2 py-1.5 rounded border transition-colors ${
+            rightDisabled
+              ? 'bg-gray-800 border-gray-600 text-gray-500 cursor-not-allowed'
+              : rightJoined
+                ? 'bg-blue-900/50 border-blue-500 text-blue-300'
+                : 'bg-gray-800 border-gray-600 text-gray-400 hover:bg-gray-700'
+          }`}
+        >
+          R: {rightJoined ? 'Joined' : 'Unjoined'}
+        </button>
+      </div>
 
       <div className="text-xs text-[var(--text-secondary)]">
         Angle: {wall.ang}° &nbsp;|&nbsp; Thick: {formatDim(wall.thickness, useInches)}

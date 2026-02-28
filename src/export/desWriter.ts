@@ -1,5 +1,6 @@
-import type { MozRoom, MozWall, MozWallJoint, MozFixture, MozProduct, MozPart } from '../mozaik/types'
+import type { MozRoom, MozWall, MozWallJoint, MozFixture, MozProduct, MozPart, WallGeometry } from '../mozaik/types'
 import { roomParmsXml, ROOM_SET_XML } from './desTemplate'
+import { computeWallGeometries } from '../math/wallMath'
 
 /**
  * Serialize a MozRoom back to the DES file format.
@@ -86,18 +87,22 @@ function generateDesXml(inputRoom: MozRoom): string {
   // <RoomSet> — required by Mozaik (door settings, material templates, hardware, textures)
   lines.push(ROOM_SET_XML)
 
+  // Compute wall geometries for shaped wall export + joint miterBack decisions
+  const geos = computeWallGeometries(room.walls)
+  const geoMap = new Map(geos.map(g => [g.wallNumber, g]))
+
   // <Walls>
   if (room.walls.length === 0) {
     lines.push('  <Walls />')
   } else {
     lines.push('  <Walls>')
     for (const w of room.walls) {
-      lines.push(`    ${serializeWall(w)}`)
+      lines.push(`    ${serializeWall(w, geoMap.get(w.wallNumber))}`)
     }
     lines.push('  </Walls>')
   }
 
-  // <WallJoints>
+  // <WallJoints> — uses joint.miterBack directly (set by user toggle / followAngle auto-unjoin)
   if (room.wallJoints.length === 0) {
     lines.push('  <WallJoints />')
   } else {
@@ -150,8 +155,28 @@ function generateDesXml(inputRoom: MozRoom): string {
   return lines.join('\n')
 }
 
-function serializeWall(w: MozWall): string {
-  return `<Wall IDTag="${w.idTag}" Len="${num(w.len)}" Height="${num(w.height)}" PosX="${num(w.posX)}" PosY="${num(w.posY)}" Ang="${num(w.ang)}" Invisible="${bool(w.invisible)}" SUDirty="True" Bulge="${num(w.bulge)}" WallNumber="${w.wallNumber}" Thickness="${num(w.thickness)}" HasLeftEndCap="False" HasRightEndCap="False" HasBackSpace="False" HasLeftSpace="False" HasRightSpace="False" LeftSpaceLength="1371.6" RightSpaceLength="1371.6" ShapeType="${w.shapeType}" CathedralHeight="${num(w.cathedralHeight)}">` +
+function serializeWall(w: MozWall, geo?: WallGeometry): string {
+  const isSloped = geo && geo.startHeight !== geo.endHeight
+  const shapeType = isSloped ? 4 : w.shapeType
+  const exportHeight = isSloped ? Math.max(geo.startHeight, geo.endHeight) : w.height
+
+  const wallAttrs = `IDTag="${w.idTag}" Len="${num(w.len)}" Height="${num(exportHeight)}" PosX="${num(w.posX)}" PosY="${num(w.posY)}" Ang="${num(w.ang)}" Invisible="${bool(w.invisible)}" SUDirty="True" Bulge="${num(w.bulge)}" WallNumber="${w.wallNumber}" Thickness="${num(w.thickness)}" HasLeftEndCap="False" HasRightEndCap="False" HasBackSpace="False" HasLeftSpace="False" HasRightSpace="False" LeftSpaceLength="1371.6" RightSpaceLength="1371.6" ShapeType="${shapeType}" CathedralHeight="${num(w.cathedralHeight)}"`
+
+  if (isSloped) {
+    const sp = (id: number, x: number, y: number) =>
+      `        <ShapePoint ID="${id}" X="${num(x)}" Y="${num(y)}" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />`
+    return `<Wall ${wallAttrs}>\n` +
+      '      <LabelDimensionOverrideMap />\n' +
+      '      <WallShape Version="2" Name="" Type="0" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">\n' +
+      sp(0, 0, 0) + '\n' +
+      sp(1, w.len, 0) + '\n' +
+      sp(2, w.len, geo.endHeight) + '\n' +
+      sp(3, 0, geo.startHeight) + '\n' +
+      '      </WallShape>\n' +
+      '    </Wall>'
+  }
+
+  return `<Wall ${wallAttrs}>` +
     '\n      <LabelDimensionOverrideMap />' +
     '\n    </Wall>'
 }

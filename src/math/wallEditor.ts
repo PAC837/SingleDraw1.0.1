@@ -13,52 +13,79 @@ export function snapAngle(angleDeg: number, threshold = 5): number {
   return Math.abs(angleDeg - nearest90) <= threshold ? nearest90 : angleDeg
 }
 
-/** Rebuild sequential joints for a closed wall chain. */
-export function rebuildJoints(walls: MozWall[]): MozWallJoint[] {
+/** Rebuild sequential joints for a closed wall chain, preserving old miterBack state. */
+export function rebuildJoints(walls: MozWall[], oldJoints?: MozWallJoint[]): MozWallJoint[] {
+  const oldMap = new Map<string, boolean>()
+  if (oldJoints) {
+    for (const j of oldJoints) oldMap.set(`${j.wall1}-${j.wall2}`, j.miterBack)
+  }
   const joints: MozWallJoint[] = []
   for (let i = 0; i < walls.length; i++) {
     const next = (i + 1) % walls.length
+    const w1 = walls[i].wallNumber
+    const w2 = walls[next].wallNumber
     joints.push({
-      wall1: walls[i].wallNumber,
-      wall2: walls[next].wallNumber,
+      wall1: w1,
+      wall2: w2,
       wall1Corner: 1,
       wall2Corner: 0,
       isInterior: false,
-      miterBack: true,
+      miterBack: oldMap.get(`${w1}-${w2}`) ?? true,
     })
   }
   return joints
 }
 
+/** Toggle miterBack on a specific joint. */
+export function toggleJointMiter(joints: MozWallJoint[], jointIndex: number): MozWallJoint[] {
+  return joints.map((j, i) =>
+    i === jointIndex ? { ...j, miterBack: !j.miterBack } : j
+  )
+}
+
 /**
- * Update a wall's length and shift subsequent wall's start to maintain chain.
- * Returns new walls array (immutable).
+ * Update a wall's length and reconnect the chain.
+ * The next wall adjusts its start, angle, and length to reach the wall-after-next's start.
  */
 export function updateWallLength(walls: MozWall[], wallNumber: number, newLen: number): MozWall[] {
+  const MIN_LEN = 50
   const idx = walls.findIndex(w => w.wallNumber === wallNumber)
-  if (idx < 0 || newLen <= 0) return walls
+  if (idx < 0 || newLen < MIN_LEN) return walls
 
   const wall = walls[idx]
-  const oldEnd = wallEndpoint(wall)
   const angRad = wall.ang * DEG2RAD
-  const newEnd: [number, number] = [
-    wall.posX + newLen * Math.cos(angRad),
-    wall.posY + newLen * Math.sin(angRad),
-  ]
 
-  // Shift = how much the endpoint moved
-  const dx = newEnd[0] - oldEnd[0]
-  const dy = newEnd[1] - oldEnd[1]
+  // New endpoint along the same angle
+  const newEndX = wall.posX + newLen * Math.cos(angRad)
+  const newEndY = wall.posY + newLen * Math.sin(angRad)
 
-  const result = walls.map((w, i) => {
+  // Next wall must reconnect to the wall-after-next's start
+  const nextIdx = (idx + 1) % walls.length
+  const nextNextIdx = (idx + 2) % walls.length
+  const targetX = walls[nextNextIdx].posX
+  const targetY = walls[nextNextIdx].posY
+
+  const dx = targetX - newEndX
+  const dy = targetY - newEndY
+  const nextLen = Math.sqrt(dx * dx + dy * dy)
+
+  if (nextLen < MIN_LEN) return walls
+
+  let nextAng = Math.atan2(dy, dx) * RAD2DEG
+  const snapped = snapAngle(nextAng)
+
+  // Use snapped angle only if it stays within 1mm of target
+  const snapRad = snapped * DEG2RAD
+  const snapEndX = newEndX + nextLen * Math.cos(snapRad)
+  const snapEndY = newEndY + nextLen * Math.sin(snapRad)
+  const snapError = Math.sqrt((snapEndX - targetX) ** 2 + (snapEndY - targetY) ** 2)
+  if (snapError < 1.0) nextAng = snapped
+
+  return walls.map((w, i) => {
     if (i === idx) return { ...w, len: newLen }
-    if (i === (idx + 1) % walls.length) {
-      return { ...w, posX: w.posX + dx, posY: w.posY + dy }
-    }
+    if (i === nextIdx) return { ...w, posX: newEndX, posY: newEndY, ang: nextAng, len: nextLen }
     return w
   })
-
-  return result
 }
 
 /** Update a wall's height. Returns new walls array. */
@@ -171,4 +198,11 @@ export function splitWallAtCenter(
 
   const newJoints = rebuildJoints(newWalls)
   return { walls: newWalls, joints: newJoints, products: newProducts }
+}
+
+/** Toggle followAngle on a wall. Returns new walls array. */
+export function toggleFollowAngle(walls: MozWall[], wallNumber: number): MozWall[] {
+  return walls.map(w =>
+    w.wallNumber === wallNumber ? { ...w, followAngle: !w.followAngle } : w
+  )
 }

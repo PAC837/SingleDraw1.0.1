@@ -14,6 +14,7 @@ import CameraClipPlane from './render/CameraClipPlane'
 import WallEditorButton from './render/WallEditorButton'
 import WallEditorPanel from './render/WallEditorPanel'
 import PlanViewOverlay from './render/PlanViewOverlay'
+import MiniRoomPreview from './render/MiniRoomPreview'
 import { parseMoz } from './mozaik/mozParser'
 import { createRectangularRoom } from './mozaik/roomFactory'
 import { findNextAvailableX, placeProductOnWall, usableWallLength } from './mozaik/wallPlacement'
@@ -529,16 +530,48 @@ end`
         {state.wallEditorActive && state.selectedWall !== null && state.room && (() => {
           const wall = state.room.walls.find(w => w.wallNumber === state.selectedWall)
           if (!wall) return null
+          const wallIdx = state.room.walls.findIndex(w => w.wallNumber === state.selectedWall)
+          const prevWall = state.room.walls[(wallIdx - 1 + state.room.walls.length) % state.room.walls.length]
+          const nextWall = state.room.walls[(wallIdx + 1) % state.room.walls.length]
+          const hasTallerNeighbor = prevWall.height > wall.height || nextWall.height > wall.height
+          const n = state.room!.walls.length
+          const leftJointIdx = (wallIdx - 1 + n) % n
+          const rightJointIdx = wallIdx
+          const leftJoined = state.room!.wallJoints[leftJointIdx]?.miterBack ?? true
+          const rightJoined = state.room!.wallJoints[rightJointIdx]?.miterBack ?? true
+          const leftDisabled = !!(wall.followAngle || prevWall.followAngle)
+          const rightDisabled = !!(wall.followAngle || nextWall.followAngle)
           return (
             <WallEditorPanel
               wall={wall}
               useInches={state.useInches}
+              hasTallerNeighbor={hasTallerNeighbor}
+              leftJoined={leftJoined}
+              rightJoined={rightJoined}
+              leftDisabled={leftDisabled}
+              rightDisabled={rightDisabled}
               onUpdateLength={(len) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { len } })}
               onUpdateHeight={(height) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { height } })}
               onSplitWall={() => dispatch({ type: 'SPLIT_WALL', wallNumber: wall.wallNumber })}
+              onToggleFollowAngle={() => dispatch({ type: 'TOGGLE_FOLLOW_ANGLE', wallNumber: wall.wallNumber })}
+              onToggleLeftCorner={() => dispatch({ type: 'TOGGLE_JOINT_MITER', jointIndex: leftJointIdx })}
+              onToggleRightCorner={() => dispatch({ type: 'TOGGLE_JOINT_MITER', jointIndex: rightJointIdx })}
             />
           )
         })()}
+
+        {state.wallEditorActive && state.room && (
+          <MiniRoomPreview
+            room={state.room}
+            renderMode={state.renderMode}
+            roomCenter={roomCenter}
+            selectedWall={state.selectedWall}
+            onSelectWall={selectWall}
+            textureFolder={state.textureFolder}
+            selectedFloorTexture={state.selectedFloorTexture}
+            selectedWallTexture={state.selectedWallTexture}
+          />
+        )}
 
         {missingModels.length > 0 && (
           <div className="absolute bottom-2 left-2 right-2 bg-yellow-900/80 text-yellow-200 text-xs p-2 rounded max-h-24 overflow-y-auto font-mono">

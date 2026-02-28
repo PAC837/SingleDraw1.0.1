@@ -2,12 +2,13 @@
  * Plan view overlay rendered inside the R3F Canvas when wall editor is active.
  * Adds dimension labels, wall numbers, and draggable joint handles on top
  * of the existing 3D wall rendering (which is viewed from above).
+ * Mitered (joined) corners show a blue ring indicator behind the red drag handle.
  */
 
 import { useMemo, useRef, useState, useCallback } from 'react'
 import { Html } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
-import { CircleGeometry, Plane, Vector3, Raycaster, Vector2 } from 'three'
+import { CircleGeometry, RingGeometry, Plane, Vector3, Raycaster, Vector2 } from 'three'
 import type { MozRoom, DragTarget } from '../mozaik/types'
 import { computeWallGeometries, wallEndpoint } from '../math/wallMath'
 import { mozPosToThree } from '../math/basis'
@@ -22,6 +23,7 @@ interface PlanViewOverlayProps {
 }
 
 const handleGeo = new CircleGeometry(80, 24)
+const miterRingGeo = new RingGeometry(90, 130, 24)
 const dragPlane = new Plane(new Vector3(0, 1, 0), 0) // XZ plane at y=0
 
 export default function PlanViewOverlay({ room, useInches, dragTarget, onSetDragTarget, onMoveJoint }: PlanViewOverlayProps) {
@@ -61,7 +63,6 @@ export default function PlanViewOverlay({ room, useInches, dragTarget, onSetDrag
   const handlePointerDown = useCallback((jointIndex: number, nativeEvent: PointerEvent) => {
     isDragging.current = true
     onSetDragTarget({ type: 'joint', jointIndex })
-    // Capture pointer on the canvas for smooth dragging
     gl.domElement.setPointerCapture(nativeEvent.pointerId)
   }, [onSetDragTarget, gl])
 
@@ -117,27 +118,39 @@ export default function PlanViewOverlay({ room, useInches, dragTarget, onSetDrag
         )
       })}
 
-      {/* Joint handles at each corner */}
+      {/* Joint handles at each corner — drag to move */}
       {jointPositions.map((jp, i) => {
         const pos = mozPosToThree(jp.mozX, jp.mozY, wallHeight + 100)
+        const joint = room.wallJoints[i]
+        const isMitered = joint?.miterBack ?? true
         const isHovered = hoveredHandle === i
         const isDraggedHandle = dragTarget?.type === 'joint' && dragTarget.jointIndex === i
+        const active = isDraggedHandle || isHovered
 
         return (
-          <mesh
-            key={`handle-${i}`}
-            position={pos}
-            rotation={[-Math.PI / 2, 0, 0]}
-            geometry={handleGeo}
-            onPointerDown={(e) => { e.stopPropagation(); handlePointerDown(i, e.nativeEvent) }}
-            onPointerEnter={() => setHoveredHandle(i)}
-            onPointerLeave={() => setHoveredHandle(null)}
-          >
-            <meshBasicMaterial
-              color={isDraggedHandle ? '#AAFF00' : isHovered ? '#AAFF00' : '#888888'}
-              depthTest={false}
-            />
-          </mesh>
+          <group key={`handle-${i}`} position={pos} rotation={[-Math.PI / 2, 0, 0]}>
+            {/* Blue ring indicator for mitered (joined) corners */}
+            {isMitered && (
+              <mesh geometry={miterRingGeo}>
+                <meshBasicMaterial
+                  color={active ? '#66AAFF' : '#4488FF'}
+                  depthTest={false}
+                />
+              </mesh>
+            )}
+            {/* Red drag handle (always visible) */}
+            <mesh
+              geometry={handleGeo}
+              onPointerDown={(e) => { e.stopPropagation(); handlePointerDown(i, e.nativeEvent) }}
+              onPointerEnter={() => setHoveredHandle(i)}
+              onPointerLeave={() => setHoveredHandle(null)}
+            >
+              <meshBasicMaterial
+                color={active ? '#FF6644' : '#CC4422'}
+                depthTest={false}
+              />
+            </mesh>
+          </group>
         )
       })}
     </group>

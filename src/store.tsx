@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react'
 import type { AppState, RenderMode, MozRoom, MozFile, MozProduct, MozWall, DebugOverlays, DragTarget } from './mozaik/types'
-import { updateWallLength, updateWallHeight, moveJoint, splitWallAtCenter, rebuildJoints } from './math/wallEditor'
+import { updateWallLength, updateWallHeight, moveJoint, splitWallAtCenter, rebuildJoints, toggleFollowAngle, toggleJointMiter } from './math/wallEditor'
 
 const defaultOverlays: DebugOverlays = {
   originMarker: true,
@@ -65,6 +65,8 @@ type Action =
   | { type: 'UPDATE_WALL'; wallNumber: number; fields: Partial<Pick<MozWall, 'len' | 'height' | 'posX' | 'posY' | 'ang'>> }
   | { type: 'SPLIT_WALL'; wallNumber: number }
   | { type: 'MOVE_JOINT'; jointIndex: number; newX: number; newY: number }
+  | { type: 'TOGGLE_FOLLOW_ANGLE'; wallNumber: number }
+  | { type: 'TOGGLE_JOINT_MITER'; jointIndex: number }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -162,7 +164,7 @@ function reducer(state: AppState, action: Action): AppState {
           w.wallNumber === action.wallNumber ? { ...w, ...directFields } : w
         )
       }
-      const newJoints = rebuildJoints(newWalls)
+      const newJoints = rebuildJoints(newWalls, state.room.wallJoints)
       return {
         ...state,
         room: { ...state.room, walls: newWalls, wallJoints: newJoints, rawText: '' },
@@ -184,10 +186,40 @@ function reducer(state: AppState, action: Action): AppState {
       const movedWalls = moveJoint(
         state.room.walls, state.room.wallJoints, action.jointIndex, action.newX, action.newY,
       )
-      const movedJoints = rebuildJoints(movedWalls)
+      const movedJoints = rebuildJoints(movedWalls, state.room.wallJoints)
       return {
         ...state,
         room: { ...state.room, walls: movedWalls, wallJoints: movedJoints, rawText: '' },
+      }
+    }
+    case 'TOGGLE_FOLLOW_ANGLE': {
+      if (!state.room) return state
+      const faWalls = toggleFollowAngle(state.room.walls, action.wallNumber)
+      const faWall = faWalls.find(w => w.wallNumber === action.wallNumber)
+      // Auto-unjoin corners when followAngle is toggled ON (slope needs butt joints)
+      const faJoints = state.room.wallJoints.map(j => {
+        if (j.wall1 === action.wallNumber || j.wall2 === action.wallNumber) {
+          return { ...j, miterBack: faWall?.followAngle ? false : true }
+        }
+        return j
+      })
+      return {
+        ...state,
+        room: { ...state.room, walls: faWalls, wallJoints: faJoints, rawText: '' },
+      }
+    }
+    case 'TOGGLE_JOINT_MITER': {
+      if (!state.room) return state
+      const mjJoint = state.room.wallJoints[action.jointIndex]
+      if (!mjJoint) return state
+      // Prevent joining corners connected to follow-angle walls
+      const mjW1 = state.room.walls.find(w => w.wallNumber === mjJoint.wall1)
+      const mjW2 = state.room.walls.find(w => w.wallNumber === mjJoint.wall2)
+      if (mjW1?.followAngle || mjW2?.followAngle) return state
+      const mjJoints = toggleJointMiter(state.room.wallJoints, action.jointIndex)
+      return {
+        ...state,
+        room: { ...state.room, wallJoints: mjJoints, rawText: '' },
       }
     }
     default:

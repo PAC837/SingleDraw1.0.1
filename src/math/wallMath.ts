@@ -17,7 +17,7 @@ export function computeWallGeometries(walls: MozWall[]): WallGeometry[] {
   const area = signedArea(walls)
   const isCW = area < 0
 
-  return walls.map((wall) => {
+  return walls.map((wall, i) => {
     const start: [number, number] = [wall.posX, wall.posY]
     const end = wallEndpoint(wall)
     const angRad = wall.ang * DEG2RAD
@@ -36,6 +36,16 @@ export function computeWallGeometries(walls: MozWall[]): WallGeometry[] {
       normal = [-tangent[1], tangent[0]]
     }
 
+    // Effective start/end heights for cathedral (follow-angle) walls
+    let startHeight = wall.height
+    let endHeight = wall.height
+    if (wall.followAngle) {
+      const prevWall = walls[(i - 1 + walls.length) % walls.length]
+      const nextWall = walls[(i + 1) % walls.length]
+      startHeight = Math.max(wall.height, prevWall.height)
+      endHeight = Math.max(wall.height, nextWall.height)
+    }
+
     return {
       wallNumber: wall.wallNumber,
       idTag: wall.idTag,
@@ -45,6 +55,8 @@ export function computeWallGeometries(walls: MozWall[]): WallGeometry[] {
       normal,
       height: wall.height,
       thickness: wall.thickness,
+      startHeight,
+      endHeight,
     }
   })
 }
@@ -117,8 +129,9 @@ export function normalizedWallOrder(walls: MozWall[]): number[] {
 
 /**
  * Compute render trims for each wall based on WallJoint data.
- * Butt joints: arriving wall (Corner=1=end) trims by departing wall's full thickness.
- * Miter joints: both walls trim by half the other wall's thickness.
+ * Both walls always trim by half the other's thickness at the joint corner.
+ * Miter vs butt distinction is handled only by extensions in the renderer:
+ * miter joints extend walls diagonally to the seam; butt joints zero extensions.
  */
 export function computeWallTrims(
   walls: MozWall[],
@@ -132,20 +145,10 @@ export function computeWallTrims(
     const w2 = walls.find((w) => w.wallNumber === joint.wall2)
     if (!w1 || !w2) continue
 
-    if (joint.miterBack) {
-      // Miter: both walls trim by half the other's thickness
-      if (joint.wall1Corner === 1) trims.get(w1.wallNumber)!.trimEnd += w2.thickness / 2
-      else trims.get(w1.wallNumber)!.trimStart += w2.thickness / 2
-      if (joint.wall2Corner === 0) trims.get(w2.wallNumber)!.trimStart += w1.thickness / 2
-      else trims.get(w2.wallNumber)!.trimEnd += w1.thickness / 2
-    } else {
-      // Butt: both walls trim by half the other's thickness
-      // (with box geometry, same as miter — angular cut difference is cosmetic only)
-      if (joint.wall1Corner === 1) trims.get(w1.wallNumber)!.trimEnd += w2.thickness / 2
-      else trims.get(w1.wallNumber)!.trimStart += w2.thickness / 2
-      if (joint.wall2Corner === 0) trims.get(w2.wallNumber)!.trimStart += w1.thickness / 2
-      else trims.get(w2.wallNumber)!.trimEnd += w1.thickness / 2
-    }
+    if (joint.wall1Corner === 1) trims.get(w1.wallNumber)!.trimEnd += w2.thickness / 2
+    else trims.get(w1.wallNumber)!.trimStart += w2.thickness / 2
+    if (joint.wall2Corner === 0) trims.get(w2.wallNumber)!.trimStart += w1.thickness / 2
+    else trims.get(w2.wallNumber)!.trimEnd += w1.thickness / 2
   }
   return trims
 }

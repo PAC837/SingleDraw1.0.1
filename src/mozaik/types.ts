@@ -28,6 +28,7 @@ export interface MozWall {
   bulge: number
   shapeType: number
   cathedralHeight: number
+  followAngle?: boolean   // UI-only: slope top edge to match taller neighbors
 }
 
 /** Computed wall geometry (derived, not stored in file). */
@@ -40,6 +41,8 @@ export interface WallGeometry {
   normal: [number, number]    // inward normal (into room)
   height: number
   thickness: number
+  startHeight: number     // effective height at wall start corner
+  endHeight: number       // effective height at wall end corner
 }
 
 /** Wall joint from <WallJoint> element. */

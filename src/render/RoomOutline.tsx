@@ -1,13 +1,13 @@
 /**
- * Single room outline with deduped inner edges and mitered outer corners.
- * Replaces per-wall EdgesGeometry to prevent z-fighting at inner corners
- * and creates clean mitered joints at outer corners.
+ * Single room outline with mitered corners.
+ * Uses polygon intersection points for all corners (miter and butt alike).
+ * The miterBack flag only affects DES export, not visual rendering.
  */
 
 import { useMemo } from 'react'
 import { BufferGeometry, Float32BufferAttribute } from 'three'
 import type { MozRoom } from '../mozaik/types'
-import { computeRoomPolygons, computeWallGeometries } from '../math/wallMath'
+import { computeRoomPolygons, computeWallGeometries, computeWallTrims } from '../math/wallMath'
 import { mozPosToThree } from '../math/basis'
 
 interface RoomOutlineProps {
@@ -20,40 +20,84 @@ export default function RoomOutline({ room }: RoomOutlineProps) {
     if (geos.length < 3) return null
 
     const { inner, outer } = computeRoomPolygons(room.walls)
-    const height = geos[0].height
+    const trims = computeWallTrims(room.walls, room.wallJoints)
     const verts: number[] = []
 
-    // Helper: push a line segment (two 3D points) in Three.js coords
     const addLine = (ax: number, ay: number, az: number, bx: number, by: number, bz: number) => {
       const a = mozPosToThree(ax, ay, az)
       const b = mozPosToThree(bx, by, bz)
       verts.push(a.x, a.y, a.z, b.x, b.y, b.z)
     }
 
-    for (let i = 0; i < inner.length; i++) {
-      const next = (i + 1) % inner.length
+    for (let i = 0; i < geos.length; i++) {
+      const next = (i + 1) % geos.length
+      const g = geos[i]
 
-      // Inner perimeter: bottom and top horizontal edges
-      addLine(inner[i][0], inner[i][1], 0, inner[next][0], inner[next][1], 0)
-      addLine(inner[i][0], inner[i][1], height, inner[next][0], inner[next][1], height)
+      // Butt joint at this wall's start? Use flat face positions instead of polygon points.
+      const startJoint = room.wallJoints[(i - 1 + geos.length) % geos.length]
+      const buttStart = startJoint ? !startJoint.miterBack : false
 
-      // Outer perimeter: bottom and top horizontal edges (mitered corners)
-      addLine(outer[i][0], outer[i][1], 0, outer[next][0], outer[next][1], 0)
-      addLine(outer[i][0], outer[i][1], height, outer[next][0], outer[next][1], height)
+      let iS: [number, number], oS: [number, number]
+      if (buttStart) {
+        const trim = trims.get(g.wallNumber) ?? { trimStart: 0, trimEnd: 0 }
+        iS = [
+          g.start[0] + trim.trimStart * g.tangent[0] + (g.thickness / 2) * g.normal[0],
+          g.start[1] + trim.trimStart * g.tangent[1] + (g.thickness / 2) * g.normal[1],
+        ]
+        oS = [
+          g.start[0] + trim.trimStart * g.tangent[0] - (g.thickness / 2) * g.normal[0],
+          g.start[1] + trim.trimStart * g.tangent[1] - (g.thickness / 2) * g.normal[1],
+        ]
+      } else {
+        iS = inner[i]
+        oS = outer[i]
+      }
 
-      // Vertical edges at each corner (inner and outer)
-      addLine(inner[i][0], inner[i][1], 0, inner[i][0], inner[i][1], height)
-      addLine(outer[i][0], outer[i][1], 0, outer[i][0], outer[i][1], height)
+      // Butt joint at this wall's end? Use flat face positions (open corner).
+      const endJoint = room.wallJoints[i]
+      const buttEnd = endJoint ? !endJoint.miterBack : false
 
-      // Miter diagonal on top and bottom faces (inner corner to outer miter point)
-      addLine(inner[i][0], inner[i][1], 0, outer[i][0], outer[i][1], 0)
-      addLine(inner[i][0], inner[i][1], height, outer[i][0], outer[i][1], height)
+      let iE: [number, number], oE: [number, number]
+      if (buttEnd) {
+        const trim = trims.get(g.wallNumber) ?? { trimStart: 0, trimEnd: 0 }
+        const endDist = Math.sqrt((g.end[0] - g.start[0]) ** 2 + (g.end[1] - g.start[1]) ** 2)
+        const ex = g.start[0] + (endDist - trim.trimEnd) * g.tangent[0]
+        const ey = g.start[1] + (endDist - trim.trimEnd) * g.tangent[1]
+        iE = [ex + (g.thickness / 2) * g.normal[0], ey + (g.thickness / 2) * g.normal[1]]
+        oE = [ex - (g.thickness / 2) * g.normal[0], ey - (g.thickness / 2) * g.normal[1]]
+      } else {
+        iE = inner[next]
+        oE = outer[next]
+      }
+
+      const hStart = g.startHeight
+      const hEnd = g.endHeight
+
+      // Bottom edges
+      addLine(iS[0], iS[1], 0, iE[0], iE[1], 0)
+      addLine(oS[0], oS[1], 0, oE[0], oE[1], 0)
+
+      // Top edges (slope from hStart to hEnd)
+      addLine(iS[0], iS[1], hStart, iE[0], iE[1], hEnd)
+      addLine(oS[0], oS[1], hStart, oE[0], oE[1], hEnd)
+
+      // Start verticals + face line
+      addLine(iS[0], iS[1], 0, iS[0], iS[1], hStart)
+      addLine(oS[0], oS[1], 0, oS[0], oS[1], hStart)
+      addLine(iS[0], iS[1], 0, oS[0], oS[1], 0)
+      addLine(iS[0], iS[1], hStart, oS[0], oS[1], hStart)
+
+      // End verticals + face line
+      addLine(iE[0], iE[1], 0, iE[0], iE[1], hEnd)
+      addLine(oE[0], oE[1], 0, oE[0], oE[1], hEnd)
+      addLine(iE[0], iE[1], 0, oE[0], oE[1], 0)
+      addLine(iE[0], iE[1], hEnd, oE[0], oE[1], hEnd)
     }
 
     const geo = new BufferGeometry()
     geo.setAttribute('position', new Float32BufferAttribute(verts, 3))
     return geo
-  }, [room.walls])
+  }, [room.walls, room.wallJoints])
 
   if (!geometry) return null
 

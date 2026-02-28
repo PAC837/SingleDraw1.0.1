@@ -35,7 +35,7 @@ function SceneOrbitControls({ target, disableRotate }: { target?: [number, numbe
     }
   })
 
-  return <OrbitControls ref={ref} makeDefault enableRotate={!disableRotate} />
+  return <OrbitControls ref={ref} makeDefault enableRotate={!disableRotate} target={target} />
 }
 
 /** Switch to orthographic top-down camera when plan view is active. */
