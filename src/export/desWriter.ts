@@ -102,13 +102,14 @@ function generateDesXml(inputRoom: MozRoom): string {
     lines.push('  </Walls>')
   }
 
-  // <WallJoints> — uses joint.miterBack directly (set by user toggle / followAngle auto-unjoin)
+  // <WallJoints> — slope joints override miterBack (top=joined, bottom=unjoined)
   if (room.wallJoints.length === 0) {
     lines.push('  <WallJoints />')
   } else {
     lines.push('  <WallJoints>')
     for (const j of room.wallJoints) {
-      lines.push(`    ${serializeWallJoint(j)}`)
+      const mb = exportMiterBack(j, room.walls, geoMap)
+      lines.push(`    ${serializeWallJoint(j, mb)}`)
     }
     lines.push('  </WallJoints>')
   }
@@ -181,8 +182,41 @@ function serializeWall(w: MozWall, geo?: WallGeometry): string {
     '\n    </Wall>'
 }
 
-function serializeWallJoint(j: MozWallJoint): string {
-  return `<WallJoint Wall1="${j.wall1}" Wall2="${j.wall2}" IsInterior="${bool(j.isInterior)}" Wall1Corner="${j.wall1Corner}" Wall2Corner="${j.wall2Corner}" Wall2Along="0" Wall2Front="False" MiterBack="${bool(j.miterBack)}" />`
+function serializeWallJoint(j: MozWallJoint, miterBackOverride?: boolean): string {
+  const mb = miterBackOverride !== undefined ? miterBackOverride : j.miterBack
+  return `<WallJoint Wall1="${j.wall1}" Wall2="${j.wall2}" IsInterior="${bool(j.isInterior)}" Wall1Corner="${j.wall1Corner}" Wall2Corner="${j.wall2Corner}" Wall2Along="0" Wall2Front="False" MiterBack="${bool(mb)}" />`
+}
+
+/** Determine export miterBack for a joint touching follow-angle walls.
+ *  Top of slope (wall rises to taller neighbor) → always joined (true).
+ *  Bottom of slope (wall at base height) → always unjoined (false).
+ *  Non-follow-angle → use stored miterBack. */
+function exportMiterBack(
+  j: MozWallJoint, walls: MozWall[], geoMap: Map<number, WallGeometry>,
+): boolean | undefined {
+  const w1 = walls.find(w => w.wallNumber === j.wall1)
+  const w2 = walls.find(w => w.wallNumber === j.wall2)
+  if (!w1 || !w2) return undefined
+
+  const g1 = geoMap.get(j.wall1)
+  const g2 = geoMap.get(j.wall2)
+  if (!g1 || !g2) return undefined
+
+  // Check if either wall is follow-angle at this joint corner
+  let slopeResult: boolean | undefined
+  if (w1.followAngle) {
+    const h = j.wall1Corner === 1 ? g1.endHeight : g1.startHeight
+    // Top = height elevated above base, Bottom = at base height
+    slopeResult = h > w1.height ? true : false
+  }
+  if (w2.followAngle) {
+    const h = j.wall2Corner === 0 ? g2.startHeight : g2.endHeight
+    const r = h > w2.height ? true : false
+    // If both walls are follow-angle, top wins (stay joined)
+    if (slopeResult === undefined) slopeResult = r
+    else if (r === true) slopeResult = true
+  }
+  return slopeResult
 }
 
 function serializeFixture(f: MozFixture): string {

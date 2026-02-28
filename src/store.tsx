@@ -195,27 +195,15 @@ function reducer(state: AppState, action: Action): AppState {
     case 'TOGGLE_FOLLOW_ANGLE': {
       if (!state.room) return state
       const faWalls = toggleFollowAngle(state.room.walls, action.wallNumber)
-      const faWall = faWalls.find(w => w.wallNumber === action.wallNumber)
-      // Auto-unjoin corners when followAngle is toggled ON (slope needs butt joints)
-      const faJoints = state.room.wallJoints.map(j => {
-        if (j.wall1 === action.wallNumber || j.wall2 === action.wallNumber) {
-          return { ...j, miterBack: faWall?.followAngle ? false : true }
-        }
-        return j
-      })
       return {
         ...state,
-        room: { ...state.room, walls: faWalls, wallJoints: faJoints, rawText: '' },
+        room: { ...state.room, walls: faWalls, rawText: '' },
       }
     }
     case 'TOGGLE_JOINT_MITER': {
       if (!state.room) return state
       const mjJoint = state.room.wallJoints[action.jointIndex]
       if (!mjJoint) return state
-      // Prevent joining corners connected to follow-angle walls
-      const mjW1 = state.room.walls.find(w => w.wallNumber === mjJoint.wall1)
-      const mjW2 = state.room.walls.find(w => w.wallNumber === mjJoint.wall2)
-      if (mjW1?.followAngle || mjW2?.followAngle) return state
       const mjJoints = toggleJointMiter(state.room.wallJoints, action.jointIndex)
       return {
         ...state,

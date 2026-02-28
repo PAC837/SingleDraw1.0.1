@@ -34,8 +34,16 @@ export default function RoomOutline({ room }: RoomOutlineProps) {
       const g = geos[i]
 
       // Butt joint at this wall's start? Use flat face positions instead of polygon points.
+      // Top-of-slope corners always render mitered (no butt visual).
+      const wall = room.walls[i]
+      const prevWall = room.walls[(i - 1 + geos.length) % geos.length]
+      const nextWall = room.walls[(i + 1) % geos.length]
+
       const startJoint = room.wallJoints[(i - 1 + geos.length) % geos.length]
-      const buttStart = startJoint ? !startJoint.miterBack : false
+      const rawButtStart = startJoint ? !startJoint.miterBack : false
+      const topAtStart = (wall.followAngle && prevWall.height > wall.height) ||
+                         (prevWall.followAngle && wall.height > prevWall.height)
+      const buttStart = rawButtStart && !topAtStart
 
       let iS: [number, number], oS: [number, number]
       if (buttStart) {
@@ -55,7 +63,10 @@ export default function RoomOutline({ room }: RoomOutlineProps) {
 
       // Butt joint at this wall's end? Use flat face positions (open corner).
       const endJoint = room.wallJoints[i]
-      const buttEnd = endJoint ? !endJoint.miterBack : false
+      const rawButtEnd = endJoint ? !endJoint.miterBack : false
+      const topAtEnd = (wall.followAngle && nextWall.height > wall.height) ||
+                       (nextWall.followAngle && wall.height > nextWall.height)
+      const buttEnd = rawButtEnd && !topAtEnd
 
       let iE: [number, number], oE: [number, number]
       if (buttEnd) {

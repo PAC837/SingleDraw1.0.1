@@ -209,12 +209,24 @@ export default function RoomWalls({ room, doubleSided, selectedWall, onSelectWal
         const trim = trims.get(g.wallNumber) ?? { trimStart: 0, trimEnd: 0 }
         const miter = miters.get(g.wallNumber) ?? { startExt: 0, endExt: 0, innerStartExt: 0, innerEndExt: 0 }
 
-        // Butt (unjoined) corners: zero extensions so both walls have flat faces (open corner).
+        // Butt (unjoined) corners: zero extensions for flat faces (open corner).
+        // Top-of-slope corners always render mitered (no butt visual).
         const n = geometries.length
+        const wallIdx = room.walls.findIndex(w => w.wallNumber === g.wallNumber)
+        const prevWall = room.walls[(wallIdx - 1 + n) % n]
+        const nextWall = room.walls[(wallIdx + 1) % n]
+
         const startJoint = room.wallJoints[(gIdx - 1 + n) % n]
-        const buttStart = startJoint ? !startJoint.miterBack : false
+        const rawButtStart = startJoint ? !startJoint.miterBack : false
+        const topAtStart = (wall.followAngle && prevWall.height > wall.height) ||
+                           (prevWall.followAngle && wall.height > prevWall.height)
+        const buttStart = rawButtStart && !topAtStart
+
         const endJoint = room.wallJoints[gIdx]
-        const buttEnd = endJoint ? !endJoint.miterBack : false
+        const rawButtEnd = endJoint ? !endJoint.miterBack : false
+        const topAtEnd = (wall.followAngle && nextWall.height > wall.height) ||
+                         (nextWall.followAngle && wall.height > nextWall.height)
+        const buttEnd = rawButtEnd && !topAtEnd
 
         const renderLen = wall.len - trim.trimStart - trim.trimEnd
         const shiftAlongWall = (trim.trimStart - trim.trimEnd) / 2

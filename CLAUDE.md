@@ -77,13 +77,23 @@ If a needed file is missing: **stop and ask the user**. Specify exactly what is 
 **Wall editor files:**
 - `src/math/wallEditor.ts` — wall split, length/height update, joint rebuild logic
 - `src/render/PlanViewOverlay.tsx` — dimension labels + draggable joint handles (R3F overlay)
-- `src/render/WallEditorPanel.tsx` — floating panel for wall length/height inputs
+- `src/render/WallEditorPanel.tsx` — floating panel for wall length/height inputs, corner join/unjoin buttons
 - `src/render/WallEditorButton.tsx` — toolbar toggle button
+- `src/render/MiniRoomPreview.tsx` — mini 3D preview shown during plan view (bottom-right)
 
 **Joint rules:**
-- All wall joints use `miterBack: true` — this tells Mozaik to miter corners properly
+- New joints default to `miterBack: true` (mitered). Users toggle via wall editor panel L/R buttons.
 - `rebuildJoints()` regenerates the joint array whenever walls change (split, move, resize)
 - Joint connects `wall[i].end → wall[i+1].start` in ring order
+- Mitered corners: both walls extend diagonally to corner polygon intersection points
+- Butt (unjoined) corners: both walls have flat perpendicular faces (open corner)
+- Follow-angle walls auto-unjoin their corners; join buttons are disabled
+
+**Follow-angle walls:**
+- `wall.followAngle = true` slopes the wall between neighbor heights
+- `startHeight = max(ownHeight, prevHeight)`, `endHeight = max(ownHeight, nextHeight)`
+- Corners touching follow-angle walls cannot be joined (forced butt)
+- DES export writes per-wall height with slope info
 
 **Plan view camera (OrthoCamera in Scene.tsx):**
 - Orthographic camera looking straight down (Y-up → camera.up = (0,0,-1))

@@ -539,8 +539,6 @@ end`
           const rightJointIdx = wallIdx
           const leftJoined = state.room!.wallJoints[leftJointIdx]?.miterBack ?? true
           const rightJoined = state.room!.wallJoints[rightJointIdx]?.miterBack ?? true
-          const leftDisabled = !!(wall.followAngle || prevWall.followAngle)
-          const rightDisabled = !!(wall.followAngle || nextWall.followAngle)
           return (
             <WallEditorPanel
               wall={wall}
@@ -548,8 +546,6 @@ end`
               hasTallerNeighbor={hasTallerNeighbor}
               leftJoined={leftJoined}
               rightJoined={rightJoined}
-              leftDisabled={leftDisabled}
-              rightDisabled={rightDisabled}
               onUpdateLength={(len) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { len } })}
               onUpdateHeight={(height) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { height } })}
               onSplitWall={() => dispatch({ type: 'SPLIT_WALL', wallNumber: wall.wallNumber })}
