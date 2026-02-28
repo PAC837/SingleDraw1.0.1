@@ -87,13 +87,14 @@ If a needed file is missing: **stop and ask the user**. Specify exactly what is 
 - Joint connects `wall[i].end → wall[i+1].start` in ring order
 - Mitered corners: both walls extend diagonally to corner polygon intersection points
 - Butt (unjoined) corners: both walls have flat perpendicular faces (open corner)
-- Follow-angle walls auto-unjoin their corners; join buttons are disabled
+- Top-of-slope corners always render mitered visually (no butt gap regardless of miterBack)
 
 **Follow-angle walls:**
 - `wall.followAngle = true` slopes the wall between neighbor heights
 - `startHeight = max(ownHeight, prevHeight)`, `endHeight = max(ownHeight, nextHeight)`
-- Corners touching follow-angle walls cannot be joined (forced butt)
-- DES export writes per-wall height with slope info
+- All corners toggleable (no auto-unjoin, no disabled buttons)
+- DES export: top-of-slope joints forced `miterBack="True"`, bottom-of-slope forced `"False"`
+- Top of slope = corner where neighbor is taller than the follow-angle wall
 
 **Plan view camera (OrthoCamera in Scene.tsx):**
 - Orthographic camera looking straight down (Y-up → camera.up = (0,0,-1))
