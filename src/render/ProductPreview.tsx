@@ -3,7 +3,7 @@
  * Shows side panels, shelves, rods, and toe kick as a simplified SVG.
  */
 
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import type { MozProduct, MozPart } from '../mozaik/types'
 
 interface ProductPreviewProps {
@@ -40,20 +40,18 @@ const PANEL_THICK = 19  // mm — standard wood panel
 const ROD_THICK = 4     // px — rod tube thickness in SVG
 const ROD_INSET = 3     // px — rod inset from inner edges
 
-export default function ProductPreview({ product }: ProductPreviewProps) {
-  // --- DEV TUNING SLIDERS (temporary) ---
-  const [skew, setSkew] = useState(-10)
-  const [shoulderW, setShoulderW] = useState(20)
-  const [shoulderDrop, setShoulderDrop] = useState(8)
-  const [sleeveOut, setSleeveOut] = useState(4)
-  const [sleeveDown, setSleeveDown] = useState(6)
-  const [armpitGap, setArmpitGap] = useState(3)
-  const [bodyNarrow, setBodyNarrow] = useState(1)
-  const [dropPct, setDropPct] = useState(85)
-  const [spacing1, setSpacing1] = useState(-10)
-  const [spacing2, setSpacing2] = useState(0)
-  const [spacing3, setSpacing3] = useState(8)
+// Hanger / t-shirt shape constants (tuned via dev sliders)
+const HANGER_SKEW = -5        // skewX degrees for 3D perspective
+const SHOULDER_W = 23         // shoulder span (px)
+const SHOULDER_DROP = 15      // hanger V depth below rod (px)
+const SLEEVE_OUT = 12         // sleeve extension outward (px)
+const SLEEVE_DOWN = 20        // sleeve drop from shoulder (px)
+const ARMPIT_GAP = 9          // gap below sleeve to body (px)
+const BODY_NARROW = 0         // hem narrowing inward (px)
+const DROP_PCT = 85           // shirt length as % of available space
+const HANGER_OFFSETS = [-15, -3, 14]  // horizontal offsets for 3 hangers
 
+export default function ProductPreview({ product }: ProductPreviewProps) {
   const parts = useMemo(() => {
     const result: CategorizedPart[] = []
 
@@ -202,22 +200,7 @@ export default function ProductPreview({ product }: ProductPreviewProps) {
     ...uniqueRods.map(r => r.z),
   ]
 
-  const sliders: [string, number, (v: number) => void, number, number][] = [
-    ['Skew', skew, setSkew, -30, 30],
-    ['ShoulderW', shoulderW, setShoulderW, 8, 40],
-    ['ShoulderDrop', shoulderDrop, setShoulderDrop, 2, 20],
-    ['SleeveOut', sleeveOut, setSleeveOut, 0, 15],
-    ['SleeveDown', sleeveDown, setSleeveDown, 2, 20],
-    ['ArmpitGap', armpitGap, setArmpitGap, 0, 10],
-    ['BodyNarrow', bodyNarrow, setBodyNarrow, 0, 8],
-    ['DropPct', dropPct, setDropPct, 30, 100],
-    ['Pos1', spacing1, setSpacing1, -25, 25],
-    ['Pos2', spacing2, setSpacing2, -25, 25],
-    ['Pos3', spacing3, setSpacing3, -25, 25],
-  ]
-
   return (
-    <>
     <svg
       width={SVG_WIDTH}
       height={svgH}
@@ -309,25 +292,24 @@ export default function ProductPreview({ product }: ProductPreviewProps) {
         // Find nearest obstacle below this rod for garment drop length
         const belowZs = obstacleZs.filter(z => z < r.z - 5)
         const floorBelow = belowZs.length > 0 ? Math.max(...belowZs) : 0
-        const dropPx = (r.z - floorBelow) * scale * (dropPct / 100)
+        const dropPx = (r.z - floorBelow) * scale * (DROP_PCT / 100)
         const garmentDrop = Math.min(dropPx, 140)
 
         // 3 hangers, all tilted the same way like pushed to one side
         const cx = (innerLeft + innerRight) / 2
-        const offsets = [spacing1, spacing2, spacing3]
-        const armpitDown = sleeveDown + armpitGap
+        const armpitDown = SLEEVE_DOWN + ARMPIT_GAP
 
         return (
           <g key={`rod-${i}`}>
             {/* Hangers + t-shirts (behind rod) */}
-            {garmentDrop >= 8 && offsets.map((off, hi) => {
+            {garmentDrop >= 8 && HANGER_OFFSETS.map((off, hi) => {
               const hx = cx + off
               const hemY = cy + garmentDrop
-              const sy = cy + shoulderDrop // shoulder Y
-              const lS = hx - shoulderW / 2  // left shoulder X
-              const rS = hx + shoulderW / 2  // right shoulder X
+              const sy = cy + SHOULDER_DROP // shoulder Y
+              const lS = hx - SHOULDER_W / 2  // left shoulder X
+              const rS = hx + SHOULDER_W / 2  // right shoulder X
               return (
-                <g key={`hanger-${hi}`} transform={`skewX(${skew})`}
+                <g key={`hanger-${hi}`} transform={`skewX(${HANGER_SKEW})`}
                    style={{ transformOrigin: `${hx}px ${cy}px` }}>
                   {/* Hook — curved arc above rod */}
                   <path
@@ -342,12 +324,12 @@ export default function ProductPreview({ product }: ProductPreviewProps) {
                   {/* T-shirt silhouette */}
                   <path
                     d={`M ${lS} ${sy}
-                        L ${lS - sleeveOut} ${sy + sleeveDown}
+                        L ${lS - SLEEVE_OUT} ${sy + SLEEVE_DOWN}
                         L ${lS} ${sy + armpitDown}
-                        L ${lS + bodyNarrow} ${hemY}
-                        L ${rS - bodyNarrow} ${hemY}
+                        L ${lS + BODY_NARROW} ${hemY}
+                        L ${rS - BODY_NARROW} ${hemY}
                         L ${rS} ${sy + armpitDown}
-                        L ${rS + sleeveOut} ${sy + sleeveDown}
+                        L ${rS + SLEEVE_OUT} ${sy + SLEEVE_DOWN}
                         L ${rS} ${sy} Z`}
                     fill="#f0f0f0" stroke="#bbb" strokeWidth={1.2}
                   />
@@ -393,28 +375,5 @@ export default function ProductPreview({ product }: ProductPreviewProps) {
         )
       })}
     </svg>
-    {/* DEV TUNING PANEL — remove after dialing in values */}
-    <div style={{ width: SVG_WIDTH, fontSize: 9, lineHeight: '14px', marginTop: 4 }}>
-      {sliders.map(([label, val, setter, min, max]) => (
-        <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <span style={{ width: 62, textAlign: 'right', color: '#888' }}>{label}</span>
-          <input
-            type="range" min={min} max={max} value={val}
-            onChange={e => setter(Number(e.target.value))}
-            style={{ flex: 1, height: 10 }}
-          />
-          <span style={{ width: 20, textAlign: 'right', color: '#aaa' }}>{val}</span>
-        </div>
-      ))}
-      <button
-        style={{ marginTop: 2, fontSize: 8, padding: '1px 4px', cursor: 'pointer' }}
-        onClick={() => {
-          const vals = `skew=${skew} shoulderW=${shoulderW} shoulderDrop=${shoulderDrop} sleeveOut=${sleeveOut} sleeveDown=${sleeveDown} armpitGap=${armpitGap} bodyNarrow=${bodyNarrow} dropPct=${dropPct} spacing=[${spacing1},${spacing2},${spacing3}]`
-          navigator.clipboard.writeText(vals)
-          console.log('Hanger values:', vals)
-        }}
-      >Copy Values</button>
-    </div>
-    </>
   )
 }
