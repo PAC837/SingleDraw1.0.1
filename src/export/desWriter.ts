@@ -1,6 +1,7 @@
 import type { MozRoom, MozWall, MozWallJoint, MozFixture, MozProduct, MozPart, WallGeometry } from '../mozaik/types'
 import { roomParmsXml, ROOM_SET_XML } from './desTemplate'
 import { computeWallGeometries } from '../math/wallMath'
+import { computeAutoEndPanels, createSyntheticPanelProduct } from '../mozaik/autoEndPanels'
 
 /**
  * Serialize a MozRoom back to the DES file format.
@@ -72,13 +73,17 @@ function generateDesXml(inputRoom: MozRoom): string {
   lines.push('15')
   lines.push('<?xml version="1.0" encoding="utf-8" standalone="yes"?>')
 
+  // Pre-compute auto end panels so we can include them in IdTagCount
+  const autoPanels = computeAutoEndPanels(room.products, room.walls, room.wallJoints)
+
   // <Room> root element
-  const idTagCount = Math.max(
+  const baseIdTagCount = Math.max(
     ...room.walls.map(w => w.idTag),
     ...room.products.map(p => p.idTag),
     ...room.fixtures.map(f => f.idTag),
     4,
   )
+  const idTagCount = baseIdTagCount + autoPanels.length
   lines.push(`<Room UniqueID="${esc(room.uniqueId)}" RoomType="${room.roomType}" Name="${esc(room.name)}" RoomNosDirty="True" IdTagCount="${idTagCount}" Quan="1" FloorDirty="0">`)
 
   // <RoomParms> — full attribute set from template, with room-specific values substituted
@@ -128,12 +133,19 @@ function generateDesXml(inputRoom: MozRoom): string {
     lines.push('  </Fixts>')
   }
 
-  // <Products>
-  if (room.products.length === 0) {
+  // <Products> — includes auto-generated end panels
+  let nextPanelId = baseIdTagCount + 1
+  const panelProducts = autoPanels.map(panel => {
+    const adjacent = room.products[panel.adjacentProductIndex] ?? room.products[0]
+    return createSyntheticPanelProduct(panel, adjacent, nextPanelId++)
+  })
+  const allProducts = [...room.products, ...panelProducts]
+
+  if (allProducts.length === 0) {
     lines.push('  <Products />')
   } else {
     lines.push('  <Products>')
-    for (const prod of room.products) {
+    for (const prod of allProducts) {
       lines.push(serializeProduct(prod))
     }
     lines.push('  </Products>')

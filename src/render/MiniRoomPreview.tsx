@@ -1,20 +1,20 @@
 /**
  * Mini 3D room preview shown in the bottom-right corner during plan view.
  * Renders the room in a separate Canvas with a fixed isometric perspective camera.
- * Matches the current render mode (wireframe/ghosted/solid).
+ * Has its own render mode picker (defaults to ghosted).
  */
 
-import { useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import type { OrbitControls as OrbitControlsType } from 'three-stdlib'
 import type { MozRoom, RenderMode } from '../mozaik/types'
 import RoomWalls from './RoomWalls'
 import RoomFloor from './RoomFloor'
+import { GhostIcon, BrickIcon, WireframeIcon } from './RenderModeButton'
 
 interface MiniRoomPreviewProps {
   room: MozRoom
-  renderMode: RenderMode
   roomCenter: [number, number, number]
   selectedWall: number | null
   onSelectWall: (wallNumber: number) => void
@@ -66,10 +66,22 @@ function MiniCameraSetup({ roomCenter }: { roomCenter: [number, number, number] 
   return null
 }
 
+const MODES: RenderMode[] = ['ghosted', 'solid', 'wireframe']
+
+function ModePickerIcon({ mode, color, size }: { mode: RenderMode; color: string; size: number }) {
+  switch (mode) {
+    case 'ghosted': return <GhostIcon color={color} size={size} />
+    case 'solid': return <BrickIcon color={color} size={size} />
+    case 'wireframe': return <WireframeIcon color={color} size={size} />
+  }
+}
+
 export default function MiniRoomPreview({
-  room, renderMode, roomCenter, selectedWall, onSelectWall,
+  room, roomCenter, selectedWall, onSelectWall,
   textureFolder, selectedFloorType, selectedFloorTexture, selectedWallType, selectedWallTexture,
 }: MiniRoomPreviewProps) {
+  const [localMode, setLocalMode] = useState<RenderMode>('ghosted')
+
   return (
     <div
       className="absolute bottom-3 right-3 z-10 rounded-lg overflow-hidden"
@@ -86,6 +98,26 @@ export default function MiniRoomPreview({
       >
         3D Preview
       </div>
+
+      {/* Render mode picker */}
+      <div className="absolute top-1 right-1 z-10 flex gap-0.5">
+        {MODES.map((m) => (
+          <button
+            key={m}
+            onClick={() => setLocalMode(m)}
+            title={m}
+            className="flex items-center justify-center rounded"
+            style={{
+              width: 22, height: 22,
+              background: m === localMode ? 'rgba(0,0,0,0.6)' : 'transparent',
+              border: m === localMode ? '1px solid var(--accent)' : '1px solid transparent',
+            }}
+          >
+            <ModePickerIcon mode={m} color={m === localMode ? 'var(--accent)' : '#666'} size={16} />
+          </button>
+        ))}
+      </div>
+
       <Canvas
         camera={{
           position: [5000, 4000, 5000],
@@ -116,7 +148,7 @@ export default function MiniRoomPreview({
           doubleSided={false}
           selectedWall={selectedWall}
           onSelectWall={onSelectWall}
-          renderMode={renderMode}
+          renderMode={localMode}
           textureFolder={textureFolder}
           selectedWallType={selectedWallType}
           selectedWallTexture={selectedWallTexture}

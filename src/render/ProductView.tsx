@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Quaternion, Vector3, RepeatWrapping, BoxGeometry, CylinderGeometry, EdgesGeometry } from 'three'
 import type { Texture } from 'three'
 import type { MozProduct, MozPart, RenderMode } from '../mozaik/types'
@@ -7,19 +7,71 @@ import { mozEulerToQuaternion } from '../math/rotations'
 import { DEG2RAD } from '../math/constants'
 import { useProductTexture, useTextureByFilename, useSingleDrawTexture, lookupTexture } from './useProductTexture'
 import { useProductModel } from './useProductModel'
+import ProductResizeHandles from './ProductResizeHandles'
 
 interface ProductViewProps {
   product: MozProduct
+  productIndex?: number
   worldOffset?: [number, number, number]
   wallAngleDeg?: number
   renderMode?: RenderMode
   showBoundingBox?: boolean
+  selected?: boolean
+  onSelect?: (index: number) => void
+  onResize?: (index: number, field: 'width' | 'depth' | 'height', value: number) => void
+  onUpdateElev?: (index: number, elev: number) => void
+  onUpdateX?: (index: number, x: number) => void
+  onBumpLeft?: (index: number) => void
+  onBumpRight?: (index: number) => void
   textureFolder?: FileSystemDirectoryHandle | null
   textureId?: number | null
   textureFilename?: string | null
   singleDrawBrand?: string | null
   singleDrawTexture?: string | null
   modelsFolder?: FileSystemDirectoryHandle | null
+}
+
+/** 12 thin rectangular prisms forming a visible bounding box. */
+function BoundingBoxEdges({ w, h, d }: { w: number; h: number; d: number }) {
+  const BAR = 4 // mm cross-section
+  const color = '#AAFF00'
+
+  // 12 edges: 4 along each axis
+  const edges = useMemo(() => {
+    const hx = w / 2, hy = h / 2, hz = d / 2
+    const result: { pos: [number, number, number]; size: [number, number, number] }[] = []
+
+    // 4 edges along X (width)
+    for (const y of [-hy, hy]) {
+      for (const z of [-hz, hz]) {
+        result.push({ pos: [0, y, z], size: [w, BAR, BAR] })
+      }
+    }
+    // 4 edges along Y (height in Three.js)
+    for (const x of [-hx, hx]) {
+      for (const z of [-hz, hz]) {
+        result.push({ pos: [x, 0, z], size: [BAR, h, BAR] })
+      }
+    }
+    // 4 edges along Z (depth in Three.js)
+    for (const x of [-hx, hx]) {
+      for (const y of [-hy, hy]) {
+        result.push({ pos: [x, y, 0], size: [BAR, BAR, d] })
+      }
+    }
+    return result
+  }, [w, h, d])
+
+  return (
+    <group>
+      {edges.map((e, i) => (
+        <mesh key={i} position={e.pos} renderOrder={999}>
+          <boxGeometry args={e.size} />
+          <meshBasicMaterial color={color} depthTest={false} />
+        </mesh>
+      ))}
+    </group>
+  )
 }
 
 /** Color by part type for visual differentiation. */
@@ -178,10 +230,13 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
 }
 
 export default function ProductView({
-  product, worldOffset, wallAngleDeg, renderMode = 'ghosted', showBoundingBox = false,
+  product, productIndex, worldOffset, wallAngleDeg, renderMode = 'ghosted',
+  showBoundingBox = false, selected = false, onSelect, onResize, onUpdateElev, onUpdateX,
+  onBumpLeft, onBumpRight,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null, modelsFolder = null,
 }: ProductViewProps) {
+  const [hovered, setHovered] = useState(false)
   // Priority: SingleDraw (brand picker) → filename-based (user override) → textureId-based (DES default)
   const texById = useProductTexture(textureFilename ? null : textureFolder, textureFilename ? null : textureId)
   const texByFile = useTextureByFilename(textureFilename ? textureFolder : null, textureFilename)
@@ -202,6 +257,8 @@ export default function ProductView({
     [product],
   )
 
+  const showBox = showBoundingBox || selected
+
   return (
     <group position={groupPos} rotation={[0, groupRotY, 0]} scale={[1, 1, -1]}>
       {product.parts.map((part, i) => (
@@ -215,11 +272,45 @@ export default function ProductView({
         />
       ))}
 
-      {showBoundingBox && (
-        <mesh position={bbPos}>
+      {/* Invisible click target for product selection */}
+      {productIndex !== undefined && onSelect && (
+        <mesh
+          position={bbPos}
+          onClick={(e) => { e.stopPropagation(); onSelect(productIndex) }}
+          onPointerOver={() => setHovered(true)}
+          onPointerOut={() => setHovered(false)}
+        >
           <boxGeometry args={[product.width, product.height, product.depth]} />
-          <meshStandardMaterial color="#AAFF00" wireframe transparent opacity={0.2} />
+          <meshBasicMaterial visible={false} />
         </mesh>
+      )}
+
+      {/* Hover outline when not selected */}
+      {hovered && !selected && (
+        <group position={bbPos}>
+          <BoundingBoxEdges w={product.width} h={product.height} d={product.depth} />
+        </group>
+      )}
+
+      {/* Bounding box + resize handles when selected or debug overlay enabled */}
+      {showBox && (
+        <group position={bbPos}>
+          <BoundingBoxEdges w={product.width} h={product.height} d={product.depth} />
+        </group>
+      )}
+
+      {/* Resize handles only when selected */}
+      {selected && productIndex !== undefined && onResize && onUpdateElev && onUpdateX && (
+        <ProductResizeHandles
+          product={product}
+          productIndex={productIndex}
+          wallAngleDeg={wallAngleDeg}
+          onResize={onResize}
+          onUpdateElev={onUpdateElev}
+          onUpdateX={onUpdateX}
+          onBumpLeft={onBumpLeft}
+          onBumpRight={onBumpRight}
+        />
       )}
     </group>
   )

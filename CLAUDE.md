@@ -72,6 +72,29 @@ If a needed file is missing: **stop and ask the user**. Specify exactly what is 
 - World offset = `trimStart + product.x` along wall tangent, plus `wallThickness/2 + productDepth` along inward normal
 - Products auto-place left-to-right, cannot overlap bounding boxes, cannot extend past wall edges
 
+## Auto End Panels & Product Collision
+
+**Auto end panels** (`src/mozaik/autoEndPanels.ts`):
+- Panels are computed on-the-fly, NOT stored — derived from product arrangement
+- PANEL_THICK = 19mm (3/4" standard wood)
+- Panel height & depth match adjacent section
+- Same-depth sections: shared panel when gap = 19mm, separate panels when gap >= 38mm
+- Different-depth sections: always separate panels
+- `computeAutoEndPanels()` runs reactively (useMemo) whenever products change
+- `createSyntheticPanelProduct()` builds minimal MozProduct for DES export
+- Rendered by `src/render/AutoEndPanels.tsx`, exported via `src/export/desWriter.ts`
+
+**Product collision** (`src/mozaik/wallPlacement.ts`):
+- `computeProductXBounds()` returns valid `{minX, maxX}` for a product
+- Enforces PANEL_THICK gap from wall edges and between adjacent products
+- Move handle (center ball) clamps to bounds — sections cannot overlap
+- Collision clamping in `useProductActions` hook (not store reducer)
+
+**Bump buttons** (`src/render/ProductResizeHandles.tsx`):
+- Red spheres at top-left and top-right corners of front face
+- Click top-left → snap to leftmost valid position (bump left)
+- Click top-right → snap to rightmost valid position (bump right)
+
 ## Wall Editor & Plan View
 
 **Wall editor files:**

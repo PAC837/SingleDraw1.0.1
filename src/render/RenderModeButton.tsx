@@ -17,55 +17,55 @@ const LABELS: Record<RenderMode, string> = {
 }
 
 /** Ghost silhouette — rounded top + wavy bottom + two eyes. */
-function GhostIcon({ color }: { color: string }) {
+export function GhostIcon({ color, size = 24 }: { color: string; size?: number }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <path
-        d="M5 18V10a5 5 0 0110 0v8l-2-2-1.5 2L10 16l-1.5 2L7 16l-2 2z"
-        stroke={color} strokeWidth="1.5" fill="none" strokeLinejoin="round"
+        d="M6 21V12a6 6 0 0112 0v9l-2.5-2.5L13.5 21 12 19l-1.5 2L8.5 18.5 6 21z"
+        stroke={color} strokeWidth="1.6" fill="none" strokeLinejoin="round"
       />
-      <circle cx="8" cy="10" r="1.2" fill={color} />
-      <circle cx="12" cy="10" r="1.2" fill={color} />
+      <circle cx="9.5" cy="12" r="1.5" fill={color} />
+      <circle cx="14.5" cy="12" r="1.5" fill={color} />
     </svg>
   )
 }
 
 /** Brick wall — stacked offset rectangles. */
-function BrickIcon({ color }: { color: string }) {
+export function BrickIcon({ color, size = 24 }: { color: string; size?: number }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <rect x="2" y="4" width="7" height="4" stroke={color} strokeWidth="1.3" />
-      <rect x="9" y="4" width="9" height="4" stroke={color} strokeWidth="1.3" />
-      <rect x="2" y="8" width="9" height="4" stroke={color} strokeWidth="1.3" />
-      <rect x="11" y="8" width="7" height="4" stroke={color} strokeWidth="1.3" />
-      <rect x="2" y="12" width="7" height="4" stroke={color} strokeWidth="1.3" />
-      <rect x="9" y="12" width="9" height="4" stroke={color} strokeWidth="1.3" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="4" width="9" height="5" stroke={color} strokeWidth="1.4" />
+      <rect x="11" y="4" width="11" height="5" stroke={color} strokeWidth="1.4" />
+      <rect x="2" y="9" width="11" height="5" stroke={color} strokeWidth="1.4" />
+      <rect x="13" y="9" width="9" height="5" stroke={color} strokeWidth="1.4" />
+      <rect x="2" y="14" width="9" height="5" stroke={color} strokeWidth="1.4" />
+      <rect x="11" y="14" width="11" height="5" stroke={color} strokeWidth="1.4" />
     </svg>
   )
 }
 
 /** Wireframe cube outline. */
-function WireframeIcon({ color }: { color: string }) {
+export function WireframeIcon({ color, size = 24 }: { color: string; size?: number }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       {/* Front face */}
-      <rect x="4" y="7" width="9" height="9" stroke={color} strokeWidth="1.3" />
+      <rect x="3" y="8" width="12" height="12" stroke={color} strokeWidth="1.4" />
       {/* Back face (offset) */}
-      <rect x="7" y="4" width="9" height="9" stroke={color} strokeWidth="1.3" />
+      <rect x="9" y="3" width="12" height="12" stroke={color} strokeWidth="1.4" />
       {/* Depth edges */}
-      <line x1="4" y1="7" x2="7" y2="4" stroke={color} strokeWidth="1.3" />
-      <line x1="13" y1="7" x2="16" y2="4" stroke={color} strokeWidth="1.3" />
-      <line x1="13" y1="16" x2="16" y2="13" stroke={color} strokeWidth="1.3" />
-      <line x1="4" y1="16" x2="7" y2="13" stroke={color} strokeWidth="1.3" />
+      <line x1="3" y1="8" x2="9" y2="3" stroke={color} strokeWidth="1.4" />
+      <line x1="15" y1="8" x2="21" y2="3" stroke={color} strokeWidth="1.4" />
+      <line x1="15" y1="20" x2="21" y2="15" stroke={color} strokeWidth="1.4" />
+      <line x1="3" y1="20" x2="9" y2="15" stroke={color} strokeWidth="1.4" />
     </svg>
   )
 }
 
-function ModeIcon({ mode, color }: { mode: RenderMode; color: string }) {
+export function ModeIcon({ mode, color, size }: { mode: RenderMode; color: string; size?: number }) {
   switch (mode) {
-    case 'ghosted': return <GhostIcon color={color} />
-    case 'solid': return <BrickIcon color={color} />
-    case 'wireframe': return <WireframeIcon color={color} />
+    case 'ghosted': return <GhostIcon color={color} size={size} />
+    case 'solid': return <BrickIcon color={color} size={size} />
+    case 'wireframe': return <WireframeIcon color={color} size={size} />
   }
 }
 

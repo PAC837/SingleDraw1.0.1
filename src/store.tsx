@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react'
 import type { AppState, Visibility, RenderMode, MozRoom, MozFile, MozProduct, MozFixture, MozWall, DebugOverlays, DragTarget } from './mozaik/types'
 import { updateWallLength, updateWallHeight, moveJoint, splitWallAtCenter, rebuildJoints, toggleFollowAngle, toggleJointMiter } from './math/wallEditor'
+import { resizeProduct } from './mozaik/productResize'
 
 const defaultOverlays: DebugOverlays = {
   originMarker: true,
@@ -54,6 +55,7 @@ const initialState: AppState = {
   wallHeight: 2438.4,       // 96 inches in mm
   productConfigOpen: false,
   cameraResetKey: 0,
+  selectedProduct: null,
 }
 
 type Action =
@@ -79,7 +81,7 @@ type Action =
   | { type: 'SET_SINGLEDRAW_TEXTURE'; filename: string | null }
   | { type: 'CREATE_ROOM'; room: MozRoom }
   | { type: 'PLACE_PRODUCT'; product: MozProduct }
-  | { type: 'UPDATE_ROOM_PRODUCT'; index: number; field: 'width' | 'depth'; value: number }
+  | { type: 'UPDATE_ROOM_PRODUCT'; index: number; field: 'width' | 'depth' | 'height'; value: number }
   | { type: 'REMOVE_ROOM_PRODUCT'; index: number }
   | { type: 'CLEAR_ROOM' }
   | { type: 'CLEAR_PRODUCTS' }
@@ -104,6 +106,9 @@ type Action =
   | { type: 'SET_WALL_HEIGHT'; height: number }
   | { type: 'ADD_FIXTURE'; fixture: MozFixture }
   | { type: 'REMOVE_FIXTURE'; fixtureIdTag: number }
+  | { type: 'SELECT_PRODUCT'; index: number | null }
+  | { type: 'UPDATE_ROOM_PRODUCT_ELEV'; index: number; elev: number }
+  | { type: 'UPDATE_ROOM_PRODUCT_X'; index: number; x: number }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -112,6 +117,7 @@ function reducer(state: AppState, action: Action): AppState {
         ...state,
         wallEditorActive: false,
         selectedWall: null,
+        selectedProduct: null,
         dragTarget: null,
         visibilityMenuOpen: false,
         productConfigOpen: false,
@@ -173,7 +179,7 @@ function reducer(state: AppState, action: Action): AppState {
         room: {
           ...state.room,
           products: state.room.products.map((p, i) =>
-            i === action.index ? { ...p, [action.field]: action.value } : p
+            i === action.index ? resizeProduct(p, action.field, action.value) : p
           ),
         },
       }
@@ -181,6 +187,9 @@ function reducer(state: AppState, action: Action): AppState {
       if (!state.room) return state
       return {
         ...state,
+        selectedProduct: state.selectedProduct === action.index ? null
+          : state.selectedProduct !== null && state.selectedProduct > action.index
+            ? state.selectedProduct - 1 : state.selectedProduct,
         room: {
           ...state.room,
           products: state.room.products.filter((_, i) => i !== action.index),
@@ -327,6 +336,32 @@ function reducer(state: AppState, action: Action): AppState {
           ...state.room,
           fixtures: state.room.fixtures.filter(f => f.idTag !== action.fixtureIdTag),
           rawText: '',
+        },
+      }
+    }
+    case 'SELECT_PRODUCT':
+      return { ...state, selectedProduct: action.index }
+    case 'UPDATE_ROOM_PRODUCT_ELEV': {
+      if (!state.room) return state
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          products: state.room.products.map((p, i) =>
+            i === action.index ? { ...p, elev: action.elev } : p
+          ),
+        },
+      }
+    }
+    case 'UPDATE_ROOM_PRODUCT_X': {
+      if (!state.room) return state
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          products: state.room.products.map((p, i) =>
+            i === action.index ? { ...p, x: Math.max(0, action.x) } : p
+          ),
         },
       }
     }

@@ -51,7 +51,7 @@ interface UIPanelProps {
   onLinkModelsFolder: () => void
   onCreateRoom: (width: number, depth: number) => void
   onPlaceProduct: (productIndex: number, wallNumber: number) => void
-  onUpdateProductDimension: (productIndex: number, field: 'width' | 'depth', value: number) => void
+  onUpdateProductDimension: (productIndex: number, field: 'width' | 'depth' | 'height', value: number) => void
   onRemoveProduct: (productIndex: number) => void
 }
 

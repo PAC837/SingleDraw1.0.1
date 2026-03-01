@@ -216,4 +216,5 @@ export interface AppState {
   wallHeight: number           // mm — wall height for room creation / updates
   productConfigOpen: boolean
   cameraResetKey: number
+  selectedProduct: number | null
 }

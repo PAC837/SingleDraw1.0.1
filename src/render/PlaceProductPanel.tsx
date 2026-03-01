@@ -11,7 +11,7 @@ interface PlaceProductPanelProps {
   selectedWall: number | null
   useInches: boolean
   onPlaceProduct: (productIndex: number, wallNumber: number) => void
-  onUpdateProductDimension: (productIndex: number, field: 'width' | 'depth', value: number) => void
+  onUpdateProductDimension: (productIndex: number, field: 'width' | 'depth' | 'height', value: number) => void
   onRemoveProduct: (productIndex: number) => void
 }
 
@@ -108,6 +108,15 @@ export default function PlaceProductPanel({
                     type="number"
                     value={Math.round(product.depth)}
                     onChange={(e) => onUpdateProductDimension(index, 'depth', Number(e.target.value))}
+                    className="w-full text-xs px-1 py-0.5 bg-gray-800 rounded border border-[var(--accent)] text-white"
+                  />
+                </label>
+                <label className="flex-1">
+                  <span className="text-[10px] text-[var(--text-secondary)]">H</span>
+                  <input
+                    type="number"
+                    value={Math.round(product.height)}
+                    onChange={(e) => onUpdateProductDimension(index, 'height', Number(e.target.value))}
                     className="w-full text-xs px-1 py-0.5 bg-gray-800 rounded border border-[var(--accent)] text-white"
                   />
                 </label>
