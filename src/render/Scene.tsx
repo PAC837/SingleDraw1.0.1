@@ -10,12 +10,15 @@ interface SceneProps {
   children: ReactNode
   orbitTarget?: [number, number, number]
   orthographic?: boolean
+  resetKey?: number
+  onPointerMissed?: () => void
 }
 
 /** Inner component so useEffect runs inside the R3F Canvas context. */
-function SceneOrbitControls({ target, disableRotate }: { target?: [number, number, number]; disableRotate?: boolean }) {
+function SceneOrbitControls({ target, disableRotate, resetKey }: { target?: [number, number, number]; disableRotate?: boolean; resetKey?: number }) {
   const ref = useRef<OrbitControlsType>(null)
   const applied = useRef(false)
+  const { camera } = useThree()
 
   useEffect(() => {
     applied.current = false
@@ -25,6 +28,17 @@ function SceneOrbitControls({ target, disableRotate }: { target?: [number, numbe
       applied.current = true
     }
   }, [target, disableRotate])
+
+  // Reset camera to default diagonal view when home is clicked
+  useEffect(() => {
+    if (!resetKey || !ref.current || !target) return
+    camera.position.set(target[0] + 5000, 4000, target[2] + 5000)
+    camera.up.set(0, 1, 0)
+    camera.lookAt(target[0], target[1], target[2])
+    camera.updateProjectionMatrix()
+    ref.current.target.set(target[0], target[1], target[2])
+    ref.current.update()
+  }, [resetKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Fallback: if OrbitControls wasn't ready during useEffect, apply on next frame
   useFrame(() => {
@@ -115,7 +129,7 @@ function OrthoCamera({ target }: { target?: [number, number, number] }) {
   return null
 }
 
-export default function Scene({ children, orbitTarget, orthographic }: SceneProps) {
+export default function Scene({ children, orbitTarget, orthographic, resetKey, onPointerMissed }: SceneProps) {
   return (
     <Canvas
       camera={{
@@ -127,6 +141,7 @@ export default function Scene({ children, orbitTarget, orthographic }: SceneProp
       }}
       gl={{ antialias: true }}
       style={{ background: '#ffffff' }}
+      onPointerMissed={onPointerMissed}
     >
       <ambientLight intensity={0.6} />
       <hemisphereLight args={['#d4e6f1', '#b0a090', 0.5]} />
@@ -134,7 +149,7 @@ export default function Scene({ children, orbitTarget, orthographic }: SceneProp
       <directionalLight position={[-3000, 8000, -3000]} intensity={0.3} />
       {children}
       {orthographic && <OrthoCamera target={orbitTarget} />}
-      <SceneOrbitControls key={orthographic ? 'ortho' : 'persp'} target={orbitTarget} disableRotate={orthographic} />
+      <SceneOrbitControls key={orthographic ? 'ortho' : 'persp'} target={orbitTarget} disableRotate={orthographic} resetKey={resetKey} />
     </Canvas>
   )
 }

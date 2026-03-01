@@ -153,6 +153,15 @@ export interface MozRoom {
   rawText: string      // original file text for round-trip
 }
 
+/** Scene visibility toggles. */
+export interface Visibility {
+  walls: Record<number, boolean>  // wallNumber → visible (missing key = true)
+  allWalls: boolean
+  floor: boolean
+  products: boolean
+  inserts: boolean
+}
+
 /** Debug overlay toggles. */
 export interface DebugOverlays {
   originMarker: boolean
@@ -199,4 +208,12 @@ export interface AppState {
   availableLibraryFiles: string[]   // sorted .moz filenames from library folder
   sketchUpFolder: FileSystemDirectoryHandle | null  // Mozaik shared folder — deep-scanned for .skp files
   modelsFolder: FileSystemDirectoryHandle | null    // flat folder of .glb files for rendering
+  visibility: Visibility
+  visibilityMenuOpen: boolean
+  placementMode: 'floor' | 'wall'
+  unitHeight: number           // mm — height of units being placed
+  wallMountTopAt: number       // mm — distance from floor to top of wall-mounted unit
+  wallHeight: number           // mm — wall height for room creation / updates
+  productConfigOpen: boolean
+  cameraResetKey: number
 }

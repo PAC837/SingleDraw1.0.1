@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { DebugOverlays, MozRoom, MozFile, RenderMode } from '../mozaik/types'
 import { formatDim } from '../math/units'
 import FileLoader from './FileLoader'
@@ -42,7 +43,7 @@ interface UIPanelProps {
   libraryFolder: FileSystemDirectoryHandle | null
   availableLibraryFiles: string[]
   onLinkLibraryFolder: () => void
-  onLoadFromLibrary: (filename: string) => void
+  onLoadFromLibrary: (filenames: string[]) => void
   onGenerateGlbScript: () => void
   sketchUpFolder: FileSystemDirectoryHandle | null
   onLinkSketchUpFolder: () => void
@@ -95,6 +96,79 @@ function RenderModeSelector({
           {m.label}
         </button>
       ))}
+    </div>
+  )
+}
+
+function LibrarySection({
+  libraryFolder, availableLibraryFiles, onLinkLibraryFolder, onLoadFromLibrary,
+}: {
+  libraryFolder: FileSystemDirectoryHandle | null
+  availableLibraryFiles: string[]
+  onLinkLibraryFolder: () => void
+  onLoadFromLibrary: (filenames: string[]) => void
+}) {
+  const [checked, setChecked] = useState<Set<string>>(new Set())
+
+  const toggle = (filename: string) => {
+    setChecked(prev => {
+      const next = new Set(prev)
+      if (next.has(filename)) next.delete(filename)
+      else next.add(filename)
+      return next
+    })
+  }
+
+  return (
+    <div className="p-4 border-b border-gray-800">
+      <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
+        Libraries
+      </h2>
+      <div className="space-y-2">
+        <button
+          onClick={onLinkLibraryFolder}
+          className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] hover:bg-gray-700 transition-colors text-left"
+        >
+          {libraryFolder ? `Library: ${libraryFolder.name}` : 'Link Library Folder...'}
+        </button>
+        {libraryFolder && availableLibraryFiles.length > 0 && (
+          <>
+            <div
+              className="max-h-[200px] overflow-y-auto bg-gray-800 rounded border border-[var(--accent)] p-1"
+            >
+              {availableLibraryFiles.map((f) => (
+                <label
+                  key={f}
+                  className="flex items-center gap-2 px-2 py-1 rounded cursor-pointer hover:bg-gray-700 text-xs"
+                >
+                  <input
+                    type="checkbox"
+                    checked={checked.has(f)}
+                    onChange={() => toggle(f)}
+                    className="accent-[var(--accent)]"
+                  />
+                  <span className={checked.has(f) ? 'text-[var(--accent)]' : 'text-[var(--text-primary)]'}>
+                    {f.replace(/\.moz$/i, '')}
+                  </span>
+                </label>
+              ))}
+            </div>
+            <button
+              onClick={() => onLoadFromLibrary([...checked])}
+              disabled={checked.size === 0}
+              className="w-full text-xs px-3 py-2 rounded font-medium transition-opacity"
+              style={{
+                background: checked.size > 0 ? 'var(--accent)' : '#333',
+                color: checked.size > 0 ? '#000' : '#666',
+                opacity: checked.size > 0 ? 1 : 0.5,
+                cursor: checked.size > 0 ? 'pointer' : 'not-allowed',
+              }}
+            >
+              Load Selected ({checked.size})
+            </button>
+          </>
+        )}
+      </div>
     </div>
   )
 }
@@ -164,31 +238,12 @@ export default function UIPanel({
       </div>
 
       {/* Libraries */}
-      <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-          Libraries
-        </h2>
-        <div className="space-y-2">
-          <button
-            onClick={onLinkLibraryFolder}
-            className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] hover:bg-gray-700 transition-colors text-left"
-          >
-            {libraryFolder ? `Library: ${libraryFolder.name}` : 'Link Library Folder...'}
-          </button>
-          {libraryFolder && availableLibraryFiles?.length > 0 && (
-            <select
-              value=""
-              onChange={(e) => { if (e.target.value) onLoadFromLibrary(e.target.value) }}
-              className="w-full text-xs px-3 py-2 bg-gray-800 rounded border border-[var(--accent)] text-blue-400"
-            >
-              <option value="">Select a product...</option>
-              {availableLibraryFiles.map((f) => (
-                <option key={f} value={f}>{f.replace(/\.moz$/i, '')}</option>
-              ))}
-            </select>
-          )}
-        </div>
-      </div>
+      <LibrarySection
+        libraryFolder={libraryFolder}
+        availableLibraryFiles={availableLibraryFiles}
+        onLinkLibraryFolder={onLinkLibraryFolder}
+        onLoadFromLibrary={onLoadFromLibrary}
+      />
 
       {/* 3D Models */}
       <div className="p-4 border-b border-gray-800">

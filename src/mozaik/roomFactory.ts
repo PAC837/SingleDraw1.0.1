@@ -3,7 +3,7 @@
  * Produces valid MozRoom objects that render through the existing pipeline.
  */
 
-import type { MozRoom, MozWall, MozWallJoint, MozRoomParms } from './types'
+import type { MozRoom, MozWall, MozWallJoint, MozRoomParms, MozFixture } from './types'
 
 export interface CreateRoomParams {
   width: number       // mm, front wall length (X-axis)
@@ -100,5 +100,152 @@ function createDefaultParms(height: number, thickness: number): MozRoomParms {
     D_Base: 609.6,
     D_Tall: 609.6,
     StartingCabNo: 1,
+  }
+}
+
+export function createOpening(wall: number, x: number, width: number, height: number, idTag: number): MozFixture {
+  return {
+    name: 'Opening',
+    idTag,
+    type: 7,
+    subType: 2,
+    wall,
+    onWallFront: true,
+    width,
+    height,
+    depth: 50.8,
+    x,
+    elev: 0,
+    rot: 0,
+  }
+}
+
+export function createDoor(wall: number, x: number, width: number, height: number, idTag: number): MozFixture {
+  return {
+    name: 'Door',
+    idTag,
+    type: 7,
+    subType: 0,
+    wall,
+    onWallFront: true,
+    width,
+    height,
+    depth: 101.6,
+    x,
+    elev: 0,
+    rot: 0,
+  }
+}
+
+export function createDoubleDoor(wall: number, x: number, width: number, height: number, idTag: number): MozFixture {
+  return {
+    name: 'DoubleDoor',
+    idTag,
+    type: 7,
+    subType: 1,
+    wall,
+    onWallFront: true,
+    width,
+    height,
+    depth: 101.6,
+    x,
+    elev: 0,
+    rot: 0,
+  }
+}
+
+export function createWindow(wall: number, x: number, width: number, height: number, elev: number, idTag: number): MozFixture {
+  return {
+    name: 'Window',
+    idTag,
+    type: 6,
+    subType: 0,
+    wall,
+    onWallFront: true,
+    width,
+    height,
+    depth: 50.8,
+    x,
+    elev,
+    rot: 0,
+  }
+}
+
+/** Reach-in closet: wide front, shallow depth, opening on front wall. */
+export function createReachInRoom(height = 2438.4, thickness = 101.6): MozRoom {
+  const width = 2438.4   // 96"
+  const depth = 762       // 30"
+  const room = createRectangularRoom({ width, depth, height, thickness })
+  // Opening centered on front wall (wall 4), 36" wide × 80" tall
+  const openingW = 914.4   // 36"
+  const openingX = (width - openingW) / 2
+  room.fixtures = [createOpening(4, openingX, openingW, 2032, 5)]
+  room.name = 'Reach-In'
+  return room
+}
+
+/** Walk-in closet: 12' × 12', opening on front wall. */
+export function createWalkInRoom(height = 2438.4, thickness = 101.6): MozRoom {
+  const width = 3657.6   // 144"
+  const depth = 3657.6   // 144"
+  const room = createRectangularRoom({ width, depth, height, thickness })
+  const openingW = 914.4
+  const openingX = (width - openingW) / 2
+  room.fixtures = [createOpening(4, openingX, openingW, 2032, 5)]
+  room.name = 'Walk-In'
+  return room
+}
+
+/** Walk-in deep: 8' wide × 12' deep, opening on front wall. */
+export function createWalkInDeepRoom(height = 2438.4, thickness = 101.6): MozRoom {
+  const width = 2438.4   // 96"
+  const depth = 3657.6   // 144"
+  const room = createRectangularRoom({ width, depth, height, thickness })
+  const openingW = 914.4
+  const openingX = (width - openingW) / 2
+  room.fixtures = [createOpening(4, openingX, openingW, 2032, 5)]
+  room.name = 'Walk-In Deep'
+  return room
+}
+
+/** Angled room: 5-wall room with one angled wall section. */
+export function createAngledRoom(height = 2438.4, thickness = 101.6): MozRoom {
+  // L-shape with angled corner: left wall, back wall, angled wall, right side, front wall
+  const w = 3048    // 120" total width
+  const d = 2438.4  // 96" depth
+  const cut = 1219.2 // 48" corner cut
+  const angLen = Math.sqrt(cut * cut + cut * cut)  // ~67.88" diagonal
+
+  const walls: MozWall[] = [
+    // Wall 1: left — full depth along +Y
+    createWall(1, 0, 0, 90, d, height, thickness),
+    // Wall 2: back — partial width along +X
+    createWall(2, 0, d, 0, w - cut, height, thickness),
+    // Wall 3: angled — 45° cut from back-right to front-right
+    createWall(3, w - cut, d, 315, angLen, height, thickness),
+    // Wall 4: right — partial depth along -Y
+    createWall(4, w, d - cut, 270, d - cut, height, thickness),
+    // Wall 5: front — full width along -X
+    createWall(5, w, 0, 180, w, height, thickness),
+  ]
+
+  const joints = createWallJoints(5)
+  joints.forEach(j => { j.miterBack = true })
+  const parms = createDefaultParms(height, thickness)
+  const openingW = 914.4
+  const openingX = (w - openingW) / 2
+
+  return {
+    uniqueId: String(Date.now() % 100000000),
+    name: 'Angled',
+    roomType: 0,
+    parms,
+    walls,
+    wallJoints: joints,
+    fixtures: [createOpening(5, openingX, openingW, 2032, 6)],
+    products: [],
+    primaryTextureId: null,
+    wallTextureId: null,
+    rawText: '',
   }
 }

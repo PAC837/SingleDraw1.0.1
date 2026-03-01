@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react'
-import type { AppState, RenderMode, MozRoom, MozFile, MozProduct, MozWall, DebugOverlays, DragTarget } from './mozaik/types'
+import type { AppState, Visibility, RenderMode, MozRoom, MozFile, MozProduct, MozFixture, MozWall, DebugOverlays, DragTarget } from './mozaik/types'
 import { updateWallLength, updateWallHeight, moveJoint, splitWallAtCenter, rebuildJoints, toggleFollowAngle, toggleJointMiter } from './math/wallEditor'
 
 const defaultOverlays: DebugOverlays = {
@@ -10,6 +10,14 @@ const defaultOverlays: DebugOverlays = {
   boundingBoxes: false,
   doubleSidedWalls: false,
   probeScene: false,
+}
+
+const defaultVisibility: Visibility = {
+  walls: {},
+  allWalls: true,
+  floor: true,
+  products: true,
+  inserts: true,
 }
 
 const initialState: AppState = {
@@ -38,9 +46,18 @@ const initialState: AppState = {
   availableLibraryFiles: [],
   sketchUpFolder: null,
   modelsFolder: null,
+  visibility: defaultVisibility,
+  visibilityMenuOpen: false,
+  placementMode: 'floor',
+  unitHeight: 2209.8,       // 87 inches in mm
+  wallMountTopAt: 2133.6,   // 84 inches in mm
+  wallHeight: 2438.4,       // 96 inches in mm
+  productConfigOpen: false,
+  cameraResetKey: 0,
 }
 
 type Action =
+  | { type: 'GO_HOME' }
   | { type: 'LOAD_ROOM'; room: MozRoom }
   | { type: 'LOAD_MOZ'; file: MozFile }
   | { type: 'TOGGLE_OVERLAY'; key: keyof DebugOverlays }
@@ -77,11 +94,31 @@ type Action =
   | { type: 'MOVE_JOINT'; jointIndex: number; newX: number; newY: number }
   | { type: 'TOGGLE_FOLLOW_ANGLE'; wallNumber: number }
   | { type: 'TOGGLE_JOINT_MITER'; jointIndex: number }
+  | { type: 'TOGGLE_VISIBILITY'; key: 'allWalls' | 'floor' | 'products' | 'inserts' }
+  | { type: 'TOGGLE_WALL_VISIBILITY'; wallNumber: number }
+  | { type: 'TOGGLE_VISIBILITY_MENU' }
+  | { type: 'SET_PLACEMENT_MODE'; mode: 'floor' | 'wall' }
+  | { type: 'SET_UNIT_HEIGHT'; height: number }
+  | { type: 'SET_WALL_MOUNT_TOP_AT'; height: number }
+  | { type: 'TOGGLE_PRODUCT_CONFIG' }
+  | { type: 'SET_WALL_HEIGHT'; height: number }
+  | { type: 'ADD_FIXTURE'; fixture: MozFixture }
+  | { type: 'REMOVE_FIXTURE'; fixtureIdTag: number }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
+    case 'GO_HOME':
+      return {
+        ...state,
+        wallEditorActive: false,
+        selectedWall: null,
+        dragTarget: null,
+        visibilityMenuOpen: false,
+        productConfigOpen: false,
+        cameraResetKey: state.cameraResetKey + 1,
+      }
     case 'LOAD_ROOM':
-      return { ...state, room: action.room }
+      return { ...state, room: action.room, visibility: defaultVisibility, wallHeight: action.room.parms.H_Walls }
     case 'LOAD_MOZ':
       return { ...state, standaloneProducts: [...state.standaloneProducts, action.file] }
     case 'TOGGLE_OVERLAY':
@@ -122,7 +159,7 @@ function reducer(state: AppState, action: Action): AppState {
     case 'SET_SINGLEDRAW_TEXTURE':
       return { ...state, selectedSingleDrawTexture: action.filename }
     case 'CREATE_ROOM':
-      return { ...state, room: action.room, selectedWall: null }
+      return { ...state, room: action.room, selectedWall: null, visibility: defaultVisibility, wallHeight: action.room.parms.H_Walls }
     case 'PLACE_PRODUCT':
       if (!state.room) return state
       return {
@@ -162,7 +199,7 @@ function reducer(state: AppState, action: Action): AppState {
     case 'SET_MODELS_FOLDER':
       return { ...state, modelsFolder: action.folder }
     case 'TOGGLE_WALL_EDITOR':
-      return { ...state, wallEditorActive: !state.wallEditorActive, selectedWall: null, dragTarget: null }
+      return { ...state, wallEditorActive: !state.wallEditorActive, selectedWall: null, dragTarget: null, visibilityMenuOpen: false }
     case 'SET_DRAG_TARGET':
       return { ...state, dragTarget: action.target }
     case 'UPDATE_WALL': {
@@ -228,6 +265,69 @@ function reducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         room: { ...state.room, wallJoints: mjJoints, rawText: '' },
+      }
+    }
+    case 'TOGGLE_VISIBILITY': {
+      const newVis = { ...state.visibility, [action.key]: !state.visibility[action.key] }
+      if (action.key === 'allWalls') {
+        if (newVis.allWalls) {
+          newVis.walls = {}
+        } else if (state.room) {
+          const wallMap: Record<number, boolean> = {}
+          state.room.walls.forEach(w => { wallMap[w.wallNumber] = false })
+          newVis.walls = wallMap
+        }
+      }
+      const deselect = action.key === 'allWalls' && !newVis.allWalls && state.selectedWall !== null
+      return { ...state, visibility: newVis, ...(deselect ? { selectedWall: null } : {}) }
+    }
+    case 'TOGGLE_WALL_VISIBILITY': {
+      const cur = state.visibility.walls[action.wallNumber] !== false
+      const newWalls = { ...state.visibility.walls, [action.wallNumber]: !cur }
+      const deselect = cur && state.selectedWall === action.wallNumber
+      return {
+        ...state,
+        visibility: { ...state.visibility, walls: newWalls },
+        ...(deselect ? { selectedWall: null } : {}),
+      }
+    }
+    case 'TOGGLE_VISIBILITY_MENU':
+      return { ...state, visibilityMenuOpen: !state.visibilityMenuOpen }
+    case 'SET_PLACEMENT_MODE':
+      return { ...state, placementMode: action.mode }
+    case 'SET_UNIT_HEIGHT':
+      return { ...state, unitHeight: action.height }
+    case 'SET_WALL_MOUNT_TOP_AT':
+      return { ...state, wallMountTopAt: action.height }
+    case 'TOGGLE_PRODUCT_CONFIG':
+      return { ...state, productConfigOpen: !state.productConfigOpen }
+    case 'SET_WALL_HEIGHT': {
+      const wh = action.height
+      if (!state.room) return { ...state, wallHeight: wh }
+      const newWalls = state.room.walls.map(w => ({ ...w, height: wh }))
+      const newParms = { ...state.room.parms, H_Walls: wh }
+      return {
+        ...state,
+        wallHeight: wh,
+        room: { ...state.room, walls: newWalls, parms: newParms, rawText: '' },
+      }
+    }
+    case 'ADD_FIXTURE': {
+      if (!state.room) return state
+      return {
+        ...state,
+        room: { ...state.room, fixtures: [...state.room.fixtures, action.fixture], rawText: '' },
+      }
+    }
+    case 'REMOVE_FIXTURE': {
+      if (!state.room) return state
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          fixtures: state.room.fixtures.filter(f => f.idTag !== action.fixtureIdTag),
+          rawText: '',
+        },
       }
     }
     default:

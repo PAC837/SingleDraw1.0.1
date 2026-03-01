@@ -13,6 +13,8 @@ import { mozPosToThree } from '../math/basis'
 interface RoomOutlineProps {
   room: MozRoom
   selectedWall: number | null
+  hoveredWall?: number | null
+  hiddenWalls?: Record<number, boolean>
 }
 
 interface WallEdges {
@@ -20,7 +22,7 @@ interface WallEdges {
   geometry: BufferGeometry
 }
 
-export default function RoomOutline({ room, selectedWall }: RoomOutlineProps) {
+export default function RoomOutline({ room, selectedWall, hoveredWall, hiddenWalls }: RoomOutlineProps) {
   const wallEdges = useMemo(() => {
     const geos = computeWallGeometries(room.walls)
     if (geos.length < 3) return null
@@ -125,23 +127,64 @@ export default function RoomOutline({ room, selectedWall }: RoomOutlineProps) {
       addLine(iE[0], iE[1], 0, oE[0], oE[1], 0)
       addLine(iE[0], iE[1], hEnd, oE[0], oE[1], hEnd)
 
+      // Fixture opening edge lines (both inner + outer faces + depth connections)
+      const wallFixtures = room.fixtures.filter(f => f.wall === g.wallNumber)
+      const t2 = g.thickness / 2
+      for (const f of wallFixtures) {
+        const bot = f.elev
+        const top = f.elev + f.height
+
+        // Inner face corners (offset +t2 along normal)
+        const ilx = g.start[0] + f.x * g.tangent[0] + t2 * g.normal[0]
+        const ily = g.start[1] + f.x * g.tangent[1] + t2 * g.normal[1]
+        const irx = ilx + f.width * g.tangent[0]
+        const iry = ily + f.width * g.tangent[1]
+
+        // Outer face corners (offset -t2 along normal)
+        const olx = g.start[0] + f.x * g.tangent[0] - t2 * g.normal[0]
+        const oly = g.start[1] + f.x * g.tangent[1] - t2 * g.normal[1]
+        const orx = olx + f.width * g.tangent[0]
+        const ory = oly + f.width * g.tangent[1]
+
+        // Inner face lines
+        addLine(ilx, ily, bot, ilx, ily, top)  // left vertical
+        addLine(irx, iry, bot, irx, iry, top)  // right vertical
+        addLine(ilx, ily, top, irx, iry, top)  // top horizontal
+        if (f.elev > 0) addLine(ilx, ily, bot, irx, iry, bot) // bottom (windows)
+
+        // Outer face lines
+        addLine(olx, oly, bot, olx, oly, top)  // left vertical
+        addLine(orx, ory, bot, orx, ory, top)  // right vertical
+        addLine(olx, oly, top, orx, ory, top)  // top horizontal
+        if (f.elev > 0) addLine(olx, oly, bot, orx, ory, bot) // bottom (windows)
+
+        // Depth lines connecting inner↔outer at corners
+        addLine(ilx, ily, top, olx, oly, top)  // top-left
+        addLine(irx, iry, top, orx, ory, top)  // top-right
+        addLine(ilx, ily, bot, olx, oly, bot)  // bottom-left
+        addLine(irx, iry, bot, orx, ory, bot)  // bottom-right
+      }
+
       const geo = new BufferGeometry()
       geo.setAttribute('position', new Float32BufferAttribute(verts, 3))
       result.push({ wallNumber: g.wallNumber, geometry: geo })
     }
 
     return result
-  }, [room.walls, room.wallJoints])
+  }, [room.walls, room.wallJoints, room.fixtures])
 
   if (!wallEdges) return null
 
   return (
     <group>
-      {wallEdges.map(({ wallNumber, geometry }) => (
-        <lineSegments key={wallNumber} geometry={geometry}>
-          <lineBasicMaterial color={wallNumber === selectedWall ? '#AAFF00' : '#000000'} />
-        </lineSegments>
-      ))}
+      {wallEdges.map(({ wallNumber, geometry }) => {
+        if (hiddenWalls && hiddenWalls[wallNumber] === false) return null
+        return (
+          <lineSegments key={wallNumber} geometry={geometry}>
+            <lineBasicMaterial color={wallNumber === selectedWall || wallNumber === hoveredWall ? '#AAFF00' : '#000000'} />
+          </lineSegments>
+        )
+      })}
     </group>
   )
 }

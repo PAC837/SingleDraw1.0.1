@@ -67,18 +67,19 @@ export function findNextAvailableX(
   return null
 }
 
-/** Clone a product for wall placement. Sets wall ref, x position, elev=0, rot=0. */
+/** Clone a product for wall placement. Sets wall ref, x position, elevation, rot=0. */
 export function placeProductOnWall(
   sourceProduct: MozProduct,
   wallNumber: number,
   xPosition: number,
+  elev = 0,
 ): MozProduct {
   return {
     ...sourceProduct,
     uniqueId: String(Date.now() % 100000000 + Math.floor(Math.random() * 1000)),
     wall: `${wallNumber}_1`,
     x: xPosition,
-    elev: 0,
+    elev,
     rot: 0,
   }
 }

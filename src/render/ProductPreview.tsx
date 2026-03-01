@@ -28,7 +28,7 @@ function categorizePart(part: MozPart): PartCategory | null {
   if (type === 'toe') return 'toe'
   if (type === 'fend' || type === 'bend' || name.includes('end')) return 'side'
   if (type === 'bottom' || type === 'top') return 'structural'
-  if (type === 'fixedshelf' || type === 'adjshelf') return 'shelf'
+  if (type.includes('shelf')) return 'shelf'
   if (type === 'drawer') return 'drawer'
   if (type === 'door') return 'door'
   return null
@@ -36,6 +36,7 @@ function categorizePart(part: MozPart): PartCategory | null {
 
 const SVG_WIDTH = 130
 const MARGIN = 6
+const REFERENCE_WIDTH = 609.6  // 24 inches in mm — fixed scale reference
 const PANEL_THICK = 19  // mm — standard wood panel
 const ROD_THICK = 4     // px — rod tube thickness in SVG
 const ROD_INSET = 3     // px — rod inset from inner edges
@@ -142,9 +143,9 @@ export default function ProductPreview({ product }: ProductPreviewProps) {
   const hasLeftSide = sides.some(s => s.x < product.width / 2)
   const hasRightSide = sides.some(s => s.x >= product.width / 2)
 
-  // Scale to fit SVG
+  // Scale to fit SVG — fixed 24" reference width for consistent scale across products
   const drawW = SVG_WIDTH - MARGIN * 2
-  const scale = drawW / product.width
+  const scale = drawW / REFERENCE_WIDTH
   const drawH = product.height * scale
   const svgH = drawH + MARGIN * 2
 

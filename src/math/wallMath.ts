@@ -299,10 +299,10 @@ export function computeWallMiterExtensions(
                       + (inner[nextI][1] - boxInnerEndY) * g.tangent[1]
 
     result.set(g.wallNumber, {
-      startExt: Math.max(0, startExt),
-      endExt: Math.max(0, endExt),
-      innerStartExt: Math.max(0, innerStartExt),
-      innerEndExt: Math.max(0, innerEndExt),
+      startExt,
+      endExt,
+      innerStartExt,
+      innerEndExt,
     })
   }
 

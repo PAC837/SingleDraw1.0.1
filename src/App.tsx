@@ -1,22 +1,26 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { StoreProvider, useAppState, useAppDispatch } from './store'
 import type { DebugOverlays, RenderMode } from './mozaik/types'
 import Scene from './render/Scene'
 import UIPanel from './render/UIPanel'
 import RoomWalls from './render/RoomWalls'
-import WallOpenings from './render/WallOpenings'
+// WallOpenings removed — fixture openings now rendered as wall geometry cutouts in RoomWalls
 import ProductView from './render/ProductView'
 import DebugOverlaysComponent from './render/DebugOverlays'
 import ProbeScene from './render/ProbeScene'
 import FloorPlane from './render/FloorPlane'
 import RoomFloor from './render/RoomFloor'
 import CameraClipPlane from './render/CameraClipPlane'
+import HomeButton from './render/HomeButton'
 import WallEditorButton from './render/WallEditorButton'
+import VisibilityMenu from './render/VisibilityMenu'
+import RenderModeButton from './render/RenderModeButton'
+import ProductConfigButton from './render/ProductConfigButton'
 import WallEditorPanel from './render/WallEditorPanel'
 import PlanViewOverlay from './render/PlanViewOverlay'
 import MiniRoomPreview from './render/MiniRoomPreview'
 import { parseMoz } from './mozaik/mozParser'
-import { createRectangularRoom } from './mozaik/roomFactory'
+import { createRectangularRoom, createReachInRoom, createWalkInRoom, createWalkInDeepRoom, createAngledRoom } from './mozaik/roomFactory'
 import { findNextAvailableX, placeProductOnWall, usableWallLength } from './mozaik/wallPlacement'
 import { writeMoz } from './export/mozWriter'
 import { writeDes } from './export/desWriter'
@@ -86,6 +90,7 @@ function AppInner() {
   const state = useAppState()
   const dispatch = useAppDispatch()
   const missingModels = useMissingModels()
+  const [hoveredWall, setHoveredWall] = useState<number | null>(null)
 
   // Restore persisted folder handles on mount
   useEffect(() => {
@@ -313,24 +318,44 @@ end`
     }
   }, [state.sketchUpFolder, state.modelsFolder])
 
-  const loadFromLibrary = useCallback(async (filename: string) => {
-    if (!state.libraryFolder) return
-    try {
-      // Mozaik libraries store .moz files in a "Products" subfolder
-      let targetFolder: FileSystemDirectoryHandle = state.libraryFolder
-      try {
-        targetFolder = await state.libraryFolder.getDirectoryHandle('Products')
-      } catch { /* root fallback */ }
-      const fileHandle = await targetFolder.getFileHandle(filename)
-      const file = await fileHandle.getFile()
-      const text = await file.text()
-      const mozFile = parseMoz(text)
-      dispatch({ type: 'LOAD_MOZ', file: mozFile })
-      console.log(`[LIBRARY] Loaded "${mozFile.product.prodName}" from ${filename}`)
-    } catch (e) {
-      console.error(`[LIBRARY] Failed to load "${filename}":`, e)
+  const loadFromLibrary = useCallback(async (filenames: string[]) => {
+    if (!state.libraryFolder || filenames.length === 0) return
+
+    // Skip products already loaded (match by prodName derived from filename)
+    const alreadyLoaded = new Set(state.standaloneProducts.map(mf => mf.product.prodName))
+    const toLoad = filenames.filter(f => !alreadyLoaded.has(f.replace(/\.moz$/i, '')))
+    if (toLoad.length === 0) {
+      console.log(`[LIBRARY] All ${filenames.length} products already loaded — skipping`)
+      return
     }
-  }, [dispatch, state.libraryFolder])
+
+    // Mozaik libraries store .moz files in a "Products" subfolder
+    let targetFolder: FileSystemDirectoryHandle = state.libraryFolder
+    try {
+      targetFolder = await state.libraryFolder.getDirectoryHandle('Products')
+    } catch { /* root fallback */ }
+
+    const results = await Promise.allSettled(
+      toLoad.map(async (filename) => {
+        const fileHandle = await targetFolder.getFileHandle(filename)
+        const file = await fileHandle.getFile()
+        const text = await file.text()
+        return parseMoz(text)
+      })
+    )
+
+    let loaded = 0
+    for (const r of results) {
+      if (r.status === 'fulfilled') {
+        dispatch({ type: 'LOAD_MOZ', file: r.value })
+        loaded++
+        console.log(`[LIBRARY] Loaded "${r.value.product.prodName}"`)
+      } else {
+        console.error(`[LIBRARY] Failed to load:`, r.reason)
+      }
+    }
+    console.log(`[LIBRARY] Batch loaded ${loaded}/${toLoad.length} products (${filenames.length - toLoad.length} already loaded)`)
+  }, [dispatch, state.libraryFolder, state.standaloneProducts])
 
   const exportDes = useCallback(async () => {
     if (!state.room || !state.jobFolder) return
@@ -353,11 +378,27 @@ end`
 
   const handleCreateRoom = useCallback(
     (width: number, depth: number) => {
-      const room = createRectangularRoom({ width, depth })
+      const room = createRectangularRoom({ width, depth, height: state.wallHeight })
       dispatch({ type: 'CREATE_ROOM', room })
       console.log(`[ROOM] Created ${width}×${depth}mm room`)
     },
-    [dispatch],
+    [dispatch, state.wallHeight],
+  )
+
+  const handleCreatePresetRoom = useCallback(
+    (preset: 'reach-in' | 'walk-in' | 'walk-in-deep' | 'angled') => {
+      const h = state.wallHeight
+      const factories = {
+        'reach-in': createReachInRoom,
+        'walk-in': createWalkInRoom,
+        'walk-in-deep': createWalkInDeepRoom,
+        'angled': createAngledRoom,
+      }
+      const room = factories[preset](h)
+      dispatch({ type: 'CREATE_ROOM', room })
+      console.log(`[ROOM] Created ${preset} preset (wall height ${Math.round(h)}mm)`)
+    },
+    [dispatch, state.wallHeight],
   )
 
   const handlePlaceProduct = useCallback(
@@ -371,11 +412,13 @@ end`
         alert('No space on this wall for that product')
         return
       }
-      const placed = placeProductOnWall(mozFile.product, wallNumber, nextX)
+      const elev = state.placementMode === 'floor' ? 0
+        : Math.max(0, state.wallMountTopAt - state.unitHeight)
+      const placed = placeProductOnWall(mozFile.product, wallNumber, nextX, elev)
       dispatch({ type: 'PLACE_PRODUCT', product: placed })
-      console.log(`[ROOM] Placed "${mozFile.product.prodName}" on wall ${wallNumber} at x=${nextX}`)
+      console.log(`[ROOM] Placed "${mozFile.product.prodName}" on wall ${wallNumber} at x=${nextX} elev=${elev}`)
     },
-    [dispatch, state.room, state.standaloneProducts],
+    [dispatch, state.room, state.standaloneProducts, state.placementMode, state.wallMountTopAt, state.unitHeight],
   )
 
   const handleUpdateProductDimension = useCallback(
@@ -468,33 +511,43 @@ end`
         onRemoveProduct={handleRemoveProduct}
       />
       <div className="flex-1 relative">
-        <Scene orbitTarget={roomCenter} orthographic={state.wallEditorActive}>
+        <Scene orbitTarget={roomCenter} orthographic={state.wallEditorActive} resetKey={state.cameraResetKey} onPointerMissed={() => {
+          if (state.selectedWall !== null) dispatch({ type: 'SELECT_WALL', wallNumber: null })
+        }}>
           <DebugOverlaysComponent overlays={state.overlays} room={state.room} />
 
           {state.overlays.probeScene && <ProbeScene />}
 
           <CameraClipPlane roomCenter={roomCenter} enabled={state.renderMode === 'solid'} />
-          <FloorPlane />
+          {state.visibility.floor && <FloorPlane />}
 
           {state.room && state.room.walls.length > 0 && (
             <>
-              <RoomFloor
-                room={state.room}
-                textureFolder={state.textureFolder}
-                selectedFloorType={state.selectedFloorType}
-                selectedFloorTexture={state.selectedFloorTexture}
-              />
+              {state.visibility.floor && (
+                <RoomFloor
+                  room={state.room}
+                  textureFolder={state.textureFolder}
+                  selectedFloorType={state.selectedFloorType}
+                  selectedFloorTexture={state.selectedFloorTexture}
+                />
+              )}
               <RoomWalls
                 room={state.room}
                 doubleSided={state.overlays.doubleSidedWalls}
                 selectedWall={state.selectedWall}
+                hoveredWall={hoveredWall}
                 onSelectWall={selectWall}
                 renderMode={state.renderMode}
                 textureFolder={state.textureFolder}
                 selectedWallType={state.selectedWallType}
                 selectedWallTexture={state.selectedWallTexture}
+                hiddenWalls={
+                  state.visibility.allWalls
+                    ? state.visibility.walls
+                    : Object.fromEntries(state.room.walls.map(w => [w.wallNumber, false]))
+                }
               />
-              <WallOpenings room={state.room} />
+              {/* Fixture openings are now rendered as wall geometry cutouts in RoomWalls */}
               {state.wallEditorActive && (
                 <PlanViewOverlay
                   room={state.room}
@@ -508,7 +561,7 @@ end`
           )}
 
           {/* Render room products — placed on their referenced walls */}
-          {state.room?.products.map((product, i) => {
+          {state.visibility.products && state.room?.products.map((product, i) => {
             const offset = computeProductWorldOffset(product, state.room!.walls, state.room!.wallJoints)
             if (!offset) console.warn(`[RENDER] Product "${product.prodName}" on wall "${product.wall}" — offset is null!`)
             return (
@@ -546,11 +599,47 @@ end`
           ))}
         </Scene>
 
-        <WallEditorButton
-          active={state.wallEditorActive}
-          disabled={!state.room}
-          onToggle={() => dispatch({ type: 'TOGGLE_WALL_EDITOR' })}
-        />
+        <div className="absolute top-3 left-3 z-10 flex items-start gap-2">
+          <HomeButton
+            active={state.wallEditorActive || state.productConfigOpen || state.visibilityMenuOpen}
+            onGoHome={() => dispatch({ type: 'GO_HOME' })}
+          />
+          <ProductConfigButton
+            open={state.productConfigOpen}
+            placementMode={state.placementMode}
+            unitHeight={state.unitHeight}
+            wallMountTopAt={state.wallMountTopAt}
+            wallHeight={state.wallHeight}
+            useInches={state.useInches}
+            onToggle={() => dispatch({ type: 'TOGGLE_PRODUCT_CONFIG' })}
+            onSetMode={(mode) => dispatch({ type: 'SET_PLACEMENT_MODE', mode })}
+            onSetUnitHeight={(height) => dispatch({ type: 'SET_UNIT_HEIGHT', height })}
+            onSetTopAt={(height) => dispatch({ type: 'SET_WALL_MOUNT_TOP_AT', height })}
+            onSetWallHeight={(height) => dispatch({ type: 'SET_WALL_HEIGHT', height })}
+            onCreatePresetRoom={handleCreatePresetRoom}
+          />
+          <WallEditorButton
+            active={state.wallEditorActive}
+            disabled={!state.room}
+            onToggle={() => dispatch({ type: 'TOGGLE_WALL_EDITOR' })}
+          />
+          <VisibilityMenu
+            open={state.visibilityMenuOpen}
+            visibility={state.visibility}
+            walls={state.room?.walls ?? []}
+            onToggle={() => dispatch({ type: 'TOGGLE_VISIBILITY_MENU' })}
+            onToggleVisibility={(key) => dispatch({ type: 'TOGGLE_VISIBILITY', key })}
+            onToggleWall={(wallNumber) => dispatch({ type: 'TOGGLE_WALL_VISIBILITY', wallNumber })}
+            onHoverWall={setHoveredWall}
+          />
+          <RenderModeButton
+            mode={state.renderMode}
+            onCycle={() => {
+              const next: RenderMode = state.renderMode === 'ghosted' ? 'solid' : state.renderMode === 'solid' ? 'wireframe' : 'ghosted'
+              dispatch({ type: 'SET_RENDER_MODE', mode: next })
+            }}
+          />
+        </div>
 
         {state.wallEditorActive && state.selectedWall !== null && state.room && (() => {
           const wall = state.room.walls.find(w => w.wallNumber === state.selectedWall)
@@ -559,15 +648,26 @@ end`
           const prevWall = state.room.walls[(wallIdx - 1 + state.room.walls.length) % state.room.walls.length]
           const nextWall = state.room.walls[(wallIdx + 1) % state.room.walls.length]
           const hasTallerNeighbor = prevWall.height > wall.height || nextWall.height > wall.height
+          const wallFixtures = state.room.fixtures.filter(f => f.wall === wall.wallNumber)
+          const maxIdTag = Math.max(
+            0,
+            ...state.room.walls.map(w => w.idTag),
+            ...state.room.fixtures.map(f => f.idTag),
+            ...state.room.products.map(p => p.idTag),
+          )
           return (
             <WallEditorPanel
               wall={wall}
               useInches={state.useInches}
               hasTallerNeighbor={hasTallerNeighbor}
+              fixtures={wallFixtures}
               onUpdateLength={(len) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { len } })}
               onUpdateHeight={(height) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { height } })}
               onSplitWall={() => dispatch({ type: 'SPLIT_WALL', wallNumber: wall.wallNumber })}
               onToggleFollowAngle={() => dispatch({ type: 'TOGGLE_FOLLOW_ANGLE', wallNumber: wall.wallNumber })}
+              onAddFixture={(fixture) => dispatch({ type: 'ADD_FIXTURE', fixture })}
+              onRemoveFixture={(idTag) => dispatch({ type: 'REMOVE_FIXTURE', fixtureIdTag: idTag })}
+              nextIdTag={maxIdTag + 1}
             />
           )
         })()}

@@ -137,8 +137,15 @@ export function moveJoint(
   const dx2 = w2End[0] - actualX
   const dy2 = w2End[1] - actualY
   let ang2 = Math.atan2(dy2, dx2) * RAD2DEG
-  ang2 = snapAngle(ang2)
+  const snapped2 = snapAngle(ang2)
   const len2 = Math.sqrt(dx2 * dx2 + dy2 * dy2)
+
+  // Only snap if endpoint stays within 1mm of target (same check as updateWallLength)
+  const snap2Rad = snapped2 * DEG2RAD
+  const snapEndX = actualX + len2 * Math.cos(snap2Rad)
+  const snapEndY = actualY + len2 * Math.sin(snap2Rad)
+  const snapError = Math.sqrt((snapEndX - w2End[0]) ** 2 + (snapEndY - w2End[1]) ** 2)
+  if (snapError < 1.0) ang2 = snapped2
 
   return walls.map((w, i) => {
     if (i === w1Idx) return { ...w, ang: ang1, len: len1 }

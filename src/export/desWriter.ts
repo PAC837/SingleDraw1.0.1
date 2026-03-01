@@ -220,7 +220,7 @@ function exportMiterBack(
 }
 
 function serializeFixture(f: MozFixture): string {
-  return `<Fixt Name="${esc(f.name)}" IDTag="${f.idTag}" Type="${f.type}" SubType="${f.subType}" Wall="${f.wall}" OnWallFront="${f.onWallFront}" Width="${num(f.width)}" Height="${num(f.height)}" Depth="${num(f.depth)}" X="${num(f.x)}" Elev="${num(f.elev)}" Rot="${num(f.rot)}" />`
+  return `<Fixt Name="${esc(f.name)}" IDTag="${f.idTag}" Type="${f.type}" SubType="${f.subType}" Wall="${f.wall}" OnWallFront="${bool(f.onWallFront)}" Width="${num(f.width)}" Height="${num(f.height)}" Depth="${num(f.depth)}" X="${num(f.x)}" Elev="${num(f.elev)}" Rot="${num(f.rot)}" Outset="0" SUDirty="True" SketchUpFile="" SourceLib="" SnapTo="0" NonGraphic="False">\n      <LabelDimensionOverrideMap />\n    </Fixt>`
 }
 
 function serializeProduct(prod: MozProduct): string {
