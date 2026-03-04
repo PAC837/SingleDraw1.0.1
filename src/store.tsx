@@ -58,6 +58,7 @@ const initialState: AppState = {
   wallMountTopAt: snapModularHeight(87 * 25.4),   // auto-syncs with unitHeight
   wallHeight: 2438.4,       // 96 inches in mm
   productConfigOpen: false,
+  libraryOpen: false,
   cameraResetKey: 0,
   selectedProduct: null,
   flipOps: false,
@@ -115,8 +116,12 @@ type Action =
   | { type: 'SELECT_PRODUCT'; index: number | null }
   | { type: 'UPDATE_ROOM_PRODUCT_ELEV'; index: number; elev: number }
   | { type: 'UPDATE_ROOM_PRODUCT_X'; index: number; x: number }
+  | { type: 'MOVE_FIXTURE'; fixtureIdTag: number; x: number }
+  | { type: 'UPDATE_FIXTURE'; fixtureIdTag: number; fields: Partial<Pick<MozFixture, 'width' | 'height' | 'elev' | 'x'>> }
+  | { type: 'TOGGLE_LIBRARY' }
   | { type: 'TOGGLE_FLIP_OPS' }
   | { type: 'ALIGN_WALL_TOPS' }
+  | { type: 'UNDO' }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -129,6 +134,7 @@ function reducer(state: AppState, action: Action): AppState {
         dragTarget: null,
         visibilityMenuOpen: false,
         productConfigOpen: false,
+        libraryOpen: false,
         cameraResetKey: state.cameraResetKey + 1,
       }
     case 'LOAD_ROOM':
@@ -136,10 +142,7 @@ function reducer(state: AppState, action: Action): AppState {
     case 'LOAD_MOZ':
       return { ...state, standaloneProducts: [...state.standaloneProducts, action.file] }
     case 'TOGGLE_OVERLAY':
-      return {
-        ...state,
-        overlays: { ...state.overlays, [action.key]: !state.overlays[action.key] },
-      }
+      return { ...state, overlays: { ...state.overlays, [action.key]: !state.overlays[action.key] } }
     case 'SELECT_WALL':
       return { ...state, selectedWall: action.wallNumber }
     case 'TOGGLE_UNITS':
@@ -300,13 +303,8 @@ function reducer(state: AppState, action: Action): AppState {
     }
     case 'TOGGLE_WALL_VISIBILITY': {
       const cur = state.visibility.walls[action.wallNumber] !== false
-      const newWalls = { ...state.visibility.walls, [action.wallNumber]: !cur }
-      const deselect = cur && state.selectedWall === action.wallNumber
-      return {
-        ...state,
-        visibility: { ...state.visibility, walls: newWalls },
-        ...(deselect ? { selectedWall: null } : {}),
-      }
+      const walls = { ...state.visibility.walls, [action.wallNumber]: !cur }
+      return { ...state, visibility: { ...state.visibility, walls }, ...(cur && state.selectedWall === action.wallNumber ? { selectedWall: null } : {}) }
     }
     case 'TOGGLE_VISIBILITY_MENU':
       return { ...state, visibilityMenuOpen: !state.visibilityMenuOpen }
@@ -382,6 +380,18 @@ function reducer(state: AppState, action: Action): AppState {
         },
       }
     }
+    case 'MOVE_FIXTURE': {
+      if (!state.room) return state
+      const fixtures = state.room.fixtures.map(f => f.idTag === action.fixtureIdTag ? { ...f, x: action.x } : f)
+      return { ...state, room: { ...state.room, fixtures, rawText: '' } }
+    }
+    case 'UPDATE_FIXTURE': {
+      if (!state.room) return state
+      const uf = state.room.fixtures.map(f => f.idTag === action.fixtureIdTag ? { ...f, ...action.fields } : f)
+      return { ...state, room: { ...state.room, fixtures: uf, rawText: '' } }
+    }
+    case 'TOGGLE_LIBRARY':
+      return { ...state, libraryOpen: !state.libraryOpen }
     case 'SELECT_PRODUCT':
       return { ...state, selectedProduct: action.index }
     case 'UPDATE_ROOM_PRODUCT_ELEV': {
@@ -449,13 +459,35 @@ function reducer(state: AppState, action: Action): AppState {
   }
 }
 
+// Undo system — wraps reducer with history stack (max 50 snapshots)
+const UNDOABLE = new Set([
+  'PLACE_PRODUCT', 'REMOVE_ROOM_PRODUCT', 'UPDATE_ROOM_PRODUCT',
+  'MOVE_FIXTURE', 'UPDATE_FIXTURE', 'ADD_FIXTURE', 'REMOVE_FIXTURE',
+  'MOVE_JOINT', 'SPLIT_WALL', 'UPDATE_WALL', 'CREATE_ROOM', 'CLEAR_ROOM',
+])
+
+function undoReducer(
+  swh: { current: AppState; undoStack: AppState[] }, action: Action,
+): { current: AppState; undoStack: AppState[] } {
+  if (action.type === 'UNDO') {
+    const prev = swh.undoStack[swh.undoStack.length - 1]
+    return prev ? { current: prev, undoStack: swh.undoStack.slice(0, -1) } : swh
+  }
+  const next = reducer(swh.current, action)
+  if (next === swh.current) return swh
+  if (UNDOABLE.has(action.type)) {
+    return { current: next, undoStack: [...swh.undoStack.slice(-49), swh.current] }
+  }
+  return { current: next, undoStack: swh.undoStack }
+}
+
 const StateCtx = createContext<AppState>(initialState)
 const DispatchCtx = createContext<Dispatch<Action>>(() => {})
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [swh, dispatch] = useReducer(undoReducer, { current: initialState, undoStack: [] })
   return (
-    <StateCtx.Provider value={state}>
+    <StateCtx.Provider value={swh.current}>
       <DispatchCtx.Provider value={dispatch}>
         {children}
       </DispatchCtx.Provider>

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { StoreProvider, useAppState, useAppDispatch } from './store'
 import type { DebugOverlays, RenderMode } from './mozaik/types'
 import Scene from './render/Scene'
@@ -20,6 +20,7 @@ import PlanViewOverlay from './render/PlanViewOverlay'
 import MiniRoomPreview from './render/MiniRoomPreview'
 import AutoEndPanels from './render/AutoEndPanels'
 import AdvancedSettingsButton from './render/AdvancedSettingsButton'
+import LibraryButton from './render/LibraryButton'
 import { createRectangularRoom, createReachInRoom, createWalkInRoom, createWalkInDeepRoom, createAngledRoom } from './mozaik/roomFactory'
 import { computeProductWorldOffset, computeWallGeometries } from './math/wallMath'
 import { mozPosToThree } from './math/basis'
@@ -48,6 +49,18 @@ function AppInner() {
     selectProduct, handleUpdateProductElev, handleUpdateProductX,
     handleBumpLeft, handleBumpRight,
   } = useProductActions()
+
+  // Ctrl+Z / Cmd+Z undo
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+        e.preventDefault()
+        dispatch({ type: 'UNDO' })
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [dispatch])
 
   const toggleOverlay = useCallback(
     (key: keyof DebugOverlays) => dispatch({ type: 'TOGGLE_OVERLAY', key }),
@@ -164,7 +177,7 @@ function AppInner() {
         onRemoveProduct={handleRemoveProduct}
       />
       <div className="flex-1 relative">
-        <Scene orbitTarget={roomCenter} orthographic={state.wallEditorActive} resetKey={state.cameraResetKey} onPointerMissed={() => {
+        <Scene orbitTarget={roomCenter} orthographic={state.wallEditorActive} roomWalls={state.wallEditorActive ? state.room?.walls : undefined} resetKey={state.cameraResetKey} onPointerMissed={() => {
           if (state.selectedWall !== null) dispatch({ type: 'SELECT_WALL', wallNumber: null })
           if (state.selectedProduct !== null) dispatch({ type: 'SELECT_PRODUCT', index: null })
         }}>
@@ -208,6 +221,8 @@ function AppInner() {
                   dragTarget={state.dragTarget}
                   onSetDragTarget={(target) => dispatch({ type: 'SET_DRAG_TARGET', target })}
                   onMoveJoint={(jointIndex, newX, newY) => dispatch({ type: 'MOVE_JOINT', jointIndex, newX, newY })}
+                  onMoveFixture={(fixtureIdTag, x) => dispatch({ type: 'MOVE_FIXTURE', fixtureIdTag, x })}
+                  onUpdateFixture={(fixtureIdTag, fields) => dispatch({ type: 'UPDATE_FIXTURE', fixtureIdTag, fields })}
                 />
               )}
             </>
@@ -234,6 +249,7 @@ function AppInner() {
                 onUpdateX={handleUpdateProductX}
                 onBumpLeft={handleBumpLeft}
                 onBumpRight={handleBumpRight}
+                onRemove={handleRemoveProduct}
                 textureFolder={state.textureFolder}
                 textureId={resolvedTextureId}
                 textureFilename={resolvedTextureFilename}
@@ -277,7 +293,7 @@ function AppInner() {
 
         <div className="absolute top-3 left-3 z-10 flex items-start gap-2">
           <HomeButton
-            active={state.wallEditorActive || state.productConfigOpen || state.visibilityMenuOpen}
+            active={state.wallEditorActive || state.productConfigOpen || state.visibilityMenuOpen || state.libraryOpen}
             onGoHome={() => dispatch({ type: 'GO_HOME' })}
           />
           <ProductConfigButton
@@ -299,6 +315,16 @@ function AppInner() {
             active={state.wallEditorActive}
             disabled={!state.room}
             onToggle={() => dispatch({ type: 'TOGGLE_WALL_EDITOR' })}
+          />
+          <LibraryButton
+            open={state.libraryOpen}
+            products={state.standaloneProducts}
+            useInches={state.useInches}
+            selectedWall={state.selectedWall}
+            onToggle={() => dispatch({ type: 'TOGGLE_LIBRARY' })}
+            onPlaceProduct={(productIndex) => {
+              if (state.selectedWall !== null) handlePlaceProduct(productIndex, state.selectedWall)
+            }}
           />
           <VisibilityMenu
             open={state.visibilityMenuOpen}

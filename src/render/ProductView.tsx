@@ -24,6 +24,7 @@ interface ProductViewProps {
   onUpdateX?: (index: number, x: number) => void
   onBumpLeft?: (index: number) => void
   onBumpRight?: (index: number) => void
+  onRemove?: (index: number) => void
   textureFolder?: FileSystemDirectoryHandle | null
   textureId?: number | null
   textureFilename?: string | null
@@ -233,7 +234,7 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
 export default function ProductView({
   product, productIndex, worldOffset, wallAngleDeg, renderMode = 'ghosted',
   showBoundingBox = false, selected = false, onSelect, onResize, onResizeWidth, onUpdateElev, onUpdateX,
-  onBumpLeft, onBumpRight,
+  onBumpLeft, onBumpRight, onRemove,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null, modelsFolder = null,
 }: ProductViewProps) {
@@ -312,6 +313,7 @@ export default function ProductView({
           onUpdateX={onUpdateX}
           onBumpLeft={onBumpLeft}
           onBumpRight={onBumpRight}
+          onRemove={onRemove}
         />
       )}
     </group>

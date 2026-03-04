@@ -180,6 +180,7 @@ export type RenderMode = 'ghosted' | 'solid' | 'wireframe'
 export type DragTarget =
   | { type: 'joint'; jointIndex: number }
   | { type: 'endpoint'; wallNumber: number; corner: 0 | 1 }
+  | { type: 'fixture'; fixtureIdTag: number }
 
 /** Top-level application state. */
 export interface AppState {
@@ -216,6 +217,7 @@ export interface AppState {
   wallMountTopAt: number       // mm — distance from floor to top of wall-mounted unit (auto-syncs with unitHeight)
   wallHeight: number           // mm — wall height for room creation / updates
   productConfigOpen: boolean
+  libraryOpen: boolean
   cameraResetKey: number
   selectedProduct: number | null
   flipOps: boolean

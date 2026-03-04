@@ -10,6 +10,7 @@ interface SceneProps {
   children: ReactNode
   orbitTarget?: [number, number, number]
   orthographic?: boolean
+  roomWalls?: Array<{ posX: number; posY: number; ang: number; len: number }>
   resetKey?: number
   onPointerMissed?: () => void
 }
@@ -53,7 +54,7 @@ function SceneOrbitControls({ target, disableRotate, resetKey }: { target?: [num
 }
 
 /** Switch to orthographic top-down camera when plan view is active. */
-function OrthoCamera({ target }: { target?: [number, number, number] }) {
+function OrthoCamera({ target, walls }: { target?: [number, number, number]; walls?: Array<{ posX: number; posY: number; ang: number; len: number }> }) {
   const { set, camera: currentCamera, size } = useThree()
   const prevCameraRef = useRef<ThreeCamera>(currentCamera)
   const settleCount = useRef(0)
@@ -62,9 +63,24 @@ function OrthoCamera({ target }: { target?: [number, number, number] }) {
   const targetRef = useRef({ cx, cz })
   targetRef.current = { cx, cz }
 
+  // Compute frustum from room bounding box (or fallback to 5000)
+  const frustum = useMemo(() => {
+    if (!walls || walls.length === 0) return 5000
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity
+    for (const w of walls) {
+      const endX = w.posX + w.len * Math.cos(w.ang * Math.PI / 180)
+      const endY = w.posY + w.len * Math.sin(w.ang * Math.PI / 180)
+      minX = Math.min(minX, w.posX, endX)
+      maxX = Math.max(maxX, w.posX, endX)
+      minY = Math.min(minY, w.posY, endY)
+      maxY = Math.max(maxY, w.posY, endY)
+    }
+    const maxSpan = Math.max(maxX - minX, maxY - minY)
+    return Math.max(1000, maxSpan * 0.65) // half-span + 30% padding, min 1000
+  }, [walls])
+
   const camera = useMemo(() => {
     const aspect = size.width / size.height
-    const frustum = 5000
     const cam = new OrthographicCamera(
       -frustum * aspect, frustum * aspect, frustum, -frustum, 1, 100000,
     )
@@ -76,16 +92,15 @@ function OrthoCamera({ target }: { target?: [number, number, number] }) {
     return cam
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Resize handling
+  // Resize + frustum change handling
   useEffect(() => {
     const aspect = size.width / size.height
-    const frustum = 5000
     camera.left = -frustum * aspect
     camera.right = frustum * aspect
     camera.top = frustum
     camera.bottom = -frustum
     camera.updateProjectionMatrix()
-  }, [camera, size])
+  }, [camera, size, frustum])
 
   // Reposition when target changes
   useEffect(() => {
@@ -129,7 +144,7 @@ function OrthoCamera({ target }: { target?: [number, number, number] }) {
   return null
 }
 
-export default function Scene({ children, orbitTarget, orthographic, resetKey, onPointerMissed }: SceneProps) {
+export default function Scene({ children, orbitTarget, orthographic, roomWalls, resetKey, onPointerMissed }: SceneProps) {
   return (
     <Canvas
       camera={{
@@ -148,7 +163,7 @@ export default function Scene({ children, orbitTarget, orthographic, resetKey, o
       <directionalLight position={[5000, 10000, 5000]} intensity={0.7} />
       <directionalLight position={[-3000, 8000, -3000]} intensity={0.3} />
       {children}
-      {orthographic && <OrthoCamera target={orbitTarget} />}
+      {orthographic && <OrthoCamera target={orbitTarget} walls={roomWalls} />}
       <SceneOrbitControls key={orthographic ? 'ortho' : 'persp'} target={orbitTarget} disableRotate={orthographic} resetKey={resetKey} />
     </Canvas>
   )

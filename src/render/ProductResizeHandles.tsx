@@ -17,6 +17,7 @@
 
 import { useRef, useState, useCallback } from 'react'
 import { useThree } from '@react-three/fiber'
+import { Html } from '@react-three/drei'
 import { Vector3 } from 'three'
 import type { MozProduct } from '../mozaik/types'
 import { mozPosToThree } from '../math/basis'
@@ -141,8 +142,8 @@ function HandleBall({
         case 'width': {
           const raw = startVals.current.width + dxMm * sign * screenSign
           const snapped = snapValue(Math.max(INCH, raw), 'width')
-          // Account for 180° visual flip: sign*screenSign converts Mozaik-local to visual-local
-          const anchor: 'left' | 'right' = (sign * screenSign) > 0 ? 'left' : 'right'
+          // Left ball (sign<0) anchors left side; right ball (sign>0) anchors right side
+          const anchor: 'left' | 'right' = sign < 0 ? 'left' : 'right'
           onResizeWidth(productIndex, snapped, anchor)
           break
         }
@@ -345,11 +346,12 @@ interface ProductResizeHandlesProps {
   onUpdateX: (index: number, x: number) => void
   onBumpLeft?: (index: number) => void
   onBumpRight?: (index: number) => void
+  onRemove?: (index: number) => void
 }
 
 export default function ProductResizeHandles({
   product, productIndex, wallAngleDeg, onResize, onResizeWidth, onUpdateElev, onUpdateX,
-  onBumpLeft, onBumpRight,
+  onBumpLeft, onBumpRight, onRemove,
 }: ProductResizeHandlesProps) {
   const w = product.width, h = product.height
 
@@ -392,6 +394,25 @@ export default function ProductResizeHandles({
         product={product} onResize={onResize} />
       <DepthDragBall mozPos={[w, 0, 0]} productIndex={productIndex}
         product={product} onResize={onResize} />
+
+      {/* Red X delete button at top-right corner */}
+      {onRemove && (
+        <Html position={mozPosToThree(w, 0, h)} center style={{ pointerEvents: 'auto' }}>
+          <button
+            onClick={(e) => { e.stopPropagation(); onRemove(productIndex) }}
+            title="Delete product"
+            style={{
+              width: 22, height: 22, borderRadius: '50%',
+              background: '#cc2222', border: '2px solid #ff4444',
+              color: 'white', fontSize: 13, fontWeight: 'bold', lineHeight: '16px',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transform: 'translate(8px, -8px)',
+            }}
+          >
+            ×
+          </button>
+        </Html>
+      )}
     </group>
   )
 }
