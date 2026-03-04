@@ -1,0 +1,58 @@
+2
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<PartLibrary>
+  <PartLibraryItem PartType="Top" ReportName="Top" LabelName="TOP" Description="Top of cabinet box" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Bottom" ReportName="Bottom" LabelName="BOT" Description="Bottom of cabinet box" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="FEnd" ReportName="FEnd" LabelName="FE" Description="Finished End" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="UEnd" ReportName="UEnd" LabelName="UE" Description="Unfinished End" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Shelf" ReportName="Shelf" LabelName="Sh" Description="Shelf" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="RolloutShelf" ReportName="Rollout Shelf" LabelName="" Description="Rollout shelf behind doors" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="FixedShelf" ReportName="Fixed Shelf" LabelName="FixSh" Description="Fixed Shelf" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="AdjustableShelf" ReportName="Adjustable Shelf" LabelName="AdjSh" Description="Adjustable Shelf" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Partition" ReportName="Partition" LabelName="PTN" Description="Vertical Divider" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="UBack" ReportName="UBack" LabelName="UB" Description="Unfinished Back" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="FBack" ReportName="FBack" LabelName="" Description="Finished Back" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Frame" ReportName="{LS,RS,TR,BR,CR,CS}" LabelName="{LS,RS,TR,BR,CR,CS}" Description="Face Frame parts" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Nailer" ReportName="Nailer" LabelName="Na" Description="Back Nailers" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Stretcher" ReportName="Stretcher" LabelName="S" Description="Horizontal Stretchers" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Cleat" ReportName="Cleat" LabelName="" Description="manually added part" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Toe" ReportName="Toe" LabelName="T" Description="Structural Toe parts" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="PanelizedEnd" ReportName="Panelized End" LabelName="" Description="Panelized End as part of box" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Door" ReportName="{Door}" LabelName="" Description="Cabinet Door" CNC="True" LaborBase="0" LaborWall="0" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="DoorPanel" ReportName="{Door Panel}" LabelName="DrP" Description="Door Panel" CNC="True" LaborBase="0" LaborWall="0" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="DoorFrame" ReportName="{L Stile,R Stile,TR,BR,CR,CS}" LabelName="{DSL,DSR,DTR,DBR,DMR,DMS}" Description="5 piece door frame parts" CNC="False" LaborBase="0" LaborWall="0" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Drawer" ReportName="{Drawer}" LabelName="Dwr" Description="Drawer Face" CNC="True" LaborBase="0" LaborWall="0" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="DrawerPanel" ReportName="{Drw Panel}" LabelName="" Description="Drawer panel" CNC="True" LaborBase="0" LaborWall="0" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="DrawerFrame" ReportName="{L Stile,R Stile,TR,BR,CR,CS}" LabelName="{}" Description="5 piece drawer frame parts" CNC="False" LaborBase="0" LaborWall="0" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="DrawerSide" ReportName="{Drw Side}" LabelName="DwS" Description="Drawer Box Side" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="DrawerFront" ReportName="{Drw Front}" LabelName="DwF" Description="Drawer Box Front" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="DrawerBack" ReportName="{Drw Back}" LabelName="Dba" Description="Drawer Box Back" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="DrawerBottom" ReportName="{Drw Bottom}" LabelName="Dbm" Description="Drawer Box Bottom" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="TraySide" ReportName="Tray Side" LabelName="" Description="Roll Out Tray Side" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="TrayFront" ReportName="Tray Front" LabelName="" Description="Roll Out Tray Front" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="TrayBack" ReportName="Tray Back" LabelName="" Description="Roll Out Tray Back" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="TrayBottom" ReportName="Tray Bottom" LabelName="" Description="Roll out Tray Bottom" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="CounterTop" ReportName="{Counter Top}" LabelName="" Description="Counter Top" CNC="False" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="FinExterior" ReportName="Panel" LabelName="Pan" Description="Finished Exterior Panel" CNC="False" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="FinInterior" ReportName="Finished Interior" LabelName="" Description="Finished Interior Parts" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="FinInteriorBack" ReportName="Finished Interior Back" LabelName="" Description="Finished Interior Back" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="UfinExterior" ReportName="Unfinished Exterior" LabelName="" Description="Unfinished Exterior manually added parts" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="UfinInterior" ReportName="Unfinished Interior" LabelName="" Description="Unfinished Interior manually added parts" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="FinSkin" ReportName="Skin F.E." LabelName="" Description="Finished Applied Skin" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="UfinSkin" ReportName="Skin U.E." LabelName="" Description="Unfinished Applied Skin" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="ToeSkin" ReportName="Toe Skin" LabelName="" Description="Applied Toe Skin" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Sleeper" ReportName="Sleeper" LabelName="" Description="Center Toe braces running front to back" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Glass" ReportName="{Glass}" LabelName="{}" Description="Glass" CNC="False" LaborBase="0" LaborWall="0" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Plastic" ReportName="{Plastic}" LabelName="{}" Description="Plastic" CNC="True" LaborBase="0" LaborWall="0" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Metal" ReportName="{Metal}" LabelName="{}" Description="Metal" CNC="False" LaborBase="0" LaborWall="0" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Special" ReportName="Special" LabelName="" Description="manually added special parts" CNC="False" LaborBase="0" LaborWall="0" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="ClosetRod" ReportName="{ClosetRod}" LabelName="{}" Description="Closet Rod" CNC="False" LaborBase="0" LaborWall="0" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="TrayFace" ReportName="Tray Face" LabelName="" Description="TrayFace" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="AppliedUE" ReportName="End" LabelName="UE" Description="Unfinished End" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Divider" ReportName="Divider" LabelName="DIV" Description="Vertical Divider" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="FramelessRail" ReportName="{TR,BR}" LabelName="{TR,BR}" Description="Face Frame parts" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="DrawerPartition" ReportName="Drw Partition" LabelName="" Description="DrawerPartition" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="DrawerDivider" ReportName="Drw Divider" LabelName="" Description="DrawerDivider" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Nosing" ReportName="Nosing" LabelName="Nos" Description="Face Frame parts" CNC="True" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+  <PartLibraryItem PartType="Splash" ReportName="{Splash}" LabelName="" Description="Counter Top" CNC="False" LaborBase="2" LaborWall="2" AllowRotation="0" Color="None" />
+</PartLibrary>

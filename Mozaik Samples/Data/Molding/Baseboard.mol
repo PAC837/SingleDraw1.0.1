@@ -1,0 +1,148 @@
+5
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ShapeLibrary Name="Baseboard">
+  <ShapeInfos>
+    <ShapeInfo>
+      <Shape Version="2" Name="3.5&quot; Base Board" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="25.4" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="25.4" Y="88.9" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="88.9" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="4&quot; Base Board" Type="0" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="25.4" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="25.4" Y="101.6" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="101.6" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="4.5&quot; Base Board" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="25.4" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="25.4" Y="114.3" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="114.3" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="5&quot; Base Board" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="25.4" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="25.4" Y="127" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="127" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="B17" Type="0" RadiusX="15.93585" RadiusY="60.36298" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="9.539883" Y="38.66608" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="9.530857" Y="44.47794" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="9.530804" Y="57.18584" PtType="2" Data="0.930519" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="6.353863" Y="60.36298" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0.0000228882" Y="60.36287" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="0.0004882813" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="15.88497" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="15.88488" Y="11.11926" PtType="2" Data="0.930519" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="12.70784" Y="14.29656" PtType="2" Data="3.127799" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="12.90691" Y="30.87241" PtType="2" Data="-1.217799" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="B12" Type="0" RadiusX="34.94709" RadiusY="50.83218" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="12.8351" Y="38.47813" PtType="2" Data="-0.1185141" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="13.31129" Y="43.48229" PtType="2" Data="1.682477" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="9.324951" Y="48.52111" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0.0000610352" Y="50.83218" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="34.94678" Y="0.0004768372" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="34.94709" Y="10.0439" PtType="2" Data="-2.150121" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="26.87257" Y="18.71158" PtType="2" Data="1.576465" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="22.12068" Y="24.18032" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="22.1208" Y="28.94624" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="18.07309" Y="28.94632" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="18.0731" Y="33.47398" PtType="2" Data="-1.352734" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="B31" Type="0" RadiusX="14.29572" RadiusY="63.53979" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="10.73703" Y="32.0061" PtType="2" Data="-0.6045201" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="9.397121" Y="44.47791" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="7.830917" Y="60.36283" PtType="2" Data="0.930519" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="4.698429" Y="63.53954" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0.0000534058" Y="63.53979" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="0.0002746582" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="14.09552" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="14.09569" Y="15.88495" PtType="2" Data="0.7863936" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="12.54978" Y="26.07704" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="B40" Type="0" RadiusX="19.06198" RadiusY="63.53974" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="12.70794" Y="29.3873" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="10.32524" Y="50.83179" PtType="2" Data="0.5681298" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="7.176105" Y="56.90446" PtType="2" Data="-0.8446159" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="3.971375" Y="63.5397" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0.0001678467" Y="63.53974" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="19.06181" Y="0.0004234314" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="19.06198" Y="15.88505" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="15.88491" Y="18.26793" PtType="2" Data="0.3168077" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="14.89569" Y="22.62322" PtType="2" Data="-0.4787753" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="B2" Type="0" RadiusX="12.78881" RadiusY="69.85" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="12.7" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="12.78881" Y="12.40692" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="10.33762" Y="13.48154" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="12.46909" Y="15.92385" PtType="2" Data="-1.524" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="6.35" Y="43.18" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="6.35" Y="69.85" PtType="1" Data="5.08" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="69.85" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="B2" Type="0" RadiusX="12.78881" RadiusY="69.85" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="12.7" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="12.78881" Y="12.40692" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="10.33762" Y="13.48154" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="12.46909" Y="15.92385" PtType="2" Data="-1.524" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="6.35" Y="43.18" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="6.35" Y="69.85" PtType="1" Data="5.08" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="69.85" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="25.4" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="25.4" Y="101.6" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="101.6" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="VP-02(12Dept)" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="1" X="2419.35" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="2" X="2419.35" Y="298.45" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="3" X="0" Y="298.45" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <Operations Version="2">
+          <OperationLineBore Quan="77" Ang="0" Diameter="5" Quan_Eq="(PartL/32)+1" Ang_Eq="" Diameter_Eq="5" ID="2" X="9.5" Y="37" Depth="14" Hide="False" X_Eq="9.5" Y_Eq="37" Depth_Eq="14" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="52001" />
+          </OperationLineBore>
+          <OperationLineBore Quan="77" Ang="0" Diameter="5" Quan_Eq="(PartL/32)+1" Ang_Eq="" Diameter_Eq="5" ID="3" X="9.5" Y="248.45" Depth="14" Hide="False" X_Eq="9.5" Y_Eq="PartW-50" Depth_Eq="14" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="52002">
+              <OpIdTagReference Key="Count" Value="1" />
+            </OpIdTag>
+          </OperationLineBore>
+        </Operations>
+      </Shape>
+    </ShapeInfo>
+  </ShapeInfos>
+  <Columns>
+    <Column ID="6" Name="Default" />
+  </Columns>
+</ShapeLibrary>

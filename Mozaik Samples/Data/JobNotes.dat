@@ -1,0 +1,268 @@
+<?xml version="1.0" ?>
+<JobNotesFieldList>
+  <JobNotesField>
+    <FieldName>▀█▄_PreDraw1_Assess_▄█▀</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>1. Have arch plans on hand</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess1</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>2. Initial site measure done</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess2</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>3. Determine construction style</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess3</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>4. Set door + drawer style</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess4</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>5. Choose rollout box style</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess5</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>6. Define all hardware specs</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess6</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>7. List special accessories</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess7</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>8. Save all appliance specs</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess8</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>9. Record backsplash thickness</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess9</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>10. List other unique items</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess10</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>11. Cabinet exterior materials</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess11</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>12. Cabinet interior materials</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess12</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>13. Door materials by room</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess13</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>14. Drawer/rollout materials</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess14</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>15. Scribe detail notes</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess15</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>16. Ceiling + wall dimensions</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess16</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>17. Add special screenshots/docs</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess17</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>18. Create support job folder</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw1_Assess18</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>▀█▄_PreDraw2_JobTab_▄█▀</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw2_JobTab</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>1. Create Mozaik job folder</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw2_JobTab1</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>2. Use naming convention</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw2_JobTab2</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>3. Fill out job tab</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw2_JobTab3</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>4. Add notes for the team</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw2_JobTab4</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>▀█▄_PreDraw3_Settings_Panels_▄█▀</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw3_Settings_Panels</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>1. Choose door/drawer template</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw3_Settings_Panels1</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>2. Make new template if needed</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw3_Settings_Panels2</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>3. Set drawer box + slides</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw3_Settings_Panels3</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>4. Choose hardware styles</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw3_Settings_Panels4</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>5. Select end/back panel style</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw3_Settings_Panels5</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>▀█▄_PreDraw4_Settings_Materials_▄█▀</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw4_Settings_Materials</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>1. Set door materials</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw4_Settings_Materials1</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>2. Setup drawer templates</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw4_Settings_Materials2</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>3. Set cabinet case materials</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw4_Settings_Materials3</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>4. Assign countertop thickness</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw4_Settings_Materials4</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>5. Configure edgebanding template</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw4_Settings_Materials5</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>▀█▄_PreDraw5_Textures_Libs_▄█▀</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw5_Textures_Libs</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>1. Apply textures by visibility</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw5_Textures_Libs1</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>2. Update libraries if changed</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw5_Textures_Libs2</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>3. Set closet rods + pins</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw5_Textures_Libs3</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>4. Add plumbing/appliance specs</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw5_Textures_Libs4</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>▀█▄_PreDraw6_RoomsTab_▄█▀</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw6_RoomsTab</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>1. Set common wall height</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw6_RoomsTab1</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>2. Add soffit height</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw6_RoomsTab2</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>3. Set cabinet heights</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw6_RoomsTab3</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>4. Draw walls clockwise</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw6_RoomsTab4</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>5. Draw only relevant walls</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw6_RoomsTab5</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>6. Add doors/windows/appliances</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw6_RoomsTab6</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>7. Confirm drawings approved</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreDraw6_RoomsTab7</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>▀█▄_PreShop0_Products_▄█▀</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreShop0_Products</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>1. Auto-number all assemblies</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreShop0_Products1</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>2. Mic and update materials</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreShop0_Products2</VariableName>
+  </JobNotesField>
+  <JobNotesField>
+    <FieldName>3. Reposition cabinet labels</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>PreShop0_Products3</VariableName>
+  </JobNotesField>
+</JobNotesFieldList>

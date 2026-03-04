@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<titleBlockExport>
+  <version>0</version>
+  <titleBlocks>
+    <titleBlock>
+      <title>8.5x11 Full Page Horizontal</title>
+      <width>3150</width>
+      <height>2400</height>
+      <angle>0</angle>
+      <pen color="FF000000" width="1.181102" />
+      <titleBlockSections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>3150</dx>
+          <dy>2400</dy>
+          <da>2400</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>6</pAChild>
+          <pCChild>3</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>3150</dx>
+          <dy>2400</dy>
+          <da>225</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>4</pAChild>
+          <pCChild>7</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>225</y>
+          <dx>3150</dx>
+          <dy>2175</dy>
+          <da>1725</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>5</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>225</y>
+          <dx>3150</dx>
+          <dy>1725</dy>
+          <da>150</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>4</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>150</x>
+          <y>225</y>
+          <dx>3000</dx>
+          <dy>1725</dy>
+          <da>2850</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>3150</dx>
+          <dy>225</dy>
+          <da>1575</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>12</pAChild>
+          <pCChild>8</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>1950</y>
+          <dx>3150</dx>
+          <dy>450</dy>
+          <da>900</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>7</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>9</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>900</x>
+          <y>1950</y>
+          <dx>2250</dx>
+          <dy>450</dy>
+          <da>1350</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>8</pParent>
+          <pAChild>10</pAChild>
+          <pCChild>11</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>2250</x>
+          <y>1950</y>
+          <dx>900</dx>
+          <dy>450</dy>
+          <da>225</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>9</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>2250</x>
+          <y>1950</y>
+          <dx>900</dx>
+          <dy>225</dy>
+          <da>450</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>9</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>2250</x>
+          <y>2175</y>
+          <dx>900</dx>
+          <dy>225</dy>
+          <da>450</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>7</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>1950</y>
+          <dx>900</dx>
+          <dy>450</dy>
+          <da>225</da>
+        </titleBlockSection>
+      </titleBlockSections>
+      <objects>
+        <group>
+          <transform m00="1.175379" m01="0" m10="0" m11="1.175379" offsetX="929.6993" offsetY="1987.199" />
+          <children />
+        </group>
+        <text>
+          <size width="394.7369" height="83.0827" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="39.09775" offsetY="161.4661" />
+          <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>Customer</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="1515.677" height="180.3383" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="1619.323" offsetY="15" />
+          <fontSettings FontFace="Calibri" FontSize="24" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>0</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>4</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="573.8298" height="46.35923" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="1585.193" offsetY="169.2039" />
+          <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>Job Name</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="1520.564" height="170.5639" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="39.43609" offsetY="15" />
+          <fontSettings FontFace="Calibri" FontSize="24" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>0</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>5</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="615.1128" height="48.79605" />
+          <transform m00="0.002100707" m01="-0.9999977" m10="0.9999977" m11="0.002100707" offsetX="3088.175" offsetY="1938.813" />
+          <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>Customer Signature</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="1695.25" height="64.52794" />
+          <transform m00="-0.004756499" m01="-0.999989" m10="0.999989" m11="-0.004756499" offsetX="23.06345" offsetY="1935.84" />
+          <fontSettings FontFace="Calibri" FontSize="18" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>28</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="1688.737" height="38.97908" />
+          <transform m00="0.001993357" m01="-0.9999982" m10="0.9999982" m11="0.001993357" offsetX="99.41226" offsetY="1928.902" />
+          <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>29</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="254.1355" height="63.53369" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2276.724" offsetY="2348.09" />
+          <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>Scale</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="234.5864" height="53.75928" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2725.94" offsetY="2106.579" />
+          <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>Revision</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="420" height="195.0002" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2715" offsetY="1965" />
+          <fontSettings FontFace="Calibri" FontSize="18" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>3</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="420" height="194.9998" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2250.747" offsetY="2206.51" />
+          <fontSettings FontFace="Calibri" FontSize="18" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>26</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="420" height="195" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2715" offsetY="2190" />
+          <fontSettings FontFace="Calibri" FontSize="18" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>Page {Page_Num} of {Page_Count}</content>
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="850.376" height="166.3535" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="1357.519" offsetY="2233.646" />
+          <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>2727 University Blvd
+Tuscaloosa, AL 35401
+760.585.9550</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="254.1355" height="73.30811" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2281.203" offsetY="2110.652" />
+          <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>Date</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="420" height="194.9998" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2265" offsetY="1965" />
+          <fontSettings FontFace="Calibri" FontSize="18" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>0</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="634.2106" height="39.28556" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="34.21053" offsetY="2326.504" />
+          <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>Door Style</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="870" height="195" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="15" offsetY="2190" />
+          <fontSettings FontFace="Calibri" FontSize="18" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>11</variableTagType>
+          <variableTagCode>1</variableTagCode>
+        </text>
+        <text>
+          <size width="482.7068" height="83.08252" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="23.62205" offsetY="2122.463" />
+          <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>Materials</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="870" height="195" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="15" offsetY="1965" />
+          <fontSettings FontFace="Arial" FontSize="18" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>38</variableTagType>
+          <variableTagCode>1</variableTagCode>
+        </text>
+      </objects>
+    </titleBlock>
+  </titleBlocks>
+</titleBlockExport>

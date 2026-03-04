@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<titleBlockExport>
+  <version>0</version>
+  <titleBlocks>
+    <titleBlock>
+      <title>1x7.5 Vertical</title>
+      <width>300</width>
+      <height>2250</height>
+      <angle>0</angle>
+      <pen color="FFFFFFFF" width="1.181102" />
+      <titleBlockSections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>300</dx>
+          <dy>2250</dy>
+          <da>2250</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>3</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>300</dx>
+          <dy>2250</dy>
+          <da>1125</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>1125</y>
+          <dx>300</dx>
+          <dy>1125</dy>
+          <da>300</da>
+        </titleBlockSection>
+      </titleBlockSections>
+      <objects>
+        <text>
+          <size width="269.6069" height="37.12274" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="17.25713" offsetY="376.367" />
+          <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>760 585 9550</content>
+          <alignment>1</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="279.1696" height="38.4298" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="10.69063" offsetY="422.2532" />
+          <fontSettings FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>Help@mozaiksoftware.com</content>
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="293.7322" height="29.05918" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2.994339" offsetY="472.0655" />
+          <fontSettings FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>mozaiksoftware.com</content>
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="287.392" height="55.5274" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="7.291901" offsetY="585.5194" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>0</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="289.1751" height="67.97984" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="5.431656" offsetY="2077.114" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>1</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="289.3948" height="43.72894" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="5.097916" offsetY="2190.955" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>2</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="261.8521" height="124.1934" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="20.61386" offsetY="1786.416" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>25</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="281.901" height="108.3423" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="5.24815" offsetY="1523.021" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>4</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="282.4822" height="111.6075" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="5.252678" offsetY="1152.175" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>5</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="294.5595" height="247.8459" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="3.022511" offsetY="791.9286" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="6" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>This drawing is the property of Example Woodworking Inc. and may not be reproduced or used without expressed consent. These drawings are not to be used for construction purposes unless indicated as "issued for construction". </content>
+          <alignment>0</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="290.0882" height="52.47572" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="8.030712" offsetY="1095.895" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="12" ScaleType="2" Bold="True" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>CLIENT</content>
+          <alignment>1</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="300" height="65.79688" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="3.098129" offsetY="1469.469" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="12" ScaleType="2" Bold="True" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>PROJECT</content>
+          <alignment>1</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="281.5621" height="43.86478" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="12.28865" offsetY="1736.794" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="12" ScaleType="2" Bold="True" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>SHEET TITLE</content>
+          <alignment>1</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <group>
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="0.5382996" offsetY="12.59465" />
+          <children />
+        </group>
+        <text>
+          <size width="301.0612" height="38.69547" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="111.0282" offsetY="5971.425" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="9" ScaleType="2" Bold="True" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>  PAGE</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="270.4797" height="26.21969" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="15.39502" offsetY="2157.33" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="9" ScaleType="2" Bold="True" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>OF</content>
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="300" height="44.27136" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="2034.388" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="9" ScaleType="2" Bold="True" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>PAGE</content>
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <line>
+          <pen color="FF000000" width="4.192913" />
+          <pt0 x="0" y="548.2277" />
+          <pt1 x="300" y="548.2277" />
+        </line>
+        <line>
+          <pen color="FF000000" width="4.192913" />
+          <pt0 x="0" y="1724.49" />
+          <pt1 x="300" y="1724.49" />
+        </line>
+        <line>
+          <pen color="FF000000" width="4.192913" />
+          <pt0 x="0" y="2017.293" />
+          <pt1 x="300" y="2017.293" />
+        </line>
+        <line>
+          <pen color="FF000000" width="4.192913" />
+          <pt0 x="0" y="1055.585" />
+          <pt1 x="300" y="1055.585" />
+        </line>
+        <text>
+          <size width="282.0783" height="86.35998" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="6.436691" offsetY="1252.013" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>6</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="282.9731" height="81.31164" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="8.325333" offsetY="1317.83" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>7</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="289.0582" height="35.87663" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="6.732971" offsetY="1383.457" />
+          <fontSettings FontFace="Tw Cen MT" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>8</variableTagType>
+          <variableTagCode />
+        </text>
+      </objects>
+    </titleBlock>
+  </titleBlocks>
+</titleBlockExport>

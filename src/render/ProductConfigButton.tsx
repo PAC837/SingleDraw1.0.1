@@ -4,18 +4,20 @@
  */
 import { useEffect, useRef } from 'react'
 import { mmToInches, inchesToMm, formatDim } from '../math/units'
+import { snapModularHeight } from '../mozaik/modularValues'
 
 interface ProductConfigButtonProps {
   open: boolean
   placementMode: 'floor' | 'wall'
-  unitHeight: number        // mm
-  wallMountTopAt: number    // mm
-  wallHeight: number        // mm
+  unitHeight: number             // mm — floor section height
+  wallSectionHeight: number      // mm — wall section height
+  wallMountTopAt: number         // mm
+  wallHeight: number             // mm — room wall height
   useInches: boolean
   onToggle: () => void
   onSetMode: (mode: 'floor' | 'wall') => void
   onSetUnitHeight: (mm: number) => void
-  onSetTopAt: (mm: number) => void
+  onSetWallSectionHeight: (mm: number) => void
   onSetWallHeight: (mm: number) => void
   onCreatePresetRoom: (preset: 'reach-in' | 'walk-in' | 'walk-in-deep' | 'angled') => void
 }
@@ -25,8 +27,8 @@ const FLOOR_SECTION_PRESETS = [84, 87, 96, 108]
 const WALL_SECTION_PRESETS = [72, 76, 84, 87, 96, 108]
 
 export default function ProductConfigButton({
-  open, placementMode, unitHeight, wallMountTopAt, wallHeight, useInches,
-  onToggle, onSetMode, onSetUnitHeight, onSetTopAt, onSetWallHeight, onCreatePresetRoom,
+  open, placementMode, unitHeight, wallSectionHeight, wallMountTopAt, wallHeight, useInches,
+  onToggle, onSetMode, onSetUnitHeight, onSetWallSectionHeight, onSetWallHeight, onCreatePresetRoom,
 }: ProductConfigButtonProps) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -39,11 +41,8 @@ export default function ProductConfigButton({
     return () => document.removeEventListener('pointerdown', handler)
   }, [open, onToggle])
 
-  const sectionIn = Math.round(mmToInches(unitHeight))
   const wallHtIn = Math.round(mmToInches(wallHeight))
-  const topAtIn = Math.round(mmToInches(wallMountTopAt))
-  const elev = placementMode === 'floor' ? 0 : Math.max(0, wallMountTopAt - unitHeight)
-  const sectionPresets = placementMode === 'floor' ? FLOOR_SECTION_PRESETS : WALL_SECTION_PRESETS
+  const wallElev = Math.max(0, wallMountTopAt - wallSectionHeight)
 
   const c = open ? 'var(--accent)' : '#aaa'
   const c2 = open ? 'var(--accent)' : '#888'
@@ -118,57 +117,68 @@ export default function ProductConfigButton({
             </div>
           </div>
 
-          {/* Section Height */}
+          {/* Floor Section Height */}
           <div>
-            <label className="text-[10px] text-gray-400 uppercase tracking-wider">Section Height</label>
+            <label className="text-[10px] uppercase tracking-wider"
+              style={{ color: placementMode === 'floor' ? 'var(--accent)' : '#9ca3af' }}>
+              Floor Height
+              <span className="text-gray-500 normal-case ml-1">{formatDim(unitHeight, useInches)}</span>
+            </label>
             <div className="flex flex-wrap gap-1 mt-1">
-              {sectionPresets.map(p => (
-                <button
-                  key={p}
-                  onClick={() => onSetUnitHeight(inchesToMm(p))}
-                  className="text-xs px-2 py-1 rounded transition-colors"
-                  style={{
-                    background: sectionIn === p ? 'var(--accent)' : '#333',
-                    color: sectionIn === p ? '#000' : '#aaa',
-                  }}
-                >
-                  {p}
-                </button>
-              ))}
-              <input
-                type="number"
-                value={useInches ? sectionIn : Math.round(unitHeight)}
-                onChange={e => {
-                  const v = Number(e.target.value)
-                  onSetUnitHeight(useInches ? inchesToMm(v) : v)
-                }}
-                className="w-14 text-xs px-1.5 py-1 bg-gray-800 rounded border border-gray-600 text-white text-center"
-              />
+              {FLOOR_SECTION_PRESETS.map(p => {
+                const isActive = unitHeight === snapModularHeight(inchesToMm(p))
+                return (
+                  <button
+                    key={p}
+                    onClick={() => { onSetMode('floor'); onSetUnitHeight(inchesToMm(p)) }}
+                    className="text-xs px-2 py-1 rounded transition-colors"
+                    style={{
+                      background: isActive ? 'var(--accent)' : '#333',
+                      color: isActive ? '#000' : '#aaa',
+                    }}
+                  >
+                    {p}
+                  </button>
+                )
+              })}
             </div>
           </div>
 
-          {/* Wall mount: Top At + Elevation */}
-          {placementMode === 'wall' && (
-            <div>
-              <label className="text-[10px] text-gray-400 uppercase tracking-wider">Top At</label>
-              <div className="flex items-center gap-2 mt-1">
-                <input
-                  type="number"
-                  value={useInches ? topAtIn : Math.round(wallMountTopAt)}
-                  onChange={e => {
-                    const v = Number(e.target.value)
-                    onSetTopAt(useInches ? inchesToMm(v) : v)
-                  }}
-                  className="w-16 text-xs px-1.5 py-1 bg-gray-800 rounded border border-gray-600 text-white text-center"
-                />
-                <span className="text-[10px] text-gray-500">{useInches ? 'in' : 'mm'}</span>
-              </div>
+          {/* Wall Section Height */}
+          <div>
+            <label className="text-[10px] uppercase tracking-wider"
+              style={{ color: placementMode === 'wall' ? 'var(--accent)' : '#9ca3af' }}>
+              Wall Section Height
+              <span className="text-gray-500 normal-case ml-1">{formatDim(wallSectionHeight, useInches)}</span>
+            </label>
+            <div className="flex flex-wrap gap-1 mt-1">
+              {WALL_SECTION_PRESETS.map(p => {
+                const isActive = wallSectionHeight === snapModularHeight(inchesToMm(p))
+                return (
+                  <button
+                    key={p}
+                    onClick={() => { onSetWallSectionHeight(inchesToMm(p)) }}
+                    className="text-xs px-2 py-1 rounded transition-colors"
+                    style={{
+                      background: isActive ? 'var(--accent)' : '#333',
+                      color: isActive ? '#000' : '#aaa',
+                    }}
+                  >
+                    {p}
+                  </button>
+                )
+              })}
             </div>
-          )}
+          </div>
 
-          {/* Elevation readout */}
-          <div className="text-xs text-gray-400 pt-1 border-t border-gray-700">
-            Elev: <span className="text-white">{formatDim(elev, useInches)}</span>
+          {/* Elevation readout — both modes, active highlighted */}
+          <div className="text-xs pt-1 border-t border-gray-700 space-y-0.5">
+            <div style={{ color: placementMode === 'floor' ? 'var(--accent)' : '#9ca3af' }}>
+              Floor: on ground
+            </div>
+            <div style={{ color: placementMode === 'wall' ? 'var(--accent)' : '#9ca3af' }}>
+              Wall: elev <span className="text-white">{formatDim(wallElev, useInches)}</span>
+            </div>
           </div>
 
           {/* Room Presets */}

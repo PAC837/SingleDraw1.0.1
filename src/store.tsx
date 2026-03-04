@@ -1,7 +1,10 @@
 import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react'
+import { isWallMount } from './mozaik/types'
 import type { AppState, Visibility, RenderMode, MozRoom, MozFile, MozProduct, MozFixture, MozWall, DebugOverlays, DragTarget } from './mozaik/types'
 import { updateWallLength, updateWallHeight, moveJoint, splitWallAtCenter, rebuildJoints, toggleFollowAngle, toggleJointMiter } from './math/wallEditor'
+import { adjustNeighborGaps } from './mozaik/wallPlacement'
 import { resizeProduct } from './mozaik/productResize'
+import { snapModularHeight } from './mozaik/modularValues'
 
 const defaultOverlays: DebugOverlays = {
   originMarker: true,
@@ -50,12 +53,14 @@ const initialState: AppState = {
   visibility: defaultVisibility,
   visibilityMenuOpen: false,
   placementMode: 'floor',
-  unitHeight: 2209.8,       // 87 inches in mm
-  wallMountTopAt: 2133.6,   // 84 inches in mm
+  unitHeight: snapModularHeight(87 * 25.4),      // 87" → 2196.00mm (modular)
+  wallSectionHeight: snapModularHeight(76 * 25.4), // 76" → 1908.00mm (modular)
+  wallMountTopAt: snapModularHeight(87 * 25.4),   // auto-syncs with unitHeight
   wallHeight: 2438.4,       // 96 inches in mm
   productConfigOpen: false,
   cameraResetKey: 0,
   selectedProduct: null,
+  flipOps: false,
 }
 
 type Action =
@@ -101,6 +106,7 @@ type Action =
   | { type: 'TOGGLE_VISIBILITY_MENU' }
   | { type: 'SET_PLACEMENT_MODE'; mode: 'floor' | 'wall' }
   | { type: 'SET_UNIT_HEIGHT'; height: number }
+  | { type: 'SET_WALL_SECTION_HEIGHT'; height: number }
   | { type: 'SET_WALL_MOUNT_TOP_AT'; height: number }
   | { type: 'TOGGLE_PRODUCT_CONFIG' }
   | { type: 'SET_WALL_HEIGHT'; height: number }
@@ -109,6 +115,8 @@ type Action =
   | { type: 'SELECT_PRODUCT'; index: number | null }
   | { type: 'UPDATE_ROOM_PRODUCT_ELEV'; index: number; elev: number }
   | { type: 'UPDATE_ROOM_PRODUCT_X'; index: number; x: number }
+  | { type: 'TOGGLE_FLIP_OPS' }
+  | { type: 'ALIGN_WALL_TOPS' }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -304,8 +312,43 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, visibilityMenuOpen: !state.visibilityMenuOpen }
     case 'SET_PLACEMENT_MODE':
       return { ...state, placementMode: action.mode }
-    case 'SET_UNIT_HEIGHT':
-      return { ...state, unitHeight: action.height }
+    case 'SET_UNIT_HEIGHT': {
+      const snapped = snapModularHeight(action.height)
+      if (!state.room || state.room.products.length === 0) {
+        return { ...state, unitHeight: snapped, wallMountTopAt: snapped }
+      }
+      const products = state.room.products.map(p => {
+        if (!isWallMount(p.prodName)) {
+          // Floor product → resize to new floor height
+          return resizeProduct(p, 'height', snapped)
+        }
+        // Wall product → reposition so top aligns to new unitHeight
+        return { ...p, elev: Math.max(0, snapped - p.height) }
+      })
+      return {
+        ...state,
+        unitHeight: snapped,
+        wallMountTopAt: snapped,
+        room: { ...state.room, products },
+      }
+    }
+    case 'SET_WALL_SECTION_HEIGHT': {
+      const snapped = snapModularHeight(action.height)
+      if (!state.room || state.room.products.length === 0) {
+        return { ...state, wallSectionHeight: snapped }
+      }
+      const products = state.room.products.map(p => {
+        if (!isWallMount(p.prodName)) return p // floor products unchanged
+        // Wall product → resize height + recompute elev
+        const resized = resizeProduct(p, 'height', snapped)
+        return { ...resized, elev: Math.max(0, state.wallMountTopAt - snapped) }
+      })
+      return {
+        ...state,
+        wallSectionHeight: snapped,
+        room: { ...state.room, products },
+      }
+    }
     case 'SET_WALL_MOUNT_TOP_AT':
       return { ...state, wallMountTopAt: action.height }
     case 'TOGGLE_PRODUCT_CONFIG':
@@ -364,6 +407,42 @@ function reducer(state: AppState, action: Action): AppState {
           ),
         },
       }
+    }
+    case 'TOGGLE_FLIP_OPS': {
+      const newFlipOps = !state.flipOps
+      if (!state.room || state.room.products.length < 2) {
+        return { ...state, flipOps: newFlipOps }
+      }
+      // Repack all walls so gaps match the new panel sharing mode
+      let products = [...state.room.products]
+      const seenWalls = new Set<number>()
+      for (const p of products) {
+        const wn = parseInt(p.wall.split('_')[0], 10)
+        if (seenWalls.has(wn)) continue
+        seenWalls.add(wn)
+        const idx = products.indexOf(p)
+        const adjs = adjustNeighborGaps(products, idx, state.room.walls, state.room.wallJoints, newFlipOps)
+        for (const adj of adjs) {
+          products = products.map((pr, i) => i === adj.index ? { ...pr, x: adj.x } : pr)
+        }
+      }
+      return { ...state, flipOps: newFlipOps, room: { ...state.room, products } }
+    }
+    case 'ALIGN_WALL_TOPS': {
+      if (!state.room || state.room.products.length === 0) return state
+      const targetTop = state.unitHeight
+      const products = state.room.products.map(p => {
+        if (!isWallMount(p.prodName)) {
+          // Floor section taller than unitHeight → shrink it
+          if (p.height > targetTop + 0.5) {
+            return resizeProduct(p, 'height', targetTop)
+          }
+          return p
+        }
+        // Wall section → reposition so top = unitHeight
+        return { ...p, elev: Math.max(0, targetTop - p.height) }
+      })
+      return { ...state, room: { ...state.room, products } }
     }
     default:
       return state

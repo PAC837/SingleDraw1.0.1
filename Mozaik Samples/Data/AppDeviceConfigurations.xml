@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<AppDeviceConfigurations>
+  <AppDeviceConfiguration DeviceID="46A3D9D" DeviceDisplayName="Michael Surface" DeviceCpuName="Michael-SurfaceBook" ReceivesCutlistDoors="True" ReceivesCutlistDrawers="True" ReceivesCutlistFrame="True" ReceivesCutlistCase="True" ReceivesCutlistTops="True" ReceivesSubAssemblyDoors="True" ReceivesSubAssemblyDrawers="True" ReceivesSubAssemblyFrames="True" ReceivesAssembly="1" ReceivesLabels="True" />
+</AppDeviceConfigurations>

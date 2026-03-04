@@ -1,0 +1,27 @@
+4
+PanelTemplate
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<PartFastenerTemplate Name="Leg Levelers" CostEach="9.5" MarkupPercentage="0" AddOnCost="0">
+  <BasePartFastener>
+    <Bot Version="2">
+      <OperationHole Diameter="10" Diameter_Eq="" ID="1" X="50.8" Y="101.6" Depth="19" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="False" IdTag="30701" Noneditable="False" Anchor="BL" FlipSideOp="False" />
+      <OperationHole Diameter="10" Diameter_Eq="" ID="2" X="558.8" Y="101.6" Depth="19" Hide="False" X_Eq="PartL-(2*tomm)" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="False" IdTag="30702" Noneditable="False" Anchor="BR" FlipSideOp="False" />
+      <OperationHole Diameter="10" Diameter_Eq="" ID="3" X="558.8" Y="539.75" Depth="19" Hide="False" X_Eq="PartL-(2*tomm)" Y_Eq="partW-(2*tomm)" Depth_Eq="" Hide_Eq="" IsUserOp="False" IdTag="30703" Noneditable="False" Anchor="TR" FlipSideOp="False" />
+      <OperationHole Diameter="10" Diameter_Eq="" ID="4" X="50.8" Y="539.75" Depth="19" Hide="False" X_Eq="" Y_Eq="partW-(2*tomm)" Depth_Eq="" Hide_Eq="" IsUserOp="False" IdTag="30704" Noneditable="False" Anchor="TL" FlipSideOp="False" />
+    </Bot>
+  </BasePartFastener>
+  <WallPartFastener>
+    <Bot Version="2">
+      <OperationHole Diameter="10" Diameter_Eq="" ID="1" X="50.8" Y="101.6" Depth="19" Hide="True" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="False" IdTag="30701" Noneditable="False" Anchor="BL" FlipSideOp="False" />
+      <OperationHole Diameter="10" Diameter_Eq="" ID="2" X="50.8" Y="558.8" Depth="19" Hide="True" X_Eq="" Y_Eq="partL-(2*tomm)" Depth_Eq="" Hide_Eq="" IsUserOp="False" IdTag="30702" Noneditable="False" Anchor="TL" FlipSideOp="False" />
+    </Bot>
+  </WallPartFastener>
+  <TallPartFastener>
+    <Bot Version="2">
+      <OperationHole Diameter="10" Diameter_Eq="" ID="1" X="50.8" Y="101.6" Depth="19" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="False" IdTag="30701" Noneditable="False" Anchor="BL" FlipSideOp="False" />
+      <OperationHole Diameter="10" Diameter_Eq="" ID="2" X="558.8" Y="101.6" Depth="19" Hide="False" X_Eq="PartL-(2*tomm)" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="False" IdTag="30702" Noneditable="False" Anchor="BR" FlipSideOp="False" />
+      <OperationHole Diameter="10" Diameter_Eq="" ID="3" X="558.8" Y="539.75" Depth="19" Hide="False" X_Eq="PartL-(2*tomm)" Y_Eq="partW-(2*tomm)" Depth_Eq="" Hide_Eq="" IsUserOp="False" IdTag="30703" Noneditable="False" Anchor="TR" FlipSideOp="False" />
+      <OperationHole Diameter="10" Diameter_Eq="" ID="4" X="50.8" Y="539.75" Depth="19" Hide="False" X_Eq="" Y_Eq="partW-(2*tomm)" Depth_Eq="" Hide_Eq="" IsUserOp="False" IdTag="30704" Noneditable="False" Anchor="TL" FlipSideOp="False" />
+    </Bot>
+  </TallPartFastener>
+</PartFastenerTemplate>

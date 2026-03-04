@@ -1,0 +1,76 @@
+1
+PanelTemplate
+0
+
+
+
+
+
+
+0
+0
+
+
+
+
+
+
+
+
+<\Base Parts>
+
+
+
+
+op,5,od,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,0,0,False,True,False,False,-1,od,52,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30601,1,False,True,False,False,-1,od,1348,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,PartL - 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30602,1,False,True,False,False,-1,od,375,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 525 And PartL < 925 Then X= PartL / 2 | If PartL >= 925 And PartL < 1325 Then X= ((PartL - 108) / 3) + 52 | If PartL >= 1325 Then X= ((PartL - 108) / 4) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 525 Then Hide(0/1)= 1,30603,1,False,True,False,False,-1,od,698,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 2) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 2) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 925 Then Hide(0/1)= 1,30604,1,False,True,False,False,-1,od,1021,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 3) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 3) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 1325 Then Hide(0/1)= 1,30605,1,False,True,False,False,-1
+op,5,od,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,0,0,False,True,False,False,-1,od,52,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30601,1,False,True,False,False,-1,od,1348,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,PartL - 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30602,1,False,True,False,False,-1,od,375,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 525 And PartL < 925 Then X= PartL / 2 | If PartL >= 925 And PartL < 1325 Then X= ((PartL - 108) / 3) + 52 | If PartL >= 1325 Then X= ((PartL - 108) / 4) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 525 Then Hide(0/1)= 1,30603,1,False,True,False,False,-1,od,698,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 2) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 2) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 925 Then Hide(0/1)= 1,30604,1,False,True,False,False,-1,od,1021,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 3) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 3) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 1325 Then Hide(0/1)= 1,30605,1,False,True,False,False,-1
+
+op,5,od,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,0,0,False,True,False,False,-1,od,52,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30601,1,False,True,False,False,-1,od,1348,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,PartL - 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30602,1,False,True,False,False,-1,od,375,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 525 And PartL < 925 Then X= PartL / 2 | If PartL >= 925 And PartL < 1325 Then X= ((PartL - 108) / 3) + 52 | If PartL >= 1325 Then X= ((PartL - 108) / 4) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 525 Then Hide(0/1)= 1,30603,1,False,True,False,False,-1,od,698,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 2) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 2) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 925 Then Hide(0/1)= 1,30604,1,False,True,False,False,-1,od,1021,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 3) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 3) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 1325 Then Hide(0/1)= 1,30605,1,False,True,False,False,-1
+
+
+
+
+
+
+
+
+
+
+<\Wall Parts>
+
+
+
+
+op,5,od,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,0,0,False,True,False,False,-1,od,52,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30601,1,False,True,False,False,-1,od,1348,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,PartL - 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30602,1,False,True,False,False,-1,od,375,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 525 And PartL < 925 Then X= PartL / 2 | If PartL >= 925 And PartL < 1325 Then X= ((PartL - 108) / 3) + 52 | If PartL >= 1325 Then X= ((PartL - 108) / 4) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 525 Then Hide(0/1)= 1,30603,1,False,True,False,False,-1,od,698,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 2) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 2) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 925 Then Hide(0/1)= 1,30604,1,False,True,False,False,-1,od,1021,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 3) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 3) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 1325 Then Hide(0/1)= 1,30605,1,False,True,False,False,-1
+op,5,od,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,0,0,False,True,False,False,-1,od,52,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30601,1,False,True,False,False,-1,od,1348,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,PartL - 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30602,1,False,True,False,False,-1,od,375,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 525 And PartL < 925 Then X= PartL / 2 | If PartL >= 925 And PartL < 1325 Then X= ((PartL - 108) / 3) + 52 | If PartL >= 1325 Then X= ((PartL - 108) / 4) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 525 Then Hide(0/1)= 1,30603,1,False,True,False,False,-1,od,698,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 2) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 2) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 925 Then Hide(0/1)= 1,30604,1,False,True,False,False,-1,od,1021,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 3) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 3) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 1325 Then Hide(0/1)= 1,30605,1,False,True,False,False,-1
+
+op,5,od,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,0,0,False,True,False,False,-1,od,52,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30601,1,False,True,False,False,-1,od,1348,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,PartL - 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30602,1,False,True,False,False,-1,od,375,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 525 And PartL < 925 Then X= PartL / 2 | If PartL >= 925 And PartL < 1325 Then X= ((PartL - 108) / 3) + 52 | If PartL >= 1325 Then X= ((PartL - 108) / 4) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 525 Then Hide(0/1)= 1,30603,1,False,True,False,False,-1,od,698,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 2) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 2) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 925 Then Hide(0/1)= 1,30604,1,False,True,False,False,-1,od,1021,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 3) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 3) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 1325 Then Hide(0/1)= 1,30605,1,False,True,False,False,-1
+
+
+
+
+
+
+
+
+
+
+<\Tall Parts>
+
+
+
+
+op,5,od,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,0,0,False,True,False,False,-1,od,52,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30601,1,False,True,False,False,-1,od,1348,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,PartL - 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30602,1,False,True,False,False,-1,od,375,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 525 And PartL < 925 Then X= PartL / 2 | If PartL >= 925 And PartL < 1325 Then X= ((PartL - 108) / 3) + 52 | If PartL >= 1325 Then X= ((PartL - 108) / 4) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 525 Then Hide(0/1)= 1,30603,1,False,True,False,False,-1,od,698,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 2) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 2) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 925 Then Hide(0/1)= 1,30604,1,False,True,False,False,-1,od,1021,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 3) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 3) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 1325 Then Hide(0/1)= 1,30605,1,False,True,False,False,-1
+op,5,od,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,0,0,False,True,False,False,-1,od,52,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30601,1,False,True,False,False,-1,od,1348,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,PartL - 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30602,1,False,True,False,False,-1,od,375,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 525 And PartL < 925 Then X= PartL / 2 | If PartL >= 925 And PartL < 1325 Then X= ((PartL - 108) / 3) + 52 | If PartL >= 1325 Then X= ((PartL - 108) / 4) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 525 Then Hide(0/1)= 1,30603,1,False,True,False,False,-1,od,698,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 2) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 2) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 925 Then Hide(0/1)= 1,30604,1,False,True,False,False,-1,od,1021,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 3) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 3) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 1325 Then Hide(0/1)= 1,30605,1,False,True,False,False,-1
+
+op,5,od,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,0,0,False,True,False,False,-1,od,52,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30601,1,False,True,False,False,-1,od,1348,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,,PartL - 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,,,30602,1,False,True,False,False,-1,od,375,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 525 And PartL < 925 Then X= PartL / 2 | If PartL >= 925 And PartL < 1325 Then X= ((PartL - 108) / 3) + 52 | If PartL >= 1325 Then X= ((PartL - 108) / 4) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 525 Then Hide(0/1)= 1,30603,1,False,True,False,False,-1,od,698,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 2) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 2) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 925 Then Hide(0/1)= 1,30604,1,False,True,False,False,-1,od,1021,580.90,8,8,12,0,1,0,1,0,L02,0,,0,,,, | If PartL >= 925 And PartL < 1325 Then X= (((PartL - 108) / 3) * 3) + 52 | If PartL >= 1325 Then X= (((PartL -108) / 4) * 3) + 52,PartW - (Nailer.th * .5) - (BkRecess - Nailer.th),,,, | If PartL < 1325 Then Hide(0/1)= 1,30605,1,False,True,False,False,-1
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,124 @@
+JobName,CabNo,PartName,PartMat,PartSize,Banding,PartNo,SheetNo
+Frameless Example,R4C1,Door(L),3/4 Plywood,18 1/16 x 24,None,20,1
+Frameless Example,R6C4,Door(R),3/4 Plywood,18 x 13 15/16,None,21,1
+Frameless Example,R4C8,Door(L),3/4 Plywood,17 15/16 x 24,None,24,1
+Frameless Example,R4C1,Door(R),3/4 Plywood,18 1/16 x 24,None,25,1
+Frameless Example,R6C3,Door(R),3/4 Plywood,9 3/4 x 27 1/2,None,26,1
+Frameless Example,R4C8,Door(R),3/4 Plywood,17 15/16 x 24,None,27,1
+Frameless Example,R5C3,Door(R),3/4 Plywood,9 3/4 x 27 1/2,None,30,1
+Frameless Example,R6C4,Door(L),3/4 Plywood,18 x 13 15/16,None,32,1
+Frameless Example,R6C12,Door(R),3/4 Plywood,17 3/4 x 32,None,85,1
+Frameless Example,R6C12,Door(L),3/4 Plywood,17 3/4 x 32,None,86,1
+Frameless Example,R5C10,Drawer_H,3/4 Plywood,9 3/4 x 23,None,87,1
+Frameless Example,R5C1,Drawer_H,3/4 Plywood,9 3/4 x 14 1/4,None,88,1
+Frameless Example,R6C12,Door(L),3/4 Plywood,17 3/4 x 32,None,31,2
+Frameless Example,R5C9,Door(L),3/4 Plywood,16 7/16 x 19 1/2,None,33,2
+Frameless Example,R5C9,Door(R),3/4 Plywood,16 7/16 x 19 1/2,None,35,2
+Frameless Example,R5C14,Door(L),3/4 Plywood,17 11/16 x 20 1/2,None,36,2
+Frameless Example,R4C7,Drawer_H,3/4 Plywood,6 x 35 3/4,None,45,2
+Frameless Example,R5C15,Drawer_H,3/4 Plywood,6 x 29 15/16,None,46,2
+Frameless Example,R6C9,Door(L),3/4 Plywood,16 7/16 x 19 1/2,None,47,2
+Frameless Example,R5C15,Drawer_H,3/4 Plywood,6 x 29 15/16,None,53,2
+Frameless Example,R4C8,Drawer_H,3/4 Plywood,6 x 17 15/16,None,97,2
+Frameless Example,R5C14,Door(R),3/4 Plywood,17 11/16 x 20 1/2,None,98,2
+Frameless Example,R4C6,Door(R),3/4 Plywood,15 13/16 x 35 5/8,None,99,2
+Frameless Example,R4C8,Drawer_H,3/4 Plywood,6 x 17 15/16,None,102,2
+Frameless Example,R5C13,Door(L),3/4 Plywood,17 11/16 x 20 1/2,None,103,2
+Frameless Example,R5C2,Drawer_H,3/4 Plywood,6 x 18 1/4,None,104,2
+Frameless Example,R4C2,Drawer_H,3/4 Plywood,6 x 17 13/16,None,107,2
+Frameless Example,R6C8,Drawer_H,3/4 Plywood,6 x 10 1/8,None,121,2
+Frameless Example,R5C8,Drawer_H,3/4 Plywood,6 x 10 1/8,None,123,2
+Frameless Example,R5C10,Drawer_H,3/4 Plywood,9 3/4 x 23,None,1,3
+Frameless Example,R4C1,Drawer_H,3/4 Plywood,6 x 26 13/16,None,8,3
+Frameless Example,R4C2,Drawer_H,3/4 Plywood,11 5/8 x 26 13/16,None,55,3
+Frameless Example,R4C3,Door(R),3/4 Plywood,11 1/8 x 30 1/8,None,58,3
+Frameless Example,R4C2,Drawer_H,3/4 Plywood,12 1/4 x 26 13/16,None,71,3
+Frameless Example,R6C11,Door(R),3/4 Plywood,13 3/4 x 32,None,74,3
+Frameless Example,R5C16,Door(L),3/4 Plywood,21 5/16 x 32,None,75,3
+Frameless Example,R4C1,Drawer_H,3/4 Plywood,6 x 26 13/16,None,76,3
+Frameless Example,R6C2,Door(L),3/4 Plywood,11 x 20 1/2,None,83,3
+Frameless Example,R4C10,Door(L),3/4 Plywood,15 1/2 x 35 5/8,None,84,3
+Frameless Example,R4C4,Door(L),3/4 Plywood,20 1/16 x 35 5/8,None,100,3
+Frameless Example,R5C1,Drawer_H,3/4 Plywood,9 3/4 x 14 1/4,None,101,3
+Frameless Example,R4C3,Door,3/4 Plywood,11 7/8 x 30 1/8,None,9,4
+Frameless Example,R5C5,Door(L),3/4 Plywood,14 1/4 x 32,None,10,4
+Frameless Example,R4C4,Door(R),3/4 Plywood,20 1/16 x 35 5/8,None,11,4
+Frameless Example,R6C8,Door(L),3/4 Plywood,10 1/8 x 20 1/2,None,12,4
+Frameless Example,R6C10,Door(R),3/4 Plywood,16 x 20 1/2,None,15,4
+Frameless Example,R4C5,Door(L),3/4 Plywood,20 1/16 x 35 5/8,None,51,4
+Frameless Example,R6C10,Drawer_H,3/4 Plywood,6 x 16,None,57,4
+Frameless Example,R5C15,Door(R),3/4 Plywood,19 5/8 x 20 1/2,None,72,4
+Frameless Example,R5C1,Drawer_H,3/4 Plywood,6 x 14 1/4,None,80,4
+Frameless Example,R5C15,Door(L),3/4 Plywood,19 5/8 x 20 1/2,None,113,4
+Frameless Example,R5C15,Door(R),3/4 Plywood,19 5/8 x 20 1/2,None,115,4
+Frameless Example,R6C2,Drawer_H,3/4 Plywood,6 x 11,None,119,4
+Frameless Example,R6C11,Door(L),3/4 Plywood,13 3/4 x 32,None,19,5
+Frameless Example,R5C12,Door(L),3/4 Plywood,16 1/16 x 32,None,22,5
+Frameless Example,R5C12,Door(L),3/4 Plywood,16 1/16 x 32,None,23,5
+Frameless Example,R4C13,Door(L),3/4 Plywood,11 3/4 x 23 5/8,None,29,5
+Frameless Example,R4C11,Door(L),3/4 Plywood,16 13/16 x 24,None,43,5
+Frameless Example,R4C7,Door(R),3/4 Plywood,17 13/16 x 24,None,49,5
+Frameless Example,R4C2,Door(R),3/4 Plywood,13 3/8 x 24,None,50,5
+Frameless Example,R4C12,Door(R),3/4 Plywood,13 3/4 x 24,None,59,5
+Frameless Example,R4C1,Door(R),3/4 Plywood,18 1/16 x 24,None,61,5
+Frameless Example,R6C1,Drawer_H,3/4 Plywood,8 1/2 x 12 1/2,None,66,5
+Frameless Example,R5C4,Door(R),3/4 Plywood,18 x 13 15/16,None,73,5
+Frameless Example,R5C4,Door(L),3/4 Plywood,18 x 13 15/16,None,91,5
+Frameless Example,R6C9,Drawer_H,3/4 Plywood,7 x 16,None,2,6
+Frameless Example,R5C2,Door(L),3/4 Plywood,18 1/4 x 20 1/2,None,3,6
+Frameless Example,R6C9,Drawer_H,3/4 Plywood,7 x 16,None,18,6
+Frameless Example,R4C7,Door(L),3/4 Plywood,17 13/16 x 24,None,28,6
+Frameless Example,R5C16,Door(R),3/4 Plywood,21 1/4 x 32,None,37,6
+Frameless Example,R5C9,Drawer_H,3/4 Plywood,7 x 16,None,38,6
+Frameless Example,R5C16,Door(L),3/4 Plywood,21 1/4 x 32,None,70,6
+Frameless Example,R4C1,Door(L),3/4 Plywood,17 3/8 x 24,None,92,6
+Frameless Example,R5C9,Drawer_H,3/4 Plywood,7 x 16,None,93,6
+Frameless Example,R4C2,Drawer_H,3/4 Plywood,6 x 17 13/16,None,94,6
+Frameless Example,R5C6,Door(R),3/4 Plywood,13 x 20,None,95,6
+Frameless Example,R4C1,Door(L),3/4 Plywood,17 3/8 x 24,None,96,6
+Frameless Example,R6C1,Door(L),3/4 Plywood,7 1/2 x 27 1/2,None,105,6
+Frameless Example,R5C10,Drawer_H,3/4 Plywood,6 x 11,None,118,6
+Frameless Example,R6C8,Drawer_H,3/4 Plywood,6 x 10 1/8,None,120,6
+Frameless Example,R5C8,Drawer_H,3/4 Plywood,6 x 10 1/8,None,122,6
+Frameless Example,R6C5,Door(L),3/4 Plywood,21 x 32,None,4,7
+Frameless Example,R5C15,Door(L),3/4 Plywood,19 5/8 x 20 1/2,None,13,7
+Frameless Example,R4C4,Door(L),3/4 Plywood,19 3/8 x 35 5/8,None,14,7
+Frameless Example,R5C8,Door(L),3/4 Plywood,10 1/8 x 20 1/2,None,16,7
+Frameless Example,R5C8,Door(R),3/4 Plywood,10 1/8 x 20 1/2,None,17,7
+Frameless Example,R4C2,Drawer_H,3/4 Plywood,6 x 17 13/16,None,34,7
+Frameless Example,R5C14,Drawer_H,3/4 Plywood,6 x 17 11/16,None,81,7
+Frameless Example,R5C15,Door(L),3/4 Plywood,19 5/8 x 20 1/2,None,82,7
+Frameless Example,R5C13,Drawer_H,3/4 Plywood,6 x 17 11/16,None,106,7
+Frameless Example,R4C5,Door(L),3/4 Plywood,19 3/8 x 35 5/8,None,108,7
+Frameless Example,R5C13,Drawer_H,3/4 Plywood,6 x 17 11/16,None,109,7
+Frameless Example,R5C13,Door(R),3/4 Plywood,17 11/16 x 20 1/2,None,110,7
+Frameless Example,R5C14,Drawer_H,3/4 Plywood,6 x 17 11/16,None,111,7
+Frameless Example,R6C11,Door(L),3/4 Plywood,13 3/4 x 32,None,41,8
+Frameless Example,R4C10,Door(R),3/4 Plywood,15 1/2 x 35 5/8,None,42,8
+Frameless Example,R4C9,Door(L),3/4 Plywood,16 15/16 x 35 5/8,None,44,8
+Frameless Example,R5C11,Door(L),3/4 Plywood,13 3/4 x 32,None,52,8
+Frameless Example,R4C10,Door(L),3/4 Plywood,14 13/16 x 35 5/8,None,54,8
+Frameless Example,R4C9,Door(R),3/4 Plywood,16 15/16 x 35 5/8,None,56,8
+Frameless Example,R6C9,Door(R),3/4 Plywood,16 7/16 x 19 1/2,None,60,8
+Frameless Example,R5C6,Door(L),3/4 Plywood,13 x 20,None,62,8
+Frameless Example,R6C10,Door(L),3/4 Plywood,16 x 20 1/2,None,68,8
+Frameless Example,R6C7,Door(L),3/4 Plywood,17 x 32,None,39,9
+Frameless Example,R5C12,Door(R),3/4 Plywood,16 1/16 x 32,None,40,9
+Frameless Example,R6C7,Door(R),3/4 Plywood,17 x 32,None,48,9
+Frameless Example,R4C2,Door(L),3/4 Plywood,13 3/8 x 24,None,63,9
+Frameless Example,R5C11,Door(L),3/4 Plywood,13 3/4 x 32,None,64,9
+Frameless Example,R5C11,Door(R),3/4 Plywood,13 3/4 x 32,None,65,9
+Frameless Example,R6C10,Drawer_H,3/4 Plywood,6 x 16,None,77,9
+Frameless Example,R5C3,Door,3/4 Plywood,10 1/2 x 27 1/2,None,78,9
+Frameless Example,R6C3,Door,3/4 Plywood,10 1/2 x 27 1/2,None,79,9
+Frameless Example,R6C8,Door(R),3/4 Plywood,10 1/8 x 20 1/2,None,89,9
+Frameless Example,R6C1,Drawer_H,3/4 Plywood,8 1/2 x 12 1/2,None,90,9
+Frameless Example,R4C12,Drawer_H,3/4 Plywood,6 x 13 3/4,None,114,9
+Frameless Example,R6C1,Drawer_H,3/4 Plywood,8 1/2 x 12 1/2,None,116,9
+Frameless Example,R5C7,Door(R),3/4 Plywood,20 5/8 x 32,None,5,10
+Frameless Example,R5C7,Door(L),3/4 Plywood,20 5/8 x 32,None,6,10
+Frameless Example,R4C5,Door(R),3/4 Plywood,20 1/16 x 35 5/8,None,7,10
+Frameless Example,R6C6,Door(L),3/4 Plywood,13 x 20,None,67,10
+Frameless Example,R5C10,Drawer_H,3/4 Plywood,6 x 11,None,69,10
+Frameless Example,R6C6,Door(R),3/4 Plywood,13 x 20,None,112,10
+Frameless Example,R4C11,Drawer_H,3/4 Plywood,6 x 16 13/16,None,117,10

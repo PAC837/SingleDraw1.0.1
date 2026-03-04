@@ -1,0 +1,2 @@
+FlRevC is the reveal for each door when two cabinets are sitting side by side.
+The total reveal is equal to 2xFlRevC.

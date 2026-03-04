@@ -1,0 +1,29 @@
+Mozaik Drawing Settings Template Export
+5
+<?xml version="1.0" encoding="utf-16" standalone="yes"?>
+<DrawingTemplates>
+  <DrawingTemplate Name="User Defaults">
+    <DrawingSettings Version="2" SourceTemplate="User Defaults" RotateFPLabels="False" RotateFPWallLabels="False" DrawMode="3" FaceInteriorDrawMode="0" FPNames="False" ElevNames="False" FPGrid="609.6" ElevGrid="0" FPDimOffsetSmall="True" FPDimPadding="2" FPDimFirstRowPadding="2" FPDimLineStyle="1" FPWallLabelsInWall="True" ElevDimOffsetSmall="True" ElevDimPadding="2" ElevDimFirstRowPadding="2" ElevDimLineStyle="3" ElevDimType="2" WallLabelRoomNumber="False" WallLabelRoomName="False" WallLabelWallLength="False" WallLabelWallHeight="False" OrthoCrossSection="1">
+      <LayerHidden LayerName="Appliance Drawings" Hidden="False" />
+      <LayerHidden LayerName="Wall Fixture Drawings" Hidden="False" />
+      <LayerHidden LayerName="Non-numbered" Hidden="True" />
+      <LayerHidden LayerName="Arch Door Swings" Hidden="False" />
+      <LayerHidden LayerName="Opening Labels" Hidden="False" />
+      <LayerHidden LayerName="Special Depth Labels" Hidden="False" />
+      <LayerHidden LayerName="Frame Special Size Labels" Hidden="False" />
+      <LayerHidden LayerName="Open Section Labels" Hidden="False" />
+      <LayerHidden LayerName="Corner Cab Drawings" Hidden="True" />
+      <LayerHidden LayerName="Molding Drawings" Hidden="True" />
+      <LayerHidden LayerName="Top Drawings" Hidden="True" />
+      <LayerHidden LayerName="Plan - Depth" Hidden="True" />
+      <LayerHidden LayerName="Face Interior Sections" Hidden="True" />
+      <LayerHidden LayerName="Face Arch Door Swings" Hidden="True" />
+      <LayerHidden LayerName="Sink Center Dimensions" Hidden="True" />
+      <LayerHidden LayerName="Non-numbered Cabinet Labels" Hidden="True" />
+      <LayerHidden LayerName="" Hidden="True" />
+      <LayerHidden LayerName="Appliance Labels" Hidden="True" />
+      <LayerHidden LayerName="Wall Fixture Labels" Hidden="True" />
+      <LayerHidden LayerName="Hardware" Hidden="False" />
+    </DrawingSettings>
+  </DrawingTemplate>
+</DrawingTemplates>

@@ -1,0 +1,169 @@
+7
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<DoorLibrary>
+  <LibraryDoor Name="Slab H Door" Type="2" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="True" BoreForPulls="False" BoreForLocks="False" ApplyBanding="True" IsHorizontalGrain="True" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="True" PricePerDoor="250" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="762" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Slab Door" Type="2" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="True" BoreForPulls="False" BoreForLocks="False" ApplyBanding="True" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="True" PricePerDoor="250" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="762" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Slab H Drawer" Type="2" Comment="" IsDrawerFront="True" DefaultW="508" DefaultH="152.4" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="True" IsHorizontalGrain="True" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="True" PricePerDoor="100" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="152.4" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+      <PanelShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+        <ShapePoint ID="1" X="508" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Right" />
+        <ShapePoint ID="2" X="508" Y="152.4" PtType="0" Data="0" EdgeType="0" Anchor="TR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+        <ShapePoint ID="3" X="0" Y="152.4" PtType="0" Data="0" EdgeType="0" Anchor="TL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Left" />
+        <Operations Version="2">
+          <OperationHole Diameter="5" Diameter_Eq="" ID="2" X="254" Y="8" Depth="3" Hide="False" X_Eq="PartL/2" Y_Eq="PartW-8" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="True">
+            <OpIdTag TypeCode="0" LegacyNumber="50001" />
+          </OperationHole>
+        </Operations>
+      </PanelShape>
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Slab Drawer" Type="2" Comment="" IsDrawerFront="True" DefaultW="508" DefaultH="152.4" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="True" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="True" PricePerDoor="100" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="152.4" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+      <PanelShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Right" />
+        <ShapePoint ID="1" X="152.4" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+        <ShapePoint ID="2" X="152.4" Y="508" PtType="0" Data="0" EdgeType="0" Anchor="TR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Left" />
+        <ShapePoint ID="3" X="0" Y="508" PtType="0" Data="0" EdgeType="0" Anchor="TL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+        <Operations Version="2">
+          <OperationHole Diameter="5" Diameter_Eq="" ID="3" X="8" Y="254" Depth="3" Hide="False" X_Eq="8" Y_Eq="PartW/2" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="True">
+            <OpIdTag TypeCode="0" LegacyNumber="50001" />
+          </OperationHole>
+        </Operations>
+      </PanelShape>
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Default Door" Type="2" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="762" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Default Drawer" Type="2" Comment="" IsDrawerFront="True" DefaultW="508" DefaultH="152.4" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="152.4" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Glass Door" Type="3" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="63.5" CenterStileW="63.5" CenterRailW="63.5" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="True" PricePerDoor="250" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="3" Filename="" SlatWidth="0" X="63.5" Y="63.5" DX="381" DY="635" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Slab (No EB) Door" Type="2" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="True" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="True" PricePerDoor="250" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="762" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Slab (No EB) Drawer" Type="2" Comment="" IsDrawerFront="True" DefaultW="508" DefaultH="152.4" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="True" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="True" PricePerDoor="100" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="152.4" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+      <PanelShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Right" />
+        <ShapePoint ID="1" X="152.4" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+        <ShapePoint ID="2" X="152.4" Y="508" PtType="0" Data="0" EdgeType="0" Anchor="TR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Left" />
+        <ShapePoint ID="3" X="0" Y="508" PtType="0" Data="0" EdgeType="0" Anchor="TL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+        <Operations Version="2">
+          <OperationHole Diameter="5" Diameter_Eq="" ID="4" X="8" Y="254" Depth="3" Hide="False" X_Eq="8" Y_Eq="PartW/2" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="True">
+            <OpIdTag TypeCode="0" LegacyNumber="50001" />
+          </OperationHole>
+        </Operations>
+      </PanelShape>
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Glass Door METAL (Buyout)" Type="3" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="25.4" BottomRailW="25.4" LeftRightStileW="25.4" CenterStileW="63.5" CenterRailW="63.5" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="True" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="True" PricePerDoor="250" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="3" Filename="" SlatWidth="0" X="25.4" Y="25.4" DX="457.2" DY="711.2" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Slab Door BUYOUT" Type="2" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="True" PricePerDoor="250" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="762" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Slab Drawer BUYOUT" Type="2" Comment="" IsDrawerFront="True" DefaultW="508" DefaultH="152.4" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="True" PricePerDoor="100" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="152.4" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+</DoorLibrary>

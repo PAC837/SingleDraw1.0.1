@@ -1,0 +1,109 @@
+5
+<?xml version="1.0" encoding="utf-16" standalone="yes"?>
+<JointFastenerTemplate Name="Cabineo 8 B" Type="0" Comment="Hole 3 of 3" JointFastenerPrice="0" DisplayInHardwareTab="True" AppliesToFinishedEnds="True" AppliesToUnfinishedEnds="True" AppliesToBaseCabs="True" AppliesToWallCabs="True" JointBreakDist="0">
+  <MaleFastener HBore="False" Depth="11" Dia="15" DI="26" HBOset="0" Dep_Eq="" DI_Eq="" MaleCtr="False" PathOffset="0" PathLength="0" ToolID="0" />
+  <MaleFastener HBore="False" Depth="0" Dia="0" DI="0" HBOset="0" Dep_Eq="" DI_Eq="" MaleCtr="False" PathOffset="0" PathLength="0" ToolID="0" />
+  <FemaleFastener HBore="False" Depth="0" Dia="0" DI="0" HBOset="0" Dep_Eq="" DI_Eq="" MaleCtr="False" PathOffset="0" PathLength="0" ToolID="0" />
+  <FemaleFastener HBore="False" Depth="0" Dia="0" DI="0" HBOset="0" Dep_Eq="" DI_Eq="" MaleCtr="False" PathOffset="0" PathLength="0" ToolID="0" />
+  <JointLocation JointType="End -&gt; Top, Bottom, Fixed Shelf" DA="25.4" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Top, Bottom, Fixed Shelf" DA="25.4" DA_Eq="" Fr="1" GTLen="0" />
+  <JointLocation JointType="End -&gt; Top, Bottom, Fixed Shelf" DA="0" DA_Eq="" Fr="2" GTLen="0" />
+  <JointLocation JointType="End -&gt; Top, Bottom, Fixed Shelf" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="End -&gt; Top, Bottom, Fixed Shelf" Value="False" />
+  <FlipSideThroughBore JointType="End -&gt; Top, Bottom, Fixed Shelf" Value="False" />
+  <JointLocation JointType="End -&gt; Stretcher" DA="25.4" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Stretcher" DA="25.4" DA_Eq="" Fr="1" GTLen="0" />
+  <NoOpt JointType="End -&gt; Stretcher" Value="False" />
+  <FlipSideThroughBore JointType="End -&gt; Stretcher" Value="False" />
+  <JointLocation JointType="End -&gt; Rear Stretcher" DA="25.4" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Rear Stretcher" DA="25.4" DA_Eq="" Fr="1" GTLen="0" />
+  <NoOpt JointType="End -&gt; Rear Stretcher" Value="False" />
+  <FlipSideThroughBore JointType="End -&gt; Rear Stretcher" Value="False" />
+  <JointLocation JointType="End -&gt; Top Nailer" DA="25.4" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Top Nailer" DA="25.4" DA_Eq="" Fr="1" GTLen="0" />
+  <NoOpt JointType="End -&gt; Top Nailer" Value="False" />
+  <FlipSideThroughBore JointType="End -&gt; Top Nailer" Value="False" />
+  <JointLocation JointType="End -&gt; Shelf and Bottom Nailer" DA="25.4" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Shelf and Bottom Nailer" DA="25.4" DA_Eq="" Fr="1" GTLen="0" />
+  <NoOpt JointType="End -&gt; Shelf and Bottom Nailer" Value="False" />
+  <FlipSideThroughBore JointType="End -&gt; Shelf and Bottom Nailer" Value="False" />
+  <JointLocation JointType="End -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="End -&gt; Back" Value="True" />
+  <FlipSideThroughBore JointType="End -&gt; Back" Value="False" />
+  <JointLocation JointType="End -&gt; Toe" DA="25.4" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Toe" DA="25.4" DA_Eq="" Fr="1" GTLen="0" />
+  <NoOpt JointType="End -&gt; Toe" Value="False" />
+  <FlipSideThroughBore JointType="End -&gt; Toe" Value="False" />
+  <JointLocation JointType="End -&gt; Frameless Rail" DA="25.4" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Frameless Rail" DA="25.4" DA_Eq="" Fr="1" GTLen="0" />
+  <NoOpt JointType="End -&gt; Frameless Rail" Value="False" />
+  <FlipSideThroughBore JointType="End -&gt; Frameless Rail" Value="False" />
+  <JointLocation JointType="End -&gt; Face Frame" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Face Frame" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Face Frame" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="End -&gt; Face Frame" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="End -&gt; Face Frame" Value="True" />
+  <FlipSideThroughBore JointType="End -&gt; Face Frame" Value="False" />
+  <JointLocation JointType="Bottom -&gt; Face Frame" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Bottom -&gt; Face Frame" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Bottom -&gt; Face Frame" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Bottom -&gt; Face Frame" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="Bottom -&gt; Face Frame" Value="True" />
+  <FlipSideThroughBore JointType="Bottom -&gt; Face Frame" Value="False" />
+  <JointLocation JointType="Partition -&gt; Top, Bottom, Fixed Shelf" DA="25.4" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Top, Bottom, Fixed Shelf" DA="25.4" DA_Eq="" Fr="1" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Top, Bottom, Fixed Shelf" DA="0" DA_Eq="" Fr="2" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Top, Bottom, Fixed Shelf" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="Partition -&gt; Top, Bottom, Fixed Shelf" Value="False" />
+  <FlipSideThroughBore JointType="Partition -&gt; Top, Bottom, Fixed Shelf" Value="False" />
+  <JointLocation JointType="Partition -&gt; Stretcher" DA="25.4" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Stretcher" DA="25.4" DA_Eq="" Fr="1" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Stretcher" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Stretcher" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="Partition -&gt; Stretcher" Value="False" />
+  <FlipSideThroughBore JointType="Partition -&gt; Stretcher" Value="False" />
+  <JointLocation JointType="Partition -&gt; Rear Stretcher" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Rear Stretcher" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Rear Stretcher" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Rear Stretcher" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="Partition -&gt; Rear Stretcher" Value="True" />
+  <FlipSideThroughBore JointType="Partition -&gt; Rear Stretcher" Value="False" />
+  <JointLocation JointType="Partition -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Partition -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="Partition -&gt; Back" Value="True" />
+  <FlipSideThroughBore JointType="Partition -&gt; Back" Value="False" />
+  <JointLocation JointType="Shelf -&gt; Partition" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Shelf -&gt; Partition" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Shelf -&gt; Partition" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Shelf -&gt; Partition" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="Shelf -&gt; Partition" Value="True" />
+  <FlipSideThroughBore JointType="Shelf -&gt; Partition" Value="False" />
+  <JointLocation JointType="Stretcher -&gt; Partition" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Stretcher -&gt; Partition" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="Stretcher -&gt; Partition" Value="True" />
+  <FlipSideThroughBore JointType="Stretcher -&gt; Partition" Value="False" />
+  <JointLocation JointType="Top -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Top -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Top -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Top -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="Top -&gt; Back" Value="True" />
+  <FlipSideThroughBore JointType="Top -&gt; Back" Value="False" />
+  <JointLocation JointType="Bottom -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Bottom -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Bottom -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Bottom -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="Bottom -&gt; Back" Value="True" />
+  <FlipSideThroughBore JointType="Bottom -&gt; Back" Value="False" />
+  <JointLocation JointType="Fixed Shelf -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Fixed Shelf -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Fixed Shelf -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <JointLocation JointType="Fixed Shelf -&gt; Back" DA="0" DA_Eq="" Fr="0" GTLen="0" />
+  <NoOpt JointType="Fixed Shelf -&gt; Back" Value="True" />
+  <FlipSideThroughBore JointType="Fixed Shelf -&gt; Back" Value="False" />
+  <FastenLinkParameters InitialPlunge="0" InitialRampDepth="0" InitialRampDistance="0" FirstRunFlatDistance="0" LockDepthUp="0" LockDepthDown="0" FullDistance="0" />
+</JointFastenerTemplate>

@@ -15,6 +15,7 @@ import { useProductTexture, useTextureByFilename, useSingleDrawTexture } from '.
 interface AutoEndPanelsProps {
   room: MozRoom
   renderMode: RenderMode
+  flipOps?: boolean
   textureFolder?: FileSystemDirectoryHandle | null
   textureId?: number | null
   textureFilename?: string | null
@@ -75,13 +76,13 @@ function EndPanelMesh({
 }
 
 export default function AutoEndPanels({
-  room, renderMode,
+  room, renderMode, flipOps = false,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null,
 }: AutoEndPanelsProps) {
   const panels = useMemo(
-    () => computeAutoEndPanels(room.products, room.walls, room.wallJoints),
-    [room.products, room.walls, room.wallJoints],
+    () => computeAutoEndPanels(room.products, room.walls, room.wallJoints, flipOps),
+    [room.products, room.walls, room.wallJoints, flipOps],
   )
 
   // Same texture priority chain as ProductView

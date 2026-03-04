@@ -1,0 +1,19 @@
+2
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Notes>
+  <NoteEntry Name="Sample Note">
+    <Note AnchorX="0" AnchorY="0" OffsetX="0" OffsetY="0" Text="Type your note here.&#xD;&#xA;Select the Properties for the note below.&#xD;&#xA;To save the for future use click SAVE to LIBRARY" FontSize="127" FixedFontSize="False" MultiprintScale="False" BackColor="-1" FontColor="-16777216" Minimized="False" ShowBorder="True" ShowBackgroundColor="True" IsFP="False" SpaceNumber="0" ShowWhenPrinted="True" ItemIdTag="" FontFace="Arial" />
+  </NoteEntry>
+  <NoteEntry Name="checklist">
+    <Note AnchorX="0" AnchorY="0" OffsetX="0" OffsetY="0" Text="{ } Approved&#xD;&#xA;&#xD;&#xA;{ } for CNC" FontSize="14" FixedFontSize="True" MultiprintScale="False" BackColor="-1" FontColor="-16777216" Minimized="False" ShowBorder="False" ShowBackgroundColor="True" IsFP="False" SpaceNumber="0" ShowWhenPrinted="True" ItemIdTag="" FontFace="Arial" />
+  </NoteEntry>
+  <NoteEntry Name="Phill Comment">
+    <Note AnchorX="-2168.049" AnchorY="-1104.943" OffsetX="0" OffsetY="0" Text="Phill Comment" FontSize="14" FixedFontSize="True" MultiprintScale="False" BackColor="-65536" FontColor="-1" Minimized="False" ShowBorder="True" ShowBackgroundColor="True" IsFP="True" SpaceNumber="0" ShowWhenPrinted="True" ItemIdTag="" FontFace="Arial" />
+  </NoteEntry>
+  <NoteEntry Name="Wall Label">
+    <Note AnchorX="1918.922" AnchorY="1099.896" OffsetX="0" OffsetY="0" Text="36&quot; x 14&quot; Island Sections" FontSize="20" FixedFontSize="True" MultiprintScale="True" BackColor="-1" FontColor="-8388353" Minimized="False" ShowBorder="True" ShowBackgroundColor="True" IsFP="True" SpaceNumber="0" ShowWhenPrinted="True" ItemIdTag="" FontFace="Arial" />
+  </NoteEntry>
+  <DefaultNote>
+    <Note AnchorX="5544.15" AnchorY="373.3701" OffsetX="0" OffsetY="0" Text="" FontSize="14" FixedFontSize="True" MultiprintScale="False" BackColor="-1" FontColor="-16777216" Minimized="False" ShowBorder="False" ShowBackgroundColor="True" IsFP="False" SpaceNumber="0" ShowWhenPrinted="True" ItemIdTag="" FontFace="Arial" />
+  </DefaultNote>
+</Notes>

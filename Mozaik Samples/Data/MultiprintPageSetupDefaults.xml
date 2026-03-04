@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<multiprintDefaultState>
+  <version>0</version>
+  <state>
+    <selectedPrinterName>Brother MFC-L2820DW Printer</selectedPrinterName>
+    <pageMargins>25, 25, 25, 25</pageMargins>
+    <pageOrientation>landscape</pageOrientation>
+    <isBorderEnabled>False</isBorderEnabled>
+    <borderThickness>1</borderThickness>
+    <revisionNumber>1.0</revisionNumber>
+    <titleBlockName>Modern 8.5x11</titleBlockName>
+    <titleBlockAnchor>4</titleBlockAnchor>
+    <defaultPageUnitsPerFoot>112.5</defaultPageUnitsPerFoot>
+    <defaultPageUnitsPerFootMetric>72</defaultPageUnitsPerFootMetric>
+    <showGrid>False</showGrid>
+    <gridSizeMm>304.8</gridSizeMm>
+    <borderColor>FF000000</borderColor>
+    <printerSettings>
+      <printerSetting>
+        <printerName>Adobe PDF</printerName>
+        <paperSize width="1100" height="1700" rawKind="3" paperName="Tabloid" />
+        <paperSource sourceName="Automatically Select" rawKind="15" />
+      </printerSetting>
+      <printerSetting>
+        <printerName>Microsoft Print to PDF</printerName>
+        <paperSize width="1100" height="1700" rawKind="3" paperName="Tabloid" />
+        <paperSource sourceName="unknown" rawKind="15" />
+      </printerSetting>
+      <printerSetting>
+        <printerName>Brother MFC-L2820DW Printer</printerName>
+        <paperSize width="850" height="1100" rawKind="1" paperName="Letter" />
+        <paperSource sourceName="Automatically Select" rawKind="15" />
+      </printerSetting>
+    </printerSettings>
+  </state>
+</multiprintDefaultState>

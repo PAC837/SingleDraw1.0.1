@@ -1,0 +1,242 @@
+* -----------------------------------------
+* Mozaik Post Processor Template File
+* For ShopSabre with ATC, Arcs, in Inches
+* -----------------------------------------
+*  who     what     when
+* -----------------------------------------
+* RDT 4/29/2015 added spindle speed at customer request
+* RDT 5/05/2016 added Radius command for Arcs
+* RDT 12/2019   removed unnecessary home move in startup 
+* -----------------------------------------
+* >>>>>>>  File Format Key <<<<<<<<<<<<<
+* Asterisk (*) denotes Comment Lines. 
+* Text following * is Ignored by processor.
+* Characters contained in < > are variables.
+* Variables are followed with properties
+* Numeric values in < > are ASCII characters.
+* Variables contained in {} are commands.
+* -----------------------------------------
+
+* ------  Variables Used in Comments  -----
+* Job Name = <JobName>
+* Name for Tool Path = <PathName>
+* Name for Tool = <ToolName>
+* Name of G-Code File = <GCodeFile>
+* Name of Material = <MatName>
+* Name of Toolset = <Toolset>
+* Load FaceUp/FaceDown = <LoadFace>
+* Material Width = <MatW>
+* Material Length= <MatL>
+* Material Thickness = <MatTh>
+* Ascii character =<##> where ## is char number
+* -----------------------------------------
+
+* ---- Variables Used by Post File --------
+Start Variables
+
+* Post File Extension
+<FileExtension>
+Value = tap
+
+* Units (Inch or mm)
+<Units>
+Value = Inch
+
+* Start Line Numbering
+<LineNumStart>
+Value = 0
+
+* Line  Numbering Increment
+<LineNumInc>
+Value = 1
+
+* Maximum Line Number
+<LineNumMax>
+Value = 999999
+
+* Line Numbering
+<N>
+Always = Yes
+Character Format = N
+Numeric Format = 1.0
+Factor = 1
+
+* Arc Length Max (if no G2, G3)
+<ArcMax>
+Value = 0.01
+
+* Material Width (Short) Axis as X
+<MatAxis>
+Value = Yes
+
+* Z Zero at Bottom of Material
+<ZZeroBot>
+Value = Yes
+
+* Y Zero at Bottom Left of Material
+<YZeroBL>
+Value = Yes
+
+* Tool Number
+<T>
+Always = Yes
+Numeric Format = 1
+Factor = 1
+
+* Spindle Speed
+<S>
+Always = Yes
+Character Format = S
+Numeric Format = 1.0
+Factor = 1
+
+* Feed Rate
+<F>
+Always = No
+Character Format = F
+Numeric Format = 1.1
+Factor = 1
+
+* Plunge Rate
+<P>
+Always = No
+Character Format = F
+Numeric Format = 1.1
+Factor = 1
+
+* X Position
+<X>
+Always = No
+Character Format = X
+Numeric Format = 1.4
+Factor = 1
+
+* Y Position
+<Y>
+Always = No
+Character Format = Y
+Numeric Format = 1.4
+Factor = 1
+
+* Z Position
+<Z>
+Always = No
+Character Format = Z
+Numeric Format = 1.4
+Factor = 1
+
+* Relative Arc Center I Position
+<I>
+Always = Yes
+Character Format = I
+Numeric Format = 1.4
+Factor = 1
+
+* Relative Arc Center J Position
+<J>
+Always = Yes
+Character Format = J
+Numeric Format = 1.4
+Factor = 1
+
+* Arc Radius
+<Radius>
+Always = Yes
+Character Format = R
+Numeric Format = 1.4
+Factor = 1
+
+* X Home Position
+<XH>
+Always = Yes
+Character Format = X
+Numeric Format = 1.4
+Factor = 1
+
+* Y Home Position
+<YH>
+Always = Yes
+Character Format = Y
+Numeric Format = 1.4
+Factor = 1
+
+* Z Home Position
+<ZH>
+Always = Yes
+Character Format = Z
+Numeric Format = 1.4
+Factor = 1
+
+* --------- End Variables  ----------------
+
+* --------- Commands Used  ----------------
+Start Commands
+
+* Start of File  (Output at start of g-code file)
+{Start}
+(Mozaik Output for ShopSabre with ATC)
+(Units <Units>)
+(<GCodeFile>)
+(<MatName>)
+(<LoadFace>)
+(<Toolset>)
+G90
+G0 <ZH>
+M5
+T<T>
+(<ToolName>)
+<S>
+M3
+g4 x 4
+M50
+G0 <ZH>
+<F>
+
+* Command for Rapid Move
+{RapidMove}
+G0 <X> <Y> <Z>
+
+* Command for First Feed Move
+{FeedMove1}
+G1 <X> <Y> <Z> <F>
+
+* Command for Feed Move (Following G0)
+{FeedMove}
+<X> <Y> <Z> <F>
+
+* Command for Plunge (Following G0)
+{PlungeMove}
+G1 <Z> <P>
+
+* Command for First CW (ClockWise) Arc
+{CWArc1}
+G2 <X> <Y> <I> <J> <F>
+
+* Commands for CW (ClockWise) Arc
+{CWArc}
+G2 <X> <Y> <I> <J>
+
+* Command for First CCW (CounterClockWise) Arc
+{CCWArc1}
+G3 <X> <Y> <I> <J> <F>
+
+* Command for CCW (CounterClockWise) Arc
+{CCWArc}
+G3 <X> <Y> <I> <J>
+
+
+* Commands for Tool Change
+{ToolChange}
+M5
+T<T>
+(<ToolName>)
+<S>
+M3
+g4 x 4
+M50
+
+*End of File ( Commands for end of File )
+{End}
+G0 <ZH>
+G0 <XH> <YH>
+M5

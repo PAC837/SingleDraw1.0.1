@@ -1,0 +1,348 @@
+7
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<DoorLibrary>
+  <LibraryDoor Name="_S004 Slim Shaker DRW" Type="3" Comment="" IsDrawerFront="True" DefaultW="508" DefaultH="152.4" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="25.4" BottomRailW="25.4" LeftRightStileW="25.4" CenterStileW="25.4" CenterRailW="25.4" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="3.175" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="11" Filename="" SlatWidth="0" X="25.4" Y="25.4" DX="457.2" DY="101.6" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" InsetORTop="0" InsetORLeft="0" InsetORRight="0" InsetORBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Slab Door" Type="2" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="762" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Slab Drawer" Type="2" Comment="" IsDrawerFront="True" DefaultW="508" DefaultH="152.4" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="152.4" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="_S004 Slim Shaker DR" Type="3" Comment="" IsDrawerFront="False" DefaultW="609.6" DefaultH="863.6" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="25.4" BottomRailW="25.4" LeftRightStileW="25.4" CenterStileW="25.4" CenterRailW="25.4" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="3.175" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="11" Filename="" SlatWidth="0" X="25.4" Y="25.4" DX="558.8" DY="812.8" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" InsetORTop="0" InsetORLeft="0" InsetORRight="0" InsetORBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Default Door" Type="2" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="762" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="Default Drawer" Type="2" Comment="" IsDrawerFront="True" DefaultW="508" DefaultH="152.4" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="False" HasBottomRail="False" HasLeftStile="False" HasRightStile="False" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="0" CenterStileW="0" CenterRailW="0" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="0" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="34" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="1" Filename="" SlatWidth="0" X="0" Y="0" DX="508" DY="152.4" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="_S004 Slim Shaker DR BACK POCKET" Type="3" Comment="" IsDrawerFront="False" DefaultW="609.6" DefaultH="863.6" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="31.75" BottomRailW="31.75" LeftRightStileW="31.75" CenterStileW="31.75" CenterRailW="31.75" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="3.175" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedLockedCutoutToolpathIDs="" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="11" Filename="" SlatWidth="0" X="31.75" Y="31.75" DX="546.1" DY="800.1" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="2" X="546.1" Y="31.7499713898" PtType="0" Data="0" EdgeType="0" Anchor="TR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="3" X="0" Y="31.7499713898" PtType="0" Data="0" EdgeType="0" Anchor="TL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="2" X="0" Y="-0.0000610352" PtType="0" Data="0" EdgeType="0" Anchor="BL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Left" />
+      <ShapePoint ID="1" X="546.1001" Y="-0.0000286102" PtType="0" Data="0" EdgeType="0" Anchor="BR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+    </TopRailShape>
+    <BottomRailShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="1" X="546.1" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="0" X="546.1001" Y="31.75" PtType="0" Data="0" EdgeType="0" Anchor="TR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Right" />
+      <ShapePoint ID="3" X="0.0000972387" Y="31.75" PtType="0" Data="0" EdgeType="0" Anchor="TL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+    </BottomRailShape>
+    <LeftStileShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="0" X="0" Y="-0.0000019435" PtType="0" Data="0" EdgeType="0" Anchor="BL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="1" X="863.6" Y="-0.0000019435" PtType="0" Data="0" EdgeType="0" Anchor="BR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="2" X="863.6" Y="31.7499980565" PtType="0" Data="0" EdgeType="0" Anchor="TR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="3" X="0" Y="31.7499980565" PtType="0" Data="0" EdgeType="0" Anchor="TL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    </LeftStileShape>
+    <RightStileShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="1" X="863.6" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="2" X="863.6" Y="31.75" PtType="0" Data="0" EdgeType="0" Anchor="TR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="3" X="0" Y="31.75" PtType="0" Data="0" EdgeType="0" Anchor="TL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    </RightStileShape>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedLockedShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Right" />
+      <ShapePoint ID="1" X="863.6" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+      <ShapePoint ID="2" X="863.6" Y="609.6" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Left" />
+      <ShapePoint ID="3" X="0" Y="609.6" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+      <Operations Version="2">
+        <OperationPocket CCW="True" InsideOut="False" PocketingToolID="-1" ToolID="-1" ToolGroupID="-1" DecorativeProfileID="-1" ClosedShape="True" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="1" X="0" Y="0" Depth="3.175" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="3.175" Hide_Eq="" IsUserOp="False" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="29" LegacyNumber="54000">
+            <OpIdTagReference Key="Panel Index" Value="1" />
+          </OpIdTag>
+          <OperationToolPathNode X="31.75" Y="577.85" DepthOR="-9999" PtType="0" Data="0" X_Eq="31.75" Y_Eq="PartW - (31.75)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="31.75" Y="31.75" DepthOR="-9999" PtType="0" Data="0" X_Eq="31.75" Y_Eq="PartW - (31.75 + (((PartW - 31.75) - 31.75) * 1))" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="831.85" Y="31.75" DepthOR="-9999" PtType="0" Data="0" X_Eq="31.75 + (((PartL - 31.75) - 31.75) * 1)" Y_Eq="PartW - (31.75 + (((PartW - 31.75) - 31.75) * 1))" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="831.85" Y="577.85" DepthOR="-9999" PtType="0" Data="0" X_Eq="31.75 + (((PartL - 31.75) - 31.75) * 1)" Y_Eq="PartW - (31.75)" Data_Eq="" Anchor="" />
+        </OperationPocket>
+        <OperationPocket CCW="False" InsideOut="True" PocketingToolID="-3" ToolID="-1" ToolGroupID="58" DecorativeProfileID="-1" ClosedShape="True" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="3" X="0" Y="0" Depth="3.175" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="False" Noneditable="False" Anchor="" FlipSideOp="True">
+          <OpIdTag TypeCode="0" LegacyNumber="54002" />
+          <OperationToolPathNode X="57.15" Y="57.15" DepthOR="-9999" PtType="0" Data="0" X_Eq="2.25*TOMM" Y_Eq="PartW-(2.25*TOMM)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="806.45" Y="57.15" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-(2.25*TOMM)" Y_Eq="PartW-(2.25*TOMM)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="806.45" Y="552.45" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-(2.25*TOMM)" Y_Eq="2.25*TOMM" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="57.15" Y="552.45" DepthOR="-9999" PtType="0" Data="0" X_Eq="2.25*TOMM" Y_Eq="2.25*TOMM" Data_Eq="" Anchor="" />
+        </OperationPocket>
+      </Operations>
+    </RoutedLockedShape>
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="_S001 Shaker 2-50 Door" Type="3" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="63.5" CenterStileW="63.5" CenterRailW="63.5" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="6.35" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="11" Filename="" SlatWidth="0" X="63.5" Y="63.5" DX="381" DY="635" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" InsetORTop="0" InsetORLeft="0" InsetORRight="0" InsetORBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="_S001 Shaker 2-50 Door (V-Joint)" Type="3" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="63.5" CenterStileW="63.5" CenterRailW="63.5" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="6.35" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedLockedCutoutToolpathIDs="" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="11" Filename="" SlatWidth="0" X="63.5" Y="63.5" DX="381" DY="635" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" InsetORTop="0" InsetORLeft="0" InsetORRight="0" InsetORBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedLockedShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Right" />
+      <ShapePoint ID="1" X="762" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+      <ShapePoint ID="2" X="762" Y="508" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Left" />
+      <ShapePoint ID="3" X="0" Y="508" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+      <Operations Version="2">
+        <OperationPocket CCW="True" InsideOut="False" PocketingToolID="-1" ToolID="-1" ToolGroupID="-1" DecorativeProfileID="-1" ClosedShape="True" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="1" X="0" Y="0" Depth="6.35" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="6.35" Hide_Eq="" IsUserOp="False" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="29" LegacyNumber="54000">
+            <OpIdTagReference Key="Panel Index" Value="1" />
+          </OpIdTag>
+          <OperationToolPathNode X="63.5" Y="444.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="63.5" Y_Eq="PartW - (63.5)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="63.5" Y="63.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="63.5" Y_Eq="PartW - (63.5 + (((PartW - 63.5) - 63.5) * 1))" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="698.5" Y="63.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="63.5 + (((PartL - 63.5) - 63.5) * 1)" Y_Eq="PartW - (63.5 + (((PartW - 63.5) - 63.5) * 1))" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="698.5" Y="444.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="63.5 + (((PartL - 63.5) - 63.5) * 1)" Y_Eq="PartW - (63.5)" Data_Eq="" Anchor="" />
+        </OperationPocket>
+        <OperationToolPath ToolID="-1" ToolGroupID="60" DecorativeProfileID="-1" ClosedShape="False" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="2" X="0" Y="0" Depth="0" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="54002" />
+          <OperationToolPathNode X="0" Y="63.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="0" Y_Eq="2.5*TOMM" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="63.5" Y="63.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="2.5*TOMM" Y_Eq="2.5*TOMM" Data_Eq="" Anchor="" />
+        </OperationToolPath>
+        <OperationToolPath ToolID="-1" ToolGroupID="60" DecorativeProfileID="-1" ClosedShape="False" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="3" X="0" Y="0" Depth="0" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="54003">
+            <OpIdTagReference Key="Count" Value="1" />
+          </OpIdTag>
+          <OperationToolPathNode X="0" Y="444.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="0" Y_Eq="PartW-(2.5*TOMM)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="63.5" Y="444.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="2.5*TOMM" Y_Eq="PartW-(2.5*TOMM)" Data_Eq="" Anchor="" />
+        </OperationToolPath>
+        <OperationToolPath ToolID="-1" ToolGroupID="60" DecorativeProfileID="-1" ClosedShape="False" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="4" X="0" Y="0" Depth="0" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="54005">
+            <OpIdTagReference Key="Count" Value="2" />
+          </OpIdTag>
+          <OperationToolPathNode X="762" Y="444.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL" Y_Eq="PartW-(2.5*TOMM)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="698.5" Y="444.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-(2.5*TOMM)" Y_Eq="PartW-(2.5*TOMM)" Data_Eq="" Anchor="" />
+        </OperationToolPath>
+        <OperationToolPath ToolID="-1" ToolGroupID="60" DecorativeProfileID="-1" ClosedShape="False" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="5" X="0" Y="0" Depth="0" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="54008">
+            <OpIdTagReference Key="Count" Value="3" />
+          </OpIdTag>
+          <OperationToolPathNode X="762" Y="63.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL" Y_Eq="(2.5*TOMM)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="698.5" Y="63.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-(2.5*TOMM)" Y_Eq="(2.5*TOMM)" Data_Eq="" Anchor="" />
+        </OperationToolPath>
+      </Operations>
+    </RoutedLockedShape>
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="_S004 Slim Shaker DR BACK POCKET SHIM" Type="3" Comment="" IsDrawerFront="False" DefaultW="609.6" DefaultH="863.6" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="31.75" BottomRailW="31.75" LeftRightStileW="31.75" CenterStileW="31.75" CenterRailW="31.75" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="3.175" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedLockedCutoutToolpathIDs="" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="11" Filename="" SlatWidth="0" X="31.75" Y="31.75" DX="546.1" DY="800.1" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="2" X="546.1" Y="31.7499713898" PtType="0" Data="0" EdgeType="0" Anchor="TR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="3" X="0" Y="31.7499713898" PtType="0" Data="0" EdgeType="0" Anchor="TL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="2" X="0" Y="-0.0000610352" PtType="0" Data="0" EdgeType="0" Anchor="BL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Left" />
+      <ShapePoint ID="1" X="546.1001" Y="-0.0000286102" PtType="0" Data="0" EdgeType="0" Anchor="BR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+    </TopRailShape>
+    <BottomRailShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="1" X="546.1" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="0" X="546.1001" Y="31.75" PtType="0" Data="0" EdgeType="0" Anchor="TR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Right" />
+      <ShapePoint ID="3" X="0.0000972387" Y="31.75" PtType="0" Data="0" EdgeType="0" Anchor="TL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+    </BottomRailShape>
+    <LeftStileShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="0" X="0" Y="-0.0000019435" PtType="0" Data="0" EdgeType="0" Anchor="BL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="1" X="863.6" Y="-0.0000019435" PtType="0" Data="0" EdgeType="0" Anchor="BR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="2" X="863.6" Y="31.7499980565" PtType="0" Data="0" EdgeType="0" Anchor="TR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="3" X="0" Y="31.7499980565" PtType="0" Data="0" EdgeType="0" Anchor="TL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    </LeftStileShape>
+    <RightStileShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="1" X="863.6" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="BR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="2" X="863.6" Y="31.75" PtType="0" Data="0" EdgeType="0" Anchor="TR" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      <ShapePoint ID="3" X="0" Y="31.75" PtType="0" Data="0" EdgeType="0" Anchor="TL" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+    </RightStileShape>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedLockedShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Right" />
+      <ShapePoint ID="1" X="863.6" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+      <ShapePoint ID="2" X="863.6" Y="609.6" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Left" />
+      <ShapePoint ID="3" X="0" Y="609.6" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+      <Operations Version="2">
+        <OperationPocket CCW="True" InsideOut="False" PocketingToolID="-1" ToolID="-1" ToolGroupID="-1" DecorativeProfileID="-1" ClosedShape="True" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="1" X="0" Y="0" Depth="3.175" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="3.175" Hide_Eq="" IsUserOp="False" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="29" LegacyNumber="54000">
+            <OpIdTagReference Key="Panel Index" Value="1" />
+          </OpIdTag>
+          <OperationToolPathNode X="31.75" Y="577.85" DepthOR="-9999" PtType="0" Data="0" X_Eq="31.75" Y_Eq="PartW - (31.75)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="31.75" Y="31.75" DepthOR="-9999" PtType="0" Data="0" X_Eq="31.75" Y_Eq="PartW - (31.75 + (((PartW - 31.75) - 31.75) * 1))" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="831.85" Y="31.75" DepthOR="-9999" PtType="0" Data="0" X_Eq="31.75 + (((PartL - 31.75) - 31.75) * 1)" Y_Eq="PartW - (31.75 + (((PartW - 31.75) - 31.75) * 1))" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="831.85" Y="577.85" DepthOR="-9999" PtType="0" Data="0" X_Eq="31.75 + (((PartL - 31.75) - 31.75) * 1)" Y_Eq="PartW - (31.75)" Data_Eq="" Anchor="" />
+        </OperationPocket>
+        <OperationPocket CCW="False" InsideOut="True" PocketingToolID="-3" ToolID="-1" ToolGroupID="58" DecorativeProfileID="-1" ClosedShape="True" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="3" X="0" Y="0" Depth="3.175" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="False" Noneditable="False" Anchor="" FlipSideOp="True">
+          <OpIdTag TypeCode="0" LegacyNumber="54002" />
+          <OperationToolPathNode X="57.15" Y="57.15" DepthOR="-9999" PtType="0" Data="0" X_Eq="2.25*TOMM" Y_Eq="PartW-(2.25*TOMM)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="806.45" Y="57.15" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-(2.25*TOMM)" Y_Eq="PartW-(2.25*TOMM)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="806.45" Y="552.45" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-(2.25*TOMM)" Y_Eq="2.25*TOMM" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="57.15" Y="552.45" DepthOR="-9999" PtType="0" Data="0" X_Eq="2.25*TOMM" Y_Eq="2.25*TOMM" Data_Eq="" Anchor="" />
+        </OperationPocket>
+      </Operations>
+    </RoutedLockedShape>
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="_S131 Madrid Door" Type="3" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="76.2" BottomRailW="76.2" LeftRightStileW="76.2" CenterStileW="79.375" CenterRailW="79.375" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="7.62" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" AppliedMoldingProfileID="37" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="11" Filename="" SlatWidth="0" X="76.2" Y="76.2" DX="355.6" DY="609.6" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="_S001 Shaker 2-50 Drawer" Type="3" Comment="" IsDrawerFront="True" DefaultW="508" DefaultH="203.2" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="63.5" CenterStileW="63.5" CenterRailW="63.5" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="6.35" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="11" Filename="" SlatWidth="0" X="63.5" Y="63.5" DX="381" DY="76.2" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" InsetORTop="0" InsetORLeft="0" InsetORRight="0" InsetORBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="_S001 Shaker 2-50 Reduced" Type="3" Comment="" IsDrawerFront="True" DefaultW="508" DefaultH="152.4" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="44.45" BottomRailW="44.45" LeftRightStileW="63.5" CenterStileW="63.5" CenterRailW="63.5" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="6.35" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="11" Filename="" SlatWidth="0" X="63.5" Y="44.45" DX="381" DY="63.49999" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" InsetORTop="0" InsetORLeft="0" InsetORRight="0" InsetORBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+  <LibraryDoor Name="_S001C Shaker 2-50 Door PETAL" Type="3" Comment="" IsDrawerFront="False" DefaultW="508" DefaultH="762" MinW="0" MinWReplacement="" MaxW="0" MaxWReplacement="" MinH="0" MinHReplacement="" MaxH="0" MaxHReplacement="" HasTopRail="True" HasBottomRail="True" HasLeftStile="True" HasRightStile="True" TopRailW="63.5" BottomRailW="63.5" LeftRightStileW="63.5" CenterStileW="63.5" CenterRailW="63.5" StileRailInset="0" PanelInsetTop="0" PanelInsetBottom="0" PanelInsetSide="0" PanelRecess="6.35" DividerThickness="0" IsBuyoutDoor="False" IsOversize="False" OversizeAdj="0" BoreForHinge="False" BoreForPulls="False" BoreForLocks="False" ApplyBanding="False" IsHorizontalGrain="False" DisplaySKPFile="" UsesDisplaySKPFile="False" IsAppliedDividers="False" IsBeaded="False" IsLongRails="False" MitreFrameProfileID="-1" IsPricedPerDoor="False" PricePerDoor="0" MarkupPerDoor="0" IsPricedPerSqFt="False" PricePerSqFt="0" MinSqFtToPrice="0" PricePerSqM="0" MinSqMToPrice="0" MarkupPerSqFt="0" AddMaterialCostToDoor="False" AddProfileCostToDoor="False" UsesMinutesToCutParts="False" MinutesToCutParts="0" UsesMinutesToAssemble="False" MinutesToAssemble="0" RoutedLockedCutoutToolpathIDs="" RoutedHasTopRail="False" RoutedHasBottomRail="False" RoutedTopRailW="0" RoutedBottomRailW="0" RoutedSpecialMullions="0" RoutedSpecialMullionWidth="25.4" TopRailAutoAdjustShape="False" BottomRailAutoAdjustShape="False" LeftStileAutoAdjustShape="False" RightStileAutoAdjustShape="False">
+    <MainSection IsSplitSection="False" Type="11" Filename="" SlatWidth="0" X="63.5" Y="63.5" DX="381" DY="635" AutoAdjustShape="False">
+      <ShapeAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" InsetORTop="0" InsetORLeft="0" InsetORRight="0" InsetORBottom="0" />
+    </MainSection>
+    <TopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <BottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <LeftStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RightStileAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedLockedShape Version="2" Name="" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="True">
+      <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Right" />
+      <ShapePoint ID="1" X="762" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Top" />
+      <ShapePoint ID="2" X="762" Y="508" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Left" />
+      <ShapePoint ID="3" X="0" Y="508" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="Bottom" />
+      <Operations Version="2">
+        <OperationPocket CCW="True" InsideOut="False" PocketingToolID="-1" ToolID="-1" ToolGroupID="-1" DecorativeProfileID="-1" ClosedShape="True" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="1" X="0" Y="0" Depth="6.35" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="6.35" Hide_Eq="" IsUserOp="False" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="29" LegacyNumber="54000">
+            <OpIdTagReference Key="Panel Index" Value="1" />
+          </OpIdTag>
+          <OperationToolPathNode X="63.5" Y="444.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="63.5" Y_Eq="PartW - (63.5)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="63.5" Y="63.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="63.5" Y_Eq="PartW - (63.5 + (((PartW - 63.5) - 63.5) * 1))" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="698.5" Y="63.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="63.5 + (((PartL - 63.5) - 63.5) * 1)" Y_Eq="PartW - (63.5 + (((PartW - 63.5) - 63.5) * 1))" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="698.5" Y="444.5" DepthOR="-9999" PtType="0" Data="0" X_Eq="63.5 + (((PartL - 63.5) - 63.5) * 1)" Y_Eq="PartW - (63.5)" Data_Eq="" Anchor="" />
+        </OperationPocket>
+        <OperationPocket CCW="False" InsideOut="True" PocketingToolID="-3" ToolID="-1" ToolGroupID="81" DecorativeProfileID="-1" ClosedShape="True" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="2" X="0" Y="0" Depth="19.33956" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="Door.th" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="54002" />
+          <OperationToolPathNode X="571.5" Y="254" DepthOR="-9999" PtType="2" Data="12.7" X_Eq="PartL-PetalElevation+(PetalSeparation)" Y_Eq="(PartW/2)" Data_Eq="PetalWidth/2" Anchor="" />
+          <OperationToolPathNode X="635" Y="254" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-PetalElevation+(PetalSeparation)+PetalLength" Y_Eq="(PartW/2)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="635" Y="254" DepthOR="-9999" PtType="2" Data="12.7" X_Eq="PartL-PetalElevation+(PetalSeparation)+PetalLength" Y_Eq="(PartW/2)" Data_Eq="PetalWidth/2" Anchor="" />
+          <OperationToolPathNode X="571.5" Y="254" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-PetalElevation+(PetalSeparation)" Y_Eq="PartW/2" Data_Eq="" Anchor="" />
+        </OperationPocket>
+        <OperationPocket CCW="False" InsideOut="True" PocketingToolID="-3" ToolID="-1" ToolGroupID="81" DecorativeProfileID="-1" ClosedShape="True" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="3" X="0" Y="0" Depth="19.33956" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="Door.th" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="54003">
+            <OpIdTagReference Key="Count" Value="1" />
+          </OpIdTag>
+          <OperationToolPathNode X="546.1" Y="254" DepthOR="-9999" PtType="2" Data="12.7" X_Eq="PartL-PetalElevation-(PetalSeparation)" Y_Eq="(PartW/2)" Data_Eq="PetalWidth/2" Anchor="" />
+          <OperationToolPathNode X="482.6" Y="254" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-PetalElevation-(PetalSeparation)-PetalLength" Y_Eq="(PartW/2)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="482.6" Y="254" DepthOR="-9999" PtType="2" Data="12.7" X_Eq="PartL-PetalElevation-(PetalSeparation)-PetalLength" Y_Eq="(PartW/2)" Data_Eq="PetalWidth/2" Anchor="" />
+          <OperationToolPathNode X="546.1" Y="254" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-PetalElevation-(PetalSeparation)" Y_Eq="PartW/2" Data_Eq="" Anchor="" />
+        </OperationPocket>
+        <OperationPocket CCW="False" InsideOut="True" PocketingToolID="-3" ToolID="-1" ToolGroupID="81" DecorativeProfileID="-1" ClosedShape="True" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="4" X="0" Y="0" Depth="19.33956" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="Door.th" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="54004">
+            <OpIdTagReference Key="Count" Value="2" />
+          </OpIdTag>
+          <OperationToolPathNode X="558.8" Y="266.7" DepthOR="-9999" PtType="2" Data="12.7" X_Eq="PartL-PetalElevation" Y_Eq="(PartW/2)+PetalSeparation" Data_Eq="PetalWidth/2" Anchor="" />
+          <OperationToolPathNode X="558.8" Y="330.2" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-PetalElevation" Y_Eq="(PartW/2)+PetalSeparation+PetalLength" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="558.8" Y="330.2" DepthOR="-9999" PtType="2" Data="12.7" X_Eq="PartL-PetalElevation" Y_Eq="(PartW/2)+PetalSeparation+PetalLength" Data_Eq="PetalWidth/2" Anchor="" />
+          <OperationToolPathNode X="558.8" Y="266.7" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-PetalElevation" Y_Eq="(PartW/2)+PetalSeparation" Data_Eq="" Anchor="" />
+        </OperationPocket>
+        <OperationPocket CCW="False" InsideOut="True" PocketingToolID="-3" ToolID="-1" ToolGroupID="81" DecorativeProfileID="-1" ClosedShape="True" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="5" X="0" Y="0" Depth="19.33956" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="Door.th" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+          <OpIdTag TypeCode="0" LegacyNumber="54007">
+            <OpIdTagReference Key="Count" Value="3" />
+          </OpIdTag>
+          <OperationToolPathNode X="558.8" Y="241.3" DepthOR="-9999" PtType="2" Data="12.7" X_Eq="PartL-PetalElevation" Y_Eq="PartW-((PartW/2)+PetalSeparation)" Data_Eq="PetalWidth/2" Anchor="" />
+          <OperationToolPathNode X="558.8" Y="177.8" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-PetalElevation" Y_Eq="PartW-((PartW/2)+PetalSeparation+PetalLength)" Data_Eq="" Anchor="" />
+          <OperationToolPathNode X="558.8" Y="177.8" DepthOR="-9999" PtType="2" Data="12.7" X_Eq="PartL-PetalElevation" Y_Eq="PartW-((PartW/2)+PetalSeparation+PetalLength)" Data_Eq="PetalWidth/2" Anchor="" />
+          <OperationToolPathNode X="558.8" Y="241.3" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL-PetalElevation" Y_Eq="PartW-((PartW/2)+PetalSeparation)" Data_Eq="" Anchor="" />
+        </OperationPocket>
+      </Operations>
+    </RoutedLockedShape>
+    <RoutedTopRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+    <RoutedBottomRailAdjustment ShapeAdjTop="0" ShapeAdjLeft="0" ShapeAdjRight="0" ShapeAdjBottom="0" />
+  </LibraryDoor>
+</DoorLibrary>

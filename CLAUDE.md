@@ -81,8 +81,15 @@ If a needed file is missing: **stop and ask the user**. Specify exactly what is 
 - Same-depth sections: shared panel when gap = 19mm, separate panels when gap >= 38mm
 - Different-depth sections: always separate panels
 - `computeAutoEndPanels()` runs reactively (useMemo) whenever products change
-- `createSyntheticPanelProduct()` builds minimal MozProduct for DES export
 - Rendered by `src/render/AutoEndPanels.tsx`, exported via `src/export/desWriter.ts`
+
+**Panel export templates** (`src/export/panelTemplate.ts`):
+- Two panel types: Floor Panel (FS 96 pattern) and Wall Mount Panel (Wall Mount 76 pattern)
+- Selection: `elev === 0` → Floor Panel, `elev > 0` → Wall Mount Panel
+- Floor: ProductType SubType=21, toe notch + baseboard notch, MatORSel, Flags all 1s
+- Wall: ProductType SubType=22, French cleat notch, LegCounts, Flags="0010000000000011"
+- Full Mozaik-compatible XML with all required container elements (crash without them)
+- DES loading is NOT used — Room1.des is a reference structure only. All workflow is create → place → export.
 
 **Product collision** (`src/mozaik/wallPlacement.ts`):
 - `computeProductXBounds()` returns valid `{minX, maxX}` for a product
@@ -135,6 +142,10 @@ If a needed file is missing: **stop and ask the user**. Specify exactly what is 
 - **Round-trip fidelity**: import → export → re-import must yield identical values (epsilon = 0 unless Mozaik quantizes, only relax if proven).
 - **Canonical storage**: all transforms stored in raw Mozaik mm, unchanged.
 - **Wall IDs**: preserve original DES wall IDs; compute normalized plan ordering separately for UI display.
+
+## Testing & Verification
+
+- After completing any feature or bug fix, always tell the user exactly what to test and how to verify the change. Include specific steps: what to click, what to look for, expected vs. previous behavior.
 
 ## Sample Files
 

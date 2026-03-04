@@ -14,6 +14,7 @@
 
 import type { MozProduct, MozPart, MozWall, MozWallJoint } from './types'
 import { productsOnWall, usableWallLength } from './wallPlacement'
+import { floorPanelAttrs, floorPanelInnerXml, wallPanelAttrs, wallPanelInnerXml } from '../export/panelTemplate'
 
 export const PANEL_THICK = 19 // mm (3/4" standard wood panel)
 
@@ -35,6 +36,7 @@ export function computeAutoEndPanels(
   products: MozProduct[],
   walls: MozWall[],
   joints: MozWallJoint[],
+  flipOps = false,
 ): AutoEndPanel[] {
   const panels: AutoEndPanel[] = []
 
@@ -70,9 +72,16 @@ export function computeAutoEndPanels(
       } else {
         const prev = sorted[i - 1]
         const gap = leftEdge - (prev.x + prev.width)
-        const sameDepth = Math.abs(prod.depth - prev.depth) < DEPTH_TOL
+        const sameProfile = (
+          Math.abs(prod.depth - prev.depth) < DEPTH_TOL
+          && Math.abs(prod.height - prev.height) < DEPTH_TOL
+          && Math.abs(prod.elev - prev.elev) < DEPTH_TOL
+        ) || (flipOps && (
+          (prev.elev >= prod.elev - DEPTH_TOL && (prev.height + prev.elev) <= (prod.height + prod.elev) + DEPTH_TOL) ||
+          (prod.elev >= prev.elev - DEPTH_TOL && (prod.height + prod.elev) <= (prev.height + prev.elev) + DEPTH_TOL)
+        ))
 
-        if (!sameDepth && gap >= PANEL_THICK) {
+        if (!sameProfile && gap >= PANEL_THICK) {
           // Different depth — this product needs its own left panel
           panels.push({
             wallNumber: wn, x: leftEdge - PANEL_THICK, width: PANEL_THICK,
@@ -80,7 +89,7 @@ export function computeAutoEndPanels(
             adjacentProductIndex: prodIdx, side: 'left',
           })
         }
-        // Same depth: shared panel was already emitted by prev product's right pass
+        // Same profile: shared panel was already emitted by prev product's right pass
       }
 
       // --- RIGHT SIDE ---
@@ -96,19 +105,29 @@ export function computeAutoEndPanels(
       } else {
         const next = sorted[i + 1]
         const gap = next.x - rightEdge
-        const sameDepth = Math.abs(prod.depth - next.depth) < DEPTH_TOL
+        const sameProfile = (
+          Math.abs(prod.depth - next.depth) < DEPTH_TOL
+          && Math.abs(prod.height - next.height) < DEPTH_TOL
+          && Math.abs(prod.elev - next.elev) < DEPTH_TOL
+        ) || (flipOps && (
+          (next.elev >= prod.elev - DEPTH_TOL && (next.height + next.elev) <= (prod.height + prod.elev) + DEPTH_TOL) ||
+          (prod.elev >= next.elev - DEPTH_TOL && (prod.height + prod.elev) <= (next.height + next.elev) + DEPTH_TOL)
+        ))
 
         if (gap >= PANEL_THICK) {
-          if (sameDepth && gap < 2 * PANEL_THICK) {
-            // Shared panel — one panel between touching same-depth sections
+          if (sameProfile && gap <= 2 * PANEL_THICK) {
+            // Shared panel — taller defines height/elev, deeper defines depth/texture
+            const taller = prod.height >= next.height ? prod : next
+            const deeper = prod.depth >= next.depth ? prod : next
+            const deeperIdx = prod.depth >= next.depth ? prodIdx : prodIndices[i + 1]
             panels.push({
               wallNumber: wn, x: rightEdge, width: PANEL_THICK,
-              height: Math.max(prod.height, next.height),
-              depth: prod.depth,
-              elev: Math.min(prod.elev, next.elev),
-              adjacentProductIndex: prodIdx, side: 'shared',
+              height: taller.height,
+              depth: deeper.depth,
+              elev: taller.elev,
+              adjacentProductIndex: deeperIdx, side: 'shared',
             })
-          } else if (sameDepth) {
+          } else if (sameProfile) {
             // Separated same-depth — each edge gets its own panel
             panels.push({
               wallNumber: wn, x: rightEdge, width: PANEL_THICK,
@@ -138,64 +157,73 @@ export function computeAutoEndPanels(
   return panels
 }
 
-/** Create a synthetic MozProduct for DES export from an AutoEndPanel. */
+/** Create a synthetic MozProduct for DES export from an AutoEndPanel.
+ *  Uses full Mozaik-compatible templates (floor vs wall) so the exported
+ *  DES file doesn't crash Mozaik. */
 export function createSyntheticPanelProduct(
   panel: AutoEndPanel,
   adjacentProduct: MozProduct,
   idTag: number,
+  cabNo: number,
 ): MozProduct {
   const uniqueId = String(Date.now() % 100000000 + Math.floor(Math.random() * 10000))
+  const wallRef = `${panel.wallNumber}_1`
+  const isWallMount = panel.elev > 0
 
+  // Full Mozaik-compatible attributes and inner XML
+  const params = {
+    uniqueId, idTag,
+    height: panel.height, depth: panel.depth,
+    x: panel.x, elev: panel.elev,
+    wall: wallRef, cabNo,
+    sourceLib: adjacentProduct.sourceLib,
+  }
+  const rawAttributes = isWallMount
+    ? wallPanelAttrs(params)
+    : floorPanelAttrs(params)
+  const rawInnerXml = isWallMount
+    ? wallPanelInnerXml(panel.height, panel.depth)
+    : floorPanelInnerXml(panel.height, panel.depth)
+
+  const prodName = isWallMount ? 'Wall Mount Panel' : 'Floor Panel'
+  const panelWidth = isWallMount ? 19.05 : PANEL_THICK
+
+  // Minimal part for 3D rendering (the full shape is in rawInnerXml for export)
   const fendPart: MozPart = {
-    name: 'End Panel',
-    reportName: 'FEnd',
+    name: isWallMount ? ' WM Panel' : 'Fin End (L)',
+    reportName: isWallMount ? ' WM Panel' : 'FEnd (L)',
     type: 'FEnd',
     x: 0,
-    y: 0,
+    y: panel.depth,
     z: 0,
     w: panel.depth,
     l: panel.height,
     rotation: { a1: -90, a2: 180, a3: 0, r1: 'Y', r2: 'Z', r3: 'X' },
     quan: 1,
-    layer: 0,
+    layer: 2,
     shapePoints: [
-      { id: 0, x: 0, y: 0, edgeType: 0, sideName: '' },
-      { id: 1, x: panel.height, y: 0, edgeType: 0, sideName: '' },
-      { id: 2, x: panel.height, y: panel.depth, edgeType: 0, sideName: '' },
-      { id: 3, x: 0, y: panel.depth, edgeType: 0, sideName: '' },
+      { id: 0, x: 0, y: 0, edgeType: 0, sideName: 'Back' },
+      { id: 1, x: panel.height, y: 0, edgeType: 0, sideName: 'Top' },
+      { id: 2, x: panel.height, y: panel.depth, edgeType: 0, sideName: 'Front' },
+      { id: 3, x: 0, y: panel.depth, edgeType: 0, sideName: 'Bottom' },
     ],
     suPartName: '',
   }
 
   return {
     uniqueId,
-    prodName: 'End Panel',
+    prodName,
     idTag,
     sourceLib: adjacentProduct.sourceLib,
-    width: PANEL_THICK,
+    width: panelWidth,
     height: panel.height,
     depth: panel.depth,
     x: panel.x,
     elev: panel.elev,
     rot: 0,
-    wall: `${panel.wallNumber}_1`,
+    wall: wallRef,
     parts: [fendPart],
-    rawAttributes: {
-      UniqueID: uniqueId,
-      ProdName: 'End Panel',
-      IDTag: String(idTag),
-      SourceLib: adjacentProduct.sourceLib,
-      Width: String(PANEL_THICK),
-      Height: String(panel.height),
-      Depth: String(panel.depth),
-      X: String(panel.x),
-      Elev: String(panel.elev),
-      Rot: '0',
-      Wall: `${panel.wallNumber}_1`,
-      SUDirty: 'True',
-      Quan: '1',
-      ExtEnds: '0',
-    },
-    rawInnerXml: '',
+    rawAttributes,
+    rawInnerXml,
   }
 }

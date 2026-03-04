@@ -9,9 +9,9 @@ import { computeAutoEndPanels, createSyntheticPanelProduct } from '../mozaik/aut
  * For loaded rooms (rawText non-empty): preserve original text unchanged (round-trip fidelity).
  * For created rooms (rawText empty): generate valid DES XML from parsed structure.
  */
-export function writeDes(room: MozRoom): string {
+export function writeDes(room: MozRoom, flipOps = false): string {
   if (room.rawText) return room.rawText
-  return generateDesXml(room)
+  return generateDesXml(room, flipOps)
 }
 
 /** Escape XML special characters in attribute values. */
@@ -65,7 +65,7 @@ function renumberForExport(room: MozRoom): MozRoom {
 }
 
 /** Generate complete DES file content from a MozRoom. */
-function generateDesXml(inputRoom: MozRoom): string {
+function generateDesXml(inputRoom: MozRoom, flipOps = false): string {
   const room = renumberForExport(inputRoom)
   const lines: string[] = []
 
@@ -74,16 +74,16 @@ function generateDesXml(inputRoom: MozRoom): string {
   lines.push('<?xml version="1.0" encoding="utf-8" standalone="yes"?>')
 
   // Pre-compute auto end panels so we can include them in IdTagCount
-  const autoPanels = computeAutoEndPanels(room.products, room.walls, room.wallJoints)
+  const autoPanels = computeAutoEndPanels(room.products, room.walls, room.wallJoints, flipOps)
 
   // <Room> root element
-  const baseIdTagCount = Math.max(
+  // Base IDTag max from walls + fixtures only — product IDTags are stale template values
+  const baseIdTagMax = Math.max(
     ...room.walls.map(w => w.idTag),
-    ...room.products.map(p => p.idTag),
     ...room.fixtures.map(f => f.idTag),
     4,
   )
-  const idTagCount = baseIdTagCount + autoPanels.length
+  const idTagCount = baseIdTagMax + room.products.length + autoPanels.length
   lines.push(`<Room UniqueID="${esc(room.uniqueId)}" RoomType="${room.roomType}" Name="${esc(room.name)}" RoomNosDirty="True" IdTagCount="${idTagCount}" Quan="1" FloorDirty="0">`)
 
   // <RoomParms> — full attribute set from template, with room-specific values substituted
@@ -134,10 +134,12 @@ function generateDesXml(inputRoom: MozRoom): string {
   }
 
   // <Products> — includes auto-generated end panels
-  let nextPanelId = baseIdTagCount + 1
+  // Panel IDTags start after all real products; CabNo is irrelevant for panels but kept sequential
+  let nextPanelIdTag = baseIdTagMax + 1 + room.products.length
+  let nextPanelCabNo = room.products.length + 1
   const panelProducts = autoPanels.map(panel => {
     const adjacent = room.products[panel.adjacentProductIndex] ?? room.products[0]
-    return createSyntheticPanelProduct(panel, adjacent, nextPanelId++)
+    return createSyntheticPanelProduct(panel, adjacent, nextPanelIdTag++, nextPanelCabNo++)
   })
   const allProducts = [...room.products, ...panelProducts]
 
@@ -145,9 +147,11 @@ function generateDesXml(inputRoom: MozRoom): string {
     lines.push('  <Products />')
   } else {
     lines.push('  <Products>')
-    for (const prod of allProducts) {
-      lines.push(serializeProduct(prod))
-    }
+    allProducts.forEach((prod, i) => {
+      const cabNo = i + 1
+      const idTag = baseIdTagMax + 1 + i
+      lines.push(serializeProduct(prod, cabNo, idTag))
+    })
     lines.push('  </Products>')
   }
 
@@ -235,13 +239,14 @@ function serializeFixture(f: MozFixture): string {
   return `<Fixt Name="${esc(f.name)}" IDTag="${f.idTag}" Type="${f.type}" SubType="${f.subType}" Wall="${f.wall}" OnWallFront="${bool(f.onWallFront)}" Width="${num(f.width)}" Height="${num(f.height)}" Depth="${num(f.depth)}" X="${num(f.x)}" Elev="${num(f.elev)}" Rot="${num(f.rot)}" Outset="0" SUDirty="True" SketchUpFile="" SourceLib="" SnapTo="0" NonGraphic="False">\n      <LabelDimensionOverrideMap />\n    </Fixt>`
 }
 
-function serializeProduct(prod: MozProduct): string {
+function serializeProduct(prod: MozProduct, cabNo: number, idTag: number): string {
   // Start with rawAttributes (preserves all Mozaik-specific fields),
   // then override placement fields with current values
   const attrs: Record<string, string> = { ...prod.rawAttributes }
   attrs['UniqueID'] = prod.uniqueId
+  attrs['CabNo'] = String(cabNo)   // override stale template CabNo — prevents mass-selection
+  attrs['IDTag'] = String(idTag)   // override stale template IDTag — must be unique per placement
   attrs['ProdName'] = prod.prodName
-  attrs['IDTag'] = String(prod.idTag)
   attrs['SourceLib'] = prod.sourceLib
   attrs['Width'] = num(prod.width)
   attrs['Height'] = num(prod.height)

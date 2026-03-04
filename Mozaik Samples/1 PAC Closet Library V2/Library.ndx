@@ -403,6 +403,11 @@
   <Node Name="FS 108 LED Right" ID="1384" ParentID="1242" IsFolder="False" Expanded="False" />
   <Node Name="FS 108 LED Both" ID="1385" ParentID="1242" IsFolder="False" Expanded="False" />
   <Node Name="FS Corner Sections -" ID="1253" ParentID="1241" IsFolder="True" Expanded="False" />
+  <Node Name="Miterfold Shelf All-In-One" ID="1387" ParentID="0" IsFolder="False" Expanded="False" />
+  <Node Name="DH" ID="1388" ParentID="0" IsFolder="False" Expanded="False" />
+  <Node Name="Floor Panel" ID="1389" ParentID="0" IsFolder="False" Expanded="False" />
+  <Node Name="Floor DH" ID="1390" ParentID="0" IsFolder="False" Expanded="False" />
+  <Node Name="Wall SH 4S" ID="1391" ParentID="0" IsFolder="False" Expanded="False" />
   <ModularHeight Value="51.99888" />
   <ModularHeight Value="84.00034" />
   <ModularHeight Value="115.9993" />

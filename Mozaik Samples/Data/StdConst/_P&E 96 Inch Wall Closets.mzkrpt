@@ -1,0 +1,8 @@
+Mozaik Room Parameters Template Export
+5
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<RoomParmsTemplates>
+  <RoomParmsTemplate Name="_P&amp;E 96 Inch Wall Closets">
+    <RoomParms SourceTemplateID="1" H_Walls="2438.4" H_Soffit="306.4" H_BaseCab="876.3" H_WallCab="914.4" H_FridgeCab="457.4862" H_RangeCab="609.6" H_VanityCab="774.7" D_Wall="356" D_Base="356" D_Tall="356" Cl_Fridge="25.4159" Cl_Window="76.2" Cl_Door="76.2" Cl_Range="0" CT_Thick="31.75" CT_FrOLay="25.4" CT_FEOlay="25.4" CT_Splash="101.6" CT_Face="31.75" CT_SplashThick="19.05" CT_DefaultSinkOverlay="25.4" CT_DefaultSinkSetback="0" CT_DefaultSinkRadius="25.4" CT_CornerConfig="1" M_CeilOffset="0" M_CrownOffset="0" M_LightRailOffset="0" M_ElevChairRail="812.8" M_ElevCustom="1066.8" SinkCabW="914.9724" WallThickness="101.6" StartingCabNo="0" AutoToeSkin="True" LockCabNos="False" />
+  </RoomParmsTemplate>
+</RoomParmsTemplates>

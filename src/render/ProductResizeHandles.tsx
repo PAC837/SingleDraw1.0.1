@@ -20,13 +20,7 @@ import { useThree } from '@react-three/fiber'
 import { Vector3 } from 'three'
 import type { MozProduct } from '../mozaik/types'
 import { mozPosToThree } from '../math/basis'
-
-// PAC Library modular depths (mm) — from Library.ndx
-const MODULAR_DEPTHS = [292.1, 356.0, 406.0, 484.0, 606.0]
-
-// PAC Library modular heights (mm) — ~32mm increments from 52mm to 3028mm
-const MODULAR_HEIGHTS: number[] = []
-for (let h = 52; h <= 3028; h += 32) MODULAR_HEIGHTS.push(h)
+import { MODULAR_HEIGHTS, MODULAR_DEPTHS } from '../mozaik/modularValues'
 
 const INCH = 25.4
 const BALL_R = 30
@@ -62,6 +56,20 @@ function snapValue(raw: number, field: 'width' | 'depth' | 'height' | 'elev'): n
   }
 }
 
+/** Snap elevation so that (elev + productHeight) lands on a modular height. */
+function snapElevToModular(rawElev: number, productHeight: number): number {
+  let bestElev = 0
+  let bestDist = Math.abs(rawElev)
+  for (const h of MODULAR_HEIGHTS) {
+    const candidate = h - productHeight
+    if (candidate < -0.5) continue
+    const e = Math.max(0, candidate)
+    const dist = Math.abs(rawElev - e)
+    if (dist < bestDist) { bestElev = e; bestDist = dist }
+  }
+  return bestElev
+}
+
 interface HandleBallProps {
   mozPos: [number, number, number]
   role: HandleRole
@@ -69,13 +77,14 @@ interface HandleBallProps {
   wallAngleDeg?: number
   product: MozProduct
   productIndex: number
-  onResize: (index: number, field: 'width' | 'depth' | 'height', value: number) => void
+  onResize: (index: number, field: 'width' | 'depth' | 'height', value: number, anchor?: 'left' | 'right') => void
+  onResizeWidth: (index: number, value: number, anchor: 'left' | 'right') => void
   onUpdateElev: (index: number, elev: number) => void
   onUpdateX: (index: number, x: number) => void
 }
 
 function HandleBall({
-  mozPos, role, sign, wallAngleDeg, product, productIndex, onResize, onUpdateElev, onUpdateX,
+  mozPos, role, sign, wallAngleDeg, product, productIndex, onResize, onResizeWidth, onUpdateElev, onUpdateX,
 }: HandleBallProps) {
   // Compute whether local X axis is flipped relative to screen-right
   const groupRotY = ((wallAngleDeg ?? 0) + product.rot) * Math.PI / 180
@@ -132,12 +141,9 @@ function HandleBall({
         case 'width': {
           const raw = startVals.current.width + dxMm * sign * screenSign
           const snapped = snapValue(Math.max(INCH, raw), 'width')
-          onResize(productIndex, 'width', snapped)
-          // Right ball in Mozaik (sign=+1) = screen-LEFT: shift x so origin (screen-RIGHT) stays anchored
-          if (sign > 0) {
-            const widthDelta = snapped - startVals.current.width
-            onUpdateX(productIndex, Math.max(0, startVals.current.x - widthDelta))
-          }
+          // Account for 180° visual flip: sign*screenSign converts Mozaik-local to visual-local
+          const anchor: 'left' | 'right' = (sign * screenSign) > 0 ? 'left' : 'right'
+          onResizeWidth(productIndex, snapped, anchor)
           break
         }
         case 'height': {
@@ -148,7 +154,7 @@ function HandleBall({
         }
         case 'elev': {
           const raw = startVals.current.elev + dyMm
-          const snapped = snapValue(Math.max(0, raw), 'elev')
+          const snapped = snapElevToModular(Math.max(0, raw), product.height)
           onUpdateElev(productIndex, snapped)
           break
         }
@@ -163,7 +169,7 @@ function HandleBall({
             const newX = snapValue(Math.max(0, startVals.current.x + dxMm), 'width')
             onUpdateX(productIndex, newX)
           } else {
-            const newElev = snapValue(Math.max(0, startVals.current.elev + dyMm), 'elev')
+            const newElev = snapElevToModular(Math.max(0, startVals.current.elev + dyMm), product.height)
             onUpdateElev(productIndex, newElev)
           }
           break
@@ -185,7 +191,7 @@ function HandleBall({
     document.body.style.cursor = 'grabbing'
     window.addEventListener('pointermove', onMove)
     window.addEventListener('pointerup', onUp)
-  }, [role, sign, screenSign, product, productIndex, onResize, onUpdateElev, onUpdateX, gl, controls, mmPerPixel])
+  }, [role, sign, screenSign, product, productIndex, onResize, onResizeWidth, onUpdateElev, onUpdateX, gl, controls, mmPerPixel])
 
   const color = active ? '#FFFF00' : hovered ? '#CCFF44' : '#AAFF00'
   const s = active ? 1.2 : hovered ? 1.4 : 1.0
@@ -214,7 +220,19 @@ function BumpBall({
   onBump: (index: number) => void
 }) {
   const [hovered, setHovered] = useState(false)
+  const { controls } = useThree()
   const pos = mozPosToThree(mozPos[0], mozPos[1], mozPos[2])
+
+  const onPointerDown = useCallback((e: any) => {
+    e.stopPropagation()
+    const ctrl = controls as any
+    if (ctrl) ctrl.enabled = false
+    const restore = () => {
+      if (ctrl) ctrl.enabled = true
+      window.removeEventListener('pointerup', restore)
+    }
+    window.addEventListener('pointerup', restore)
+  }, [controls])
 
   const onClick = useCallback((e: any) => {
     e.stopPropagation()
@@ -229,6 +247,7 @@ function BumpBall({
       scale={[s, s, s]}
       onPointerOver={(e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = 'pointer' }}
       onPointerOut={() => { setHovered(false); document.body.style.cursor = '' }}
+      onPointerDown={onPointerDown}
       onClick={onClick}
       renderOrder={1000}
     >
@@ -238,11 +257,90 @@ function BumpBall({
   )
 }
 
+/** Red draggable ball that resizes depth — snaps to modular depths. */
+function DepthDragBall({
+  mozPos, productIndex, product, onResize,
+}: {
+  mozPos: [number, number, number]
+  productIndex: number
+  product: MozProduct
+  onResize: (index: number, field: 'width' | 'depth' | 'height', value: number) => void
+}) {
+  const [hovered, setHovered] = useState(false)
+  const [active, setActive] = useState(false)
+  const { camera, gl, controls } = useThree()
+  const dragging = useRef(false)
+  const startMouse = useRef(0)
+  const startDepth = useRef(0)
+  const pos = mozPosToThree(mozPos[0], mozPos[1], mozPos[2])
+
+  const mmPerPixel = useCallback(() => {
+    const camDist = camera.position.distanceTo(new Vector3(0, 0, 0))
+    if ('fov' in camera && typeof camera.fov === 'number') {
+      const fovRad = (camera.fov * Math.PI) / 180
+      return (2 * camDist * Math.tan(fovRad / 2)) / gl.domElement.clientHeight
+    }
+    return 1
+  }, [camera, gl])
+
+  const onPointerDown = useCallback((e: any) => {
+    e.stopPropagation()
+    dragging.current = true
+    setActive(true)
+    startMouse.current = e.clientY ?? e.nativeEvent?.clientY ?? 0
+    startDepth.current = product.depth
+
+    const ctrl = controls as any
+    if (ctrl) ctrl.enabled = false
+    const scale = mmPerPixel()
+
+    const onMove = (ev: PointerEvent) => {
+      if (!dragging.current) return
+      const dy = ev.clientY - startMouse.current
+      const dyMm = -dy * scale // drag up = increase depth
+      const raw = startDepth.current + dyMm
+      const snapped = snapValue(Math.max(MODULAR_DEPTHS[0], raw), 'depth')
+      onResize(productIndex, 'depth', snapped)
+    }
+
+    const onUp = () => {
+      dragging.current = false
+      setActive(false)
+      document.body.style.cursor = ''
+      if (ctrl) ctrl.enabled = true
+      window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('pointerup', onUp)
+    }
+
+    document.body.style.cursor = 'ns-resize'
+    window.addEventListener('pointermove', onMove)
+    window.addEventListener('pointerup', onUp)
+  }, [product, productIndex, onResize, controls, mmPerPixel])
+
+  const color = active ? '#FF6666' : hovered ? '#FF4444' : '#CC0000'
+  const s = active ? 1.2 : hovered ? 1.3 : 1.0
+
+  return (
+    <mesh
+      position={pos}
+      scale={[s, s, s]}
+      onPointerOver={(e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = 'ns-resize' }}
+      onPointerOut={() => { setHovered(false); if (!dragging.current) document.body.style.cursor = '' }}
+      onPointerDown={onPointerDown}
+      renderOrder={1000}
+    >
+      <sphereGeometry args={[BALL_R * 0.75, 16, 12]} />
+      <meshBasicMaterial color={color} depthTest={false} transparent opacity={0.85} />
+    </mesh>
+  )
+}
+
 interface ProductResizeHandlesProps {
   product: MozProduct
   productIndex: number
   wallAngleDeg?: number
-  onResize: (index: number, field: 'width' | 'depth' | 'height', value: number) => void
+  onResize: (index: number, field: 'width' | 'depth' | 'height', value: number, anchor?: 'left' | 'right') => void
+  onResizeWidth: (index: number, value: number, anchor: 'left' | 'right') => void
   onUpdateElev: (index: number, elev: number) => void
   onUpdateX: (index: number, x: number) => void
   onBumpLeft?: (index: number) => void
@@ -250,7 +348,7 @@ interface ProductResizeHandlesProps {
 }
 
 export default function ProductResizeHandles({
-  product, productIndex, wallAngleDeg, onResize, onUpdateElev, onUpdateX,
+  product, productIndex, wallAngleDeg, onResize, onResizeWidth, onUpdateElev, onUpdateX,
   onBumpLeft, onBumpRight,
 }: ProductResizeHandlesProps) {
   const w = product.width, h = product.height
@@ -276,6 +374,7 @@ export default function ProductResizeHandles({
           product={product}
           productIndex={productIndex}
           onResize={onResize}
+          onResizeWidth={onResizeWidth}
           onUpdateElev={onUpdateElev}
           onUpdateX={onUpdateX}
         />
@@ -288,6 +387,11 @@ export default function ProductResizeHandles({
         <BumpBall mozPos={[w, 0, h]}
           productIndex={productIndex} onBump={onBumpRight} />
       )}
+      {/* Depth drag balls at bottom corners */}
+      <DepthDragBall mozPos={[0, 0, 0]} productIndex={productIndex}
+        product={product} onResize={onResize} />
+      <DepthDragBall mozPos={[w, 0, 0]} productIndex={productIndex}
+        product={product} onResize={onResize} />
     </group>
   )
 }

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<titleBlockExport>
+  <version>0</version>
+  <titleBlocks>
+    <titleBlock>
+      <title>11x17 Vertical</title>
+      <width>3150</width>
+      <height>225</height>
+      <angle>270</angle>
+      <pen color="FF000000" width="1.181102" />
+      <titleBlockSections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>3150</dx>
+          <dy>225</dy>
+          <da>225</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>3</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>3150</dx>
+          <dy>225</dy>
+          <da>2850</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>4</pAChild>
+          <pCChild>6</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>2850</dx>
+          <dy>225</dy>
+          <da>2550</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>5</pAChild>
+          <pCChild>8</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>2550</dx>
+          <dy>225</dy>
+          <da>1947</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>4</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>10</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1947</dx>
+          <dy>225</dy>
+          <da>862</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>7</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>2550</x>
+          <y>0</y>
+          <dx>300</dx>
+          <dy>225</dy>
+          <da>75</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>6</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>2550</x>
+          <y>75</y>
+          <dx>300</dx>
+          <dy>150</dy>
+          <da>75</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>4</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>9</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>1947</x>
+          <y>0</y>
+          <dx>603</dx>
+          <dy>225</dy>
+          <da>112</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>8</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>1947</x>
+          <y>112</y>
+          <dx>603</dx>
+          <dy>113</dy>
+          <da>56</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>5</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>862</x>
+          <y>0</y>
+          <dx>1085</dx>
+          <dy>225</dy>
+          <da>112</da>
+        </titleBlockSection>
+      </titleBlockSections>
+      <objects>
+        <text>
+          <size width="270" height="195" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2865" offsetY="15" />
+          <fontSettings FontFace="Arial" FontSize="25" ScaleType="2" Bold="True" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>{PAGE_NUM}/{PAGE_COUNT}</content>
+          <alignment>1</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="1055" height="83" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="877" offsetY="127" />
+          <fontSettings FontFace="Arial" FontSize="13" ScaleType="2" Bold="True" Italic="True" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>0</alignment>
+          <lineAlignment>2</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>25</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="1055" height="82" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="877" offsetY="15" />
+          <fontSettings FontFace="Arial" FontSize="13" ScaleType="2" Bold="True" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content />
+          <alignment>0</alignment>
+          <lineAlignment>2</lineAlignment>
+          <textRotation>0</textRotation>
+          <variableTagType>4</variableTagType>
+          <variableTagCode />
+        </text>
+        <text>
+          <size width="270" height="45" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2565" offsetY="165" />
+          <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>{REVISION}</content>
+          <alignment>2</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="270" height="45" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2565" offsetY="90" />
+          <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>{CURRENT_DATE}</content>
+          <alignment>2</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="573" height="26.00002" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="1962" offsetY="127" />
+          <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>{PHONE}</content>
+          <alignment>2</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="572.9998" height="27" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="1962" offsetY="183" />
+          <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>{EMAIL}</content>
+          <alignment>2</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="270" height="45" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2565" offsetY="15" />
+          <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>{PAGE_SCALE}</content>
+          <alignment>2</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="85.0174" height="29.7068" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="1950.436" offsetY="4.117799" />
+          <fontSettings FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="True" />
+          <fontColor>FF808080</fontColor>
+          <content>Address:</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="77.13139" height="28.82942" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="1951.415" offsetY="117.067" />
+          <fontSettings FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="True" />
+          <fontColor>FF808080</fontColor>
+          <content>Phone:</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="73.64529" height="26.32336" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="1950.821" offsetY="171.9329" />
+          <fontSettings FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="True" />
+          <fontColor>FF808080</fontColor>
+          <content>E-Mail:</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="67.79122" height="28.04897" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2553.564" offsetY="4.245875" />
+          <fontSettings FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="True" />
+          <fontColor>FF808080</fontColor>
+          <content>Scale:</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="61.49162" height="26.23971" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2554.734" offsetY="80.46526" />
+          <fontSettings FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="True" />
+          <fontColor>FF808080</fontColor>
+          <content>Date:</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="106.999" height="29.79343" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2554.509" offsetY="155.2124" />
+          <fontSettings FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="True" />
+          <fontColor>FF808080</fontColor>
+          <content>Revision:</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="107.9497" height="46.07574" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="2851.299" offsetY="1.554076" />
+          <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+          <fontColor>FF808080</fontColor>
+          <content>Page:</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="573" height="82" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="1962" offsetY="15" />
+          <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+          <fontColor>FF000000</fontColor>
+          <content>{ADDRESS_1}
+{ADDRESS_2}</content>
+          <alignment>2</alignment>
+          <lineAlignment>1</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="141.3935" height="47.45483" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="867.7992" offsetY="5.052947" />
+          <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+          <fontColor>FF808080</fontColor>
+          <content>Job:</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <text>
+          <size width="225.6992" height="39.72036" />
+          <transform m00="1" m01="0" m10="0" m11="1" offsetX="867.8256" offsetY="116.6715" />
+          <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+          <fontColor>FF808080</fontColor>
+          <content>Drawing Title:</content>
+          <alignment>0</alignment>
+          <lineAlignment>0</lineAlignment>
+          <textRotation>0</textRotation>
+        </text>
+        <group>
+          <transform m00="0.3692808" m01="0" m10="0" m11="0.3692808" offsetX="2.78953" offsetY="1.961584" />
+          <children />
+        </group>
+        <group>
+          <transform m00="0.7142071" m01="0" m10="0" m11="0.7142071" offsetX="28.28168" offsetY="24.22145" />
+          <children>
+            <image>
+              <fileTagFilename>C:\Mozaik\\Data\MultiprintSymbolImages\Moz Wide.jpg</fileTagFilename>
+              <fileTagFiletype>1</fileTagFiletype>
+              <size width="1100" height="251.5173" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+            </image>
+          </children>
+        </group>
+      </objects>
+    </titleBlock>
+  </titleBlocks>
+</titleBlockExport>

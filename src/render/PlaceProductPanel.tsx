@@ -11,7 +11,7 @@ interface PlaceProductPanelProps {
   selectedWall: number | null
   useInches: boolean
   onPlaceProduct: (productIndex: number, wallNumber: number) => void
-  onUpdateProductDimension: (productIndex: number, field: 'width' | 'depth' | 'height', value: number) => void
+  onUpdateProductDimension: (productIndex: number, field: 'width' | 'depth' | 'height', value: number, anchor?: 'left' | 'right') => void
   onRemoveProduct: (productIndex: number) => void
 }
 

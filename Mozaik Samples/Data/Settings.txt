@@ -1,0 +1,38 @@
+1
+Premium
+<SettingsTemplate>
+Economy
+Door 2
+Door 2
+Drawer
+Dovetail Box
+Guide 1
+Tray
+Guide 1
+Pull 1
+Hinge 1
+Fastener 1
+Leg 1
+Good
+1
+3
+
+</SettingsTemplate>
+<SettingsTemplate>
+Premium
+Arched Raised Panel
+Arched Raised Panel
+Drawer
+Dovetail Box
+Guide 2
+Tray
+Guide 2
+Pull 2
+Hinge 2
+Fastener 2
+Leg2
+Better
+0
+4
+
+</SettingsTemplate>

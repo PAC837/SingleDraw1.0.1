@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RoomNotesFieldList>
+  <RoomNotesField>
+    <FieldName>Island Back Panel Size Check</FieldName>
+    <FieldType>Checkbox</FieldType>
+    <VariableName>BackPanelCheck1</VariableName>
+  </RoomNotesField>
+  <RoomNotesField>
+    <FieldName>CheckLEDs</FieldName>
+    <FieldType>ShortText</FieldType>
+    <VariableName>CheckLED</VariableName>
+  </RoomNotesField>
+  <RoomNotesField>
+    <FieldName>Stuff</FieldName>
+    <FieldType>LongText</FieldType>
+    <VariableName>Stuff</VariableName>
+  </RoomNotesField>
+</RoomNotesFieldList>

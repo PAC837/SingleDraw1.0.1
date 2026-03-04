@@ -1,0 +1,3158 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<assemblySheetTemplateLibrary>
+  <version>1</version>
+  <assemblySheetTemplates>
+    <assemblySheetTemplate>
+      <name>Commercial Assembly Sheet</name>
+      <state>
+        <selectedPrinterName />
+        <pageMargins>25, 25, 25, 38</pageMargins>
+        <pageOrientation>landscape</pageOrientation>
+        <isBorderEnabled>True</isBorderEnabled>
+        <borderThickness>1</borderThickness>
+        <revisionNumber>1.0</revisionNumber>
+        <titleBlockName>8.5x11 Vertical</titleBlockName>
+        <titleBlockAnchor>4</titleBlockAnchor>
+        <defaultPageUnitsPerFoot>112.5</defaultPageUnitsPerFoot>
+        <defaultPageUnitsPerFootMetric>72</defaultPageUnitsPerFootMetric>
+        <showGrid>False</showGrid>
+        <gridSizeMm>304.8</gridSizeMm>
+        <borderColor>FF000000</borderColor>
+        <printerSettings>
+        </printerSettings>
+      </state>
+      <pages>
+        <assemblySheetTemplatePage>
+          <title>Page 1</title>
+          <x>75</x>
+          <y>75</y>
+          <width>3150</width>
+          <height>2361</height>
+          <pen color="FF000000" width="1" />
+          <DrawingSettings Version="16" SourceTemplate="User Default Print" PlanDrawMode="2" ElevationDrawMode="2" OrthoViewDrawMode="2" FaceInteriorDrawMode="0" FPGrid="609.6" ElevGrid="304.8" FPDimPadding="2" FPDimFirstRowPadding="2" FPDimLineStyle="3" FPDimPosition="0" FPDimSpacing="0" FPDimSpacingUnits="0" ElevDimPadding="2" ElevDimFirstRowPadding="2" ElevDimLineStyle="3" ElevDimPosition="0" ElevDimSpacing="0" ElevDimSpacingUnits="0" ElevDimType="0" OrthoDimPadding="2" OrthoDimFirstRowPadding="2" OrthoDimLineStyle="1" OrthoDimPosition="0" OrthoDimSpacing="0" OrthoDimSpacingUnits="0" OrthoCrossSection="1" OrthoTrimCrossSection="False" FadeToWhite="0.25">
+            <LayerHidden LayerName="Cabinet Labels Rotated" Hidden="True" />
+            <LayerHidden LayerName="Wall Labels Rotated" Hidden="True" />
+            <LayerHidden LayerName="Arch Door Swings Reversed" Hidden="True" />
+            <LayerHidden LayerName="Plan Cabinet Labels Include Names" Hidden="True" />
+            <LayerHidden LayerName="Elev Cabinet Labels Include Names" Hidden="True" />
+            <LayerHidden LayerName="Wall Labels Centered" Hidden="False" />
+            <LayerHidden LayerName="Elev Wall Labels Include Room Number" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Room Name" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Wall Length" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Wall Height" Hidden="True" />
+            <LayerHidden LayerName="Wall Angles" Hidden="True" />
+            <LayerHidden LayerName="90 Degree Corners" Hidden="True" />
+            <LayerHidden LayerName="Ceiling" Hidden="True" />
+            <LayerHidden LayerName="Shelf Labels" Hidden="True" />
+            <LayerHidden LayerName="Plan - Toe Assemblies" Hidden="True" />
+            <LayerHidden LayerName="Toe Assemblies Only" Hidden="True" />
+            <LayerHidden LayerName="Rod Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Dimension Invisible Walls" Hidden="True" />
+            <LayerHidden LayerName="Wall Fill" Hidden="True" />
+            <LayerHidden LayerName="Show for Face Frame" Hidden="True" />
+            <LayerHidden LayerName="Face Show for Face Frame" Hidden="True" />
+            <LayerHidden LayerName="Outlines" Hidden="True" />
+            <LayerHidden LayerName="Toe Skins" Hidden="True" />
+            <LayerHidden LayerName="Cabinet Label Circles" Hidden="True" />
+            <LayerHidden LayerName="Floor - Plan" Hidden="True" />
+            <LayerHidden LayerName="Elev - App Doors" Hidden="True" />
+            <LayerHidden LayerName="Applied Door Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Face Product Label" Hidden="True" />
+            <LayerHidden LayerName="Face Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="Interior Product Label" Hidden="True" />
+            <LayerHidden LayerName="Interior Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="CabView Product Label" Hidden="True" />
+            <LayerHidden LayerName="CabView Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="Room Operations" Hidden="True" />
+            <LayerHidden LayerName="Appliance Drawings" Hidden="False" />
+            <LayerHidden LayerName="Wall Fixture Drawings" Hidden="False" />
+            <LayerHidden LayerName="Non-numbered" Hidden="True" />
+            <LayerHidden LayerName="Arch Door Swings" Hidden="False" />
+            <LayerHidden LayerName="Opening Labels" Hidden="True" />
+            <LayerHidden LayerName="Special Depth Labels" Hidden="True" />
+            <LayerHidden LayerName="Frame Special Size Labels" Hidden="False" />
+            <LayerHidden LayerName="Open Section Labels" Hidden="False" />
+            <LayerHidden LayerName="Corner Cab Drawings" Hidden="False" />
+            <LayerHidden LayerName="Molding Drawings" Hidden="False" />
+            <LayerHidden LayerName="Top Drawings" Hidden="False" />
+            <LayerHidden LayerName="Plan - Depth" Hidden="True" />
+            <LayerHidden LayerName="Face Interior Sections" Hidden="True" />
+            <LayerHidden LayerName="Face Arch Door Swings" Hidden="True" />
+            <LayerHidden LayerName="Sink Center Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Non-numbered Cabinet Labels" Hidden="True" />
+            <LayerHidden LayerName="" Hidden="True" />
+            <LayerHidden LayerName="Appliance Labels" Hidden="True" />
+            <LayerHidden LayerName="Wall Fixture Labels" Hidden="True" />
+            <LayerHidden LayerName="Hardware" Hidden="False" />
+            <LayerHidden LayerName="Grid" Hidden="True" />
+            <LayerHidden LayerName="Wall Label Borders" Hidden="True" />
+            <LayerHidden LayerName="Appliances" Hidden="False" />
+            <LayerFont LayerName="Wall Labels">
+              <FontSetting FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+            </LayerFont>
+            <LayerFont LayerName="Elev - Wall Length">
+              <FontSetting FontFace="Arial" FontSize="11" ScaleType="2" Bold="True" Italic="False" />
+            </LayerFont>
+            <LayerFont LayerName="Elev Dimensions">
+              <FontSetting FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+            </LayerFont>
+            <LayerFont LayerName="Open Section Labels" />
+            <LayerFont LayerName="Opening Dimensions">
+              <FontSetting FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="False" />
+            </LayerFont>
+            <LayerColor LayerName="Molding Drawings" Color="-8355712" />
+            <LayerColor LayerName="Appliance Drawings" Color="-8355712" />
+            <LayerColor LayerName="Inserts" Color="-8355712" />
+            <LayerColor LayerName="Moldings" Color="-8355712" />
+          </DrawingSettings>
+          <sections>
+            <titleBlockSection>
+              <pParent>0</pParent>
+              <pAChild>2</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>N</parentABC>
+              <split>N</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>3150</dx>
+              <dy>2361</dy>
+              <da>2361</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>1</pParent>
+              <pAChild>3</pAChild>
+              <pCChild>5</pCChild>
+              <parentABC>A</parentABC>
+              <split>H</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>3150</dx>
+              <dy>2361</dy>
+              <da>188</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>2</pParent>
+              <pAChild>4</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>3150</dx>
+              <dy>188</dy>
+              <da>2738</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>3</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>10</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>2738</dx>
+              <dy>188</dy>
+              <da>2004</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>2</pParent>
+              <pAChild>8</pAChild>
+              <pCChild>6</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>0</x>
+              <y>188</y>
+              <dx>3150</dx>
+              <dy>2173</dy>
+              <da>1312</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>5</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>7</pCChild>
+              <parentABC>C</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>1500</y>
+              <dx>3150</dx>
+              <dy>861</dy>
+              <da>2100</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>6</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>11</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>2100</x>
+              <y>1500</y>
+              <dx>1050</dx>
+              <dy>861</dy>
+              <da>450</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>5</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>9</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>188</y>
+              <dx>3150</dx>
+              <dy>1312</dy>
+              <da>1050</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>8</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>V</split>
+              <x>1050</x>
+              <y>188</y>
+              <dx>2100</dx>
+              <dy>1312</dy>
+              <da>1050</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>4</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>2004</x>
+              <y>0</y>
+              <dx>734</dx>
+              <dy>188</dy>
+              <da>94</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>7</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>2100</x>
+              <y>1950</y>
+              <dx>1050</dx>
+              <dy>411</dy>
+              <da>225</da>
+            </titleBlockSection>
+          </sections>
+          <objects>
+            <text>
+              <size width="1368.038" height="119.0219" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="698.9426" offsetY="84.05894" />
+              <fontSettings FontFace="Arial" FontSize="14" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>4</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="704" height="64" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2094" offsetY="90" />
+              <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>112</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="547.1012" height="185.511" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="312.3138" offsetY="76.18283" />
+              <fontSettings FontFace="Arial Black" FontSize="18" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Assembly 
+Sheet</content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="382" height="158" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2828" offsetY="90" />
+              <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Width:   
+Height:  
+Depth:   </content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="382" height="158" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2828" offsetY="90" />
+              <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{Cab_Width}{units}
+{Cab_Height}{units}
+{Cab_Depth}{units}</content>
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="1020" height="45.65211" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2190" offsetY="2040" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Special Cabinet Notes:</content>
+              <alignment>0</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <assemblySheetPlaceholder>
+              <linePen color="FF000000" width="1.181102" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <rowsToIncludeDoors>True</rowsToIncludeDoors>
+              <rowsToIncludeDrawerFronts>True</rowsToIncludeDrawerFronts>
+              <rowsToIncludeDrawerBoxes>True</rowsToIncludeDrawerBoxes>
+              <rowsToIncludeTrays>True</rowsToIncludeTrays>
+              <rowsToIncludeFaceFrame>True</rowsToIncludeFaceFrame>
+              <rowsToIncludePanelStock>True</rowsToIncludePanelStock>
+              <rowsToIncludeHinges>True</rowsToIncludeHinges>
+              <rowsToIncludeGuides>True</rowsToIncludeGuides>
+              <rowsToIncludePulls>True</rowsToIncludePulls>
+              <rowsToIncludeInserts>True</rowsToIncludeInserts>
+              <rowsToIncludeClosetRods>True</rowsToIncludeClosetRods>
+              <rowsToIncludeShelfPins>True</rowsToIncludeShelfPins>
+              <rowsToIncludeDrawerFrontFasteners>True</rowsToIncludeDrawerFrontFasteners>
+              <rowsToIncludeSpacers>True</rowsToIncludeSpacers>
+              <rowsToIncludeJointFasteners>True</rowsToIncludeJointFasteners>
+              <rowsToIncludeLocks>True</rowsToIncludeLocks>
+              <rowsToIncludeLegs>True</rowsToIncludeLegs>
+              <rowsToIncludeSpotLights>True</rowsToIncludeSpotLights>
+              <rowsToIncludeLinearLights>True</rowsToIncludeLinearLights>
+              <size width="1050" height="450" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2175" offsetY="1575" />
+              <placeholderTag type="assemblySheetTablePlaceholderTag">
+                <tableType>HARDWARE_TABLE</tableType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <linePen color="FF000000" width="1.181102" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <rowsToIncludeDoors>True</rowsToIncludeDoors>
+              <rowsToIncludeDrawerFronts>True</rowsToIncludeDrawerFronts>
+              <rowsToIncludeDrawerBoxes>True</rowsToIncludeDrawerBoxes>
+              <rowsToIncludeTrays>True</rowsToIncludeTrays>
+              <rowsToIncludeFaceFrame>True</rowsToIncludeFaceFrame>
+              <rowsToIncludePanelStock>True</rowsToIncludePanelStock>
+              <rowsToIncludeHinges>True</rowsToIncludeHinges>
+              <rowsToIncludeGuides>True</rowsToIncludeGuides>
+              <rowsToIncludePulls>True</rowsToIncludePulls>
+              <rowsToIncludeInserts>True</rowsToIncludeInserts>
+              <rowsToIncludeClosetRods>True</rowsToIncludeClosetRods>
+              <rowsToIncludeShelfPins>True</rowsToIncludeShelfPins>
+              <rowsToIncludeDrawerFrontFasteners>True</rowsToIncludeDrawerFrontFasteners>
+              <rowsToIncludeSpacers>True</rowsToIncludeSpacers>
+              <rowsToIncludeJointFasteners>True</rowsToIncludeJointFasteners>
+              <rowsToIncludeLocks>True</rowsToIncludeLocks>
+              <rowsToIncludeLegs>True</rowsToIncludeLegs>
+              <rowsToIncludeSpotLights>True</rowsToIncludeSpotLights>
+              <rowsToIncludeLinearLights>True</rowsToIncludeLinearLights>
+              <size width="2100" height="861" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="75" offsetY="1575" />
+              <placeholderTag type="assemblySheetTablePlaceholderTag">
+                <tableType>CUTLIST_TABLE</tableType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName>Wireframe</drawingTemplateName>
+              <size width="1044.02" height="1212.193" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2177.517" offsetY="297.3585" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>RIGHT_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName>Wireframe</drawingTemplateName>
+              <size width="1044.775" height="1212.593" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1127.436" offsetY="296.9657" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>TOP_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName>Wireframe</drawingTemplateName>
+              <size width="1047.533" height="1212.531" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="75" offsetY="297.1577" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>FRONT_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <text>
+              <size width="704" height="64" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2094" offsetY="184" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Room: {Cab_Room_Name} - Cabinet #: {Cab_Assembly_Num}</content>
+              <alignment>1</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="284.711" height="51.06088" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2190" offsetY="2265" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Assembled By:</content>
+              <alignment>0</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <text>
+              <size width="138.8021" height="51.21698" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2232.665" offsetY="2372.504" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Sign   x.</content>
+              <alignment>0</alignment>
+              <lineAlignment>2</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <polyline>
+              <pen color="FF000000" width="2.362204" />
+              <points>
+                <point x="2397.674" y="2412.556" />
+                <point x="3167.249" y="2412.556" />
+              </points>
+            </polyline>
+            <text>
+              <size width="1087.752" height="54.58055" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="979.0192" offsetY="198.548" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="True" />
+              <fontColor>FF000000</fontColor>
+              <content>Job Name</content>
+              <alignment>2</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <text>
+              <size width="314.8259" height="116.438" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="797.9355" offsetY="1456.427" />
+              <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Front View</content>
+              <alignment>2</alignment>
+              <lineAlignment>2</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <text>
+              <size width="314.8259" height="116.438" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1844.684" offsetY="1456.371" />
+              <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Top View</content>
+              <alignment>2</alignment>
+              <lineAlignment>2</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <text>
+              <size width="314.8259" height="116.438" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2896.414" offsetY="1456.371" />
+              <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Right View</content>
+              <alignment>2</alignment>
+              <lineAlignment>2</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <text>
+              <size width="1018.408" height="152.5425" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2191.592" offsetY="2082.458" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="True" />
+              <fontColor>FF000000</fontColor>
+              <content>{Cab_Notes}</content>
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <group>
+              <transform m00="0.2031675" m01="0" m10="0" m11="0.2031675" offsetX="83.88958" offsetY="83.02252" />
+              <children>
+                <image>
+                  <fileTagFilename>MultiprintSymbolImages\Moz Blocks.jpg</fileTagFilename>
+                  <fileTagFiletype>1</fileTagFiletype>
+                  <fileTagLocation>1</fileTagLocation>
+                  <size width="1100" height="847" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+                </image>
+              </children>
+            </group>
+            <text>
+              <size width="1237.46" height="59.87164" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1983.327" offsetY="2414.481" />
+              <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Page: {Page_Num}/{Page_Count} | Subpage {Subpage_Num}/{Subpage_Count} | Printed: {Current_Date}</content>
+              <alignment>2</alignment>
+              <lineAlignment>2</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+          </objects>
+        </assemblySheetTemplatePage>
+      </pages>
+    </assemblySheetTemplate>
+    <assemblySheetTemplate>
+      <name>Face Frame Assembly Sheet</name>
+      <state>
+        <selectedPrinterName>HP LaserJet Pro MFP M127-M128 PCLmS</selectedPrinterName>
+        <pageMargins>25, 25, 25, 25</pageMargins>
+        <pageOrientation>landscape</pageOrientation>
+        <isBorderEnabled>True</isBorderEnabled>
+        <borderThickness>1</borderThickness>
+        <revisionNumber>1.0</revisionNumber>
+        <titleBlockName />
+        <titleBlockAnchor>4</titleBlockAnchor>
+        <defaultPageUnitsPerFoot>75</defaultPageUnitsPerFoot>
+        <defaultPageUnitsPerFootMetric>72</defaultPageUnitsPerFootMetric>
+        <showGrid>False</showGrid>
+        <gridSizeMm>304.8</gridSizeMm>
+        <borderColor>FF000000</borderColor>
+        <printerSettings>
+          <printerSetting>
+            <printerName>HP LaserJet Pro MFP M127-M128 PCLmS</printerName>
+            <paperSize width="850" height="1100" rawKind="1" paperName="Letter" />
+            <paperSource sourceName="Tray 1" rawKind="258" />
+          </printerSetting>
+        </printerSettings>
+      </state>
+      <pages>
+        <assemblySheetTemplatePage>
+          <title>Page 1</title>
+          <x>75</x>
+          <y>75</y>
+          <width>3150</width>
+          <height>2400</height>
+          <pen color="0" width="1.181102" />
+          <DrawingSettings Version="16" SourceTemplate="User Defaults" PlanDrawMode="0" ElevationDrawMode="0" OrthoViewDrawMode="0" FaceInteriorDrawMode="0" FPGrid="609.6" ElevGrid="304.8" FPDimPadding="2" FPDimFirstRowPadding="2" FPDimLineStyle="1" FPDimPosition="0" FPDimSpacing="0" FPDimSpacingUnits="0" ElevDimPadding="2" ElevDimFirstRowPadding="2" ElevDimLineStyle="1" ElevDimPosition="0" ElevDimSpacing="0" ElevDimSpacingUnits="0" ElevDimType="0" OrthoDimPadding="2" OrthoDimFirstRowPadding="2" OrthoDimLineStyle="1" OrthoDimPosition="0" OrthoDimSpacing="0" OrthoDimSpacingUnits="0" OrthoCrossSection="1" OrthoTrimCrossSection="False" FadeToWhite="0.25">
+            <LayerHidden LayerName="Cabinet Labels Rotated" Hidden="True" />
+            <LayerHidden LayerName="Wall Labels Rotated" Hidden="True" />
+            <LayerHidden LayerName="Arch Door Swings Reversed" Hidden="True" />
+            <LayerHidden LayerName="Plan Cabinet Labels Include Names" Hidden="True" />
+            <LayerHidden LayerName="Elev Cabinet Labels Include Names" Hidden="True" />
+            <LayerHidden LayerName="Wall Labels Centered" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Room Number" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Room Name" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Wall Length" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Wall Height" Hidden="True" />
+            <LayerHidden LayerName="Wall Angles" Hidden="True" />
+            <LayerHidden LayerName="90 Degree Corners" Hidden="True" />
+            <LayerHidden LayerName="Ceiling" Hidden="True" />
+            <LayerHidden LayerName="Shelf Labels" Hidden="True" />
+            <LayerHidden LayerName="Plan - Toe Assemblies" Hidden="True" />
+            <LayerHidden LayerName="Toe Assemblies Only" Hidden="True" />
+            <LayerHidden LayerName="Rod Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Dimension Invisible Walls" Hidden="True" />
+            <LayerHidden LayerName="Wall Fill" Hidden="True" />
+            <LayerHidden LayerName="Show for Face Frame" Hidden="True" />
+            <LayerHidden LayerName="Face Show for Face Frame" Hidden="True" />
+            <LayerHidden LayerName="Outlines" Hidden="True" />
+            <LayerHidden LayerName="Toe Skins" Hidden="True" />
+            <LayerHidden LayerName="Cabinet Label Circles" Hidden="True" />
+            <LayerHidden LayerName="Floor - Plan" Hidden="True" />
+            <LayerHidden LayerName="Elev - App Doors" Hidden="True" />
+            <LayerHidden LayerName="Applied Door Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Face Product Label" Hidden="True" />
+            <LayerHidden LayerName="Face Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="Interior Product Label" Hidden="True" />
+            <LayerHidden LayerName="Interior Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="CabView Product Label" Hidden="True" />
+            <LayerHidden LayerName="CabView Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="Room Operations" Hidden="True" />
+            <LayerHidden LayerName="Appliance Drawings" Hidden="False" />
+            <LayerHidden LayerName="Wall Fixture Drawings" Hidden="False" />
+            <LayerHidden LayerName="Non-numbered" Hidden="True" />
+            <LayerHidden LayerName="Arch Door Swings" Hidden="False" />
+            <LayerHidden LayerName="Opening Labels" Hidden="False" />
+            <LayerHidden LayerName="Special Depth Labels" Hidden="False" />
+            <LayerHidden LayerName="Frame Special Size Labels" Hidden="False" />
+            <LayerHidden LayerName="Open Section Labels" Hidden="False" />
+            <LayerHidden LayerName="Corner Cab Drawings" Hidden="True" />
+            <LayerHidden LayerName="Molding Drawings" Hidden="True" />
+            <LayerHidden LayerName="Top Drawings" Hidden="True" />
+            <LayerHidden LayerName="Plan - Depth" Hidden="True" />
+            <LayerHidden LayerName="Face Interior Sections" Hidden="True" />
+            <LayerHidden LayerName="Face Arch Door Swings" Hidden="True" />
+            <LayerHidden LayerName="Sink Center Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Non-numbered Cabinet Labels" Hidden="True" />
+            <LayerHidden LayerName="" Hidden="True" />
+            <LayerHidden LayerName="Appliance Labels" Hidden="True" />
+            <LayerHidden LayerName="Wall Fixture Labels" Hidden="True" />
+            <LayerHidden LayerName="Hardware" Hidden="True" />
+          </DrawingSettings>
+          <sections>
+            <titleBlockSection>
+              <pParent>0</pParent>
+              <pAChild>2</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>N</parentABC>
+              <split>N</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>3150</dx>
+              <dy>2400</dy>
+              <da>2400</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>1</pParent>
+              <pAChild>4</pAChild>
+              <pCChild>3</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>3150</dx>
+              <dy>2400</dy>
+              <da>1575</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>2</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>6</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>1575</x>
+              <y>0</y>
+              <dx>1575</dx>
+              <dy>2400</dy>
+              <da>177</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>2</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>5</pCChild>
+              <parentABC>A</parentABC>
+              <split>H</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>1575</dx>
+              <dy>2400</dy>
+              <da>2269</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>4</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>2269</y>
+              <dx>1575</dx>
+              <dy>131</dy>
+              <da>788</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>3</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>7</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>1575</x>
+              <y>177</y>
+              <dx>1575</dx>
+              <dy>2223</dy>
+              <da>1821</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>6</pParent>
+              <pAChild>8</pAChild>
+              <pCChild>13</pCChild>
+              <parentABC>C</parentABC>
+              <split>V</split>
+              <x>1575</x>
+              <y>1998</y>
+              <dx>1575</dx>
+              <dy>402</dy>
+              <da>788</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>7</pParent>
+              <pAChild>11</pAChild>
+              <pCChild>9</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>1575</x>
+              <y>1998</y>
+              <dx>788</dx>
+              <dy>402</dy>
+              <da>394</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>8</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>10</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>1969</x>
+              <y>1998</y>
+              <dx>394</dx>
+              <dy>402</dy>
+              <da>134</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>9</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>1969</x>
+              <y>2132</y>
+              <dx>394</dx>
+              <dy>268</dy>
+              <da>134</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>8</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>12</pCChild>
+              <parentABC>A</parentABC>
+              <split>H</split>
+              <x>1575</x>
+              <y>1998</y>
+              <dx>394</dx>
+              <dy>402</dy>
+              <da>134</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>11</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>1575</x>
+              <y>2132</y>
+              <dx>394</dx>
+              <dy>268</dy>
+              <da>134</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>7</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>14</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>2363</x>
+              <y>1998</y>
+              <dx>787</dx>
+              <dy>402</dy>
+              <da>134</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>13</pParent>
+              <pAChild>15</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>2363</x>
+              <y>2132</y>
+              <dx>787</dx>
+              <dy>268</dy>
+              <da>134</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>14</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>2363</x>
+              <y>2132</y>
+              <dx>787</dx>
+              <dy>134</dy>
+              <da>394</da>
+            </titleBlockSection>
+          </sections>
+          <objects>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>FFC0C0C0</fillColor>
+              <pen color="0" width="1.181102" />
+              <points>
+                <point x="75" y="2344" />
+                <point x="863" y="2344" />
+                <point x="863" y="2475" />
+                <point x="75" y="2475" />
+                <point x="75" y="2344" />
+              </points>
+            </polyline>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>FFC0C0C0</fillColor>
+              <pen color="0" width="1.181102" />
+              <points>
+                <point x="863" y="2344" />
+                <point x="1650" y="2344" />
+                <point x="1650" y="2475" />
+                <point x="863" y="2475" />
+                <point x="863" y="2344" />
+              </points>
+            </polyline>
+            <text>
+              <size width="757" height="101" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="878" offsetY="2359" />
+              <fontSettings FontFace="Arial" FontSize="16" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>39</variableTagType>
+              <variableTagCode>0</variableTagCode>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="758" height="101" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="90" offsetY="2359" />
+              <fontSettings FontFace="Arial" FontSize="16" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Banding Template:</content>
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <assemblySheetPlaceholder>
+              <linePen color="FF000000" width="1.181102" />
+              <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <rowsToIncludeDoors>True</rowsToIncludeDoors>
+              <rowsToIncludeDrawerFronts>True</rowsToIncludeDrawerFronts>
+              <rowsToIncludeDrawerBoxes>True</rowsToIncludeDrawerBoxes>
+              <rowsToIncludeTrays>True</rowsToIncludeTrays>
+              <rowsToIncludeFaceFrame>True</rowsToIncludeFaceFrame>
+              <rowsToIncludePanelStock>True</rowsToIncludePanelStock>
+              <rowsToIncludeHinges>True</rowsToIncludeHinges>
+              <rowsToIncludeGuides>True</rowsToIncludeGuides>
+              <rowsToIncludePulls>True</rowsToIncludePulls>
+              <rowsToIncludeInserts>True</rowsToIncludeInserts>
+              <rowsToIncludeClosetRods>True</rowsToIncludeClosetRods>
+              <rowsToIncludeShelfPins>True</rowsToIncludeShelfPins>
+              <rowsToIncludeDrawerFrontFasteners>True</rowsToIncludeDrawerFrontFasteners>
+              <rowsToIncludeSpacers>True</rowsToIncludeSpacers>
+              <rowsToIncludeJointFasteners>True</rowsToIncludeJointFasteners>
+              <rowsToIncludeLocks>True</rowsToIncludeLocks>
+              <rowsToIncludeLegs>True</rowsToIncludeLegs>
+              <rowsToIncludeSpotLights>True</rowsToIncludeSpotLights>
+              <rowsToIncludeLinearLights>True</rowsToIncludeLinearLights>
+              <size width="1572.315" height="1367.187" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1650" offsetY="252" />
+              <placeholderTag type="assemblySheetTablePlaceholderTag">
+                <tableType>CUTLIST_TABLE</tableType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <linePen color="FF000000" width="1.181102" />
+              <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <rowsToIncludeDoors>True</rowsToIncludeDoors>
+              <rowsToIncludeDrawerFronts>True</rowsToIncludeDrawerFronts>
+              <rowsToIncludeDrawerBoxes>True</rowsToIncludeDrawerBoxes>
+              <rowsToIncludeTrays>True</rowsToIncludeTrays>
+              <rowsToIncludeFaceFrame>True</rowsToIncludeFaceFrame>
+              <rowsToIncludePanelStock>True</rowsToIncludePanelStock>
+              <rowsToIncludeHinges>True</rowsToIncludeHinges>
+              <rowsToIncludeGuides>True</rowsToIncludeGuides>
+              <rowsToIncludePulls>True</rowsToIncludePulls>
+              <rowsToIncludeInserts>True</rowsToIncludeInserts>
+              <rowsToIncludeClosetRods>True</rowsToIncludeClosetRods>
+              <rowsToIncludeShelfPins>True</rowsToIncludeShelfPins>
+              <rowsToIncludeDrawerFrontFasteners>True</rowsToIncludeDrawerFrontFasteners>
+              <rowsToIncludeSpacers>True</rowsToIncludeSpacers>
+              <rowsToIncludeJointFasteners>True</rowsToIncludeJointFasteners>
+              <rowsToIncludeLocks>True</rowsToIncludeLocks>
+              <rowsToIncludeLegs>True</rowsToIncludeLegs>
+              <rowsToIncludeSpotLights>True</rowsToIncludeSpotLights>
+              <rowsToIncludeLinearLights>True</rowsToIncludeLinearLights>
+              <size width="1575" height="457.5574" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1650" offsetY="1619" />
+              <placeholderTag type="assemblySheetTablePlaceholderTag">
+                <tableType>HARDWARE_TABLE</tableType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <text>
+              <size width="364" height="104.0002" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1665" offsetY="2088" />
+              <fontSettings FontFace="Arial" FontSize="14" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Left Scribe:</content>
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="364" height="104" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1665" offsetY="2222" />
+              <fontSettings FontFace="Arial" FontSize="14" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Right Scribe:</content>
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="364" height="104" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1665" offsetY="2356" />
+              <fontSettings FontFace="Arial" FontSize="14" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Top Scribe:</content>
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="364" height="104.0002" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2059" offsetY="2088" />
+              <fontSettings FontFace="Arial" FontSize="14" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>108</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="364" height="104" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2059" offsetY="2222" />
+              <fontSettings FontFace="Arial" FontSize="14" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>109</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="364" height="104" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2059" offsetY="2356" />
+              <fontSettings FontFace="Arial" FontSize="14" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>110</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="757" height="104.0002" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2453" offsetY="2088" />
+              <fontSettings FontFace="Arial" FontSize="16" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>4</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="363" height="104" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2847" offsetY="2222" />
+              <fontSettings FontFace="Arial" FontSize="14" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>0</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="757" height="104" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2453" offsetY="2356" />
+              <fontSettings FontFace="Arial" FontSize="16" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>28</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="364" height="104" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2453" offsetY="2222" />
+              <fontSettings FontFace="Arial" FontSize="14" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{Subpage_Num} of {Subpage_Count}</content>
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="1575" height="178.9757" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1650" offsetY="75" />
+              <fontSettings FontFace="Arial" FontSize="18" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{Cab_Room_Name} {Cab_Assembly_No} - {Cab_Width} x {Cab_Height} x {Cab_Depth}</content>
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName />
+              <size width="1575" height="2269" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="75" offsetY="75" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>ASSEMBLY_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>0</fillColor>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="1650" y="2073" />
+                <point x="2044" y="2073" />
+                <point x="2044" y="2207" />
+                <point x="1650" y="2207" />
+                <point x="1650" y="2073" />
+              </points>
+            </polyline>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>0</fillColor>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="1650" y="2207" />
+                <point x="2044" y="2207" />
+                <point x="2044" y="2341" />
+                <point x="1650" y="2341" />
+                <point x="1650" y="2207" />
+              </points>
+            </polyline>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>0</fillColor>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="1650" y="2341" />
+                <point x="2044" y="2341" />
+                <point x="2044" y="2475" />
+                <point x="1650" y="2475" />
+                <point x="1650" y="2341" />
+              </points>
+            </polyline>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>0</fillColor>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="2438" y="2341" />
+                <point x="3225" y="2341" />
+                <point x="3225" y="2475" />
+                <point x="2438" y="2475" />
+                <point x="2438" y="2341" />
+              </points>
+            </polyline>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>0</fillColor>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="2832" y="2207" />
+                <point x="3225" y="2207" />
+                <point x="3225" y="2341" />
+                <point x="2832" y="2341" />
+                <point x="2832" y="2207" />
+              </points>
+            </polyline>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>0</fillColor>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="2438" y="2207" />
+                <point x="2832" y="2207" />
+                <point x="2832" y="2341" />
+                <point x="2438" y="2341" />
+                <point x="2438" y="2207" />
+              </points>
+            </polyline>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>0</fillColor>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="2438" y="2073" />
+                <point x="3225" y="2073" />
+                <point x="3225" y="2207" />
+                <point x="2438" y="2207" />
+                <point x="2438" y="2073" />
+              </points>
+            </polyline>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>0</fillColor>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="2044" y="2073" />
+                <point x="2438" y="2073" />
+                <point x="2438" y="2207" />
+                <point x="2044" y="2207" />
+                <point x="2044" y="2073" />
+              </points>
+            </polyline>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>0</fillColor>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="2044" y="2207" />
+                <point x="2438" y="2207" />
+                <point x="2438" y="2341" />
+                <point x="2044" y="2341" />
+                <point x="2044" y="2207" />
+              </points>
+            </polyline>
+            <polyline>
+              <isClosed>True</isClosed>
+              <fillColor>0</fillColor>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="2044" y="2341" />
+                <point x="2438" y="2341" />
+                <point x="2438" y="2475" />
+                <point x="2044" y="2475" />
+                <point x="2044" y="2341" />
+              </points>
+            </polyline>
+          </objects>
+        </assemblySheetTemplatePage>
+      </pages>
+    </assemblySheetTemplate>
+    <assemblySheetTemplate>
+      <name>Submittal Assembly Sheet</name>
+      <state>
+        <selectedPrinterName>Adobe PDF</selectedPrinterName>
+        <pageMargins>25, 25, 25, 25</pageMargins>
+        <pageOrientation>landscape</pageOrientation>
+        <isBorderEnabled>True</isBorderEnabled>
+        <borderThickness>1</borderThickness>
+        <revisionNumber>1.0</revisionNumber>
+        <titleBlockName>11x17 Vertical w Clip</titleBlockName>
+        <titleBlockAnchor>4</titleBlockAnchor>
+        <defaultPageUnitsPerFoot>150</defaultPageUnitsPerFoot>
+        <defaultPageUnitsPerFootMetric>72</defaultPageUnitsPerFootMetric>
+        <showGrid>False</showGrid>
+        <gridSizeMm>304.8</gridSizeMm>
+        <borderColor>FF000000</borderColor>
+        <printerSettings>
+          <printerSetting>
+            <printerName>Adobe PDF</printerName>
+            <paperSize width="1100" height="1700" rawKind="3" paperName="Tabloid" />
+            <paperSource sourceName="Automatically Select" rawKind="15" />
+          </printerSetting>
+        </printerSettings>
+      </state>
+      <pages>
+        <assemblySheetTemplatePage>
+          <title>Page 1</title>
+          <x>75</x>
+          <y>75</y>
+          <width>4950</width>
+          <height>3150</height>
+          <pen color="FF000000" width="1" />
+          <DrawingSettings Version="16" SourceTemplate="Printing Layer" PlanDrawMode="2" ElevationDrawMode="2" OrthoViewDrawMode="2" FaceInteriorDrawMode="0" FPGrid="609.6" ElevGrid="304.8" FPDimPadding="2" FPDimFirstRowPadding="2" FPDimLineStyle="3" FPDimPosition="0" FPDimSpacing="0" FPDimSpacingUnits="0" ElevDimPadding="2" ElevDimFirstRowPadding="2" ElevDimLineStyle="3" ElevDimPosition="0" ElevDimSpacing="0" ElevDimSpacingUnits="0" ElevDimType="0" OrthoDimPadding="2" OrthoDimFirstRowPadding="2" OrthoDimLineStyle="1" OrthoDimPosition="0" OrthoDimSpacing="0" OrthoDimSpacingUnits="0" OrthoCrossSection="1" OrthoTrimCrossSection="False" FadeToWhite="0.25">
+            <LayerHidden LayerName="Cabinet Labels Rotated" Hidden="True" />
+            <LayerHidden LayerName="Wall Labels Rotated" Hidden="True" />
+            <LayerHidden LayerName="Arch Door Swings Reversed" Hidden="True" />
+            <LayerHidden LayerName="Plan Cabinet Labels Include Names" Hidden="True" />
+            <LayerHidden LayerName="Elev Cabinet Labels Include Names" Hidden="True" />
+            <LayerHidden LayerName="Wall Labels Centered" Hidden="False" />
+            <LayerHidden LayerName="Elev Wall Labels Include Room Number" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Room Name" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Wall Length" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Wall Height" Hidden="True" />
+            <LayerHidden LayerName="Wall Angles" Hidden="True" />
+            <LayerHidden LayerName="90 Degree Corners" Hidden="True" />
+            <LayerHidden LayerName="Ceiling" Hidden="True" />
+            <LayerHidden LayerName="Shelf Labels" Hidden="True" />
+            <LayerHidden LayerName="Plan - Toe Assemblies" Hidden="True" />
+            <LayerHidden LayerName="Toe Assemblies Only" Hidden="True" />
+            <LayerHidden LayerName="Rod Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Dimension Invisible Walls" Hidden="True" />
+            <LayerHidden LayerName="Wall Fill" Hidden="True" />
+            <LayerHidden LayerName="Show for Face Frame" Hidden="True" />
+            <LayerHidden LayerName="Face Show for Face Frame" Hidden="True" />
+            <LayerHidden LayerName="Outlines" Hidden="True" />
+            <LayerHidden LayerName="Toe Skins" Hidden="True" />
+            <LayerHidden LayerName="Cabinet Label Circles" Hidden="True" />
+            <LayerHidden LayerName="Floor - Plan" Hidden="True" />
+            <LayerHidden LayerName="Elev - App Doors" Hidden="True" />
+            <LayerHidden LayerName="Applied Door Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Face Product Label" Hidden="True" />
+            <LayerHidden LayerName="Face Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="Interior Product Label" Hidden="True" />
+            <LayerHidden LayerName="Interior Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="CabView Product Label" Hidden="True" />
+            <LayerHidden LayerName="CabView Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="Room Operations" Hidden="True" />
+            <LayerHidden LayerName="Appliance Drawings" Hidden="False" />
+            <LayerHidden LayerName="Wall Fixture Drawings" Hidden="False" />
+            <LayerHidden LayerName="Non-numbered" Hidden="True" />
+            <LayerHidden LayerName="Arch Door Swings" Hidden="False" />
+            <LayerHidden LayerName="Opening Labels" Hidden="True" />
+            <LayerHidden LayerName="Special Depth Labels" Hidden="True" />
+            <LayerHidden LayerName="Frame Special Size Labels" Hidden="False" />
+            <LayerHidden LayerName="Open Section Labels" Hidden="True" />
+            <LayerHidden LayerName="Corner Cab Drawings" Hidden="False" />
+            <LayerHidden LayerName="Molding Drawings" Hidden="False" />
+            <LayerHidden LayerName="Top Drawings" Hidden="False" />
+            <LayerHidden LayerName="Plan - Depth" Hidden="True" />
+            <LayerHidden LayerName="Face Interior Sections" Hidden="True" />
+            <LayerHidden LayerName="Face Arch Door Swings" Hidden="True" />
+            <LayerHidden LayerName="Sink Center Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Non-numbered Cabinet Labels" Hidden="True" />
+            <LayerHidden LayerName="" Hidden="True" />
+            <LayerHidden LayerName="Appliance Labels" Hidden="True" />
+            <LayerHidden LayerName="Wall Fixture Labels" Hidden="True" />
+            <LayerHidden LayerName="Hardware" Hidden="False" />
+            <LayerHidden LayerName="Grid" Hidden="True" />
+            <LayerHidden LayerName="Wall Label Borders" Hidden="True" />
+            <LayerHidden LayerName="Appliances" Hidden="False" />
+            <LayerHidden LayerName="Moldings" Hidden="False" />
+            <LayerHidden LayerName="Opening Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Countertop Cutouts" Hidden="True" />
+            <LayerHidden LayerName="Plan - Wall" Hidden="True" />
+            <LayerFont LayerName="Wall Labels">
+              <FontSetting FontFace="Arial" FontSize="12" ScaleType="0" Bold="False" Italic="False" />
+            </LayerFont>
+            <LayerFont LayerName="Plan Dimensions">
+              <FontSetting FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+            </LayerFont>
+            <LayerFont LayerName="Cabinet Number Labels">
+              <FontSetting FontFace="Arial" FontSize="12" ScaleType="2" Bold="True" Italic="False" />
+            </LayerFont>
+            <LayerFont LayerName="Elev Dimensions">
+              <FontSetting FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+            </LayerFont>
+            <LayerColor LayerName="Moldings" Color="-8355712" />
+          </DrawingSettings>
+          <sections>
+            <titleBlockSection>
+              <pParent>0</pParent>
+              <pAChild>2</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>N</parentABC>
+              <split>N</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>4950</dx>
+              <dy>3150</dy>
+              <da>3150</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>1</pParent>
+              <pAChild>7</pAChild>
+              <pCChild>3</pCChild>
+              <parentABC>A</parentABC>
+              <split>H</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>4950</dx>
+              <dy>3150</dy>
+              <da>2850</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>2</pParent>
+              <pAChild>4</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>2850</y>
+              <dx>4950</dx>
+              <dy>300</dy>
+              <da>4650</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>3</pParent>
+              <pAChild>5</pAChild>
+              <pCChild>13</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>2850</y>
+              <dx>4650</dx>
+              <dy>300</dy>
+              <da>4242</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>4</pParent>
+              <pAChild>6</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>2850</y>
+              <dx>4242</dx>
+              <dy>300</dy>
+              <da>3602</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>5</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>12</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>2850</y>
+              <dx>3602</dx>
+              <dy>300</dy>
+              <da>1875</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>2</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>8</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>4950</dx>
+              <dy>2850</dy>
+              <da>3602</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>7</pParent>
+              <pAChild>11</pAChild>
+              <pCChild>9</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>3602</x>
+              <y>0</y>
+              <dx>1348</dx>
+              <dy>2850</dy>
+              <da>1438</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>8</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>10</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>3602</x>
+              <y>1438</y>
+              <dx>1348</dx>
+              <dy>1412</dy>
+              <da>112</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>9</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>14</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>3602</x>
+              <y>1550</y>
+              <dx>1348</dx>
+              <dy>1300</dy>
+              <da>450</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>8</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>A</parentABC>
+              <split>H</split>
+              <x>3602</x>
+              <y>0</y>
+              <dx>1348</dx>
+              <dy>1438</dy>
+              <da>112</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>6</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>1875</x>
+              <y>2850</y>
+              <dx>1727</dx>
+              <dy>300</dy>
+              <da>188</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>4</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>4242</x>
+              <y>2850</y>
+              <dx>408</dx>
+              <dy>300</dy>
+              <da>150</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>10</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>15</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>3602</x>
+              <y>2000</y>
+              <dx>1348</dx>
+              <dy>850</dy>
+              <da>112</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>14</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>16</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>3602</x>
+              <y>2112</y>
+              <dx>1348</dx>
+              <dy>738</dy>
+              <da>369</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>15</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>3602</x>
+              <y>2481</y>
+              <dx>1348</dx>
+              <dy>369</dy>
+              <da>112</da>
+            </titleBlockSection>
+          </sections>
+          <objects>
+            <text>
+              <size width="270" height="270" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="4735.647" offsetY="2944.08" />
+              <fontSettings FontFace="Arial" FontSize="25" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{PAGE_NUM}/{PAGE_COUNT}</content>
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="349.9206" height="115.1028" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="4360.08" offsetY="3094.897" />
+              <fontSettings FontFace="Arial" FontSize="15" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{CURRENT_DATE}</content>
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="107.9497" height="46.07574" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="4334.564" offsetY="3085.552" />
+              <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+              <fontColor>FF808080</fontColor>
+              <content>Date:</content>
+              <alignment>0</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="107.9497" height="46.07574" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="4730.647" offsetY="2930.568" />
+              <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+              <fontColor>FF808080</fontColor>
+              <content>Page:</content>
+              <alignment>0</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <group>
+              <transform m00="1.040861" m01="0" m10="0" m11="1.040861" offsetX="76.96326" offsetY="2947.222" />
+              <children>
+                <image>
+                  <fileTagFilename>MultiprintSymbolImages\Moz Wide.jpg</fileTagFilename>
+                  <fileTagFiletype>1</fileTagFiletype>
+                  <fileTagLocation>1</fileTagLocation>
+                  <size width="1100" height="251.5173" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+                </image>
+              </children>
+            </group>
+            <text>
+              <size width="727.1064" height="174.1044" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1196.395" offsetY="3044.874" />
+              <fontSettings FontFace="Arial Black" FontSize="30" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF535353</fontColor>
+              <content>Sheet</content>
+              <alignment>2</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <text>
+              <size width="726.5345" height="168.6338" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1196.942" offsetY="2927.183" />
+              <fontSettings FontFace="Arial Black" FontSize="30" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF535353</fontColor>
+              <content>Assembly</content>
+              <alignment>2</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <text>
+              <size width="594.208" height="267.368" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="3546.995" offsetY="2940.546" />
+              <fontSettings FontFace="Arial" FontSize="16" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{Cab_Width} {units}
+{Cab_Height} {units}
+{Cab_Depth} {units}</content>
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="1320" height="82" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="3690" offsetY="90" />
+              <fontSettings FontFace="Arial" FontSize="21" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Product Cutlist:</content>
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <text>
+              <size width="1320" height="82" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="3690" offsetY="1528" />
+              <fontSettings FontFace="Arial" FontSize="21" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Product Hardware:</content>
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <assemblySheetPlaceholder>
+              <linePen color="FF000000" width="1.181102" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <rowsToIncludeDoors>True</rowsToIncludeDoors>
+              <rowsToIncludeDrawerFronts>True</rowsToIncludeDrawerFronts>
+              <rowsToIncludeDrawerBoxes>True</rowsToIncludeDrawerBoxes>
+              <rowsToIncludeTrays>True</rowsToIncludeTrays>
+              <rowsToIncludeFaceFrame>True</rowsToIncludeFaceFrame>
+              <rowsToIncludePanelStock>True</rowsToIncludePanelStock>
+              <rowsToIncludeHinges>True</rowsToIncludeHinges>
+              <rowsToIncludeGuides>True</rowsToIncludeGuides>
+              <rowsToIncludePulls>True</rowsToIncludePulls>
+              <rowsToIncludeInserts>True</rowsToIncludeInserts>
+              <rowsToIncludeClosetRods>True</rowsToIncludeClosetRods>
+              <rowsToIncludeShelfPins>True</rowsToIncludeShelfPins>
+              <rowsToIncludeDrawerFrontFasteners>True</rowsToIncludeDrawerFrontFasteners>
+              <rowsToIncludeSpacers>True</rowsToIncludeSpacers>
+              <rowsToIncludeJointFasteners>True</rowsToIncludeJointFasteners>
+              <rowsToIncludeLocks>True</rowsToIncludeLocks>
+              <rowsToIncludeLegs>True</rowsToIncludeLegs>
+              <rowsToIncludeSpotLights>True</rowsToIncludeSpotLights>
+              <rowsToIncludeLinearLights>True</rowsToIncludeLinearLights>
+              <size width="1350" height="1326" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="3675" offsetY="187" />
+              <placeholderTag type="assemblySheetTablePlaceholderTag">
+                <tableType>CUTLIST_TABLE</tableType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <linePen color="FF000000" width="1.181102" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <rowsToIncludeDoors>True</rowsToIncludeDoors>
+              <rowsToIncludeDrawerFronts>True</rowsToIncludeDrawerFronts>
+              <rowsToIncludeDrawerBoxes>True</rowsToIncludeDrawerBoxes>
+              <rowsToIncludeTrays>True</rowsToIncludeTrays>
+              <rowsToIncludeFaceFrame>True</rowsToIncludeFaceFrame>
+              <rowsToIncludePanelStock>True</rowsToIncludePanelStock>
+              <rowsToIncludeHinges>True</rowsToIncludeHinges>
+              <rowsToIncludeGuides>True</rowsToIncludeGuides>
+              <rowsToIncludePulls>True</rowsToIncludePulls>
+              <rowsToIncludeInserts>True</rowsToIncludeInserts>
+              <rowsToIncludeClosetRods>True</rowsToIncludeClosetRods>
+              <rowsToIncludeShelfPins>True</rowsToIncludeShelfPins>
+              <rowsToIncludeDrawerFrontFasteners>True</rowsToIncludeDrawerFrontFasteners>
+              <rowsToIncludeSpacers>True</rowsToIncludeSpacers>
+              <rowsToIncludeJointFasteners>True</rowsToIncludeJointFasteners>
+              <rowsToIncludeLocks>True</rowsToIncludeLocks>
+              <rowsToIncludeLegs>True</rowsToIncludeLegs>
+              <rowsToIncludeSpotLights>True</rowsToIncludeSpotLights>
+              <rowsToIncludeLinearLights>True</rowsToIncludeLinearLights>
+              <size width="1350" height="450" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="3675" offsetY="1625" />
+              <placeholderTag type="assemblySheetTablePlaceholderTag">
+                <tableType>HARDWARE_TABLE</tableType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <text>
+              <size width="1320" height="82" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="3690" offsetY="2090" />
+              <fontSettings FontFace="Arial" FontSize="21" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Notes:</content>
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <text>
+              <size width="1320" height="339" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="3690" offsetY="2202" />
+              <fontSettings FontFace="Arial" FontSize="11" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{Cab_Notes}</content>
+              <alignment>0</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <polyline>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="75" y="75" />
+                <point x="75" y="2924.854" />
+              </points>
+            </polyline>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName>Wireframe</drawingTemplateName>
+              <size width="2270.561" height="1152.391" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="165.603" offsetY="88.93842" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>FRONT_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName>Wireframe</drawingTemplateName>
+              <size width="1049.186" height="1161.172" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2520.07" offsetY="85.02394" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>LEFT_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName>Wireframe</drawingTemplateName>
+              <size width="1049.241" height="1167.643" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2516.197" offsetY="1451.616" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>RIGHT_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName>Wireframe</drawingTemplateName>
+              <size width="2271.506" height="1173.4" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="166.4536" offsetY="1446.429" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>TOP_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <text>
+              <size width="378" height="120" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="4332" offsetY="2940" />
+              <fontSettings FontFace="Arial" FontSize="15" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Not To Scale</content>
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <group>
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1104.062" offsetY="1291.484" />
+              <children>
+                <group>
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="-458.5466" offsetY="-1987.863" />
+                  <children>
+                    <ellipse>
+                      <edgePen color="FF000000" width="2.362205" />
+                      <fillColor>0</fillColor>
+                      <size width="99.99219" height="99.99219" />
+                      <transform m00="1" m01="0" m10="0" m11="1" offsetX="459.8934" offsetY="1988.752" />
+                    </ellipse>
+                    <polyline>
+                      <pen color="FF000000" width="1.181102" />
+                      <points>
+                        <point x="560" y="2039" />
+                        <point x="1014.201" y="2039" />
+                      </points>
+                    </polyline>
+                  </children>
+                </group>
+                <text>
+                  <size width="79.90971" height="66.75375" />
+                  <transform m00="1.236804" m01="0" m10="0" m11="1.236804" offsetX="0" offsetY="9.151001" />
+                  <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>1</content>
+                  <alignment>1</alignment>
+                  <lineAlignment>1</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+                <text>
+                  <size width="419.3694" height="49.87996" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="135.0555" offsetY="0" />
+                  <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>Front View</content>
+                  <alignment>0</alignment>
+                  <lineAlignment>0</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+                <text>
+                  <size width="417.5454" height="42.52519" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="136.851" offsetY="52.71399" />
+                  <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>{Cab_Name}</content>
+                  <alignment>0</alignment>
+                  <lineAlignment>2</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+              </children>
+            </group>
+            <group>
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2727.138" offsetY="1291.484" />
+              <children>
+                <group>
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="-458.5466" offsetY="-1987.863" />
+                  <children>
+                    <ellipse>
+                      <edgePen color="FF000000" width="2.362205" />
+                      <fillColor>0</fillColor>
+                      <size width="99.99219" height="99.99219" />
+                      <transform m00="1" m01="0" m10="0" m11="1" offsetX="459.8934" offsetY="1988.752" />
+                    </ellipse>
+                    <polyline>
+                      <pen color="FF000000" width="1.181102" />
+                      <points>
+                        <point x="560" y="2039" />
+                        <point x="1014.201" y="2039" />
+                      </points>
+                    </polyline>
+                  </children>
+                </group>
+                <text>
+                  <size width="79.90971" height="66.75375" />
+                  <transform m00="1.236804" m01="0" m10="0" m11="1.236804" offsetX="0" offsetY="9.151001" />
+                  <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>2</content>
+                  <alignment>1</alignment>
+                  <lineAlignment>1</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+                <text>
+                  <size width="419.3694" height="49.87996" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="135.0555" offsetY="0" />
+                  <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>Left View</content>
+                  <alignment>0</alignment>
+                  <lineAlignment>0</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+                <text>
+                  <size width="417.5454" height="42.52519" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="136.851" offsetY="52.71399" />
+                  <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>{Cab_Name}</content>
+                  <alignment>0</alignment>
+                  <lineAlignment>2</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+              </children>
+            </group>
+            <text>
+              <size width="1697" height="82" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1965" offsetY="3128" />
+              <fontSettings FontFace="Arial" FontSize="15" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Job : {Job_Name}</content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <text>
+              <size width="166.9794" height="266.1258" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="4155.844" offsetY="2943.544" />
+              <fontSettings FontFace="Arial" FontSize="16" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Wide
+High
+Deep</content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <group>
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1104.062" offsetY="2664.02" />
+              <children>
+                <group>
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="-458.5466" offsetY="-1987.863" />
+                  <children>
+                    <ellipse>
+                      <edgePen color="FF000000" width="2.362205" />
+                      <fillColor>0</fillColor>
+                      <size width="99.99219" height="99.99219" />
+                      <transform m00="1" m01="0" m10="0" m11="1" offsetX="459.8934" offsetY="1988.752" />
+                    </ellipse>
+                    <polyline>
+                      <pen color="FF000000" width="1.181102" />
+                      <points>
+                        <point x="560" y="2039" />
+                        <point x="1014.201" y="2039" />
+                      </points>
+                    </polyline>
+                  </children>
+                </group>
+                <text>
+                  <size width="79.90971" height="66.75375" />
+                  <transform m00="1.236804" m01="0" m10="0" m11="1.236804" offsetX="0" offsetY="9.151001" />
+                  <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>3</content>
+                  <alignment>1</alignment>
+                  <lineAlignment>1</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+                <text>
+                  <size width="419.3694" height="49.87996" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="135.0555" offsetY="0" />
+                  <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>Top View</content>
+                  <alignment>0</alignment>
+                  <lineAlignment>0</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+                <text>
+                  <size width="417.5454" height="42.52519" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="136.851" offsetY="52.71399" />
+                  <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>{Cab_Name}</content>
+                  <alignment>0</alignment>
+                  <lineAlignment>2</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+              </children>
+            </group>
+            <text>
+              <size width="381.175" height="66.70557" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="3698.359" offsetY="2825.682" />
+              <fontSettings FontFace="Arial" FontSize="15" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Sign:</content>
+              <alignment>0</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <polyline>
+              <pen color="FF000000" width="1.181102" />
+              <points>
+                <point x="3868.186" y="2896.494" />
+                <point x="4963.797" y="2896.494" />
+              </points>
+            </polyline>
+            <text>
+              <size width="1318" height="82" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="3692" offsetY="2571" />
+              <fontSettings FontFace="Arial" FontSize="21" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Approved By:</content>
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <group>
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2748.211" offsetY="2664.02" />
+              <children>
+                <group>
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="-458.5466" offsetY="-1987.863" />
+                  <children>
+                    <ellipse>
+                      <edgePen color="FF000000" width="2.362205" />
+                      <fillColor>0</fillColor>
+                      <size width="99.99219" height="99.99219" />
+                      <transform m00="1" m01="0" m10="0" m11="1" offsetX="459.8934" offsetY="1988.752" />
+                    </ellipse>
+                    <polyline>
+                      <pen color="FF000000" width="1.181102" />
+                      <points>
+                        <point x="560" y="2039" />
+                        <point x="1014.201" y="2039" />
+                      </points>
+                    </polyline>
+                  </children>
+                </group>
+                <text>
+                  <size width="79.90971" height="66.75375" />
+                  <transform m00="1.236804" m01="0" m10="0" m11="1.236804" offsetX="0" offsetY="9.151001" />
+                  <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>4</content>
+                  <alignment>1</alignment>
+                  <lineAlignment>1</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+                <text>
+                  <size width="419.3694" height="49.87996" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="135.0555" offsetY="0" />
+                  <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>Right View</content>
+                  <alignment>0</alignment>
+                  <lineAlignment>0</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+                <text>
+                  <size width="417.5454" height="42.52519" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="136.851" offsetY="52.71399" />
+                  <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+                  <fontColor>FF000000</fontColor>
+                  <content>{Cab_Name}</content>
+                  <alignment>0</alignment>
+                  <lineAlignment>2</lineAlignment>
+                  <textRotation>0</textRotation>
+                  <showBorder>False</showBorder>
+                  <edgePenParams color="0" width="0" />
+                </text>
+              </children>
+            </group>
+            <text>
+              <size width="1697" height="158" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1965" offsetY="2940" />
+              <fontSettings FontFace="Arial" FontSize="23" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>#{Cab_Assembly_Num} {Cab_Name}</content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+          </objects>
+        </assemblySheetTemplatePage>
+      </pages>
+    </assemblySheetTemplate>
+    <assemblySheetTemplate>
+      <name>Simple Assembly Sheet</name>
+      <state>
+        <selectedPrinterName />
+        <pageMargins>25, 25, 25, 25</pageMargins>
+        <pageOrientation>landscape</pageOrientation>
+        <isBorderEnabled>True</isBorderEnabled>
+        <borderThickness>1</borderThickness>
+        <revisionNumber>1.0</revisionNumber>
+        <titleBlockName>8.5x11 Vertical</titleBlockName>
+        <titleBlockAnchor>4</titleBlockAnchor>
+        <defaultPageUnitsPerFoot>112.5</defaultPageUnitsPerFoot>
+        <defaultPageUnitsPerFootMetric>72</defaultPageUnitsPerFootMetric>
+        <showGrid>False</showGrid>
+        <gridSizeMm>304.8</gridSizeMm>
+        <borderColor>FF000000</borderColor>
+        <printerSettings>
+        </printerSettings>
+      </state>
+      <pages>
+        <assemblySheetTemplatePage>
+          <title>Page 1</title>
+          <x>75</x>
+          <y>75</y>
+          <width>3150</width>
+          <height>2400</height>
+          <pen color="FF000000" width="1" />
+          <DrawingSettings Version="16" SourceTemplate="User Default Print" PlanDrawMode="2" ElevationDrawMode="2" OrthoViewDrawMode="2" FaceInteriorDrawMode="0" FPGrid="609.6" ElevGrid="304.8" FPDimPadding="2" FPDimFirstRowPadding="2" FPDimLineStyle="3" FPDimPosition="0" FPDimSpacing="0" FPDimSpacingUnits="0" ElevDimPadding="2" ElevDimFirstRowPadding="2" ElevDimLineStyle="3" ElevDimPosition="0" ElevDimSpacing="0" ElevDimSpacingUnits="0" ElevDimType="0" OrthoDimPadding="2" OrthoDimFirstRowPadding="2" OrthoDimLineStyle="1" OrthoDimPosition="0" OrthoDimSpacing="0" OrthoDimSpacingUnits="0" OrthoCrossSection="1" OrthoTrimCrossSection="False" FadeToWhite="0.25">
+            <LayerHidden LayerName="Cabinet Labels Rotated" Hidden="True" />
+            <LayerHidden LayerName="Wall Labels Rotated" Hidden="True" />
+            <LayerHidden LayerName="Arch Door Swings Reversed" Hidden="True" />
+            <LayerHidden LayerName="Plan Cabinet Labels Include Names" Hidden="True" />
+            <LayerHidden LayerName="Elev Cabinet Labels Include Names" Hidden="True" />
+            <LayerHidden LayerName="Wall Labels Centered" Hidden="False" />
+            <LayerHidden LayerName="Elev Wall Labels Include Room Number" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Room Name" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Wall Length" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Wall Height" Hidden="True" />
+            <LayerHidden LayerName="Wall Angles" Hidden="True" />
+            <LayerHidden LayerName="90 Degree Corners" Hidden="True" />
+            <LayerHidden LayerName="Ceiling" Hidden="True" />
+            <LayerHidden LayerName="Shelf Labels" Hidden="True" />
+            <LayerHidden LayerName="Plan - Toe Assemblies" Hidden="True" />
+            <LayerHidden LayerName="Toe Assemblies Only" Hidden="True" />
+            <LayerHidden LayerName="Rod Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Dimension Invisible Walls" Hidden="True" />
+            <LayerHidden LayerName="Wall Fill" Hidden="True" />
+            <LayerHidden LayerName="Show for Face Frame" Hidden="True" />
+            <LayerHidden LayerName="Face Show for Face Frame" Hidden="True" />
+            <LayerHidden LayerName="Outlines" Hidden="True" />
+            <LayerHidden LayerName="Toe Skins" Hidden="True" />
+            <LayerHidden LayerName="Cabinet Label Circles" Hidden="True" />
+            <LayerHidden LayerName="Floor - Plan" Hidden="True" />
+            <LayerHidden LayerName="Elev - App Doors" Hidden="True" />
+            <LayerHidden LayerName="Applied Door Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Face Product Label" Hidden="True" />
+            <LayerHidden LayerName="Face Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="Interior Product Label" Hidden="True" />
+            <LayerHidden LayerName="Interior Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="CabView Product Label" Hidden="True" />
+            <LayerHidden LayerName="CabView Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="Room Operations" Hidden="True" />
+            <LayerHidden LayerName="Appliance Drawings" Hidden="False" />
+            <LayerHidden LayerName="Wall Fixture Drawings" Hidden="False" />
+            <LayerHidden LayerName="Non-numbered" Hidden="True" />
+            <LayerHidden LayerName="Arch Door Swings" Hidden="False" />
+            <LayerHidden LayerName="Opening Labels" Hidden="True" />
+            <LayerHidden LayerName="Special Depth Labels" Hidden="True" />
+            <LayerHidden LayerName="Frame Special Size Labels" Hidden="False" />
+            <LayerHidden LayerName="Open Section Labels" Hidden="False" />
+            <LayerHidden LayerName="Corner Cab Drawings" Hidden="False" />
+            <LayerHidden LayerName="Molding Drawings" Hidden="False" />
+            <LayerHidden LayerName="Top Drawings" Hidden="False" />
+            <LayerHidden LayerName="Plan - Depth" Hidden="True" />
+            <LayerHidden LayerName="Face Interior Sections" Hidden="True" />
+            <LayerHidden LayerName="Face Arch Door Swings" Hidden="True" />
+            <LayerHidden LayerName="Sink Center Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Non-numbered Cabinet Labels" Hidden="True" />
+            <LayerHidden LayerName="" Hidden="True" />
+            <LayerHidden LayerName="Appliance Labels" Hidden="True" />
+            <LayerHidden LayerName="Wall Fixture Labels" Hidden="True" />
+            <LayerHidden LayerName="Hardware" Hidden="False" />
+            <LayerHidden LayerName="Grid" Hidden="True" />
+            <LayerHidden LayerName="Wall Label Borders" Hidden="True" />
+            <LayerHidden LayerName="Appliances" Hidden="False" />
+            <LayerFont LayerName="Wall Labels">
+              <FontSetting FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+            </LayerFont>
+            <LayerFont LayerName="Elev - Wall Length">
+              <FontSetting FontFace="Arial" FontSize="11" ScaleType="2" Bold="True" Italic="False" />
+            </LayerFont>
+            <LayerFont LayerName="Elev Dimensions">
+              <FontSetting FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+            </LayerFont>
+            <LayerFont LayerName="Open Section Labels" />
+            <LayerFont LayerName="Opening Dimensions">
+              <FontSetting FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="False" />
+            </LayerFont>
+            <LayerColor LayerName="Molding Drawings" Color="-8355712" />
+            <LayerColor LayerName="Appliance Drawings" Color="-8355712" />
+            <LayerColor LayerName="Inserts" Color="-8355712" />
+            <LayerColor LayerName="Moldings" Color="-8355712" />
+          </DrawingSettings>
+          <sections>
+            <titleBlockSection>
+              <pParent>0</pParent>
+              <pAChild>2</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>N</parentABC>
+              <split>N</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>3150</dx>
+              <dy>2400</dy>
+              <da>2400</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>1</pParent>
+              <pAChild>3</pAChild>
+              <pCChild>5</pCChild>
+              <parentABC>A</parentABC>
+              <split>H</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>3150</dx>
+              <dy>2400</dy>
+              <da>188</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>2</pParent>
+              <pAChild>4</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>3150</dx>
+              <dy>188</dy>
+              <da>2738</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>3</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>10</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>2738</dx>
+              <dy>188</dy>
+              <da>2138</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>2</pParent>
+              <pAChild>8</pAChild>
+              <pCChild>6</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>0</x>
+              <y>188</y>
+              <dx>3150</dx>
+              <dy>2212</dy>
+              <da>1312</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>5</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>7</pCChild>
+              <parentABC>C</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>1500</y>
+              <dx>3150</dx>
+              <dy>900</dy>
+              <da>2100</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>6</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>2100</x>
+              <y>1500</y>
+              <dx>1050</dx>
+              <dy>900</dy>
+              <da>450</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>5</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>9</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>188</y>
+              <dx>3150</dx>
+              <dy>1312</dy>
+              <da>1050</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>8</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>V</split>
+              <x>1050</x>
+              <y>188</y>
+              <dx>2100</dx>
+              <dy>1312</dy>
+              <da>1050</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>4</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>2138</x>
+              <y>0</y>
+              <dx>600</dx>
+              <dy>188</dy>
+              <da>94</da>
+            </titleBlockSection>
+          </sections>
+          <objects>
+            <text>
+              <size width="2108" height="158" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="90" offsetY="90" />
+              <fontSettings FontFace="Arial" FontSize="14" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>4</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="570" height="64" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2228" offsetY="90" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>112</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="1220.914" height="151.8989" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="314.269" offsetY="89.04971" />
+              <fontSettings FontFace="Arial Black" FontSize="30" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Assembly Sheet</content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="382" height="158" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2828" offsetY="90" />
+              <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Width:   
+Height:  
+Depth:   </content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="382" height="158" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2828" offsetY="90" />
+              <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{Cab_Width}
+{Cab_Height}
+{Cab_Depth}</content>
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="1020" height="420" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2190" offsetY="2040" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Notes:
+{Cab_Notes}</content>
+              <alignment>0</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <assemblySheetPlaceholder>
+              <linePen color="FF000000" width="1.181102" />
+              <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <rowsToIncludeDoors>True</rowsToIncludeDoors>
+              <rowsToIncludeDrawerFronts>True</rowsToIncludeDrawerFronts>
+              <rowsToIncludeDrawerBoxes>True</rowsToIncludeDrawerBoxes>
+              <rowsToIncludeTrays>True</rowsToIncludeTrays>
+              <rowsToIncludeFaceFrame>True</rowsToIncludeFaceFrame>
+              <rowsToIncludePanelStock>True</rowsToIncludePanelStock>
+              <rowsToIncludeHinges>True</rowsToIncludeHinges>
+              <rowsToIncludeGuides>True</rowsToIncludeGuides>
+              <rowsToIncludePulls>True</rowsToIncludePulls>
+              <rowsToIncludeInserts>True</rowsToIncludeInserts>
+              <rowsToIncludeClosetRods>True</rowsToIncludeClosetRods>
+              <rowsToIncludeShelfPins>True</rowsToIncludeShelfPins>
+              <rowsToIncludeDrawerFrontFasteners>True</rowsToIncludeDrawerFrontFasteners>
+              <rowsToIncludeSpacers>True</rowsToIncludeSpacers>
+              <rowsToIncludeJointFasteners>True</rowsToIncludeJointFasteners>
+              <rowsToIncludeLocks>True</rowsToIncludeLocks>
+              <rowsToIncludeLegs>True</rowsToIncludeLegs>
+              <rowsToIncludeSpotLights>True</rowsToIncludeSpotLights>
+              <rowsToIncludeLinearLights>True</rowsToIncludeLinearLights>
+              <size width="1050" height="450" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2175" offsetY="1575" />
+              <placeholderTag type="assemblySheetTablePlaceholderTag">
+                <tableType>HARDWARE_TABLE</tableType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <linePen color="FF000000" width="1.181102" />
+              <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <rowsToIncludeDoors>True</rowsToIncludeDoors>
+              <rowsToIncludeDrawerFronts>True</rowsToIncludeDrawerFronts>
+              <rowsToIncludeDrawerBoxes>True</rowsToIncludeDrawerBoxes>
+              <rowsToIncludeTrays>True</rowsToIncludeTrays>
+              <rowsToIncludeFaceFrame>True</rowsToIncludeFaceFrame>
+              <rowsToIncludePanelStock>True</rowsToIncludePanelStock>
+              <rowsToIncludeHinges>True</rowsToIncludeHinges>
+              <rowsToIncludeGuides>True</rowsToIncludeGuides>
+              <rowsToIncludePulls>True</rowsToIncludePulls>
+              <rowsToIncludeInserts>True</rowsToIncludeInserts>
+              <rowsToIncludeClosetRods>True</rowsToIncludeClosetRods>
+              <rowsToIncludeShelfPins>True</rowsToIncludeShelfPins>
+              <rowsToIncludeDrawerFrontFasteners>True</rowsToIncludeDrawerFrontFasteners>
+              <rowsToIncludeSpacers>True</rowsToIncludeSpacers>
+              <rowsToIncludeJointFasteners>True</rowsToIncludeJointFasteners>
+              <rowsToIncludeLocks>True</rowsToIncludeLocks>
+              <rowsToIncludeLegs>True</rowsToIncludeLegs>
+              <rowsToIncludeSpotLights>True</rowsToIncludeSpotLights>
+              <rowsToIncludeLinearLights>True</rowsToIncludeLinearLights>
+              <size width="2100" height="900" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="75" offsetY="1575" />
+              <placeholderTag type="assemblySheetTablePlaceholderTag">
+                <tableType>CUTLIST_TABLE</tableType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName>Wireframe</drawingTemplateName>
+              <size width="1050" height="1312" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2175" offsetY="263" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>RIGHT_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName>Wireframe</drawingTemplateName>
+              <size width="1050" height="1312" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1125" offsetY="263" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>TOP_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName>Wireframe</drawingTemplateName>
+              <size width="1050" height="1312" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="75" offsetY="263" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>FRONT_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <text>
+              <size width="570" height="64" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2228" offsetY="184" />
+              <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Cabinet # {Cab_Assembly_Num}</content>
+              <alignment>0</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <group>
+              <transform m00="0.2065943" m01="0" m10="0" m11="0.2065943" offsetX="82.65729" offsetY="82.05405" />
+              <children>
+                <image>
+                  <fileTagFilename>MultiprintSymbolImages\Moz Blocks.jpg</fileTagFilename>
+                  <fileTagFiletype>1</fileTagFiletype>
+                  <fileTagLocation>1</fileTagLocation>
+                  <size width="1100" height="847" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+                </image>
+              </children>
+            </group>
+          </objects>
+        </assemblySheetTemplatePage>
+      </pages>
+    </assemblySheetTemplate>
+    <assemblySheetTemplate>
+      <name>Cabinet Sections</name>
+      <state>
+        <selectedPrinterName />
+        <pageMargins>25, 25, 25, 38</pageMargins>
+        <pageOrientation>landscape</pageOrientation>
+        <isBorderEnabled>True</isBorderEnabled>
+        <borderThickness>1</borderThickness>
+        <revisionNumber>1.0</revisionNumber>
+        <titleBlockName>8.5x11 Vertical</titleBlockName>
+        <titleBlockAnchor>4</titleBlockAnchor>
+        <defaultPageUnitsPerFoot>112.5</defaultPageUnitsPerFoot>
+        <defaultPageUnitsPerFootMetric>72</defaultPageUnitsPerFootMetric>
+        <showGrid>False</showGrid>
+        <gridSizeMm>304.8</gridSizeMm>
+        <borderColor>FF000000</borderColor>
+        <printerSettings>
+        </printerSettings>
+      </state>
+      <pages>
+        <assemblySheetTemplatePage>
+          <title>Page 1</title>
+          <x>75</x>
+          <y>75</y>
+          <width>3150</width>
+          <height>2361</height>
+          <pen color="FF000000" width="1" />
+          <DrawingSettings Version="16" SourceTemplate="User Default Print" PlanDrawMode="2" ElevationDrawMode="2" OrthoViewDrawMode="2" FaceInteriorDrawMode="0" FPGrid="609.6" ElevGrid="304.8" FPDimPadding="2" FPDimFirstRowPadding="2" FPDimLineStyle="1" FPDimPosition="0" FPDimSpacing="0" FPDimSpacingUnits="0" ElevDimPadding="2" ElevDimFirstRowPadding="2" ElevDimLineStyle="1" ElevDimPosition="0" ElevDimSpacing="0" ElevDimSpacingUnits="0" ElevDimType="0" OrthoDimPadding="2" OrthoDimFirstRowPadding="2" OrthoDimLineStyle="1" OrthoDimPosition="0" OrthoDimSpacing="0" OrthoDimSpacingUnits="0" OrthoCrossSection="1" OrthoTrimCrossSection="False" FadeToWhite="0.25">
+            <LayerHidden LayerName="Cabinet Labels Rotated" Hidden="True" />
+            <LayerHidden LayerName="Wall Labels Rotated" Hidden="True" />
+            <LayerHidden LayerName="Arch Door Swings Reversed" Hidden="True" />
+            <LayerHidden LayerName="Plan Cabinet Labels Include Names" Hidden="True" />
+            <LayerHidden LayerName="Elev Cabinet Labels Include Names" Hidden="True" />
+            <LayerHidden LayerName="Wall Labels Centered" Hidden="False" />
+            <LayerHidden LayerName="Elev Wall Labels Include Room Number" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Room Name" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Wall Length" Hidden="True" />
+            <LayerHidden LayerName="Elev Wall Labels Include Wall Height" Hidden="True" />
+            <LayerHidden LayerName="Wall Angles" Hidden="True" />
+            <LayerHidden LayerName="90 Degree Corners" Hidden="True" />
+            <LayerHidden LayerName="Ceiling" Hidden="True" />
+            <LayerHidden LayerName="Shelf Labels" Hidden="True" />
+            <LayerHidden LayerName="Plan - Toe Assemblies" Hidden="True" />
+            <LayerHidden LayerName="Toe Assemblies Only" Hidden="True" />
+            <LayerHidden LayerName="Rod Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Dimension Invisible Walls" Hidden="True" />
+            <LayerHidden LayerName="Wall Fill" Hidden="True" />
+            <LayerHidden LayerName="Show for Face Frame" Hidden="True" />
+            <LayerHidden LayerName="Face Show for Face Frame" Hidden="True" />
+            <LayerHidden LayerName="Outlines" Hidden="True" />
+            <LayerHidden LayerName="Toe Skins" Hidden="True" />
+            <LayerHidden LayerName="Cabinet Label Circles" Hidden="True" />
+            <LayerHidden LayerName="Floor - Plan" Hidden="True" />
+            <LayerHidden LayerName="Elev - App Doors" Hidden="True" />
+            <LayerHidden LayerName="Applied Door Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Face Product Label" Hidden="True" />
+            <LayerHidden LayerName="Face Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="Interior Product Label" Hidden="True" />
+            <LayerHidden LayerName="Interior Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="CabView Product Label" Hidden="True" />
+            <LayerHidden LayerName="CabView Product Label Product Name" Hidden="True" />
+            <LayerHidden LayerName="Room Operations" Hidden="True" />
+            <LayerHidden LayerName="Appliance Drawings" Hidden="False" />
+            <LayerHidden LayerName="Wall Fixture Drawings" Hidden="False" />
+            <LayerHidden LayerName="Non-numbered" Hidden="True" />
+            <LayerHidden LayerName="Arch Door Swings" Hidden="False" />
+            <LayerHidden LayerName="Opening Labels" Hidden="True" />
+            <LayerHidden LayerName="Special Depth Labels" Hidden="True" />
+            <LayerHidden LayerName="Frame Special Size Labels" Hidden="False" />
+            <LayerHidden LayerName="Open Section Labels" Hidden="False" />
+            <LayerHidden LayerName="Corner Cab Drawings" Hidden="False" />
+            <LayerHidden LayerName="Molding Drawings" Hidden="False" />
+            <LayerHidden LayerName="Top Drawings" Hidden="False" />
+            <LayerHidden LayerName="Plan - Depth" Hidden="True" />
+            <LayerHidden LayerName="Face Interior Sections" Hidden="True" />
+            <LayerHidden LayerName="Face Arch Door Swings" Hidden="True" />
+            <LayerHidden LayerName="Sink Center Dimensions" Hidden="True" />
+            <LayerHidden LayerName="Non-numbered Cabinet Labels" Hidden="True" />
+            <LayerHidden LayerName="" Hidden="True" />
+            <LayerHidden LayerName="Appliance Labels" Hidden="True" />
+            <LayerHidden LayerName="Wall Fixture Labels" Hidden="True" />
+            <LayerHidden LayerName="Hardware" Hidden="False" />
+            <LayerHidden LayerName="Grid" Hidden="True" />
+            <LayerHidden LayerName="Wall Label Borders" Hidden="True" />
+            <LayerHidden LayerName="Appliances" Hidden="False" />
+            <LayerHidden LayerName="Moldings" Hidden="False" />
+            <LayerHidden LayerName="User Dimensions" Hidden="False" />
+            <LayerFont LayerName="Wall Labels">
+              <FontSetting FontFace="Arial" FontSize="12" ScaleType="0" Bold="False" Italic="False" />
+            </LayerFont>
+            <LayerFont LayerName="Plan Dimensions">
+              <FontSetting FontFace="Arial" FontSize="8" ScaleType="2" Bold="False" Italic="False" />
+            </LayerFont>
+            <LayerColor LayerName="Moldings" Color="-8355712" />
+            <LayerColor LayerName="Wall Label Borders" Color="Nothing" />
+            <LayerColor LayerName="Product Space Borders" Color="-1776412" />
+            <LayerColor LayerName="Grid" Color="-986896" />
+          </DrawingSettings>
+          <sections>
+            <titleBlockSection>
+              <pParent>0</pParent>
+              <pAChild>2</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>N</parentABC>
+              <split>N</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>3150</dx>
+              <dy>2361</dy>
+              <da>2361</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>1</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>3</pCChild>
+              <parentABC>A</parentABC>
+              <split>H</split>
+              <x>0</x>
+              <y>0</y>
+              <dx>3150</dx>
+              <dy>2361</dy>
+              <da>188</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>2</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>4</pCChild>
+              <parentABC>C</parentABC>
+              <split>V</split>
+              <x>0</x>
+              <y>188</y>
+              <dx>3150</dx>
+              <dy>2173</dy>
+              <da>2100</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>3</pParent>
+              <pAChild>5</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>2100</x>
+              <y>188</y>
+              <dx>1050</dx>
+              <dy>2173</dy>
+              <da>1762</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>4</pParent>
+              <pAChild>6</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>A</parentABC>
+              <split>H</split>
+              <x>2100</x>
+              <y>188</y>
+              <dx>1050</dx>
+              <dy>1762</dy>
+              <da>1312</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>5</pParent>
+              <pAChild>7</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>A</parentABC>
+              <split>H</split>
+              <x>2100</x>
+              <y>188</y>
+              <dx>1050</dx>
+              <dy>1312</dy>
+              <da>225</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>6</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>8</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>2100</x>
+              <y>188</y>
+              <dx>1050</dx>
+              <dy>225</dy>
+              <da>600</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>7</pParent>
+              <pAChild>10</pAChild>
+              <pCChild>9</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>2700</x>
+              <y>188</y>
+              <dx>450</dx>
+              <dy>225</dy>
+              <da>75</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>8</pParent>
+              <pAChild>11</pAChild>
+              <pCChild>12</pCChild>
+              <parentABC>C</parentABC>
+              <split>H</split>
+              <x>2700</x>
+              <y>263</y>
+              <dx>450</dx>
+              <dy>150</dy>
+              <da>75</da>
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>8</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>2700</x>
+              <y>188</y>
+              <dx>450</dx>
+              <dy>75</dy>
+              <da>150</da>
+              <pen color="0" width="1" />
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>9</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>A</parentABC>
+              <split>V</split>
+              <x>2700</x>
+              <y>263</y>
+              <dx>450</dx>
+              <dy>75</dy>
+              <da>150</da>
+              <pen color="0" width="1" />
+            </titleBlockSection>
+            <titleBlockSection>
+              <pParent>9</pParent>
+              <pAChild>0</pAChild>
+              <pCChild>0</pCChild>
+              <parentABC>C</parentABC>
+              <split>V</split>
+              <x>2700</x>
+              <y>338</y>
+              <dx>450</dx>
+              <dy>75</dy>
+              <da>150</da>
+              <pen color="0" width="1" />
+            </titleBlockSection>
+          </sections>
+          <objects>
+            <group>
+              <transform m00="-2.009314" m01="-3.007589E-07" m10="3.007589E-07" m11="-2.009314" offsetX="785.8555" offsetY="2412.729" />
+              <children>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="70.30202" y="20.54105" />
+                    <point x="70.30202" y="-0.1678696" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="-0.4040466" y="70.53815" />
+                    <point x="70.30202" y="141.2433" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="70.30202" y="-0.1678696" />
+                    <point x="-0.4040466" y="70.53815" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="70.30202" y="141.2433" />
+                    <point x="70.30174" y="120.5341" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="116.4912" y="89.66946" />
+                    <point x="120.2969" y="70.53738" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="105.6544" y="105.8901" />
+                    <point x="116.4912" y="89.66946" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="89.43372" y="116.7282" />
+                    <point x="105.6544" y="105.8901" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="70.30161" y="120.5339" />
+                    <point x="89.43372" y="116.7282" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="51.16829" y="116.7282" />
+                    <point x="70.30161" y="120.5339" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="34.94882" y="105.8901" />
+                    <point x="51.16829" y="116.7282" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="24.11063" y="89.66946" />
+                    <point x="34.94882" y="105.8901" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="20.30496" y="70.53738" />
+                    <point x="24.11063" y="89.66946" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="24.11063" y="51.40403" />
+                    <point x="20.30496" y="70.53738" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="34.94882" y="35.18463" />
+                    <point x="24.11063" y="51.40403" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="51.16829" y="24.34636" />
+                    <point x="34.94882" y="35.18463" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="70.30161" y="20.54073" />
+                    <point x="51.16829" y="24.34636" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="89.43372" y="24.34636" />
+                    <point x="70.30161" y="20.54073" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="105.6544" y="35.18463" />
+                    <point x="89.43372" y="24.34636" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="116.4912" y="51.40403" />
+                    <point x="105.6544" y="35.18463" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <pen color="FF000000" width="2.952755" />
+                  <points>
+                    <point x="120.2969" y="70.53738" />
+                    <point x="116.4912" y="51.40403" />
+                  </points>
+                </polyline>
+                <polyline>
+                  <isClosed>True</isClosed>
+                  <fillColor>7F000000</fillColor>
+                  <pen color="FF000000" width="1.181102" />
+                  <points>
+                    <point x="70.30205" y="141.2436" />
+                    <point x="70.30165" y="120.5341" />
+                    <point x="51.16831" y="116.7285" />
+                    <point x="34.94883" y="105.8903" />
+                    <point x="24.11065" y="89.66966" />
+                    <point x="20.30498" y="70.53757" />
+                    <point x="24.11065" y="51.40425" />
+                    <point x="34.94884" y="35.18486" />
+                    <point x="51.16833" y="24.34654" />
+                    <point x="70.30164" y="20.5409" />
+                    <point x="70.30202" y="-0.1677198" />
+                    <point x="-0.4040295" y="70.5383" />
+                    <point x="70.30205" y="141.2436" />
+                    <point x="70.30165" y="120.5341" />
+                  </points>
+                </polyline>
+              </children>
+            </group>
+            <text>
+              <size width="3125.994" height="125.5362" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="90" offsetY="122.4637" />
+              <fontSettings FontFace="Arial" FontSize="16" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>4</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="1220.914" height="151.8989" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="314.269" offsetY="89.04971" />
+              <fontSettings FontFace="Arial Black" FontSize="30" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Cabinet Section</content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="120" height="45" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2790" offsetY="278" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="True" />
+              <fontColor>FF000000</fontColor>
+              <content>Width:</content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="270" height="45.00003" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2940" offsetY="278" />
+              <fontSettings FontFace="Arial" FontSize="11" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{Cab_Width}</content>
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="1020" height="420" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2190" offsetY="2040" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Notes:
+{Cab_Notes}</content>
+              <alignment>0</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <assemblySheetPlaceholder>
+              <linePen color="FF000000" width="1.181102" />
+              <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <rowsToIncludeDoors>True</rowsToIncludeDoors>
+              <rowsToIncludeDrawerFronts>True</rowsToIncludeDrawerFronts>
+              <rowsToIncludeDrawerBoxes>True</rowsToIncludeDrawerBoxes>
+              <rowsToIncludeTrays>True</rowsToIncludeTrays>
+              <rowsToIncludeFaceFrame>True</rowsToIncludeFaceFrame>
+              <rowsToIncludePanelStock>True</rowsToIncludePanelStock>
+              <rowsToIncludeHinges>True</rowsToIncludeHinges>
+              <rowsToIncludeGuides>True</rowsToIncludeGuides>
+              <rowsToIncludePulls>True</rowsToIncludePulls>
+              <rowsToIncludeInserts>True</rowsToIncludeInserts>
+              <rowsToIncludeClosetRods>True</rowsToIncludeClosetRods>
+              <rowsToIncludeShelfPins>True</rowsToIncludeShelfPins>
+              <rowsToIncludeDrawerFrontFasteners>True</rowsToIncludeDrawerFrontFasteners>
+              <rowsToIncludeSpacers>True</rowsToIncludeSpacers>
+              <rowsToIncludeJointFasteners>True</rowsToIncludeJointFasteners>
+              <rowsToIncludeLocks>True</rowsToIncludeLocks>
+              <rowsToIncludeLegs>True</rowsToIncludeLegs>
+              <rowsToIncludeSpotLights>True</rowsToIncludeSpotLights>
+              <rowsToIncludeLinearLights>True</rowsToIncludeLinearLights>
+              <size width="1050" height="450" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2175" offsetY="1575" />
+              <placeholderTag type="assemblySheetTablePlaceholderTag">
+                <tableType>HARDWARE_TABLE</tableType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <assemblySheetPlaceholder>
+              <linePen color="FF000000" width="1.181102" />
+              <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <rowsToIncludeDoors>True</rowsToIncludeDoors>
+              <rowsToIncludeDrawerFronts>True</rowsToIncludeDrawerFronts>
+              <rowsToIncludeDrawerBoxes>True</rowsToIncludeDrawerBoxes>
+              <rowsToIncludeTrays>True</rowsToIncludeTrays>
+              <rowsToIncludeFaceFrame>True</rowsToIncludeFaceFrame>
+              <rowsToIncludePanelStock>True</rowsToIncludePanelStock>
+              <rowsToIncludeHinges>True</rowsToIncludeHinges>
+              <rowsToIncludeGuides>True</rowsToIncludeGuides>
+              <rowsToIncludePulls>True</rowsToIncludePulls>
+              <rowsToIncludeInserts>True</rowsToIncludeInserts>
+              <rowsToIncludeClosetRods>True</rowsToIncludeClosetRods>
+              <rowsToIncludeShelfPins>True</rowsToIncludeShelfPins>
+              <rowsToIncludeDrawerFrontFasteners>True</rowsToIncludeDrawerFrontFasteners>
+              <rowsToIncludeSpacers>True</rowsToIncludeSpacers>
+              <rowsToIncludeJointFasteners>True</rowsToIncludeJointFasteners>
+              <rowsToIncludeLocks>True</rowsToIncludeLocks>
+              <rowsToIncludeLegs>True</rowsToIncludeLegs>
+              <rowsToIncludeSpotLights>True</rowsToIncludeSpotLights>
+              <rowsToIncludeLinearLights>True</rowsToIncludeLinearLights>
+              <size width="1050" height="1087" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2175" offsetY="488" />
+              <placeholderTag type="assemblySheetTablePlaceholderTag">
+                <tableType>CUTLIST_TABLE</tableType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <text>
+              <size width="203.8493" height="91.99046" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="545.5873" offsetY="2226.586" />
+              <fontSettings FontFace="Arial" FontSize="15" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{Cab_Assembly_Num}</content>
+              <alignment>1</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <group>
+              <transform m00="0.2065943" m01="0" m10="0" m11="0.2065943" offsetX="82.65729" offsetY="82.05405" />
+              <children>
+                <image>
+                  <fileTagFilename>MultiprintSymbolImages\Moz Blocks.jpg</fileTagFilename>
+                  <fileTagFiletype>1</fileTagFiletype>
+                  <fileTagLocation>1</fileTagLocation>
+                  <size width="1100" height="847" />
+                  <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+                </image>
+              </children>
+            </group>
+            <assemblySheetPlaceholder>
+              <drawingTemplateName>Wireframe</drawingTemplateName>
+              <size width="1757.222" height="1781.486" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="260.6068" offsetY="307.2204" />
+              <placeholderTag type="assemblySheetSchematicPlaceholderTag">
+                <schematicType>LEFT_VIEW</schematicType>
+              </placeholderTag>
+            </assemblySheetPlaceholder>
+            <text>
+              <size width="1169.476" height="127.1357" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="821.9139" offsetY="2217.365" />
+              <fontSettings FontFace="Arial" FontSize="20" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{Cab_Name} Section</content>
+              <alignment>0</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+            <text>
+              <size width="137.5684" height="67.30407" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2183.836" offsetY="275.2773" />
+              <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="True" />
+              <fontColor>FF000000</fontColor>
+              <content>Room:</content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="574.9163" height="142.1496" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2190" offsetY="330.8504" />
+              <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="True" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content />
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <variableTagType>106</variableTagType>
+              <variableTagCode />
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="270" height="45" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2940" offsetY="353" />
+              <fontSettings FontFace="Arial" FontSize="11" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{Cab_Height}</content>
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="270" height="45" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2940" offsetY="428" />
+              <fontSettings FontFace="Arial" FontSize="11" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>{Cab_Depth}</content>
+              <alignment>2</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="120" height="45" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2790" offsetY="353" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="True" />
+              <fontColor>FF000000</fontColor>
+              <content>Height:</content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="120" height="45" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2790" offsetY="428" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="True" />
+              <fontColor>FF000000</fontColor>
+              <content>Depth:   </content>
+              <alignment>0</alignment>
+              <lineAlignment>1</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="218.7999" height="52.70965" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="2999.149" offsetY="81.69" />
+              <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="True" />
+              <fontColor>FF000000</fontColor>
+              <content>Job Name:</content>
+              <alignment>2</alignment>
+              <lineAlignment>0</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="0" width="0" />
+            </text>
+            <text>
+              <size width="1237.46" height="59.87164" />
+              <transform m00="1" m01="0" m10="0" m11="1" offsetX="1989.505" offsetY="2407.275" />
+              <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="False" />
+              <fontColor>FF000000</fontColor>
+              <content>Page: {Page_Num}/{Page_Count} | Subpage {Subpage_Num}/{Subpage_Count} | Printed: {Current_Date}</content>
+              <alignment>2</alignment>
+              <lineAlignment>2</lineAlignment>
+              <textRotation>0</textRotation>
+              <showBorder>False</showBorder>
+              <edgePenParams color="FF000000" width="1.181102" />
+            </text>
+          </objects>
+        </assemblySheetTemplatePage>
+      </pages>
+    </assemblySheetTemplate>
+  </assemblySheetTemplates>
+</assemblySheetTemplateLibrary>

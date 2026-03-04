@@ -1,0 +1,28 @@
+Mozaik Hinge Export
+9
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Hinge Name="Pocket Door - 40MM" CostEach="0" MarkupPercentage="0" AddOnCost="0" Image="Blum Clip top Blumotion.jpg" DBE="18" DDE="85.6" Sep="32.004" Dia="5.0038" Depth="12.7" Comment="Blum Clip Top Hinges" Hinge3="1066.8" CupDia="35" CupDep="13" CupSetBk="3" ScrewDia="8" ScrewDep="13" ScrewSep="45" CupScrewSep="9.5" Horizontal="False" IsAdvanced="True">
+  <CustomHingeConfiguration Use="True" Name="Pocket Door" Description="71B35xx" Type="0" Cost="0" UsesArray="False" SetbackFromTop="70" SetbackFromBottom="70" MaxSeparation="0">
+    <FixedLoc DistanceIn="70" DistanceIn_Eq="" Reference="0" DoorsGreaterThan="0" DoorsGreaterThan_Eq="" />
+    <FixedLoc DistanceIn="294" DistanceIn_Eq="" Reference="0" DoorsGreaterThan="0" DoorsGreaterThan_Eq="" />
+    <DoorOps Version="2">
+      <OperationHole Diameter="40" Diameter_Eq="" ID="2" X="-33" Y="0" Depth="13" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+        <OpIdTag LegacyNumber="50001" />
+      </OperationHole>
+      <OperationHole Diameter="8" Diameter_Eq="" ID="3" X="-30" Y="22.5" Depth="13" Hide="True" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+        <OpIdTag LegacyNumber="50002" />
+      </OperationHole>
+      <OperationHole Diameter="8" Diameter_Eq="" ID="4" X="-30" Y="-22.5" Depth="13" Hide="True" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+        <OpIdTag LegacyNumber="50003" />
+      </OperationHole>
+    </DoorOps>
+    <PanelOps Version="2">
+      <OperationHole Diameter="5" Diameter_Eq="" ID="2" X="37" Y="16" Depth="12.7" Hide="True" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+        <OpIdTag LegacyNumber="50001" />
+      </OperationHole>
+      <OperationHole Diameter="5" Diameter_Eq="" ID="4" X="37" Y="-16" Depth="12.7" Hide="True" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+        <OpIdTag LegacyNumber="50003" />
+      </OperationHole>
+    </PanelOps>
+  </CustomHingeConfiguration>
+</Hinge>

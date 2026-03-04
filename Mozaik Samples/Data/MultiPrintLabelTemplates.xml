@@ -1,0 +1,3045 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<labelTemplateLibrary>
+  <version>1</version>
+  <labelTemplates>
+    <labelTemplate>
+      <name>Nested - Avery 2.625x1 (w Part and Sheet  Drawing)</name>
+      <type>NESTED_PART</type>
+      <sizeInches width="2.625" height="1" />
+      <margins>0, 0, 0, 0</margins>
+      <isLandscape>False</isLandscape>
+      <x>0</x>
+      <y>0</y>
+      <width>787.5</width>
+      <height>300</height>
+      <pen color="0" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>788</dx>
+          <dy>300</dy>
+          <da>300</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>3</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>788</dx>
+          <dy>300</dy>
+          <da>56</da>
+          <pen color="FF000000" width="3.543307" />
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>4</pAChild>
+          <pCChild>5</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>56</y>
+          <dx>788</dx>
+          <dy>244</dy>
+          <da>507</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>7</pAChild>
+          <pCChild>6</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>56</y>
+          <dx>507</dx>
+          <dy>244</dy>
+          <da>239</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>507</x>
+          <y>56</y>
+          <dx>281</dx>
+          <dy>244</dy>
+          <da>38</da>
+          <pen color="0" width="1" />
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>4</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>239</x>
+          <y>56</y>
+          <dx>268</dx>
+          <dy>244</dy>
+          <da>38</da>
+          <pen color="0" width="1" />
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>4</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>56</y>
+          <dx>239</dx>
+          <dy>244</dy>
+          <da>138</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <labelPlaceholder>
+            <size width="262.8076" height="201.4519" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="244.1924" offsetY="98.54811" />
+            <labelPlaceholderTag>
+              <type>PartDrawing</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName />
+          </labelPlaceholder>
+          <labelPlaceholder>
+            <size width="269.0395" height="158.5282" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="514.4731" offsetY="96.70805" />
+            <labelPlaceholderTag>
+              <type>SheetDrawing</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName />
+          </labelPlaceholder>
+          <text>
+            <size width="275.3286" height="31.80323" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="509.3751" offsetY="58.98005" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Sheet: {Sheet_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="702.9178" height="46.72289" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="80.13135" offsetY="3.625531" />
+            <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name} - {Cab_Room_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="218.3456" height="32.5789" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="2.506147" offsetY="58.63485" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Cabinet #:</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="232.9082" height="94.14051" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="2.597973" offsetY="88.13863" />
+            <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="272.7911" height="43.72052" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="510.7726" offsetY="253.5437" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <variableTagType>207</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+          <text>
+            <size width="231.064" height="53.58374" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="4.978831" offsetY="202.1429" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="272.0929" height="28.52127" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="229.5493" offsetY="61.67974" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Size}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <group>
+            <transform m00="0.05762314" m01="0" m10="0" m11="0.05762314" offsetX="4.563759" offsetY="2.439056" />
+            <children>
+              <image>
+                <fileTagFilename>MultiprintSymbolImages\Moz Blocks.jpg</fileTagFilename>
+                <fileTagFiletype>1</fileTagFiletype>
+                <fileTagLocation>1</fileTagLocation>
+                <size width="1100" height="847" />
+                <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+              </image>
+            </children>
+          </group>
+          <text>
+            <size width="339.8128" height="42.94527" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="-40.25191" offsetY="254.6677" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <variableTagType>214</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Cabinet (2.625 x 1)</name>
+      <type>PRODUCT</type>
+      <sizeInches width="2.625" height="1" />
+      <margins>0, 0, 0, 0</margins>
+      <isLandscape>False</isLandscape>
+      <x>0</x>
+      <y>0</y>
+      <width>787.5</width>
+      <height>300</height>
+      <pen color="0" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>788</dx>
+          <dy>300</dy>
+          <da>300</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>3</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>788</dx>
+          <dy>300</dy>
+          <da>450</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>4</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>450</dx>
+          <dy>300</dy>
+          <da>94</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>94</y>
+          <dx>450</dx>
+          <dy>206</dy>
+          <da>94</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <text>
+            <size width="327.0508" height="84.73354" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="115.8213" offsetY="98.58784" />
+            <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}
+{Cab_Room_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="106.2888" height="97.26229" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="3.796711" offsetY="199.6057" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Width:
+Height:
+Depth:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="173.3259" height="98.16167" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="120.3376" offsetY="198.185" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Width}
+{Cab_Height}
+{Cab_Depth}</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <labelPlaceholder>
+            <size width="330.2765" height="290.4788" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="454.3139" offsetY="5.651479" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels</drawingTemplateName>
+          </labelPlaceholder>
+          <text>
+            <size width="421.0959" height="85.55773" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="5.50971" offsetY="4.738163" />
+            <fontSettings FontFace="Arial" FontSize="11" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Name} #{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="73.61767" height="38.84328" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="4.906544" offsetY="107.3506" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Job:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="88.41275" height="41.03514" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="4.853142" offsetY="147.4681" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Room:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Cabinet (4 x 3 1/3)</name>
+      <type>PRODUCT</type>
+      <sizeInches width="4" height="3.333" />
+      <margins>0, 0, 0, 0</margins>
+      <isLandscape>False</isLandscape>
+      <x>0</x>
+      <y>0</y>
+      <width>1200</width>
+      <height>999.9</height>
+      <pen color="FF000000" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1200</dx>
+          <dy>1000</dy>
+          <da>1000</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>3</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1200</dx>
+          <dy>1000</dy>
+          <da>150</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>4</pAChild>
+          <pCChild>8</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>150</y>
+          <dx>1200</dx>
+          <dy>850</dy>
+          <da>630</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>5</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>150</y>
+          <dx>630</dx>
+          <dy>850</dy>
+          <da>719</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>4</pParent>
+          <pAChild>6</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>150</y>
+          <dx>630</dx>
+          <dy>719</dy>
+          <da>382</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>5</pParent>
+          <pAChild>7</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>150</y>
+          <dx>630</dx>
+          <dy>382</dy>
+          <da>131</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>6</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>150</y>
+          <dx>630</dx>
+          <dy>131</dy>
+          <da>66</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>630</x>
+          <y>150</y>
+          <dx>570</dx>
+          <dy>850</dy>
+          <da>382</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <labelPlaceholder>
+            <size width="559.5219" height="343.7483" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="635.5581" offsetY="183.7113" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>FRONT_VIEW</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels Wireframe</drawingTemplateName>
+          </labelPlaceholder>
+          <text>
+            <size width="1025.311" height="85.67554" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="163.4064" offsetY="8.494255" />
+            <fontSettings FontFace="Arial" FontSize="14" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Name} #{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="521.0988" height="54.39123" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="106.5531" offsetY="154.1564" />
+            <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="73.61767" height="38.84328" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="8.810944" offsetY="169.4692" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Job:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="88.41275" height="41.03514" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="9.09137" offsetY="226.8477" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Room:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <labelPlaceholder>
+            <size width="610.1702" height="294.7136" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="13.48199" offsetY="566.1797" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels</drawingTemplateName>
+          </labelPlaceholder>
+          <text>
+            <size width="201.0439" height="42.41267" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="15.51965" offsetY="876.6432" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Assembled By:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="31.45807" height="28.32642" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="10.81384" offsetY="954.4941" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>X</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <polyline>
+            <pen color="FF000000" width="1.181102" />
+            <points>
+              <point x="40.62939" y="980.2379" />
+              <point x="420.1527" y="980.2379" />
+            </points>
+          </polyline>
+          <polyline>
+            <pen color="FF000000" width="1.181102" />
+            <points>
+              <point x="448.6282" y="980.2379" />
+              <point x="586.7343" y="980.2379" />
+            </points>
+          </polyline>
+          <text>
+            <size width="201.0439" height="42.41267" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="388.1229" offsetY="877.2629" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Date:</content>
+            <alignment>2</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="617.9902" height="237.785" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="5.759618" offsetY="288.7197" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Special Instructions:
+{Cab_Notes}</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="583.1894" height="37.60299" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="605.2337" offsetY="954.606" />
+            <fontSettings FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Label: {Label_Num}/{Label_Count}  Printed: {Current_Date}</content>
+            <alignment>2</alignment>
+            <lineAlignment>2</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="519.1188" height="58.6167" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="106.4327" offsetY="219.47" />
+            <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Room_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <labelPlaceholder>
+            <size width="559.2486" height="405.7703" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="634.9354" offsetY="564.8578" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>LEFT_VIEW</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels Wireframe</drawingTemplateName>
+          </labelPlaceholder>
+          <text>
+            <size width="562.639" height="35.86052" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="634.857" offsetY="151.9049" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Front View:</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="558.3304" height="39.92709" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="635.2212" offsetY="536.1525" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Side View:</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="1026.101" height="43.56742" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="163.7645" offsetY="99.30222" />
+            <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="True" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Width} wide  x  {Cab_Height} high  x  {Cab_Height} deep</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="620.8396" height="42.76841" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="5.499207" offsetY="537.9538" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Room Plan:</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <group>
+            <transform m00="0.1484459" m01="0" m10="0" m11="0.1484459" offsetX="8.257019" offsetY="15.14026" />
+            <children>
+              <image>
+                <fileTagFilename>MultiprintSymbolImages\Moz Blocks.jpg</fileTagFilename>
+                <fileTagFiletype>1</fileTagFiletype>
+                <fileTagLocation>1</fileTagLocation>
+                <size width="1100" height="847" />
+                <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+              </image>
+            </children>
+          </group>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Nested (Dymo 2.5 x 0.75)</name>
+      <type>NESTED_PART</type>
+      <sizeInches width="2.5" height="0.75" />
+      <margins>20, 20, 7, 7</margins>
+      <isLandscape>True</isLandscape>
+      <x>60</x>
+      <y>21</y>
+      <width>630</width>
+      <height>183</height>
+      <pen color="0" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>630</dx>
+          <dy>183</dy>
+          <da>183</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>3</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>630</dx>
+          <dy>183</dy>
+          <da>45</da>
+          <pen color="7F000000" width="1" />
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>4</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>45</y>
+          <dx>630</dx>
+          <dy>138</dy>
+          <da>150</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>150</x>
+          <y>45</y>
+          <dx>480</dx>
+          <dy>138</dy>
+          <da>56</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <text>
+            <size width="625.3268" height="40.47712" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="62.60658" offsetY="22.91629" />
+            <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name} - {Cab_Room_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="138.8195" height="27.60852" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="68.31523" offsetY="71.76131" />
+            <fontSettings FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Cabinet #:</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="145.0967" height="106.7058" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="62.06788" offsetY="95.21154" />
+            <fontSettings FontFace="Arial" FontSize="19" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="471.5678" height="47.31115" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="215.0645" offsetY="71.28448" />
+            <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>2</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="469.3148" height="68.87709" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="214.1383" offsetY="128.1532" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Width}{Units} x {Part_Length}{Units}
+{Part_Material} - S{Sheet_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Cabinet (Zebra 4 x 3)</name>
+      <type>PRODUCT</type>
+      <sizeInches width="4" height="3" />
+      <margins>20, 20, 7, 7</margins>
+      <isLandscape>False</isLandscape>
+      <x>60</x>
+      <y>21</y>
+      <width>1080</width>
+      <height>858</height>
+      <pen color="FF000000" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1080</dx>
+          <dy>858</dy>
+          <da>858</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>3</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1080</dx>
+          <dy>858</dy>
+          <da>112</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>4</pAChild>
+          <pCChild>5</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>112</y>
+          <dx>1080</dx>
+          <dy>746</dy>
+          <da>619</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>6</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>112</y>
+          <dx>619</dx>
+          <dy>746</dy>
+          <da>652</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>619</x>
+          <y>112</y>
+          <dx>461</dx>
+          <dy>746</dy>
+          <da>338</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>4</pParent>
+          <pAChild>7</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>112</y>
+          <dx>619</dx>
+          <dy>652</dy>
+          <da>338</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>6</pParent>
+          <pAChild>8</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>112</y>
+          <dx>619</dx>
+          <dy>338</dy>
+          <da>150</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>7</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>112</y>
+          <dx>619</dx>
+          <dy>150</dy>
+          <da>75</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <labelPlaceholder>
+            <size width="454.3177" height="306.0493" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="681.5489" offsetY="161.2885" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>FRONT_VIEW</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels Wireframe</drawingTemplateName>
+          </labelPlaceholder>
+          <text>
+            <size width="944.3198" height="68.02939" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="193.1353" offsetY="24.07091" />
+            <fontSettings FontFace="Arial" FontSize="13" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Name} #{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="521.0988" height="54.39123" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="160.8995" offsetY="138.4298" />
+            <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="73.61767" height="38.84328" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="63.15735" offsetY="153.7426" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Job:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="88.41275" height="41.03514" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="63.43762" offsetY="228.9697" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Room:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <labelPlaceholder>
+            <size width="611.5356" height="281.377" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="63.58359" offsetY="500.3634" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels</drawingTemplateName>
+          </labelPlaceholder>
+          <text>
+            <size width="201.0439" height="42.41267" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="67.36096" offsetY="787.589" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Assembled By:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="31.45807" height="28.32642" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="72.6377" offsetY="838.3464" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>X</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <polyline>
+            <pen color="FF000000" width="1.181102" />
+            <points>
+              <point x="102.4533" y="864.0903" />
+              <point x="481.9773" y="864.0903" />
+            </points>
+          </polyline>
+          <polyline>
+            <pen color="FF000000" width="1.181102" />
+            <points>
+              <point x="510.4529" y="864.0903" />
+              <point x="648.5588" y="864.0903" />
+            </points>
+          </polyline>
+          <text>
+            <size width="201.0439" height="42.41267" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="439.9646" offsetY="788.2086" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Date:</content>
+            <alignment>2</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="610.5131" height="179.1185" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="63.88281" offsetY="287.7173" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Special Instructions:
+{Cab_Notes}</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="453.7026" height="38.83842" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="681.4288" offsetY="836.1761" />
+            <fontSettings FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Label: {Label_Num}/{Label_Count}  Printed: {Current_Date}</content>
+            <alignment>2</alignment>
+            <lineAlignment>2</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="519.1188" height="58.6167" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="160.7789" offsetY="216.2474" />
+            <fontSettings FontFace="Arial" FontSize="10" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Room_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <labelPlaceholder>
+            <size width="454.0034" height="345.4702" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="682.4343" offsetY="501.283" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>LEFT_VIEW</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels Wireframe</drawingTemplateName>
+          </labelPlaceholder>
+          <text>
+            <size width="454.8639" height="26.11667" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="681.1" offsetY="135.2214" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Front View:</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="455.2411" height="33.85386" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="681.6489" offsetY="472.0029" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Side View:</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="927.8169" height="39.18454" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="209.9268" offsetY="91.57433" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="True" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Width} wide  x  {Cab_Height} high  x  {Cab_Height} deep</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="531.3469" height="35.94609" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="63.4231" offsetY="473.1297" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Room Plan:</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <group>
+            <transform m00="0.1257904" m01="0" m10="0" m11="0.1257904" offsetX="63.32007" offsetY="23.33131" />
+            <children>
+              <image>
+                <fileTagFilename>MultiprintSymbolImages\Moz Blocks.jpg</fileTagFilename>
+                <fileTagFiletype>1</fileTagFiletype>
+                <fileTagLocation>1</fileTagLocation>
+                <size width="1100" height="847" />
+                <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+              </image>
+            </children>
+          </group>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Cabinet (Dymo 2.25 x 1.25)</name>
+      <type>PRODUCT</type>
+      <sizeInches width="2.25" height="1.25" />
+      <margins>20, 20, 7, 7</margins>
+      <isLandscape>True</isLandscape>
+      <x>60</x>
+      <y>21</y>
+      <width>555</width>
+      <height>333</height>
+      <pen color="0" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>555</dx>
+          <dy>333</dy>
+          <da>333</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>3</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>555</dx>
+          <dy>333</dy>
+          <da>330</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>4</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>330</dx>
+          <dy>333</dy>
+          <da>94</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>94</y>
+          <dx>330</dx>
+          <dy>239</dy>
+          <da>94</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <text>
+            <size width="265.7466" height="83.29109" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="115.1749" offsetY="118.1823" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}
+{Cab_Room_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="106.2888" height="97.26229" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="67.58244" offsetY="234.7886" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Width:
+Height:
+Depth:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="173.3259" height="98.16167" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="209.9821" offsetY="235.0641" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Width}
+{Cab_Height}
+{Cab_Depth}</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <labelPlaceholder>
+            <size width="225" height="333" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="390" offsetY="21" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels</drawingTemplateName>
+          </labelPlaceholder>
+          <text>
+            <size width="328.8171" height="89.50328" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="61.36789" offsetY="23.35756" />
+            <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Name} #{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="73.61767" height="38.84328" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="63.10162" offsetY="129.6899" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Job:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="88.41275" height="41.03514" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="63.65102" offsetY="164.1275" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Rm:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Cabinet (Dymo 4 x 2.125)</name>
+      <type>PRODUCT</type>
+      <sizeInches width="4" height="2.125" />
+      <margins>20, 20, 7, 7</margins>
+      <isLandscape>True</isLandscape>
+      <x>60</x>
+      <y>21</y>
+      <width>1080</width>
+      <height>595.5</height>
+      <pen color="FF000000" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1080</dx>
+          <dy>596</dy>
+          <da>596</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>3</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1080</dx>
+          <dy>596</dy>
+          <da>112</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>112</y>
+          <dx>1080</dx>
+          <dy>484</dy>
+          <da>705</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <text>
+            <size width="408.7267" height="89.46838" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="70.39574" offsetY="141.6578" />
+            <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}
+{Cab_Room_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="106.2888" height="97.26229" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="452.3372" offsetY="142.322" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Width:
+Height:
+Depth:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="173.3259" height="98.16167" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="568.8782" offsetY="140.9012" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Width}
+{Cab_Height}
+{Cab_Depth}</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <labelPlaceholder>
+            <size width="375" height="484" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="765" offsetY="133" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels</drawingTemplateName>
+          </labelPlaceholder>
+          <text>
+            <size width="1050" height="82" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="75" offsetY="36" />
+            <fontSettings FontFace="Arial" FontSize="11" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Name} #{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <labelPlaceholder>
+            <size width="548.5377" height="342.2145" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="142.6616" offsetY="266.305" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>FRONT_VIEW</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels Wireframe</drawingTemplateName>
+          </labelPlaceholder>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Cabinet (Zebra 4 x 2)</name>
+      <type>PRODUCT</type>
+      <sizeInches width="4" height="2" />
+      <margins>20, 20, 7, 7</margins>
+      <isLandscape>False</isLandscape>
+      <x>60</x>
+      <y>21</y>
+      <width>1080</width>
+      <height>558</height>
+      <pen color="FF000000" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1080</dx>
+          <dy>558</dy>
+          <da>558</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>3</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1080</dx>
+          <dy>558</dy>
+          <da>94</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>94</y>
+          <dx>1080</dx>
+          <dy>464</dy>
+          <da>705</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <text>
+            <size width="408.7267" height="89.46838" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="70.39574" offsetY="120.8817" />
+            <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}
+{Cab_Room_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="106.2888" height="97.26229" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="452.3372" offsetY="121.5459" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Width:
+Height:
+Depth:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="173.3259" height="98.16167" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="568.8782" offsetY="120.1251" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Width}
+{Cab_Height}
+{Cab_Depth}</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <labelPlaceholder>
+            <size width="375" height="464" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="765" offsetY="115" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels</drawingTemplateName>
+          </labelPlaceholder>
+          <text>
+            <size width="1050" height="64" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="75" offsetY="36" />
+            <fontSettings FontFace="Arial" FontSize="11" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Name} #{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <labelPlaceholder>
+            <size width="534.6666" height="342.4654" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="142.6616" offsetY="224.441" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>FRONT_VIEW</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels Wireframe</drawingTemplateName>
+          </labelPlaceholder>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Nested (1.75 x 2/3)</name>
+      <type>NESTED_PART</type>
+      <sizeInches width="1.75" height="0.666" />
+      <margins>0, 0, 0, 0</margins>
+      <isLandscape>False</isLandscape>
+      <x>0</x>
+      <y>0</y>
+      <width>525</width>
+      <height>199.8</height>
+      <pen color="0" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>525</dx>
+          <dy>200</dy>
+          <da>200</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>3</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>525</dx>
+          <dy>200</dy>
+          <da>45</da>
+          <pen color="7F000000" width="1" />
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>4</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>45</y>
+          <dx>525</dx>
+          <dy>155</dy>
+          <da>150</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>150</x>
+          <y>45</y>
+          <dx>375</dx>
+          <dy>155</dy>
+          <da>56</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <text>
+            <size width="524.5639" height="42.13051" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="0.09377265" offsetY="1.233113" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name} - {Cab_Room_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="133.7982" height="141.0059" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="7.824956" offsetY="51.16918" />
+            <fontSettings FontFace="Arial" FontSize="19" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="367.6476" height="47.31115" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="154.3241" offsetY="48.94824" />
+            <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>2</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="367.1215" height="83.84078" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="153.4366" offsetY="105.1453" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Width}{Units} x {Part_Length}{Units}
+{Part_Material} - S{Sheet_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Nested (Dymo 1.125 x 3.5)</name>
+      <type>NESTED_PART</type>
+      <sizeInches width="3.5" height="1.125" />
+      <margins>20, 20, 7, 7</margins>
+      <isLandscape>True</isLandscape>
+      <x>60</x>
+      <y>21</y>
+      <width>930</width>
+      <height>295.5</height>
+      <pen color="0" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>930</dx>
+          <dy>296</dy>
+          <da>296</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>3</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>930</dx>
+          <dy>296</dy>
+          <da>56</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>4</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>56</y>
+          <dx>930</dx>
+          <dy>240</dy>
+          <da>616</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>5</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>56</y>
+          <dx>630</dx>
+          <dy>240</dy>
+          <da>313</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>4</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>56</y>
+          <dx>313</dx>
+          <dy>240</dy>
+          <da>146</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <labelPlaceholder>
+            <size width="292.1939" height="193.7885" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="379.1955" offsetY="117.0998" />
+            <labelPlaceholderTag>
+              <type>PartDrawing</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName />
+          </labelPlaceholder>
+          <labelPlaceholder>
+            <size width="306.1708" height="159.2349" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="679.7971" offsetY="115.8738" />
+            <labelPlaceholderTag>
+              <type>SheetDrawing</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName />
+          </labelPlaceholder>
+          <text>
+            <size width="275.3286" height="31.80323" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="678.1236" offsetY="79.43851" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Sheet: {Sheet_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="925.0984" height="52.92975" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="62.49332" offsetY="21.54678" />
+            <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name} - {Cab_Room_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="218.3456" height="32.5789" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="100.9665" offsetY="80.69241" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Cabinet #:</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="302.0538" height="98.84977" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="66.76604" offsetY="118.8571" />
+            <fontSettings FontFace="Arial" FontSize="19" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="310.1774" height="42.8101" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="678.0159" offsetY="271.4132" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <variableTagType>207</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+          <text>
+            <size width="283" height="64" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="75" offsetY="238" />
+            <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="298.3457" height="34.94482" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="374.5902" offsetY="79.41965" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Width}{Units} x {Part_Length}{Units}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Cabinet (Dymo 1.125 x 3.5)</name>
+      <type>PRODUCT</type>
+      <sizeInches width="3.5" height="1.125" />
+      <margins>20, 20, 7, 7</margins>
+      <isLandscape>True</isLandscape>
+      <x>60</x>
+      <y>21</y>
+      <width>930</width>
+      <height>295.5</height>
+      <pen color="0" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>930</dx>
+          <dy>296</dy>
+          <da>296</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>3</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>930</dx>
+          <dy>296</dy>
+          <da>455</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>4</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>455</dx>
+          <dy>296</dy>
+          <da>94</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>94</y>
+          <dx>455</dx>
+          <dy>202</dy>
+          <da>94</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <text>
+            <size width="394.161" height="85.88532" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="115.1749" offsetY="118.1823" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}
+{Cab_Room_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="106.2888" height="97.26229" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="65.57561" offsetY="216.3258" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Width:
+Height:
+Depth:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="173.3259" height="98.16167" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="207.9753" offsetY="216.6013" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Width}
+{Cab_Height}
+{Cab_Depth}</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <labelPlaceholder>
+            <size width="475" height="296" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="515" offsetY="21" />
+            <labelPlaceholderTag>
+              <type>RoomOrProductSchematic</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName>Labels</drawingTemplateName>
+          </labelPlaceholder>
+          <text>
+            <size width="425" height="64" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="75" offsetY="36" />
+            <fontSettings FontFace="Arial" FontSize="9" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Name} #{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="73.61767" height="38.84328" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="63.10162" offsetY="129.6899" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Job:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="88.41275" height="41.03514" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="63.65102" offsetY="164.1275" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Rm:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Nested (1.75 x 0.5)</name>
+      <type>NESTED_PART</type>
+      <sizeInches width="1.75" height="0.666" />
+      <margins>0, 0, 0, 0</margins>
+      <isLandscape>False</isLandscape>
+      <x>0</x>
+      <y>0</y>
+      <width>525</width>
+      <height>199.8</height>
+      <pen color="0" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>525</dx>
+          <dy>200</dy>
+          <da>200</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>525</dx>
+          <dy>200</dy>
+          <da>83</da>
+          <pen color="FF000000" width="3.543307" />
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <text>
+            <size width="521.4536" height="77.14932" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="1.650472" offsetY="1.332625" />
+            <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}
+{Cab_Room_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="229.7422" height="93.47816" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="3.621826" offsetY="94.33046" />
+            <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="270.9742" height="112.6855" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="252.5714" offsetY="84.82719" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Name}
+Sheet: {Sheet_Num}
+{Part_Material}</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Nested - Dymo 3.5 x 1.125 (w Part and Sheet  Drawing)</name>
+      <type>NESTED_PART</type>
+      <sizeInches width="3.5" height="1.125" />
+      <margins>20, 20, 7, 7</margins>
+      <isLandscape>True</isLandscape>
+      <x>60</x>
+      <y>21</y>
+      <width>930</width>
+      <height>295.5</height>
+      <pen color="0" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>930</dx>
+          <dy>296</dy>
+          <da>296</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>3</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>930</dx>
+          <dy>296</dy>
+          <da>56</da>
+          <pen color="FF000000" width="3.543307" />
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>4</pAChild>
+          <pCChild>5</pCChild>
+          <parentABC>C</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>56</y>
+          <dx>930</dx>
+          <dy>240</dy>
+          <da>618</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>7</pAChild>
+          <pCChild>6</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>56</y>
+          <dx>618</dx>
+          <dy>240</dy>
+          <da>282</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>3</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>618</x>
+          <y>56</y>
+          <dx>312</dx>
+          <dy>240</dy>
+          <da>38</da>
+          <pen color="0" width="1" />
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>4</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>C</parentABC>
+          <split>H</split>
+          <x>282</x>
+          <y>56</y>
+          <dx>336</dx>
+          <dy>240</dy>
+          <da>38</da>
+          <pen color="0" width="1" />
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>4</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>56</y>
+          <dx>282</dx>
+          <dy>240</dy>
+          <da>138</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <labelPlaceholder>
+            <size width="320.6561" height="189.7357" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="349.9938" offsetY="120.3954" />
+            <labelPlaceholderTag>
+              <type>PartDrawing</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName />
+          </labelPlaceholder>
+          <labelPlaceholder>
+            <size width="297.3809" height="156.7126" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="686.4493" offsetY="122.7172" />
+            <labelPlaceholderTag>
+              <type>SheetDrawing</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName />
+          </labelPlaceholder>
+          <text>
+            <size width="303.7858" height="33.06799" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="682.237" offsetY="80.14868" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Sheet: {Sheet_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="921.8181" height="50.27262" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="61.80264" offsetY="24.11469" />
+            <fontSettings FontFace="Arial" FontSize="8" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name} - {Cab_Room_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="218.3456" height="32.5789" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="89.66687" offsetY="81.06012" />
+            <fontSettings FontFace="Arial" FontSize="6" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>Cabinet #:</content>
+            <alignment>1</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="276.272" height="109.6498" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="63.28384" offsetY="100.6018" />
+            <fontSettings FontFace="Arial" FontSize="11" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="296.9071" height="36.08379" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="686.2124" offsetY="276.8935" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <variableTagType>207</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+          <text>
+            <size width="273.4978" height="97.51708" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="64.70544" offsetY="216.9814" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="323.9423" height="30.53094" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="347.3185" offsetY="81.16711" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Size}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Label Example 2x4</name>
+      <type>PRODUCT</type>
+      <sizeInches width="4" height="2" />
+      <margins>6, 6, 6, 6</margins>
+      <isLandscape>True</isLandscape>
+      <x>18</x>
+      <y>18</y>
+      <width>1164</width>
+      <height>564</height>
+      <pen color="0" width="1" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1164</dx>
+          <dy>564</dy>
+          <da>564</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <text>
+            <size width="168.0638" height="34.78124" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="133.7816" offsetY="-156.7194" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <variableTagType>4</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+          <text>
+            <size width="251.3802" height="34.78124" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="635.582" offsetY="-154.7645" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <variableTagType>50</variableTagType>
+            <variableTagCode>0</variableTagCode>
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+          <text>
+            <size width="103.9427" height="34.78124" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="138.4737" offsetY="302.679" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <variableTagType>10</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Nested 4x3</name>
+      <type>NESTED_PART</type>
+      <sizeInches width="4" height="3" />
+      <margins>20, 20, 7, 7</margins>
+      <isLandscape>False</isLandscape>
+      <x>60</x>
+      <y>21</y>
+      <width>1080</width>
+      <height>858</height>
+      <pen color="FF000000" width="5.905512" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1080</dx>
+          <dy>858</dy>
+          <da>858</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>3</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1080</dx>
+          <dy>858</dy>
+          <da>225</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>2</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>V</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>1080</dx>
+          <dy>225</dy>
+          <da>450</da>
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <labelPlaceholder>
+            <size width="512.1148" height="487.3585" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="87.95734" offsetY="278.5813" />
+            <labelPlaceholderTag>
+              <type>PartDrawing</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName />
+          </labelPlaceholder>
+          <labelPlaceholder>
+            <size width="484.5244" height="297.5855" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="631.8398" offsetY="335.7858" />
+            <labelPlaceholderTag>
+              <type>SheetDrawing</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName />
+          </labelPlaceholder>
+          <text>
+            <size width="445.6859" height="62.25817" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="634.0248" offsetY="261.9251" />
+            <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Sheet: {Sheet_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="599.9999" height="195" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="525" offsetY="36" />
+            <fontSettings FontFace="Arial" FontSize="13" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}
+{Cab_Room_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="423.2886" height="200.6642" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="75" offsetY="33.75393" />
+            <fontSettings FontFace="Arial" FontSize="30" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Assembly_Num}</content>
+            <alignment>2</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="484.748" height="92.53483" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="640.8607" offsetY="672.6642" />
+            <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <variableTagType>207</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+          <text>
+            <size width="324.4518" height="111.9679" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="125.2122" offsetY="772.5825" />
+            <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="493.0419" height="99.17355" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="626.7292" offsetY="762.5429" />
+            <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Size}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <group>
+            <transform m00="0.08349522" m01="0" m10="0" m11="0.08349522" offsetX="70.7323" offsetY="30.7229" />
+            <children>
+              <image>
+                <fileTagFilename>MultiprintSymbolImages\Moz Blocks.jpg</fileTagFilename>
+                <fileTagFiletype>1</fileTagFiletype>
+                <fileTagLocation>1</fileTagLocation>
+                <size width="1100" height="847" />
+                <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+              </image>
+            </children>
+          </group>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Nested Label 2 x 1.25</name>
+      <type>NESTED_PART</type>
+      <sizeInches width="2" height="1.25" />
+      <margins>5, 5, 5, 5</margins>
+      <isLandscape>True</isLandscape>
+      <x>15</x>
+      <y>15</y>
+      <width>570</width>
+      <height>345</height>
+      <pen color="0" width="5.905512" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>570</dx>
+          <dy>345</dy>
+          <da>345</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>570</dx>
+          <dy>345</dy>
+          <da>89</da>
+          <pen color="FF000000" width="5.905512" />
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <labelPlaceholder>
+            <size width="259.2427" height="146.528" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="28.57645" offsetY="160.6209" />
+            <labelPlaceholderTag>
+              <type>SheetDrawing</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName />
+          </labelPlaceholder>
+          <text>
+            <size width="275.3286" height="31.80323" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="18.24036" offsetY="112.9209" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Sheet: {Sheet_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="438.7098" height="68.02075" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="131.2902" offsetY="20.97925" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}
+{Cab_Room_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="258.0594" height="87.53004" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="312.7102" offsetY="126.8688" />
+            <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="272.7911" height="43.72052" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="19.63782" offsetY="307.4846" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <variableTagType>207</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+          <text>
+            <size width="296.3491" height="47.38757" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="299.4099" offsetY="265.6788" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="272.0929" height="28.52127" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="307.062" offsetY="318.6919" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Size}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <group>
+            <transform m00="0.05762314" m01="0" m10="0" m11="0.05762314" offsetX="24.03769" offsetY="34.67587" />
+            <children>
+              <image>
+                <fileTagFilename>MultiprintSymbolImages\Moz Blocks.jpg</fileTagFilename>
+                <fileTagFiletype>1</fileTagFiletype>
+                <fileTagLocation>1</fileTagLocation>
+                <size width="1100" height="847" />
+                <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+              </image>
+            </children>
+          </group>
+          <text>
+            <size width="67.89015" height="50.44571" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="385.0023" offsetY="219.6456" />
+            <fontSettings FontFace="Arial" FontSize="11" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <fitToBoundaries>True</fitToBoundaries>
+            <variableTagType>212</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Nested Label 2 x 1.25 test</name>
+      <type>NESTED_PART</type>
+      <sizeInches width="2" height="1.25" />
+      <margins>5, 5, 5, 5</margins>
+      <isLandscape>True</isLandscape>
+      <x>15</x>
+      <y>15</y>
+      <width>570</width>
+      <height>345</height>
+      <pen color="0" width="5.905512" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>570</dx>
+          <dy>345</dy>
+          <da>345</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>570</dx>
+          <dy>345</dy>
+          <da>89</da>
+          <pen color="FF000000" width="5.905512" />
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <labelPlaceholder>
+            <size width="259.2427" height="146.528" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="28.57645" offsetY="160.6209" />
+            <labelPlaceholderTag>
+              <type>SheetDrawing</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName />
+          </labelPlaceholder>
+          <text>
+            <size width="275.3286" height="31.80323" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="18.24036" offsetY="112.9209" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Sheet: {Sheet_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="438.7098" height="68.02075" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="131.2902" offsetY="20.97925" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}
+{Cab_Room_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="266.4804" height="135.9511" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="301.1311" offsetY="104.9478" />
+            <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="272.7911" height="43.72052" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="19.63782" offsetY="307.4846" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <variableTagType>207</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+          <text>
+            <size width="296.3491" height="47.38757" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="297.3045" offsetY="281.4683" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="272.0929" height="28.52127" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="299.6936" offsetY="325.0077" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Size}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <group>
+            <transform m00="0.05762314" m01="0" m10="0" m11="0.05762314" offsetX="24.03769" offsetY="34.67587" />
+            <children>
+              <image>
+                <fileTagFilename>MultiprintSymbolImages\Moz Blocks.jpg</fileTagFilename>
+                <fileTagFiletype>1</fileTagFiletype>
+                <fileTagLocation>1</fileTagLocation>
+                <size width="1100" height="847" />
+                <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+              </image>
+            </children>
+          </group>
+          <text>
+            <size width="61.57439" height="64.12991" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="465.2654" offsetY="240.6982" />
+            <fontSettings FontFace="Arial" FontSize="11" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <fitToBoundaries>True</fitToBoundaries>
+            <variableTagType>212</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+          <text>
+            <size width="162.1053" height="31.57893" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="301.579" offsetY="260.6581" />
+            <fontSettings FontFace="Arial" FontSize="11" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Opening Letter:</content>
+            <alignment>0</alignment>
+            <lineAlignment>0</lineAlignment>
+            <textRotation>0</textRotation>
+            <fitToBoundaries>True</fitToBoundaries>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="0.9448819" />
+          </text>
+        </children>
+      </group>
+    </labelTemplate>
+    <labelTemplate>
+      <name>Nested Label 2 x 1.25 (Copy)</name>
+      <type>NESTED_PART</type>
+      <sizeInches width="2" height="1.25" />
+      <margins>5, 5, 5, 5</margins>
+      <isLandscape>True</isLandscape>
+      <x>15</x>
+      <y>15</y>
+      <width>570</width>
+      <height>345</height>
+      <pen color="0" width="5.905512" />
+      <sections>
+        <titleBlockSection>
+          <pParent>0</pParent>
+          <pAChild>2</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>N</parentABC>
+          <split>N</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>570</dx>
+          <dy>345</dy>
+          <da>345</da>
+        </titleBlockSection>
+        <titleBlockSection>
+          <pParent>1</pParent>
+          <pAChild>0</pAChild>
+          <pCChild>0</pCChild>
+          <parentABC>A</parentABC>
+          <split>H</split>
+          <x>0</x>
+          <y>0</y>
+          <dx>570</dx>
+          <dy>345</dy>
+          <da>89</da>
+          <pen color="FF000000" width="5.905512" />
+        </titleBlockSection>
+      </sections>
+      <group>
+        <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+        <children>
+          <labelPlaceholder>
+            <size width="259.2427" height="146.528" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="28.57645" offsetY="160.6209" />
+            <labelPlaceholderTag>
+              <type>SheetDrawing</type>
+              <schematicType>FLOORPLAN</schematicType>
+            </labelPlaceholderTag>
+            <drawingTemplateName />
+          </labelPlaceholder>
+          <text>
+            <size width="275.3286" height="31.80323" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="18.24036" offsetY="112.9209" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>Sheet: {Sheet_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="438.7098" height="68.02075" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="131.2902" offsetY="20.97925" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Job_Name}
+{Cab_Room_Name}</content>
+            <alignment>0</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="266.4804" height="135.9511" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="310.6047" offsetY="128.1057" />
+            <fontSettings FontFace="Arial" FontSize="12" ScaleType="2" Bold="True" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Cab_Assembly_Num}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="272.7911" height="43.72052" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="19.63782" offsetY="307.4846" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content />
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <variableTagType>207</variableTagType>
+            <variableTagCode />
+            <showBorder>False</showBorder>
+            <edgePenParams color="0" width="0" />
+          </text>
+          <text>
+            <size width="296.3491" height="47.38757" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="299.4099" offsetY="265.6788" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="True" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Name}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <text>
+            <size width="272.0929" height="28.52127" />
+            <transform m00="1" m01="0" m10="0" m11="1" offsetX="307.062" offsetY="318.6919" />
+            <fontSettings FontFace="Arial" FontSize="7" ScaleType="2" Bold="False" Italic="False" />
+            <fontColor>FF000000</fontColor>
+            <content>{Part_Size}</content>
+            <alignment>1</alignment>
+            <lineAlignment>1</lineAlignment>
+            <textRotation>0</textRotation>
+            <showBorder>False</showBorder>
+            <edgePenParams color="FF000000" width="1.181102" />
+          </text>
+          <group>
+            <transform m00="0.05762314" m01="0" m10="0" m11="0.05762314" offsetX="24.03769" offsetY="34.67587" />
+            <children>
+              <image>
+                <fileTagFilename>MultiprintSymbolImages\Moz Blocks.jpg</fileTagFilename>
+                <fileTagFiletype>1</fileTagFiletype>
+                <fileTagLocation>1</fileTagLocation>
+                <size width="1100" height="847" />
+                <transform m00="1" m01="0" m10="0" m11="1" offsetX="0" offsetY="0" />
+              </image>
+            </children>
+          </group>
+        </children>
+      </group>
+    </labelTemplate>
+  </labelTemplates>
+</labelTemplateLibrary>

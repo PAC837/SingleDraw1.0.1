@@ -1,0 +1,325 @@
+1
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<CutlistReportTables>
+  <CutlistReportTable Name="Cabinet Cutlist By Room By Cabinet By Material By Part Type" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="True" MergeAcrossProducts="False" AnyConstraint="False" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <ShownColumn Name="7" />
+    <SortByColumn Name="5" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="3" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <GroupByColumn Name="15" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Case Cutlist By Material By Room By Cabinet By Width By Length" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="False" AnyConstraint="False" BaseCutlistType="7">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="15" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <SortByColumn Name="3" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Counter Top" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Door" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Drawer" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Tray" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Case Cutlist By Material By Width By Length" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="True" MergeAcrossProducts="True" AnyConstraint="False" BaseCutlistType="7">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <SortByColumn Name="15" />
+    <SortByColumn Name="3" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Counter Top" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Door" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Drawer" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Tray" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Case Cutlist By Room By Cabinet By Part Type" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="False" AnyConstraint="False" BaseCutlistType="7">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <ShownColumn Name="7" />
+    <SortByColumn Name="3" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <GroupByColumn Name="15" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Counter Top" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Door" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Drawer" />
+    <Constraint ColumnName="3" ConstraintType="5" Value="Tray" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Door Cutlist By Material By Room By Cabinet By Part Type" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="False" AnyConstraint="True" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="15" />
+    <SortByColumn Name="3" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Door" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Panelized" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Door Cutlist By Material By Width By Length" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="True" MergeAcrossProducts="True" AnyConstraint="True" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <SortByColumn Name="3" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Door" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Panelized" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Door Cutlist By Room By Cabinet By Door By Part Type" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="False" AnyConstraint="True" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <ShownColumn Name="7" />
+    <SortByColumn Name="15" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="3" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <GroupByColumn Name="15" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Door" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Panelized" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Drawer Cutlist By Material By Width By Length" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="True" AnyConstraint="True" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <SortByColumn Name="3" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Drawer" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Tray" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Drw" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Drawer Cutlist By Room By Cabinet By Material By Part Type" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="False" AnyConstraint="True" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <ShownColumn Name="7" />
+    <SortByColumn Name="15" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="3" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <GroupByColumn Name="15" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Drawer" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Tray" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Drw" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Face Frames Cutlist By Room By Cabinet By Width By Length" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="False" AnyConstraint="True" BaseCutlistType="6">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="15" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <SortByColumn Name="3" />
+    <GroupByColumn Name="7" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Face Frames Cutlist By Width By Length" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="True" AnyConstraint="True" BaseCutlistType="6">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <SortByColumn Name="3" />
+    <GroupByColumn Name="7" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Master Cutlist By Material By Room By Cabinet" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="True" MergeAcrossProducts="False" AnyConstraint="False" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="15" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <SortByColumn Name="3" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="1" Value="Counter Top" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Master Cutlist By Material By Width By Length" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="True" MergeAcrossProducts="True" AnyConstraint="False" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <SortByColumn Name="3" />
+    <SortByColumn Name="15" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="1" Value="Counter Top" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Shelf Cutlist By Room By Cabinet" ShowTitleLine="False" DisplayFinishedPartSize="False" MergeIdenticalSizes="False" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="False" AnyConstraint="True" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <ShownColumn Name="7" />
+    <SortByColumn Name="15" />
+    <SortByColumn Name="3" />
+    <SortByColumn Name="7" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Shelf" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Drawer &amp; Tray Box Sizes" ShowTitleLine="True" DisplayFinishedPartSize="True" MergeIdenticalSizes="True" TotalsPerGroup="True" GroupPerPage="False" MergeAcrossProducts="True" AnyConstraint="False" BaseCutlistType="3">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="9" />
+    <ShownColumn Name="10" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="5" />
+    <SortByColumn Name="9" />
+    <GroupByColumn Name="11" />
+    <Total Name="0" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Face Frame &amp; Door Frame Cutlist" ShowTitleLine="True" DisplayFinishedPartSize="True" MergeIdenticalSizes="True" TotalsPerGroup="True" GroupPerPage="False" MergeAcrossProducts="True" AnyConstraint="True" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <SortByColumn Name="0" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="LS" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="RS" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="TR" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="BR" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="CS" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="CR" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Stile" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Door TR" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Drw TR" />
+    <Total Name="0" />
+    <Total Name="1" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Drawer &amp; Tray Parts" ShowTitleLine="True" DisplayFinishedPartSize="True" MergeIdenticalSizes="True" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="False" AnyConstraint="True" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Drw Front" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Drw Back" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Drw L Side" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Drw Divider" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Drw Partition" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Tray Front" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Tray Back" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Tray Side" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Tray Divider" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Tray Partition" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Drw R Side" />
+    <Total Name="0" />
+    <Total Name="1" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Drawer &amp; Tray Bottoms" ShowTitleLine="True" DisplayFinishedPartSize="True" MergeIdenticalSizes="True" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="False" AnyConstraint="True" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Drw Bottom" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Tray Bottom" />
+    <Total Name="0" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Door Parts" ShowTitleLine="True" DisplayFinishedPartSize="True" MergeIdenticalSizes="True" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="False" AnyConstraint="True" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="L Stile" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="R Stile" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Door TR" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Door BR" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Door CS" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Door CR" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Drw TR" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Drw BR" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Drw CR" />
+    <Constraint ColumnName="3" ConstraintType="0" Value="Drw CS" />
+    <Total Name="0" />
+    <Total Name="1" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Door Panels" ShowTitleLine="True" DisplayFinishedPartSize="True" MergeIdenticalSizes="True" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="False" AnyConstraint="True" BaseCutlistType="0">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <SortByColumn Name="1" />
+    <SortByColumn Name="2" />
+    <GroupByColumn Name="7" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Door Panel" />
+    <Constraint ColumnName="3" ConstraintType="4" Value="Drw Panel" />
+    <Total Name="0" />
+  </CutlistReportTable>
+  <CutlistReportTable Name="Drawer &amp; Tray Assembly List" ShowTitleLine="True" DisplayFinishedPartSize="True" MergeIdenticalSizes="True" TotalsPerGroup="False" GroupPerPage="False" MergeAcrossProducts="True" AnyConstraint="False" BaseCutlistType="4">
+    <ShownColumn Name="0" />
+    <ShownColumn Name="1" />
+    <ShownColumn Name="2" />
+    <ShownColumn Name="3" />
+    <ShownColumn Name="5" />
+    <ShownColumn Name="7" />
+    <SortByColumn Name="5" />
+    <SortByColumn Name="7" />
+    <Total Name="0" />
+  </CutlistReportTable>
+</CutlistReportTables>

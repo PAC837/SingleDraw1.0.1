@@ -1,0 +1,12 @@
+1
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<DoorDefaults TopRail="63.5" BottomRail="63.5" Stiles="63.5" CenterStile="63.5" CenterRail="63.5" StileRailInset="12.7" PanelInsetTop="12.7" PanelInsetBottom="12.7" PanelInsetSide="12.7" PanelRecess="7.9375" RoutedUseCutoutTool="True" RoutedOutsideEdgeToolID="-1" RoutedOutsideEdgeToolGroupID="-1" RoutedDoorToolGroupID="74" RoutedGlassDoorPanelCutoutToolID="-1" RoutedPocketingToolID="-3" RoutedPocketingInsideOut="True" RoutedPocketingCCW="False" TraditionalOutsideEdgeProfileID="3" TraditionalInsideFrameProfileID="20" TraditionalPanelProfileID="15" MitreOutsideEdgeProfileID="-1" MitreFrameProfileID="-1" MitrePanelProfileID="-1" IsBeadingDouble="False" BeadingShowHighDetail="True" BeadingWidth="6.35" BeadingSpaceBetween="6.35" BeadingCutDepth="3.302" BeadingStopDistance="0" BeadingToolID="186" SeparatePanelInsetTop="7.9375" SeparatePanelInsetBottom="9.525" SeparatePanelInsetSides="9.525" SeparatePanelCornerRadius="1.5875" AppliedMoldingProfileID="34">
+  <DefaultRailShapeA RailLoc="0" RailShape="1" Value="38.1" />
+  <DefaultRailShapeA RailLoc="0" RailShape="5" Value="101.6" />
+  <DefaultRailShapeA RailLoc="0" RailShape="2" Value="19.05" />
+  <DefaultRailShapeA RailLoc="0" RailShape="4" Value="50.8" />
+  <DefaultRailShapeB RailLoc="0" RailShape="5" Value="63.5" />
+  <DefaultRailShapeB RailLoc="0" RailShape="2" Value="63.5" />
+  <DefaultRailShapeB RailLoc="0" RailShape="4" Value="50.8" />
+  <DefaultRailShapeB RailLoc="0" RailShape="3" Value="38.1" />
+</DoorDefaults>

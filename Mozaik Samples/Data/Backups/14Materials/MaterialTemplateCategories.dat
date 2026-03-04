@@ -1,0 +1,75 @@
+1
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<MaterialTemplateCategories>
+  <MaterialTemplateCategory DisplayName="Door" Id="1">
+    <PartType Name="DOOR" />
+    <PartType Name="DOORPANEL" />
+    <PartType Name="DOORFRAME" />
+    <PartType Name="DRAWER" />
+    <PartType Name="DRAWERPANEL" />
+    <PartType Name="DRAWERFRAME" />
+    <PartType Name="PANELIZEDEND" />
+  </MaterialTemplateCategory>
+  <MaterialTemplateCategory DisplayName="Drawer" Id="2">
+    <PartType Name="DRAWERSIDE" />
+    <PartType Name="DRAWERFRONT" />
+    <PartType Name="DRAWERBACK" />
+    <PartType Name="DRAWERBOTTOM" />
+    <PartType Name="TRAYSIDE" />
+    <PartType Name="TRAYFRONT" />
+    <PartType Name="TRAYBACK" />
+    <PartType Name="TRAYBOTTOM" />
+    <PartType Name="TRAYFACE" />
+    <PartType Name="DRAWERPARTITION" />
+    <PartType Name="DRAWERDIVIDER" />
+  </MaterialTemplateCategory>
+  <MaterialTemplateCategory DisplayName="Cabinet" Id="3">
+    <PartType Name="TOP" />
+    <PartType Name="BOTTOM" />
+    <PartType Name="FEND" />
+    <PartType Name="UEND" />
+    <PartType Name="APPLIEDUE" />
+    <PartType Name="SHELF" />
+    <PartType Name="ROLLOUTSHELF" />
+    <PartType Name="FIXEDSHELF" />
+    <PartType Name="ADJUSTABLESHELF" />
+    <PartType Name="PARTITION" />
+    <PartType Name="DIVIDER" />
+    <PartType Name="UBACK" />
+    <PartType Name="FBACK" />
+    <PartType Name="FRAME" />
+    <PartType Name="FRAMELESSRAIL" />
+    <PartType Name="NOSING" />
+    <PartType Name="NAILER" />
+    <PartType Name="STRETCHER" />
+    <PartType Name="CLEAT" />
+    <PartType Name="TOE" />
+    <PartType Name="FINEXTERIOR" />
+    <PartType Name="FININTERIOR" />
+    <PartType Name="FININTERIORBACK" />
+    <PartType Name="UFINEXTERIOR" />
+    <PartType Name="UFININTERIOR" />
+    <PartType Name="FINSKIN" />
+    <PartType Name="UFINSKIN" />
+    <PartType Name="TOESKIN" />
+    <PartType Name="MOLDING" />
+    <PartType Name="SLEEPER" />
+    <PartType Name="GLASS" />
+    <PartType Name="PLASTIC" />
+    <PartType Name="METAL" />
+    <PartType Name="SPECIAL" />
+    <PartType Name="CLOSETROD" />
+  </MaterialTemplateCategory>
+  <MaterialTemplateCategory DisplayName="Tops" Id="4">
+    <PartType Name="COUNTERTOP" />
+    <PartType Name="SPLASH" />
+  </MaterialTemplateCategory>
+  <MaterialTemplateCategory DisplayName="Banding" Id="5">
+    <PartType Name="EDGEBAND" />
+    <PartType Name="EDGEBAND2" />
+    <PartType Name="EDGEBAND3" />
+    <PartType Name="EDGEBAND4" />
+    <PartType Name="EDGEBAND5" />
+    <PartType Name="EDGEBAND6" />
+  </MaterialTemplateCategory>
+</MaterialTemplateCategories>

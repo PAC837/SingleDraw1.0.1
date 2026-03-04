@@ -1,0 +1,12 @@
+1
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<RemnantMaterials>
+  <RemnantMaterial Name="3/4 MDF">
+    <OptimizeRemnantLocation X="798.4125" Y="11.1125" Width="1222.3745" Length="1654.2755" Name="3/4 MDF" Comment="" Quan="1" LabelPrinted="False" RemnantNumber="1" />
+  </RemnantMaterial>
+  <RemnantMaterial Name="1/2 Plywood">
+    <OptimizeRemnantLocation X="0" Y="0" Width="1219.2" Length="2438.4" Name="1/2 Plywood" Comment="Generic material" Quan="2" LabelPrinted="False" RemnantNumber="2" />
+    <OptimizeRemnantLocation X="1601.812" Y="11.1125" Width="1196.9745" Length="825.475" Name="1/2 Plywood" Comment="" Quan="1" LabelPrinted="False" RemnantNumber="3" />
+    <OptimizeRemnantLocation X="545.5125" Y="11.1125" Width="1196.9745" Length="1881.7745" Name="1/2 Plywood" Comment="66" Quan="1" LabelPrinted="False" RemnantNumber="1" />
+  </RemnantMaterial>
+</RemnantMaterials>

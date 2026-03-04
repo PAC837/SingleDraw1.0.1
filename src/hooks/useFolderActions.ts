@@ -306,7 +306,7 @@ end`
   const exportDes = useCallback(async () => {
     if (!state.room || !state.jobFolder) return
     try {
-      const content = writeDes(state.room)
+      const content = writeDes(state.room, state.flipOps)
       const nextNum = await findNextRoomNumber(state.jobFolder)
       const filename = await exportDesRoom(state.jobFolder, content, nextNum)
       console.log(`[EXPORT] Exported ${filename} to ${state.jobFolder.name}`)

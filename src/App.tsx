@@ -19,6 +19,7 @@ import WallEditorPanel from './render/WallEditorPanel'
 import PlanViewOverlay from './render/PlanViewOverlay'
 import MiniRoomPreview from './render/MiniRoomPreview'
 import AutoEndPanels from './render/AutoEndPanels'
+import AdvancedSettingsButton from './render/AdvancedSettingsButton'
 import { createRectangularRoom, createReachInRoom, createWalkInRoom, createWalkInDeepRoom, createAngledRoom } from './mozaik/roomFactory'
 import { computeProductWorldOffset, computeWallGeometries } from './math/wallMath'
 import { mozPosToThree } from './math/basis'
@@ -32,6 +33,7 @@ function AppInner() {
   const dispatch = useAppDispatch()
   const missingModels = useMissingModels()
   const [hoveredWall, setHoveredWall] = useState<number | null>(null)
+  const [advancedOpen, setAdvancedOpen] = useState(false)
 
   // Folder & export actions (persisted folder linking, library loading, DES/MOZ export)
   const {
@@ -42,7 +44,7 @@ function AppInner() {
 
   // Product placement, manipulation, collision-clamped movement, bump
   const {
-    handlePlaceProduct, handleUpdateProductDimension, handleRemoveProduct,
+    handlePlaceProduct, handleUpdateProductDimension, handleResizeProductWidth, handleRemoveProduct,
     selectProduct, handleUpdateProductElev, handleUpdateProductX,
     handleBumpLeft, handleBumpRight,
   } = useProductActions()
@@ -227,6 +229,7 @@ function AppInner() {
                 selected={state.selectedProduct === i}
                 onSelect={selectProduct}
                 onResize={handleUpdateProductDimension}
+                onResizeWidth={handleResizeProductWidth}
                 onUpdateElev={handleUpdateProductElev}
                 onUpdateX={handleUpdateProductX}
                 onBumpLeft={handleBumpLeft}
@@ -246,6 +249,7 @@ function AppInner() {
             <AutoEndPanels
               room={state.room}
               renderMode={state.renderMode}
+              flipOps={state.flipOps}
               textureFolder={state.textureFolder}
               textureId={resolvedTextureId}
               textureFilename={resolvedTextureFilename}
@@ -280,13 +284,14 @@ function AppInner() {
             open={state.productConfigOpen}
             placementMode={state.placementMode}
             unitHeight={state.unitHeight}
+            wallSectionHeight={state.wallSectionHeight}
             wallMountTopAt={state.wallMountTopAt}
             wallHeight={state.wallHeight}
             useInches={state.useInches}
             onToggle={() => dispatch({ type: 'TOGGLE_PRODUCT_CONFIG' })}
             onSetMode={(mode) => dispatch({ type: 'SET_PLACEMENT_MODE', mode })}
             onSetUnitHeight={(height) => dispatch({ type: 'SET_UNIT_HEIGHT', height })}
-            onSetTopAt={(height) => dispatch({ type: 'SET_WALL_MOUNT_TOP_AT', height })}
+            onSetWallSectionHeight={(height) => dispatch({ type: 'SET_WALL_SECTION_HEIGHT', height })}
             onSetWallHeight={(height) => dispatch({ type: 'SET_WALL_HEIGHT', height })}
             onCreatePresetRoom={handleCreatePresetRoom}
           />
@@ -310,6 +315,13 @@ function AppInner() {
               const next: RenderMode = state.renderMode === 'ghosted' ? 'solid' : state.renderMode === 'solid' ? 'wireframe' : 'ghosted'
               dispatch({ type: 'SET_RENDER_MODE', mode: next })
             }}
+          />
+          <AdvancedSettingsButton
+            open={advancedOpen}
+            flipOps={state.flipOps}
+            onToggle={() => setAdvancedOpen(o => !o)}
+            onToggleFlipOps={() => dispatch({ type: 'TOGGLE_FLIP_OPS' })}
+            onAlignWallTops={() => dispatch({ type: 'ALIGN_WALL_TOPS' })}
           />
         </div>
 

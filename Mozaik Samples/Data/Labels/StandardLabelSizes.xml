@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<LabelTemplateSpecifications>
+	<SheetSpecification Name="Avery 5160/5260/5520/5660" W="2.625" H="1" Rows="10" Columns="3" TopMargin="0.5" LeftMargin="0.21975" Landscape="False" PaperSizeName="Letter"/>
+	<SheetSpecification Name="Avery 5163/5263/5523" W="4" H="2" Rows="5" Columns="2" TopMargin="0.5" LeftMargin="0.18" Landscape="False" PaperSizeName="Letter"/>
+	<SheetSpecification Name="Avery 5164/5264/5524" W="4" H="3.333" Rows="3" Columns="2" TopMargin="0.5" LeftMargin="0.156" Landscape="False" PaperSizeName="Letter"/>
+	<SheetSpecification Name="Avery 5195" W="1.75" H="0.666" Rows="15" Columns="4" TopMargin="0.505" LeftMargin="0.3075" Landscape="False" PaperSizeName="Letter"/>
+	<SheetSpecification Name="Avery 5162/5262/5522" W="4" H="1.333" Rows="7" Columns="2" TopMargin="0.88" LeftMargin="0.1525" Landscape="False" PaperSizeName="Letter"/>
+	<SheetSpecification Name="Avery 5161/5261" W="4" H="1.333" Rows="10" Columns="2" TopMargin="0.5" LeftMargin="0.175" Landscape="False" PaperSizeName="Letter"/>
+	<SheetSpecification Name="Avery 105x74-R/DAL08" W="4.135" H="2.9225" Rows="4" Columns="2" TopMargin="0" LeftMargin="0" Landscape="False" PaperSizeName="A4"/>
+	<SheetSpecification Name="Avery 105x37-R" W="4.135" H="1.46125" Rows="8" Columns="2" TopMargin="0" LeftMargin="0" Landscape="False" PaperSizeName="A4"/>
+	<RollSpecification Name="Dymo 4 x 2.125" W="4" H="2.125" TopMargin="0.07" LeftMargin="0.2" Landscape="True"/>
+	<RollSpecification Name="Dymo 3.5 x 1.125" W="3.5" H="1.125" TopMargin="0.07" LeftMargin="0.2" Landscape="True"/>
+	<RollSpecification Name="Dymo 2.25 x 1.25" W="2.25" H="1.25" TopMargin="0.07" LeftMargin="0.2" Landscape="True"/>
+	<RollSpecification Name="Dymo 2.5 x .75" W="2.5" H="0.75" TopMargin="0.07" LeftMargin="0.2" Landscape="True"/>
+	<RollSpecification Name="Zebra 4 x 3" W="4" H="3" TopMargin="0.07" LeftMargin="0.2" Landscape="False"/>
+	<RollSpecification Name="Zebra 4 x 2.5" W="4" H="2.5" TopMargin="0.07" LeftMargin="0.2" Landscape="False"/>
+	<RollSpecification Name="Zebra 4 x 2" W="4" H="2" TopMargin="0.07" LeftMargin="0.2" Landscape="False"/>
+	<RollSpecification Name="Zebra 4 x 1" W="4" H="1" TopMargin="0.07" LeftMargin="0.2" Landscape="False"/>
+	<RollSpecification Name="Zebra 3 x .75" W="3" H="0.75" TopMargin="0.07" LeftMargin="0.2" Landscape="False"/>
+</LabelTemplateSpecifications>

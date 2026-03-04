@@ -1,0 +1,19 @@
+4
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<PricingTemplate Name="_P&amp;E Closet Material Cost (By Room)" IsTaxableColumnViewable="True" IsItemColumnViewable="True" IsDescriptionColumnViewable="True" IsQTYColumnViewable="True" IsUnitsColumnViewable="True" IsAmountColumnViewable="True" IsMarkupColumnViewable="False" IsTotalColumnViewable="True" ShowMyCost="True">
+  <PricingTemplateRow IDTag="0" Include="True" Tax="True" RowTypeTypeCode="101" Description="" MarkupPercentage="0" Amount="0" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="1" Include="True" Tax="True" RowTypeTypeCode="27" Description="" MarkupPercentage="0" Amount="0" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="2" Include="True" Tax="True" RowTypeTypeCode="111" Description="" MarkupPercentage="0" Amount="0" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="3" Include="True" Tax="True" RowTypeTypeCode="102" Description="" MarkupPercentage="0" Amount="0" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="4" Include="True" Tax="True" RowTypeTypeCode="30" Description="For Flanges" MarkupPercentage="0" Amount="6" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="5" Include="True" Tax="True" RowTypeTypeCode="110" Description="" MarkupPercentage="0" Amount="0" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="6" Include="True" Tax="True" RowTypeTypeCode="28" Description="" MarkupPercentage="0" Amount="10.95" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="113" Include="True" Tax="True" RowTypeTypeCode="113" Description="" MarkupPercentage="0" Amount="0" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="7" Include="True" Tax="True" RowTypeTypeCode="112" Description="" MarkupPercentage="0" Amount="0" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="9" Include="True" Tax="True" RowTypeTypeCode="34" Description="Titus 6" MarkupPercentage="0" Amount="0.36" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="10" Include="True" Tax="True" RowTypeTypeCode="103" Description="" MarkupPercentage="0" Amount="0" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="211" Include="True" Tax="False" RowTypeTypeCode="211" Description="" MarkupPercentage="0" Amount="0" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="11" Include="True" Tax="True" RowTypeTypeCode="200" Description="" MarkupPercentage="0" Amount="0" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="12" Include="True" Tax="False" RowTypeTypeCode="205" Description="" MarkupPercentage="0" Amount="7.5" QTY="0" Total="0" />
+  <PricingTemplateRow IDTag="13" Include="True" Tax="False" RowTypeTypeCode="207" Description="" MarkupPercentage="0" Amount="0" QTY="0" Total="0" />
+</PricingTemplate>

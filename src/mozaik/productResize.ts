@@ -17,7 +17,7 @@ import type { MozProduct, MozPart } from './types'
 const TOLERANCE = 20  // mm — how close part.l must be to product dimension to be considered "spanning"
 
 /** Types whose L spans the product width (horizontal parts). */
-const WIDTH_SPANNING_TYPES = new Set(['top', 'bottom', 'fixedshelf', 'adjshelf', 'toe'])
+const WIDTH_SPANNING_TYPES = new Set(['top', 'bottom', 'fixedshelf', 'adjustableshelf', 'toe'])
 
 /** Types whose L spans the product height (vertical end panels). */
 const HEIGHT_SPANNING_TYPES = new Set(['fend', 'uend'])

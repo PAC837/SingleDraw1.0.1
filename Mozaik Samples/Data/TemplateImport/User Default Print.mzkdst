@@ -1,0 +1,50 @@
+Mozaik Drawing Settings Template Export
+5
+<?xml version="1.0" encoding="utf-16" standalone="yes"?>
+<DrawingTemplates>
+  <DrawingTemplate Name="User Default Print">
+    <DrawingSettings Version="2" SourceTemplate="User Default Print" RotateFPLabels="False" RotateFPWallLabels="False" DrawMode="2" FaceInteriorDrawMode="0" FPNames="False" ElevNames="False" FPGrid="609.6" ElevGrid="304.8" FPDimOffsetSmall="True" FPDimPadding="2" FPDimFirstRowPadding="2" FPDimLineStyle="3" FPWallLabelsInWall="True" ElevDimOffsetSmall="True" ElevDimPadding="2" ElevDimFirstRowPadding="2" ElevDimLineStyle="3" ElevDimType="0" WallLabelRoomNumber="False" WallLabelRoomName="False" WallLabelWallLength="False" WallLabelWallHeight="False" OrthoCrossSection="1">
+      <LayerHidden LayerName="Appliance Drawings" Hidden="False" />
+      <LayerHidden LayerName="Wall Fixture Drawings" Hidden="False" />
+      <LayerHidden LayerName="Non-numbered" Hidden="True" />
+      <LayerHidden LayerName="Arch Door Swings" Hidden="False" />
+      <LayerHidden LayerName="Opening Labels" Hidden="True" />
+      <LayerHidden LayerName="Special Depth Labels" Hidden="True" />
+      <LayerHidden LayerName="Frame Special Size Labels" Hidden="False" />
+      <LayerHidden LayerName="Open Section Labels" Hidden="False" />
+      <LayerHidden LayerName="Corner Cab Drawings" Hidden="False" />
+      <LayerHidden LayerName="Molding Drawings" Hidden="False" />
+      <LayerHidden LayerName="Top Drawings" Hidden="False" />
+      <LayerHidden LayerName="Plan - Depth" Hidden="True" />
+      <LayerHidden LayerName="Face Interior Sections" Hidden="True" />
+      <LayerHidden LayerName="Face Arch Door Swings" Hidden="True" />
+      <LayerHidden LayerName="Sink Center Dimensions" Hidden="True" />
+      <LayerHidden LayerName="Non-numbered Cabinet Labels" Hidden="True" />
+      <LayerHidden LayerName="" Hidden="True" />
+      <LayerHidden LayerName="Appliance Labels" Hidden="True" />
+      <LayerHidden LayerName="Wall Fixture Labels" Hidden="True" />
+      <LayerHidden LayerName="Hardware" Hidden="False" />
+      <LayerHidden LayerName="Grid" Hidden="True" />
+      <LayerHidden LayerName="Wall Label Borders" Hidden="True" />
+      <LayerHidden LayerName="Appliances" Hidden="False" />
+      <LayerHidden LayerName="Toe Skins" Hidden="True" />
+      <LayerFont LayerName="Wall Labels">
+        <FontSetting FontFace="Arial" FontSize="12" ScaleType="2" Bold="False" Italic="False" />
+      </LayerFont>
+      <LayerFont LayerName="Elev - Wall Length">
+        <FontSetting FontFace="Arial" FontSize="11" ScaleType="2" Bold="True" Italic="False" />
+      </LayerFont>
+      <LayerFont LayerName="Elev Dimensions">
+        <FontSetting FontFace="Arial" FontSize="10" ScaleType="2" Bold="False" Italic="False" />
+      </LayerFont>
+      <LayerFont LayerName="Open Section Labels" />
+      <LayerFont LayerName="Opening Dimensions">
+        <FontSetting FontFace="Arial" FontSize="5" ScaleType="2" Bold="False" Italic="False" />
+      </LayerFont>
+      <LayerColor LayerName="Molding Drawings" Color="-8355712" />
+      <LayerColor LayerName="Appliance Drawings" Color="-8355712" />
+      <LayerColor LayerName="Inserts" Color="-8355712" />
+      <LayerColor LayerName="Moldings" Color="-8355712" />
+    </DrawingSettings>
+  </DrawingTemplate>
+</DrawingTemplates>

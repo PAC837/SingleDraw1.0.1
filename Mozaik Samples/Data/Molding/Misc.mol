@@ -1,0 +1,207 @@
+5
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ShapeLibrary Name="Misc">
+  <ShapeInfos>
+    <ShapeInfo>
+      <Shape Version="2" Name="Corner Shelf" Type="0" RadiusX="609.98" RadiusY="609.98" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="304.99" Y="0" PtType="1" Data="50.83" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="304.99" Y="304.99" PtType="1" Data="254.16" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="609.98" Y="304.99" PtType="1" Data="50.83" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="609.98" Y="609.98" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="609.98" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="Counter Leg" Type="0" RadiusX="304.99" RadiusY="609.98" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="101.66" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="304.99" Y="508.32" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="304.99" Y="609.98" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="609.98" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="Corbel" Type="0" RadiusX="304.99" RadiusY="304.99" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="50.83" Y="0" PtType="1" Data="25.42" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="50.83" Y="50.83" PtType="1" Data="25.42" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="254.16" Y="50.83" PtType="1" Data="152.5" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="254.16" Y="254.16" PtType="1" Data="25.42" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="304.99" Y="254.16" PtType="1" Data="25.42" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="304.99" Y="304.99" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="304.99" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="VP-12-96(02)" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="1" X="2419.35" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="2" X="2419.35" Y="304.8" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="3" X="0" Y="304.8" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <Operations Version="2">
+          <OperationLineBore Quan="77" Ang="0" Diameter="5" Quan_Eq="(PartL/32)+1" Ang_Eq="" Diameter_Eq="5" ID="2" X="9.5" Y="37" Depth="14" Hide="False" X_Eq="9.5" Y_Eq="37" Depth_Eq="14" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="52001" />
+          </OperationLineBore>
+          <OperationLineBore Quan="77" Ang="0" Diameter="5" Quan_Eq="(PartL/32)+1" Ang_Eq="" Diameter_Eq="5" ID="3" X="9.5" Y="254.8" Depth="14" Hide="False" X_Eq="9.5" Y_Eq="PartW-50" Depth_Eq="14" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="52002">
+              <OpIdTagReference Key="Count" Value="1" />
+            </OpIdTag>
+          </OperationLineBore>
+        </Operations>
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="SF" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="1" X="609.6" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="2" X="609.6" Y="304.8" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="3" X="0" Y="304.8" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <Operations Version="2">
+          <OperationHole Diameter="20" Diameter_Eq="" ID="2" X="9.5" Y="37" Depth="14" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="50001" />
+          </OperationHole>
+          <OperationHole Diameter="20" Diameter_Eq="" ID="3" X="9.5" Y="254.8" Depth="14" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="50002">
+              <OpIdTagReference Key="Count" Value="1" />
+            </OpIdTag>
+          </OperationHole>
+          <OperationHole Diameter="20" Diameter_Eq="" ID="4" X="600.1" Y="37" Depth="14" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="50003">
+              <OpIdTagReference Key="Count" Value="2" />
+            </OpIdTag>
+          </OperationHole>
+          <OperationHole Diameter="20" Diameter_Eq="" ID="5" X="600.1" Y="254.8" Depth="14" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="50005">
+              <OpIdTagReference Key="Count" Value="3" />
+            </OpIdTag>
+          </OperationHole>
+        </Operations>
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="Hafele Led Back" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="1" X="2032" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="2" X="2032" Y="508" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="3" X="0" Y="508" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <Operations Version="2">
+          <OperationGroove Width="11" Len="2032" Ang="0" W_Eq="11" L_Eq="PartL" Ang_Eq="" ApplyDadoLogic="True" ID="2" X="0" Y="445" Depth="11" Hide="False" X_Eq="0" Y_Eq="PartW-63" Depth_Eq="11" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="51001" />
+          </OperationGroove>
+        </Operations>
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="NEW" Type="0" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="6.35" Y="0" PtType="0" Data="0" EdgeType="1" Anchor="" EBand="1" X_Eq="DividerDadoDepth | If BlindDadoF = 0 Then X= 0" Y_Eq="0" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="True" SideName="" />
+        <ShapePoint ID="0" X="474.9546" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="PartL-DividerDadoDepth | If BlindDadoF = 0 Then X= PartL" Y_Eq="0" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="474.9546" Y="34.925" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="PartL-DividerDadoDepth | If BlindDadoF = 0 Then X= PartL" Y_Eq="BlindDadoF+BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="1" X="481.3046" Y="34.925" PtType="0" Data="0" EdgeType="2" Anchor="" EBand="1" X_Eq="PartL" Y_Eq="BlindDadoF+BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="True" SideName="" />
+        <ShapePoint ID="0" X="481.3046" Y="549.275" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="PartL" Y_Eq="PartW-BlindDadoF-BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="474.9546" Y="549.275" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="PartL-DividerDadoDepth | If BlindDadoF = 0 Then X= PartL" Y_Eq="PartW-BlindDadoF-BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="2" X="474.9546" Y="584.2" PtType="0" Data="0" EdgeType="3" Anchor="" EBand="1" X_Eq="PartL-DividerDadoDepth | If BlindDadoF = 0 Then X= PartL" Y_Eq="PartW" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="True" SideName="" />
+        <ShapePoint ID="3" X="6.35" Y="584.2" PtType="0" Data="0" EdgeType="4" Anchor="" EBand="1" X_Eq="DividerDadoDepth | If BlindDadoF = 0 Then X= 0" Y_Eq="PartW" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="True" SideName="" />
+        <ShapePoint ID="0" X="6.35" Y="549.275" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="DividerDadoDepth | If BlindDadoF = 0 Then X= 0" Y_Eq="PartW-BlindDadoF-BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="549.275" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="0" Y_Eq="PartW-BlindDadoF-BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="34.925" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="0" Y_Eq="BlindDadoF+BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="6.35" Y="34.925" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="DividerDadoDepth | If BlindDadoF = 0 Then X= 0" Y_Eq="BlindDadoF+BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="FD" Type="0" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="6.35" Y="0" PtType="0" Data="0" EdgeType="1" Anchor="" EBand="1" X_Eq="DadoDepth" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="True" SideName="" />
+        <ShapePoint ID="1" X="475.4575" Y="0" PtType="0" Data="0" EdgeType="2" Anchor="" EBand="0" X_Eq="PartL-DadoDepth" Y_Eq="0" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="475.4575" Y="34.925" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="PartL-DadoDepth | If BlindDadoF = 0 Then X= PartL" Y_Eq="BlindDadoF+BlindTLM | If BlindDadoF = 0 Then Y= 0" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="481.8075" Y="34.925" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="PartL" Y_Eq="BlindDadoF+BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="481.8075" Y="549.2749" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="PartL" Y_Eq="PartW-BlindDadoF-BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="475.4575" Y="549.2749" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="PartL-DadoDepth" Y_Eq="PartW-BlindDadoF-BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="2" X="475.4575" Y="584.2" PtType="0" Data="0" EdgeType="3" Anchor="" EBand="0" X_Eq="PartL-DadoDepth" Y_Eq="PartW" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="True" SideName="" />
+        <ShapePoint ID="3" X="6.35" Y="584.2" PtType="0" Data="0" EdgeType="4" Anchor="" EBand="0" X_Eq="DadoDepth" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="6.35" Y="549.2749" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="DadoDepth | If BlindDadoF = 0 Then X= 0" Y_Eq="PartW-BlindDadoF-BlindTLM | If BlindDadoF = 0 Then Y= PartW" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="549.2749" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="PartW-BlindDadoF-BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="34.925" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="0" Y_Eq="BlindDadoF+BlindTLM" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="6.35" Y="34.925" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="DadoDepth | If BlindDadoF = 0 Then X= 0" Y_Eq="BlindDadoF+BlindTLM | If BlindDadoF = 0 Then Y= 0" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="Bottom R" Type="1" RadiusX="0" RadiusY="0" Source="1" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="0" PtType="0" Data="0" EdgeType="1" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="1" X="203.2" Y="0" PtType="0" Data="0" EdgeType="2" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="2" X="203.2" Y="304.8" PtType="0" Data="0" EdgeType="3" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="3" X="0" Y="304.8" PtType="0" Data="0" EdgeType="4" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <Operations Version="2">
+          <OperationToolPath ToolID="40" ToolGroupID="-1" DecorativeProfileID="-1" ClosedShape="False" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="26" X="0" Y="0" Depth="18.6952" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="PartTH | If MFSkinPanels = 1 Then Depth= PartTH-MFSkin" Hide_Eq="0 | If EndMitreFrame = 0 Then Hide(0/1)= 1 | If WallFoldUnder = 0 Then Hide(0/1)= 1" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="54014">
+              <OpIdTagReference Key="Count" Value="3" />
+            </OpIdTag>
+            <OperationToolPathNode X="0" Y="0" DepthOR="-9999" PtType="0" Data="0" X_Eq="0" Y_Eq="0" Data_Eq="" Anchor="" />
+            <OperationToolPathNode X="203.2" Y="0" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL" Y_Eq="0" Data_Eq="" Anchor="" />
+          </OperationToolPath>
+          <OperationToolPath ToolID="40" ToolGroupID="-1" DecorativeProfileID="-1" ClosedShape="False" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="27" X="0" Y="0" Depth="19" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="PartTH" Hide_Eq="0 | If EndMitreFrame = 0 Then Hide(0/1)= 1" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="54003">
+              <OpIdTagReference Key="Count" Value="1" />
+            </OpIdTag>
+            <OperationToolPathNode X="203.2" Y="304.8" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL" Y_Eq="PartW" Data_Eq="" Anchor="" />
+            <OperationToolPathNode X="203.2" Y="0" DepthOR="-9999" PtType="0" Data="0" X_Eq="PartL" Y_Eq="0" Data_Eq="" Anchor="" />
+          </OperationToolPath>
+          <OperationToolPath ToolID="40" ToolGroupID="-1" DecorativeProfileID="-1" ClosedShape="False" ToolPathWidth="0" NoRamp="False" NextToolPathIdTag="-1" ToolPathIdTag="-1" ID="28" X="0" Y="0" Depth="19" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="PartTH" Hide_Eq="0 | If EndMitreFrame = 0 Then Hide(0/1)= 1" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="54005">
+              <OpIdTagReference Key="Count" Value="2" />
+            </OpIdTag>
+            <OperationToolPathNode X="0" Y="304.8" DepthOR="-9999" PtType="0" Data="0" X_Eq="0" Y_Eq="PartW" Data_Eq="" Anchor="" />
+            <OperationToolPathNode X="0" Y="0" DepthOR="-9999" PtType="0" Data="0" X_Eq="0" Y_Eq="0" Data_Eq="" Anchor="" />
+          </OperationToolPath>
+          <OperationGroove Width="0" Len="203.2" Ang="0" W_Eq="ScribeBackWall" L_Eq="PartL" Ang_Eq="" ApplyDadoLogic="True" ID="29" X="0" Y="304.8" Depth="9.525" Hide="True" X_Eq="0" Y_Eq="PartW-(ScribeBackWall/2)" Depth_Eq="ScribeDadoDepth" Hide_Eq="0 | If ScribeDadoBackWall = 0 Then Hide(0/1)= 1 | If ScribeDadoDepth &gt; PartTH Then Hide(0/1)= 1 | If ScribeDadoDepth = 0 Then Hide(0/1)= 1 | If ScribeBackWall = 0 Then Hide(0/1)= 1" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="51020">
+              <OpIdTagReference Key="Count" Value="4" />
+            </OpIdTag>
+          </OperationGroove>
+          <OperationGroove Width="19.558" Len="203.2" Ang="0" W_Eq="Cleat.th+DSlopW" L_Eq="PartL" Ang_Eq="" ApplyDadoLogic="True" ID="30" X="0" Y="269.621" Depth="3.175" Hide="False" X_Eq="0" Y_Eq="PartW-(CleatRearSetback+(Cleat.th/2)+(dslopw/2)+ScribeBackWall)" Depth_Eq="CleatDadoDepth" Hide_Eq="0 | If CleatDadoDepth = 0 Then Hide(0/1)= 1 | If CleatDadoDepth &gt; PartTH Then Hide(0/1)= 1" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="51010">
+              <OpIdTagReference Key="Count" Value="5" />
+            </OpIdTag>
+          </OperationGroove>
+          <OperationGroove Width="19.558" Len="203.2" Ang="0" W_Eq="Cleat.th+DSlopW" L_Eq="PartL" Ang_Eq="" ApplyDadoLogic="True" ID="31" X="0" Y="60.579" Depth="3.175" Hide="False" X_Eq="0" Y_Eq="(Cleat.th/2)+CleatUSetback+(dslopw/2)" Depth_Eq="CleatDadoDepth" Hide_Eq="0 | If CleatDadoDepth = 0 Then Hide(0/1)= 1 | If CleatDadoDepth &gt; PartTH Then Hide(0/1)= 1" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag TypeCode="0" LegacyNumber="51009">
+              <OpIdTagReference Key="Count" Value="6" />
+            </OpIdTag>
+          </OperationGroove>
+        </Operations>
+      </Shape>
+    </ShapeInfo>
+    <ShapeInfo>
+      <Shape Version="2" Name="Rib" Type="0" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">
+        <ShapePoint ID="0" X="0" Y="685.8" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="0" Y="609.6" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="PartW-RibWidth" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="914.4" Y="609.6" PtType="1" Data="324.104" EdgeType="0" Anchor="" EBand="0" X_Eq="PartL-RibWidth" Y_Eq="PartW-RibWidth" Data_Eq="CabRadius+(FrameOverlay)+uend.th" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="914.4" Y="0" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="PartL-RibWidth" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="990.6" Y="0.0001" PtType="0" Data="0" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <ShapePoint ID="0" X="990.6" Y="685.8" PtType="1" Data="400.304" EdgeType="0" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="CabRadius+(FrameOverlay)+uend.th+RibWidth | If RibType &lt;&gt; 2 Then Radius= 0 | If RibType = 1 Or CabRadius = 0 Then Radius= 1" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="" />
+        <Operations Version="2">
+          <OperationHole Diameter="3" Diameter_Eq="" ID="1" X="985.2638" Y="381.7407" Depth="508" Hide="True" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag FromCode="14" TypeCode="19" LegacyNumber="112011">
+              <OpIdTagReference Key="Joint Fastener Template" Value="Screw Pilot Holes 3mm" />
+              <OpIdTagReference Key="Joint Fastener Index" Value="1" />
+              <OpIdTagReference Key="Joint Identifier" Value="1" />
+              <OpIdTagReference Key="Joint Location Index" Value="1" />
+              <OpIdTagReference Key="Operation Index" Value="1" />
+            </OpIdTag>
+          </OperationHole>
+          <OperationHole Diameter="3" Diameter_Eq="" ID="1" X="985.2638" Y="77.64758" Depth="508" Hide="True" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="True" Noneditable="False" Anchor="" FlipSideOp="False">
+            <OpIdTag FromCode="14" TypeCode="19" LegacyNumber="112012">
+              <OpIdTagReference Key="Joint Fastener Template" Value="Screw Pilot Holes 3mm" />
+              <OpIdTagReference Key="Joint Fastener Index" Value="1" />
+              <OpIdTagReference Key="Joint Identifier" Value="1" />
+              <OpIdTagReference Key="Joint Location Index" Value="2" />
+              <OpIdTagReference Key="Operation Index" Value="1" />
+            </OpIdTag>
+          </OperationHole>
+        </Operations>
+      </Shape>
+    </ShapeInfo>
+  </ShapeInfos>
+  <Columns>
+    <Column ID="5" Name="Default" />
+  </Columns>
+</ShapeLibrary>

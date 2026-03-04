@@ -18,7 +18,8 @@ interface ProductViewProps {
   showBoundingBox?: boolean
   selected?: boolean
   onSelect?: (index: number) => void
-  onResize?: (index: number, field: 'width' | 'depth' | 'height', value: number) => void
+  onResize?: (index: number, field: 'width' | 'depth' | 'height', value: number, anchor?: 'left' | 'right') => void
+  onResizeWidth?: (index: number, value: number, anchor: 'left' | 'right') => void
   onUpdateElev?: (index: number, elev: number) => void
   onUpdateX?: (index: number, x: number) => void
   onBumpLeft?: (index: number) => void
@@ -231,7 +232,7 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
 
 export default function ProductView({
   product, productIndex, worldOffset, wallAngleDeg, renderMode = 'ghosted',
-  showBoundingBox = false, selected = false, onSelect, onResize, onUpdateElev, onUpdateX,
+  showBoundingBox = false, selected = false, onSelect, onResize, onResizeWidth, onUpdateElev, onUpdateX,
   onBumpLeft, onBumpRight,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null, modelsFolder = null,
@@ -300,12 +301,13 @@ export default function ProductView({
       )}
 
       {/* Resize handles only when selected */}
-      {selected && productIndex !== undefined && onResize && onUpdateElev && onUpdateX && (
+      {selected && productIndex !== undefined && onResize && onResizeWidth && onUpdateElev && onUpdateX && (
         <ProductResizeHandles
           product={product}
           productIndex={productIndex}
           wallAngleDeg={wallAngleDeg}
           onResize={onResize}
+          onResizeWidth={onResizeWidth}
           onUpdateElev={onUpdateElev}
           onUpdateX={onUpdateX}
           onBumpLeft={onBumpLeft}

@@ -1,0 +1,26 @@
+5
+PanelTemplate
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<PartFastenerTemplate Name="Toe Kick LED" CostEach="0" MarkupPercentage="0" AddOnCost="0">
+  <BasePartFastener>
+    <Bot Version="2">
+      <OperationGroove Width="19" Len="304.8" Ang="0" W_Eq="" L_Eq="" Ang_Eq="" ApplyDadoLogic="True" ID="2" X="309.6381" Y="58.68452" Depth="9.5" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="False" Noneditable="False" Anchor="" FlipSideOp="False">
+        <OpIdTag TypeCode="17" LegacyNumber="30701">
+          <OpIdTagReference Key="Panel Template Name" Value="Toe Kick LED" />
+          <OpIdTagReference Key="Op Index" Value="1" />
+        </OpIdTag>
+      </OperationGroove>
+    </Bot>
+  </BasePartFastener>
+  <WallPartFastener />
+  <TallPartFastener>
+    <Bot Version="2">
+      <OperationGroove Width="19" Len="304.8" Ang="0" W_Eq="" L_Eq="" Ang_Eq="" ApplyDadoLogic="True" ID="2" X="53.21904" Y="53.84641" Depth="9.5" Hide="False" X_Eq="" Y_Eq="" Depth_Eq="" Hide_Eq="" IsUserOp="False" Noneditable="False" Anchor="" FlipSideOp="False">
+        <OpIdTag TypeCode="17" LegacyNumber="30701">
+          <OpIdTagReference Key="Panel Template Name" Value="Toe Kick LED" />
+          <OpIdTagReference Key="Op Index" Value="1" />
+        </OpIdTag>
+      </OperationGroove>
+    </Bot>
+  </TallPartFastener>
+</PartFastenerTemplate>

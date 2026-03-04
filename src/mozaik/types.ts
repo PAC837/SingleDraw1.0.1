@@ -211,10 +211,18 @@ export interface AppState {
   visibility: Visibility
   visibilityMenuOpen: boolean
   placementMode: 'floor' | 'wall'
-  unitHeight: number           // mm — height of units being placed
-  wallMountTopAt: number       // mm — distance from floor to top of wall-mounted unit
+  unitHeight: number           // mm — floor section height
+  wallSectionHeight: number    // mm — wall-mounted section height
+  wallMountTopAt: number       // mm — distance from floor to top of wall-mounted unit (auto-syncs with unitHeight)
   wallHeight: number           // mm — wall height for room creation / updates
   productConfigOpen: boolean
   cameraResetKey: number
   selectedProduct: number | null
+  flipOps: boolean
+}
+
+/** Check if product name indicates a wall-mount section (PAC Library convention). */
+export function isWallMount(prodName: string): boolean {
+  const s = prodName.toUpperCase()
+  return s.startsWith('WALL ') || s.includes(' WM ') || s.startsWith('WM ')
 }

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<multiprintDefaultObjectSettings>
+  <version>0</version>
+  <fillParams>
+    <fillColor>FF000000</fillColor>
+    <fillOpacity>0</fillOpacity>
+    <edgeColor>FF000000</edgeColor>
+    <edgeOpacity>255</edgeOpacity>
+    <edgeWidth>0.9448819</edgeWidth>
+    <edgeStyle>0</edgeStyle>
+    <dimensionType>1</dimensionType>
+    <dimensionHasPigtails>True</dimensionHasPigtails>
+    <dimensionAlignment>1</dimensionAlignment>
+    <dimensionIsRotated>False</dimensionIsRotated>
+    <fontFace>Arial</fontFace>
+    <fontSize>11</fontSize>
+    <fontIsBold>False</fontIsBold>
+    <fontIsItalic>False</fontIsItalic>
+    <fontScaleMode>2</fontScaleMode>
+    <fontColor>FF000000</fontColor>
+    <fontOpacity>255</fontOpacity>
+  </fillParams>
+</multiprintDefaultObjectSettings>
