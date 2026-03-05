@@ -184,12 +184,36 @@ function AppInner() {
         onSetPolygonOffsetUnits={(value: number) => dispatch({ type: 'SET_POLYGON_OFFSET_UNITS', value })}
         renderPreset={state.renderPreset}
         onSetRenderPreset={(preset: string) => dispatch({ type: 'SET_RENDER_PRESET', preset })}
+        ambientIntensity={state.ambientIntensity}
+        onSetAmbientIntensity={(value: number) => dispatch({ type: 'SET_AMBIENT_INTENSITY', value })}
+        directionalIntensity={state.directionalIntensity}
+        onSetDirectionalIntensity={(value: number) => dispatch({ type: 'SET_DIRECTIONAL_INTENSITY', value })}
+        warmth={state.warmth}
+        onSetWarmth={(value: number) => dispatch({ type: 'SET_WARMTH', value })}
+        exposure={state.exposure}
+        onSetExposure={(value: number) => dispatch({ type: 'SET_EXPOSURE', value })}
+        toneMapping={state.toneMapping}
+        onSetToneMapping={(value: number) => dispatch({ type: 'SET_TONE_MAPPING', value })}
+        bgColor={state.bgColor}
+        onSetBgColor={(value: string) => dispatch({ type: 'SET_BG_COLOR', value })}
       />
       <div className="flex-1 relative">
-        <Scene orbitTarget={roomCenter} orthographic={state.wallEditorActive} roomWalls={state.wallEditorActive ? state.room?.walls : undefined} resetKey={state.cameraResetKey} onPointerMissed={() => {
-          if (state.selectedWall !== null) dispatch({ type: 'SELECT_WALL', wallNumber: null })
-          if (state.selectedProduct !== null) dispatch({ type: 'SELECT_PRODUCT', index: null })
-        }}>
+        <Scene
+          orbitTarget={roomCenter}
+          orthographic={state.wallEditorActive}
+          roomWalls={state.wallEditorActive ? state.room?.walls : undefined}
+          resetKey={state.cameraResetKey}
+          onPointerMissed={() => {
+            if (state.selectedWall !== null) dispatch({ type: 'SELECT_WALL', wallNumber: null })
+            if (state.selectedProduct !== null) dispatch({ type: 'SELECT_PRODUCT', index: null })
+          }}
+          ambientIntensity={state.ambientIntensity}
+          directionalIntensity={state.directionalIntensity}
+          warmth={state.warmth}
+          exposure={state.exposure}
+          toneMapping={state.toneMapping}
+          bgColor={state.bgColor}
+        >
           <DebugOverlaysComponent overlays={state.overlays} room={state.room} />
 
           {state.overlays.probeScene && <ProbeScene />}

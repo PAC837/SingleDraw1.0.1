@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react'
+import { LinearToneMapping, ACESFilmicToneMapping } from 'three'
 import { isWallMount } from './mozaik/types'
 import type { AppState, Visibility, RenderMode, MozRoom, MozFile, MozProduct, MozFixture, MozWall, DebugOverlays, DragTarget } from './mozaik/types'
 import { updateWallLength, updateWallHeight, moveJoint, splitWallAtCenter, rebuildJoints, toggleFollowAngle, toggleJointMiter } from './math/wallEditor'
@@ -6,18 +7,31 @@ import { adjustNeighborGaps } from './mozaik/wallPlacement'
 import { resizeProduct } from './mozaik/productResize'
 import { snapModularHeight } from './mozaik/modularValues'
 
-/** Pre-configured render setting combos. */
-export const RENDER_PRESETS: Record<string, { label: string; mode: RenderMode; edgeOpacity: number; factor: number; units: number }> = {
-  'ghosted-default': { label: 'Ghosted (Default)',  mode: 'ghosted',   edgeOpacity: 0,    factor: 1,   units: 1 },
-  'clean-solid':     { label: 'Clean Solid',        mode: 'solid',     edgeOpacity: 0,    factor: 1,   units: 1 },
-  'cad-edges':       { label: 'CAD Edges',          mode: 'solid',     edgeOpacity: 0.8,  factor: 1,   units: 1 },
-  'soft-edges':      { label: 'Soft Edges',         mode: 'solid',     edgeOpacity: 0.3,  factor: 1,   units: 1 },
-  'blueprint':       { label: 'Blueprint',          mode: 'wireframe', edgeOpacity: 0,    factor: 1,   units: 1 },
-  'x-ray':           { label: 'X-Ray',              mode: 'ghosted',   edgeOpacity: 0.5,  factor: 1,   units: 1 },
-  'technical':       { label: 'Technical',          mode: 'solid',     edgeOpacity: 1.0,  factor: 2,   units: 2 },
-  'thick-offset':    { label: 'Thick Offset',       mode: 'solid',     edgeOpacity: 0.6,  factor: 4,   units: 4 },
-  'minimal':         { label: 'Minimal',            mode: 'solid',     edgeOpacity: 0.15, factor: 0.5, units: 0.5 },
-  'heavy-lines':     { label: 'Heavy Lines',        mode: 'solid',     edgeOpacity: 1.0,  factor: 1,   units: 1 },
+/** Pre-configured render setting combos with lighting. */
+export const RENDER_PRESETS: Record<string, {
+  label: string; mode: RenderMode; edgeOpacity: number; factor: number; units: number
+  ambient: number; directional: number; warmth: number; exposure: number; toneMapping: number; bgColor: string
+}> = {
+  'ghosted-default': { label: 'Ghosted (Default)', mode: 'ghosted',   edgeOpacity: 0,    factor: 1, units: 1,
+    ambient: 0.6, directional: 0.7, warmth: 0,    exposure: 1,   toneMapping: LinearToneMapping,      bgColor: '#ffffff' },
+  'clean-solid':     { label: 'Clean Solid',       mode: 'solid',     edgeOpacity: 0,    factor: 1, units: 1,
+    ambient: 0.6, directional: 0.7, warmth: 0,    exposure: 1,   toneMapping: LinearToneMapping,      bgColor: '#ffffff' },
+  'cad-edges':       { label: 'CAD Edges',         mode: 'solid',     edgeOpacity: 0.8,  factor: 1, units: 1,
+    ambient: 0.8, directional: 0.5, warmth: -0.3, exposure: 1,   toneMapping: LinearToneMapping,      bgColor: '#f0f0f0' },
+  'warm-studio':     { label: 'Warm Studio',       mode: 'solid',     edgeOpacity: 0.3,  factor: 1, units: 1,
+    ambient: 0.5, directional: 0.8, warmth: 0.5,  exposure: 1.2, toneMapping: ACESFilmicToneMapping,  bgColor: '#ffffff' },
+  'cool-daylight':   { label: 'Cool Daylight',     mode: 'solid',     edgeOpacity: 0.5,  factor: 1, units: 1,
+    ambient: 0.7, directional: 0.6, warmth: -0.5, exposure: 1,   toneMapping: LinearToneMapping,      bgColor: '#ffffff' },
+  'blueprint':       { label: 'Blueprint',         mode: 'wireframe', edgeOpacity: 0,    factor: 1, units: 1,
+    ambient: 0.6, directional: 0.7, warmth: 0,    exposure: 1,   toneMapping: LinearToneMapping,      bgColor: '#1a1a2e' },
+  'x-ray':           { label: 'X-Ray',             mode: 'ghosted',   edgeOpacity: 0.5,  factor: 1, units: 1,
+    ambient: 0.6, directional: 0.7, warmth: 0,    exposure: 1,   toneMapping: LinearToneMapping,      bgColor: '#ffffff' },
+  'showroom':        { label: 'Showroom',          mode: 'solid',     edgeOpacity: 0.2,  factor: 1, units: 1,
+    ambient: 0.4, directional: 0.9, warmth: 0.3,  exposure: 1.1, toneMapping: ACESFilmicToneMapping,  bgColor: '#ffffff' },
+  'dramatic':        { label: 'Dramatic',          mode: 'solid',     edgeOpacity: 0.8,  factor: 1, units: 1,
+    ambient: 0.2, directional: 1.2, warmth: 0.2,  exposure: 0.9, toneMapping: ACESFilmicToneMapping,  bgColor: '#2a2a2a' },
+  'presentation':    { label: 'Presentation',      mode: 'solid',     edgeOpacity: 0.3,  factor: 1, units: 1,
+    ambient: 0.6, directional: 0.7, warmth: 0.1,  exposure: 1,   toneMapping: ACESFilmicToneMapping,  bgColor: '#ffffff' },
 }
 
 const defaultOverlays: DebugOverlays = {
@@ -80,6 +94,12 @@ const initialState: AppState = {
   polygonOffsetFactor: 1,
   polygonOffsetUnits: 1,
   renderPreset: 'ghosted-default',
+  ambientIntensity: 0.6,
+  directionalIntensity: 0.7,
+  warmth: 0,
+  exposure: 1.0,
+  toneMapping: LinearToneMapping,
+  bgColor: '#ffffff',
 }
 
 type Action =
@@ -142,6 +162,12 @@ type Action =
   | { type: 'SET_POLYGON_OFFSET_FACTOR'; value: number }
   | { type: 'SET_POLYGON_OFFSET_UNITS'; value: number }
   | { type: 'SET_RENDER_PRESET'; preset: string }
+  | { type: 'SET_AMBIENT_INTENSITY'; value: number }
+  | { type: 'SET_DIRECTIONAL_INTENSITY'; value: number }
+  | { type: 'SET_WARMTH'; value: number }
+  | { type: 'SET_EXPOSURE'; value: number }
+  | { type: 'SET_TONE_MAPPING'; value: number }
+  | { type: 'SET_BG_COLOR'; value: string }
   | { type: 'ALIGN_WALL_TOPS' }
   | { type: 'UNDO' }
 
@@ -469,8 +495,25 @@ function reducer(state: AppState, action: Action): AppState {
     case 'SET_RENDER_PRESET': {
       const p = RENDER_PRESETS[action.preset]
       if (!p) return state
-      return { ...state, renderPreset: action.preset, renderMode: p.mode, edgeOpacity: p.edgeOpacity, polygonOffsetFactor: p.factor, polygonOffsetUnits: p.units }
+      return {
+        ...state, renderPreset: action.preset, renderMode: p.mode, edgeOpacity: p.edgeOpacity,
+        polygonOffsetFactor: p.factor, polygonOffsetUnits: p.units,
+        ambientIntensity: p.ambient, directionalIntensity: p.directional,
+        warmth: p.warmth, exposure: p.exposure, toneMapping: p.toneMapping, bgColor: p.bgColor,
+      }
     }
+    case 'SET_AMBIENT_INTENSITY':
+      return { ...state, ambientIntensity: action.value, renderPreset: null }
+    case 'SET_DIRECTIONAL_INTENSITY':
+      return { ...state, directionalIntensity: action.value, renderPreset: null }
+    case 'SET_WARMTH':
+      return { ...state, warmth: action.value, renderPreset: null }
+    case 'SET_EXPOSURE':
+      return { ...state, exposure: action.value, renderPreset: null }
+    case 'SET_TONE_MAPPING':
+      return { ...state, toneMapping: action.value, renderPreset: null }
+    case 'SET_BG_COLOR':
+      return { ...state, bgColor: action.value, renderPreset: null }
     case 'ALIGN_WALL_TOPS': {
       if (!state.room || state.room.products.length === 0) return state
       const targetTop = state.unitHeight

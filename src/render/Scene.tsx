@@ -1,7 +1,7 @@
 import { useRef, useEffect, useMemo } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
-import { OrthographicCamera } from 'three'
+import { OrthographicCamera, LinearToneMapping } from 'three'
 import type { ReactNode } from 'react'
 import type { OrbitControls as OrbitControlsType } from 'three-stdlib'
 import type { Camera as ThreeCamera, PerspectiveCamera } from 'three'
@@ -13,6 +13,12 @@ interface SceneProps {
   roomWalls?: Array<{ posX: number; posY: number; ang: number; len: number }>
   resetKey?: number
   onPointerMissed?: () => void
+  ambientIntensity?: number
+  directionalIntensity?: number
+  warmth?: number
+  exposure?: number
+  toneMapping?: number
+  bgColor?: string
 }
 
 /** Inner component so useEffect runs inside the R3F Canvas context. */
@@ -144,7 +150,39 @@ function OrthoCamera({ target, walls }: { target?: [number, number, number]; wal
   return null
 }
 
-export default function Scene({ children, orbitTarget, orthographic, roomWalls, resetKey, onPointerMissed }: SceneProps) {
+/** Reactively updates WebGL renderer tone mapping settings. */
+function RendererSettings({ toneMapping, exposure }: { toneMapping: number; exposure: number }) {
+  const { gl } = useThree()
+  useEffect(() => {
+    gl.toneMapping = toneMapping as import('three').ToneMapping
+    gl.toneMappingExposure = exposure
+  }, [gl, toneMapping, exposure])
+  return null
+}
+
+/** Compute hemisphere light colors from warmth parameter (-1 to 1). */
+function warmthToColors(warmth: number): { sky: string; ground: string } {
+  const cool    = { sky: [0xa0, 0xc4, 0xe8], ground: [0x90, 0xa0, 0xb0] }
+  const neutral = { sky: [0xd4, 0xe6, 0xf1], ground: [0xb0, 0xa0, 0x90] }
+  const warm    = { sky: [0xf0, 0xd4, 0xa0], ground: [0xc0, 0xa0, 0x70] }
+
+  const [from, to, t] = warmth <= 0
+    ? [cool, neutral, warmth + 1]
+    : [neutral, warm, warmth]
+
+  const lerp = (a: number[], b: number[]) =>
+    '#' + a.map((v, i) => Math.round(v + (b[i] - v) * t).toString(16).padStart(2, '0')).join('')
+
+  return { sky: lerp(from.sky, to.sky), ground: lerp(from.ground, to.ground) }
+}
+
+export default function Scene({
+  children, orbitTarget, orthographic, roomWalls, resetKey, onPointerMissed,
+  ambientIntensity = 0.6, directionalIntensity = 0.7, warmth = 0,
+  exposure = 1.0, toneMapping = LinearToneMapping, bgColor = '#ffffff',
+}: SceneProps) {
+  const hemiColors = useMemo(() => warmthToColors(warmth), [warmth])
+
   return (
     <Canvas
       camera={{
@@ -155,13 +193,14 @@ export default function Scene({ children, orbitTarget, orthographic, roomWalls, 
         up: [0, 1, 0],
       }}
       gl={{ antialias: true }}
-      style={{ background: '#ffffff' }}
+      style={{ background: bgColor }}
       onPointerMissed={onPointerMissed}
     >
-      <ambientLight intensity={0.6} />
-      <hemisphereLight args={['#d4e6f1', '#b0a090', 0.5]} />
-      <directionalLight position={[5000, 10000, 5000]} intensity={0.7} />
-      <directionalLight position={[-3000, 8000, -3000]} intensity={0.3} />
+      <RendererSettings toneMapping={toneMapping} exposure={exposure} />
+      <ambientLight intensity={ambientIntensity} />
+      <hemisphereLight args={[hemiColors.sky, hemiColors.ground, 0.5]} />
+      <directionalLight position={[5000, 10000, 5000]} intensity={directionalIntensity} />
+      <directionalLight position={[-3000, 8000, -3000]} intensity={directionalIntensity * 0.43} />
       {children}
       {orthographic && <OrthoCamera target={orbitTarget} walls={roomWalls} />}
       <SceneOrbitControls key={orthographic ? 'ortho' : 'persp'} target={orbitTarget} disableRotate={orthographic} resetKey={resetKey} />

@@ -225,6 +225,12 @@ export interface AppState {
   polygonOffsetFactor: number   // 0–10 — depth offset factor for solid faces
   polygonOffsetUnits: number    // 0–10 — depth offset units for solid faces
   renderPreset: string | null   // active preset name, null = custom/manual
+  ambientIntensity: number        // 0–2 — ambient light intensity
+  directionalIntensity: number    // 0–2 — key light intensity
+  warmth: number                  // -1 to 1 — hemisphere light color temperature
+  exposure: number                // 0.5–2 — tone mapping exposure
+  toneMapping: number             // Three.js ToneMapping enum value
+  bgColor: string                 // canvas background hex color
 }
 
 /** Check if product name indicates a wall-mount section (PAC Library convention). */

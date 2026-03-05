@@ -163,7 +163,7 @@ function GalaxyOrb() {
   return (
     <mesh renderOrder={1001}>
       <sphereGeometry args={[BALL_R * 1.2, 32, 32]} />
-      <galaxyOrbMaterial ref={ref} depthTest={false} />
+      <galaxyOrbMaterial ref={ref} depthTest={false} depthWrite={false} toneMapped={false} />
     </mesh>
   )
 }
@@ -218,12 +218,12 @@ function ArrowWithShaft({ rotation, position, color }: {
       {/* Shaft — thin box below the head */}
       <mesh position={[0, -shaftH / 2, 0]} renderOrder={1000}>
         <boxGeometry args={[shaftW, shaftH, shaftW]} />
-        <meshBasicMaterial color={color} depthTest={false} />
+        <meshBasicMaterial color={color} depthTest={false} depthWrite={false} toneMapped={false} />
       </mesh>
       {/* Arrowhead — cone at top */}
       <mesh position={[0, headH / 2, 0]} renderOrder={1000}>
         <coneGeometry args={[headR, headH, 8]} />
-        <meshBasicMaterial color={color} depthTest={false} />
+        <meshBasicMaterial color={color} depthTest={false} depthWrite={false} toneMapped={false} />
       </mesh>
     </group>
   )
@@ -447,7 +447,7 @@ function BumpBall({
       renderOrder={1000}
     >
       <coneGeometry args={[BALL_R * 1.0, BALL_R * 2.2, 12]} />
-      <meshBasicMaterial color={hovered ? '#ff4444' : '#cc0000'} depthTest={false} />
+      <meshBasicMaterial color={hovered ? '#ff4444' : '#cc0000'} depthTest={false} depthWrite={false} toneMapped={false} />
     </mesh>
   )
 }

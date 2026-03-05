@@ -4,14 +4,14 @@
  */
 
 import { useMemo } from 'react'
-import { BoxGeometry, EdgesGeometry } from 'three'
+import { BoxGeometry, EdgesGeometry, RepeatWrapping } from 'three'
 import type { Texture } from 'three'
 import type { MozRoom, MozProduct, RenderMode } from '../mozaik/types'
 import { computeAutoEndPanels, PANEL_THICK, type AutoEndPanel } from '../mozaik/autoEndPanels'
 import { computeProductWorldOffset } from '../math/wallMath'
 import { mozPosToThree } from '../math/basis'
 import { DEG2RAD } from '../math/constants'
-import { useProductTexture, useTextureByFilename, useSingleDrawTexture } from './useProductTexture'
+import { useProductTexture, useTextureByFilename, useSingleDrawTexture, lookupTexture } from './useProductTexture'
 
 interface AutoEndPanelsProps {
   room: MozRoom
@@ -29,14 +29,17 @@ interface AutoEndPanelsProps {
 
 const PANEL_COLOR = '#d4c5a9' // matches FEnd color from ProductView
 const NO_CLIP: never[] = []
+const RENDER_INSET = 1 // mm — shrink rendered panel to avoid coplanar z-fight with product faces
 
 function EndPanelMesh({
-  panel, room, renderMode, baseTexture, edgeOpacity = 0, polyFactor = 1, polyUnits = 1,
+  panel, room, renderMode, baseTexture, textureId = null,
+  edgeOpacity = 0, polyFactor = 1, polyUnits = 1,
 }: {
   panel: AutoEndPanel
   room: MozRoom
   renderMode: RenderMode
   baseTexture: Texture | null
+  textureId?: number | null
   edgeOpacity?: number
   polyFactor?: number
   polyUnits?: number
@@ -54,11 +57,27 @@ function EndPanelMesh({
   }, [panel, room.walls, room.wallJoints])
 
   const edgesGeo = useMemo(() => {
-    const geo = new BoxGeometry(PANEL_THICK, panel.height, panel.depth)
+    const geo = new BoxGeometry(PANEL_THICK - RENDER_INSET, panel.height, panel.depth)
     const edges = new EdgesGeometry(geo)
     geo.dispose()
     return edges
   }, [panel.height, panel.depth])
+
+  // Clone texture with proper tiling (matches usePartTexture in ProductView)
+  const panelTex = useMemo(() => {
+    if (!baseTexture) return null
+    const entry = textureId ? lookupTexture(textureId) : null
+    const uvw = entry?.uvw ?? 609.6
+    const uvh = entry?.uvh ?? 609.6
+    const tex = baseTexture.clone()
+    tex.wrapS = RepeatWrapping
+    tex.wrapT = RepeatWrapping
+    tex.repeat.set(panel.depth / uvw, panel.height / uvh)
+    tex.rotation = Math.PI / 2
+    tex.center.set(0.5, 0.5)
+    tex.needsUpdate = true
+    return tex
+  }, [baseTexture, textureId, panel.depth, panel.height])
 
   if (!offset) return null
 
@@ -69,20 +88,20 @@ function EndPanelMesh({
   return (
     <group position={pos} rotation={[0, rotY, 0]} scale={[1, 1, -1]}>
       <mesh position={bbPos}>
-        <boxGeometry args={[PANEL_THICK, panel.height, panel.depth]} />
+        <boxGeometry args={[PANEL_THICK - RENDER_INSET, panel.height, panel.depth]} />
         {renderMode === 'wireframe' ? (
           <meshBasicMaterial color={PANEL_COLOR} wireframe />
         ) : renderMode === 'solid' ? (
-          baseTexture ? (
-            <meshStandardMaterial map={baseTexture} roughness={0.7} metalness={0.1}
+          panelTex ? (
+            <meshStandardMaterial map={panelTex} roughness={0.7} metalness={0.1}
               clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits + 1} />
           ) : (
             <meshStandardMaterial color={PANEL_COLOR} roughness={0.7} metalness={0.1}
               clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits + 1} />
           )
         ) : (
-          baseTexture ? (
-            <meshStandardMaterial map={baseTexture} transparent opacity={0.8} roughness={0.8} metalness={0}
+          panelTex ? (
+            <meshStandardMaterial map={panelTex} transparent opacity={0.8} roughness={0.8} metalness={0}
               clippingPlanes={NO_CLIP} />
           ) : (
             <meshStandardMaterial color={PANEL_COLOR} transparent opacity={0.8} roughness={0.8} metalness={0}
@@ -126,6 +145,7 @@ export default function AutoEndPanels({
           room={room}
           renderMode={renderMode}
           baseTexture={baseTexture}
+          textureId={textureId}
           edgeOpacity={edgeOpacity}
           polyFactor={polyFactor}
           polyUnits={polyUnits}

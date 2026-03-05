@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import type { DebugOverlays, MozRoom, MozFile, RenderMode } from '../mozaik/types'
 import { formatDim } from '../math/units'
-import { RENDER_PRESETS } from '../store'
 import FileLoader from './FileLoader'
 import CreateRoomPanel from './CreateRoomPanel'
 import PlaceProductPanel from './PlaceProductPanel'
 import ProductPreview from './ProductPreview'
+import RenderSettings from './RenderSettings'
 
 interface UIPanelProps {
   room: MozRoom | null
@@ -62,51 +62,18 @@ interface UIPanelProps {
   onSetPolygonOffsetUnits: (value: number) => void
   renderPreset: string | null
   onSetRenderPreset: (preset: string) => void
-}
-
-function Toggle({
-  label, checked, onChange,
-}: { label: string; checked: boolean; onChange: () => void }) {
-  return (
-    <label className="flex items-center gap-2 cursor-pointer text-sm">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
-        className="accent-[var(--accent)]"
-      />
-      <span className={checked ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}>
-        {label}
-      </span>
-    </label>
-  )
-}
-
-function RenderModeSelector({
-  mode, onChange,
-}: { mode: RenderMode; onChange: (m: RenderMode) => void }) {
-  const modes: { value: RenderMode; label: string }[] = [
-    { value: 'ghosted', label: 'Ghost' },
-    { value: 'solid', label: 'Solid' },
-    { value: 'wireframe', label: 'Wire' },
-  ]
-  return (
-    <div className="flex gap-1">
-      {modes.map((m) => (
-        <button
-          key={m.value}
-          onClick={() => onChange(m.value)}
-          className={`text-xs px-2 py-1 rounded transition-colors ${
-            mode === m.value
-              ? 'bg-[var(--accent)] text-black font-medium'
-              : 'bg-gray-800 hover:bg-gray-700'
-          }`}
-        >
-          {m.label}
-        </button>
-      ))}
-    </div>
-  )
+  ambientIntensity: number
+  onSetAmbientIntensity: (value: number) => void
+  directionalIntensity: number
+  onSetDirectionalIntensity: (value: number) => void
+  warmth: number
+  onSetWarmth: (value: number) => void
+  exposure: number
+  onSetExposure: (value: number) => void
+  toneMapping: number
+  onSetToneMapping: (value: number) => void
+  bgColor: string
+  onSetBgColor: (value: string) => void
 }
 
 function LibrarySection({
@@ -196,6 +163,12 @@ export default function UIPanel({
   polygonOffsetFactor, onSetPolygonOffsetFactor,
   polygonOffsetUnits, onSetPolygonOffsetUnits,
   renderPreset, onSetRenderPreset,
+  ambientIntensity, onSetAmbientIntensity,
+  directionalIntensity, onSetDirectionalIntensity,
+  warmth, onSetWarmth,
+  exposure, onSetExposure,
+  toneMapping, onSetToneMapping,
+  bgColor, onSetBgColor,
 }: UIPanelProps) {
   const fmt = (mm: number) => formatDim(mm, useInches)
 
@@ -438,70 +411,21 @@ export default function UIPanel({
         </div>
       </div>
 
-      {/* Render Mode + Debug Overlays */}
-      <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-          Render
-        </h2>
-        <div className="mb-3">
-          <RenderModeSelector mode={renderMode} onChange={onSetRenderMode} />
-        </div>
-        <div className="mb-3">
-          <label className="text-xs text-gray-400 mb-1 block">Preset</label>
-          <select
-            value={renderPreset ?? 'custom'}
-            onChange={(e) => {
-              const v = e.target.value
-              if (v !== 'custom') onSetRenderPreset(v)
-            }}
-            className="w-full text-xs px-2 py-1 bg-[#222] text-white border border-gray-700 rounded"
-          >
-            <option value="custom">Custom</option>
-            {Object.entries(RENDER_PRESETS).map(([key, p]) => (
-              <option key={key} value={key}>{p.label}</option>
-            ))}
-          </select>
-        </div>
-        <div className="mb-3">
-          <label className="text-xs text-gray-400 flex justify-between">
-            <span>Edge Opacity</span>
-            <span>{Math.round(edgeOpacity * 100)}%</span>
-          </label>
-          <input type="range" min={0} max={1} step={0.05}
-            value={edgeOpacity}
-            onChange={e => onSetEdgeOpacity(parseFloat(e.target.value))}
-            className="w-full accent-[var(--accent)]" />
-        </div>
-        <div className="mb-3">
-          <label className="text-xs text-gray-400 flex justify-between">
-            <span>Offset Factor</span>
-            <span>{polygonOffsetFactor.toFixed(1)}</span>
-          </label>
-          <input type="range" min={0} max={10} step={0.5}
-            value={polygonOffsetFactor}
-            onChange={e => onSetPolygonOffsetFactor(parseFloat(e.target.value))}
-            className="w-full accent-[var(--accent)]" />
-        </div>
-        <div className="mb-3">
-          <label className="text-xs text-gray-400 flex justify-between">
-            <span>Offset Units</span>
-            <span>{polygonOffsetUnits.toFixed(1)}</span>
-          </label>
-          <input type="range" min={0} max={10} step={0.5}
-            value={polygonOffsetUnits}
-            onChange={e => onSetPolygonOffsetUnits(parseFloat(e.target.value))}
-            className="w-full accent-[var(--accent)]" />
-        </div>
-        <div className="space-y-2">
-          <Toggle label="Origin Marker" checked={overlays.originMarker} onChange={() => onToggleOverlay('originMarker')} />
-          <Toggle label="Axis Gizmo" checked={overlays.axisGizmo} onChange={() => onToggleOverlay('axisGizmo')} />
-          <Toggle label="Floor Grid" checked={overlays.floorGrid} onChange={() => onToggleOverlay('floorGrid')} />
-          <Toggle label="Wall Normals" checked={overlays.wallNormals} onChange={() => onToggleOverlay('wallNormals')} />
-          <Toggle label="Bounding Boxes" checked={overlays.boundingBoxes} onChange={() => onToggleOverlay('boundingBoxes')} />
-          <Toggle label="Double-Sided Walls" checked={overlays.doubleSidedWalls} onChange={() => onToggleOverlay('doubleSidedWalls')} />
-          <Toggle label="Probe Scene" checked={overlays.probeScene} onChange={() => onToggleOverlay('probeScene')} />
-        </div>
-      </div>
+      {/* Render Mode + Lighting + Debug Overlays */}
+      <RenderSettings
+        renderMode={renderMode} onSetRenderMode={onSetRenderMode}
+        renderPreset={renderPreset} onSetRenderPreset={onSetRenderPreset}
+        edgeOpacity={edgeOpacity} onSetEdgeOpacity={onSetEdgeOpacity}
+        polygonOffsetFactor={polygonOffsetFactor} onSetPolygonOffsetFactor={onSetPolygonOffsetFactor}
+        polygonOffsetUnits={polygonOffsetUnits} onSetPolygonOffsetUnits={onSetPolygonOffsetUnits}
+        ambientIntensity={ambientIntensity} onSetAmbientIntensity={onSetAmbientIntensity}
+        directionalIntensity={directionalIntensity} onSetDirectionalIntensity={onSetDirectionalIntensity}
+        warmth={warmth} onSetWarmth={onSetWarmth}
+        exposure={exposure} onSetExposure={onSetExposure}
+        toneMapping={toneMapping} onSetToneMapping={onSetToneMapping}
+        bgColor={bgColor} onSetBgColor={onSetBgColor}
+        overlays={overlays} onToggleOverlay={onToggleOverlay}
+      />
 
       {/* Room Info */}
       {room && (
