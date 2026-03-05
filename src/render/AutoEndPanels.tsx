@@ -18,6 +18,8 @@ interface AutoEndPanelsProps {
   renderMode: RenderMode
   flipOps?: boolean
   edgeOpacity?: number
+  polyFactor?: number
+  polyUnits?: number
   textureFolder?: FileSystemDirectoryHandle | null
   textureId?: number | null
   textureFilename?: string | null
@@ -29,13 +31,15 @@ const PANEL_COLOR = '#d4c5a9' // matches FEnd color from ProductView
 const NO_CLIP: never[] = []
 
 function EndPanelMesh({
-  panel, room, renderMode, baseTexture, edgeOpacity = 0,
+  panel, room, renderMode, baseTexture, edgeOpacity = 0, polyFactor = 1, polyUnits = 1,
 }: {
   panel: AutoEndPanel
   room: MozRoom
   renderMode: RenderMode
   baseTexture: Texture | null
   edgeOpacity?: number
+  polyFactor?: number
+  polyUnits?: number
 }) {
   const offset = useMemo(() => {
     // Create a pseudo-product to compute world position via existing wall math
@@ -71,10 +75,10 @@ function EndPanelMesh({
         ) : renderMode === 'solid' ? (
           baseTexture ? (
             <meshStandardMaterial map={baseTexture} roughness={0.7} metalness={0.1}
-              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1} />
+              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits + 1} />
           ) : (
             <meshStandardMaterial color={PANEL_COLOR} roughness={0.7} metalness={0.1}
-              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1} />
+              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits + 1} />
           )
         ) : (
           baseTexture ? (
@@ -96,7 +100,7 @@ function EndPanelMesh({
 }
 
 export default function AutoEndPanels({
-  room, renderMode, flipOps = false, edgeOpacity = 0,
+  room, renderMode, flipOps = false, edgeOpacity = 0, polyFactor = 1, polyUnits = 1,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null,
 }: AutoEndPanelsProps) {
@@ -123,6 +127,8 @@ export default function AutoEndPanels({
           renderMode={renderMode}
           baseTexture={baseTexture}
           edgeOpacity={edgeOpacity}
+          polyFactor={polyFactor}
+          polyUnits={polyUnits}
         />
       ))}
     </group>

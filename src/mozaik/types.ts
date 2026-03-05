@@ -222,6 +222,9 @@ export interface AppState {
   selectedProduct: number | null
   flipOps: boolean
   edgeOpacity: number           // 0–1 — black edge line opacity in solid mode
+  polygonOffsetFactor: number   // 0–10 — depth offset factor for solid faces
+  polygonOffsetUnits: number    // 0–10 — depth offset units for solid faces
+  renderPreset: string | null   // active preset name, null = custom/manual
 }
 
 /** Check if product name indicates a wall-mount section (PAC Library convention). */

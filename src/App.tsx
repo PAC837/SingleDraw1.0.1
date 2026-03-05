@@ -178,6 +178,12 @@ function AppInner() {
         onRemoveProduct={handleRemoveProduct}
         edgeOpacity={state.edgeOpacity}
         onSetEdgeOpacity={(value: number) => dispatch({ type: 'SET_EDGE_OPACITY', value })}
+        polygonOffsetFactor={state.polygonOffsetFactor}
+        onSetPolygonOffsetFactor={(value: number) => dispatch({ type: 'SET_POLYGON_OFFSET_FACTOR', value })}
+        polygonOffsetUnits={state.polygonOffsetUnits}
+        onSetPolygonOffsetUnits={(value: number) => dispatch({ type: 'SET_POLYGON_OFFSET_UNITS', value })}
+        renderPreset={state.renderPreset}
+        onSetRenderPreset={(preset: string) => dispatch({ type: 'SET_RENDER_PRESET', preset })}
       />
       <div className="flex-1 relative">
         <Scene orbitTarget={roomCenter} orthographic={state.wallEditorActive} roomWalls={state.wallEditorActive ? state.room?.walls : undefined} resetKey={state.cameraResetKey} onPointerMissed={() => {
@@ -254,6 +260,8 @@ function AppInner() {
                 onBumpRight={handleBumpRight}
                 onRemove={handleRemoveProduct}
                 edgeOpacity={state.edgeOpacity}
+                polyFactor={state.polygonOffsetFactor}
+                polyUnits={state.polygonOffsetUnits}
                 textureFolder={state.textureFolder}
                 textureId={resolvedTextureId}
                 textureFilename={resolvedTextureFilename}
@@ -271,6 +279,8 @@ function AppInner() {
               renderMode={state.renderMode}
               flipOps={state.flipOps}
               edgeOpacity={state.edgeOpacity}
+              polyFactor={state.polygonOffsetFactor}
+              polyUnits={state.polygonOffsetUnits}
               textureFolder={state.textureFolder}
               textureId={resolvedTextureId}
               textureFilename={resolvedTextureFilename}
@@ -287,6 +297,8 @@ function AppInner() {
               renderMode={state.renderMode}
               showBoundingBox={state.overlays.boundingBoxes}
               edgeOpacity={state.edgeOpacity}
+              polyFactor={state.polygonOffsetFactor}
+              polyUnits={state.polygonOffsetUnits}
               textureFolder={state.textureFolder}
               textureId={resolvedTextureId}
               textureFilename={resolvedTextureFilename}

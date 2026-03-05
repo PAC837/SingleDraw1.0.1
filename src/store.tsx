@@ -6,6 +6,20 @@ import { adjustNeighborGaps } from './mozaik/wallPlacement'
 import { resizeProduct } from './mozaik/productResize'
 import { snapModularHeight } from './mozaik/modularValues'
 
+/** Pre-configured render setting combos. */
+export const RENDER_PRESETS: Record<string, { label: string; mode: RenderMode; edgeOpacity: number; factor: number; units: number }> = {
+  'ghosted-default': { label: 'Ghosted (Default)',  mode: 'ghosted',   edgeOpacity: 0,    factor: 1,   units: 1 },
+  'clean-solid':     { label: 'Clean Solid',        mode: 'solid',     edgeOpacity: 0,    factor: 1,   units: 1 },
+  'cad-edges':       { label: 'CAD Edges',          mode: 'solid',     edgeOpacity: 0.8,  factor: 1,   units: 1 },
+  'soft-edges':      { label: 'Soft Edges',         mode: 'solid',     edgeOpacity: 0.3,  factor: 1,   units: 1 },
+  'blueprint':       { label: 'Blueprint',          mode: 'wireframe', edgeOpacity: 0,    factor: 1,   units: 1 },
+  'x-ray':           { label: 'X-Ray',              mode: 'ghosted',   edgeOpacity: 0.5,  factor: 1,   units: 1 },
+  'technical':       { label: 'Technical',          mode: 'solid',     edgeOpacity: 1.0,  factor: 2,   units: 2 },
+  'thick-offset':    { label: 'Thick Offset',       mode: 'solid',     edgeOpacity: 0.6,  factor: 4,   units: 4 },
+  'minimal':         { label: 'Minimal',            mode: 'solid',     edgeOpacity: 0.15, factor: 0.5, units: 0.5 },
+  'heavy-lines':     { label: 'Heavy Lines',        mode: 'solid',     edgeOpacity: 1.0,  factor: 1,   units: 1 },
+}
+
 const defaultOverlays: DebugOverlays = {
   originMarker: true,
   axisGizmo: true,
@@ -63,6 +77,9 @@ const initialState: AppState = {
   selectedProduct: null,
   flipOps: false,
   edgeOpacity: 0.5,
+  polygonOffsetFactor: 1,
+  polygonOffsetUnits: 1,
+  renderPreset: 'ghosted-default',
 }
 
 type Action =
@@ -122,6 +139,9 @@ type Action =
   | { type: 'TOGGLE_LIBRARY' }
   | { type: 'TOGGLE_FLIP_OPS' }
   | { type: 'SET_EDGE_OPACITY'; value: number }
+  | { type: 'SET_POLYGON_OFFSET_FACTOR'; value: number }
+  | { type: 'SET_POLYGON_OFFSET_UNITS'; value: number }
+  | { type: 'SET_RENDER_PRESET'; preset: string }
   | { type: 'ALIGN_WALL_TOPS' }
   | { type: 'UNDO' }
 
@@ -150,7 +170,7 @@ function reducer(state: AppState, action: Action): AppState {
     case 'TOGGLE_UNITS':
       return { ...state, useInches: !state.useInches }
     case 'SET_RENDER_MODE':
-      return { ...state, renderMode: action.mode }
+      return { ...state, renderMode: action.mode, renderPreset: null }
     case 'SET_JOB_FOLDER':
       return { ...state, jobFolder: action.folder }
     case 'SET_TEXTURE_FOLDER':
@@ -441,7 +461,16 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, flipOps: newFlipOps, room: { ...state.room, products } }
     }
     case 'SET_EDGE_OPACITY':
-      return { ...state, edgeOpacity: action.value }
+      return { ...state, edgeOpacity: action.value, renderPreset: null }
+    case 'SET_POLYGON_OFFSET_FACTOR':
+      return { ...state, polygonOffsetFactor: action.value, renderPreset: null }
+    case 'SET_POLYGON_OFFSET_UNITS':
+      return { ...state, polygonOffsetUnits: action.value, renderPreset: null }
+    case 'SET_RENDER_PRESET': {
+      const p = RENDER_PRESETS[action.preset]
+      if (!p) return state
+      return { ...state, renderPreset: action.preset, renderMode: p.mode, edgeOpacity: p.edgeOpacity, polygonOffsetFactor: p.factor, polygonOffsetUnits: p.units }
+    }
     case 'ALIGN_WALL_TOPS': {
       if (!state.room || state.room.products.length === 0) return state
       const targetTop = state.unitHeight

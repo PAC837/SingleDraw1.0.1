@@ -21,6 +21,7 @@ interface WallEditorPanelProps {
   onAddFixture: (fixture: MozFixture) => void
   onRemoveFixture: (idTag: number) => void
   nextIdTag: number
+  hasProducts: boolean
 }
 
 const DEFAULTS: Record<FixtureType, { width: number; height: number; elev: number }> = {
@@ -33,7 +34,7 @@ const DEFAULTS: Record<FixtureType, { width: number; height: number; elev: numbe
 export default function WallEditorPanel({
   wall, useInches, hasTallerNeighbor, fixtures,
   onUpdateLength, onUpdateHeight, onSplitWall, onToggleFollowAngle,
-  onAddFixture, onRemoveFixture, nextIdTag,
+  onAddFixture, onRemoveFixture, nextIdTag, hasProducts,
 }: WallEditorPanelProps) {
   const display = (mm: number) => useInches ? mmToInches(mm).toFixed(2) : String(mm)
 
@@ -166,7 +167,12 @@ export default function WallEditorPanel({
         Angle: {wall.ang}&deg; &nbsp;|&nbsp; Thick: {formatDim(wall.thickness, useInches)}
       </div>
 
-      <button onClick={onSplitWall} className={`w-full ${btnCls} py-2`}>
+      <button
+        onClick={onSplitWall}
+        disabled={hasProducts}
+        title={hasProducts ? 'Cannot split walls after products are placed' : undefined}
+        className={`w-full ${btnCls} py-2 ${hasProducts ? 'opacity-40 cursor-not-allowed' : ''}`}
+      >
         Add Wall (Split)
       </button>
 

@@ -60,7 +60,7 @@ export default function LibraryButton({
           style={{
             background: '#1e1e1e',
             border: '1px solid var(--accent)',
-            minWidth: 180,
+            minWidth: 200,
             maxHeight: 'calc(100vh - 80px)',
           }}
         >

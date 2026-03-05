@@ -29,6 +29,8 @@ interface ProductViewProps {
   textureId?: number | null
   textureFilename?: string | null
   edgeOpacity?: number
+  polyFactor?: number
+  polyUnits?: number
   singleDrawBrand?: string | null
   singleDrawTexture?: string | null
   modelsFolder?: FileSystemDirectoryHandle | null
@@ -133,9 +135,11 @@ interface PartMeshProps {
   textureId?: number | null
   modelsFolder?: FileSystemDirectoryHandle | null
   edgeOpacity?: number
+  polyFactor?: number
+  polyUnits?: number
 }
 
-function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null, edgeOpacity = 0 }: PartMeshProps) {
+function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null, edgeOpacity = 0, polyFactor = 1, polyUnits = 1 }: PartMeshProps) {
   const length = Math.max(part.l, 1)
   const width = Math.max(part.w, 1)
   const isRodPart = part.name.toLowerCase().includes('rod')
@@ -207,7 +211,7 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
           <cylinderGeometry args={[width / 2, width / 2, length, 16]} />
           {renderMode === 'solid' ? (
             <meshStandardMaterial color={color} roughness={0.7} metalness={0.3}
-              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1} />
+              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
           ) : (
             <meshStandardMaterial color={color} transparent opacity={0.8} roughness={0.8} metalness={0.1}
               clippingPlanes={NO_CLIP} />
@@ -229,10 +233,10 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
         {renderMode === 'solid' ? (
           partTex ? (
             <meshStandardMaterial key="solid-tex" map={partTex} roughness={0.7} metalness={0.1}
-              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1} />
+              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
           ) : (
             <meshStandardMaterial key="solid" color={color} roughness={0.7} metalness={0.1}
-              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1} />
+              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
           )
         ) : (
           partTex ? (
@@ -257,7 +261,7 @@ export default function ProductView({
   product, productIndex, worldOffset, wallAngleDeg, renderMode = 'ghosted',
   showBoundingBox = false, selected = false, onSelect, onResize, onResizeWidth, onUpdateElev, onUpdateX,
   onBumpLeft, onBumpRight, onRemove,
-  edgeOpacity = 0,
+  edgeOpacity = 0, polyFactor = 1, polyUnits = 1,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null, modelsFolder = null,
 }: ProductViewProps) {
@@ -295,6 +299,8 @@ export default function ProductView({
           textureId={textureId}
           modelsFolder={modelsFolder}
           edgeOpacity={edgeOpacity}
+          polyFactor={polyFactor}
+          polyUnits={polyUnits}
         />
       ))}
 

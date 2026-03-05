@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { DebugOverlays, MozRoom, MozFile, RenderMode } from '../mozaik/types'
 import { formatDim } from '../math/units'
+import { RENDER_PRESETS } from '../store'
 import FileLoader from './FileLoader'
 import CreateRoomPanel from './CreateRoomPanel'
 import PlaceProductPanel from './PlaceProductPanel'
@@ -55,6 +56,12 @@ interface UIPanelProps {
   onRemoveProduct: (productIndex: number) => void
   edgeOpacity: number
   onSetEdgeOpacity: (value: number) => void
+  polygonOffsetFactor: number
+  onSetPolygonOffsetFactor: (value: number) => void
+  polygonOffsetUnits: number
+  onSetPolygonOffsetUnits: (value: number) => void
+  renderPreset: string | null
+  onSetRenderPreset: (preset: string) => void
 }
 
 function Toggle({
@@ -186,6 +193,9 @@ export default function UIPanel({
   sketchUpFolder, onLinkSketchUpFolder, modelsFolder, onLinkModelsFolder,
   onCreateRoom, onPlaceProduct, onUpdateProductDimension, onRemoveProduct,
   edgeOpacity, onSetEdgeOpacity,
+  polygonOffsetFactor, onSetPolygonOffsetFactor,
+  polygonOffsetUnits, onSetPolygonOffsetUnits,
+  renderPreset, onSetRenderPreset,
 }: UIPanelProps) {
   const fmt = (mm: number) => formatDim(mm, useInches)
 
@@ -437,6 +447,22 @@ export default function UIPanel({
           <RenderModeSelector mode={renderMode} onChange={onSetRenderMode} />
         </div>
         <div className="mb-3">
+          <label className="text-xs text-gray-400 mb-1 block">Preset</label>
+          <select
+            value={renderPreset ?? 'custom'}
+            onChange={(e) => {
+              const v = e.target.value
+              if (v !== 'custom') onSetRenderPreset(v)
+            }}
+            className="w-full text-xs px-2 py-1 bg-[#222] text-white border border-gray-700 rounded"
+          >
+            <option value="custom">Custom</option>
+            {Object.entries(RENDER_PRESETS).map(([key, p]) => (
+              <option key={key} value={key}>{p.label}</option>
+            ))}
+          </select>
+        </div>
+        <div className="mb-3">
           <label className="text-xs text-gray-400 flex justify-between">
             <span>Edge Opacity</span>
             <span>{Math.round(edgeOpacity * 100)}%</span>
@@ -444,6 +470,26 @@ export default function UIPanel({
           <input type="range" min={0} max={1} step={0.05}
             value={edgeOpacity}
             onChange={e => onSetEdgeOpacity(parseFloat(e.target.value))}
+            className="w-full accent-[var(--accent)]" />
+        </div>
+        <div className="mb-3">
+          <label className="text-xs text-gray-400 flex justify-between">
+            <span>Offset Factor</span>
+            <span>{polygonOffsetFactor.toFixed(1)}</span>
+          </label>
+          <input type="range" min={0} max={10} step={0.5}
+            value={polygonOffsetFactor}
+            onChange={e => onSetPolygonOffsetFactor(parseFloat(e.target.value))}
+            className="w-full accent-[var(--accent)]" />
+        </div>
+        <div className="mb-3">
+          <label className="text-xs text-gray-400 flex justify-between">
+            <span>Offset Units</span>
+            <span>{polygonOffsetUnits.toFixed(1)}</span>
+          </label>
+          <input type="range" min={0} max={10} step={0.5}
+            value={polygonOffsetUnits}
+            onChange={e => onSetPolygonOffsetUnits(parseFloat(e.target.value))}
             className="w-full accent-[var(--accent)]" />
         </div>
         <div className="space-y-2">
