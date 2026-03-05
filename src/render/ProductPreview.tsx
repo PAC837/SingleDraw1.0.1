@@ -34,9 +34,9 @@ function categorizePart(part: MozPart): PartCategory | null {
   return null
 }
 
-const SVG_WIDTH = 130
+const SVG_WIDTH = 160
 const MARGIN = 6
-const REFERENCE_WIDTH = 609.6  // 24 inches in mm — fixed scale reference
+const MAX_SVG_H = 300
 const PANEL_THICK = 19  // mm — standard wood panel
 const ROD_THICK = 4     // px — rod tube thickness in SVG
 const ROD_INSET = 3     // px — rod inset from inner edges
@@ -143,9 +143,11 @@ export default function ProductPreview({ product }: ProductPreviewProps) {
   const hasLeftSide = sides.some(s => s.x < product.width / 2)
   const hasRightSide = sides.some(s => s.x >= product.width / 2)
 
-  // Scale to fit SVG — fixed 24" reference width for consistent scale across products
+  // Scale to fit SVG — use product's own width, capped to MAX_SVG_H
   const drawW = SVG_WIDTH - MARGIN * 2
-  const scale = drawW / REFERENCE_WIDTH
+  const maxDrawH = MAX_SVG_H - MARGIN * 2
+  const refW = Math.max(product.width, 304.8) // floor at 12" so narrow products don't blow up
+  const scale = Math.min(drawW / refW, maxDrawH / product.height)
   const drawH = product.height * scale
   const svgH = drawH + MARGIN * 2
 

@@ -4,6 +4,7 @@
  */
 
 import { useMemo } from 'react'
+import { BoxGeometry, EdgesGeometry } from 'three'
 import type { Texture } from 'three'
 import type { MozRoom, MozProduct, RenderMode } from '../mozaik/types'
 import { computeAutoEndPanels, PANEL_THICK, type AutoEndPanel } from '../mozaik/autoEndPanels'
@@ -16,6 +17,7 @@ interface AutoEndPanelsProps {
   room: MozRoom
   renderMode: RenderMode
   flipOps?: boolean
+  edgeOpacity?: number
   textureFolder?: FileSystemDirectoryHandle | null
   textureId?: number | null
   textureFilename?: string | null
@@ -24,14 +26,16 @@ interface AutoEndPanelsProps {
 }
 
 const PANEL_COLOR = '#d4c5a9' // matches FEnd color from ProductView
+const NO_CLIP: never[] = []
 
 function EndPanelMesh({
-  panel, room, renderMode, baseTexture,
+  panel, room, renderMode, baseTexture, edgeOpacity = 0,
 }: {
   panel: AutoEndPanel
   room: MozRoom
   renderMode: RenderMode
   baseTexture: Texture | null
+  edgeOpacity?: number
 }) {
   const offset = useMemo(() => {
     // Create a pseudo-product to compute world position via existing wall math
@@ -44,6 +48,13 @@ function EndPanelMesh({
     } as MozProduct
     return computeProductWorldOffset(pseudo, room.walls, room.wallJoints)
   }, [panel, room.walls, room.wallJoints])
+
+  const edgesGeo = useMemo(() => {
+    const geo = new BoxGeometry(PANEL_THICK, panel.height, panel.depth)
+    const edges = new EdgesGeometry(geo)
+    geo.dispose()
+    return edges
+  }, [panel.height, panel.depth])
 
   if (!offset) return null
 
@@ -59,24 +70,33 @@ function EndPanelMesh({
           <meshBasicMaterial color={PANEL_COLOR} wireframe />
         ) : renderMode === 'solid' ? (
           baseTexture ? (
-            <meshStandardMaterial map={baseTexture} roughness={0.7} metalness={0.1} />
+            <meshStandardMaterial map={baseTexture} roughness={0.7} metalness={0.1}
+              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1} />
           ) : (
-            <meshStandardMaterial color={PANEL_COLOR} roughness={0.7} metalness={0.1} />
+            <meshStandardMaterial color={PANEL_COLOR} roughness={0.7} metalness={0.1}
+              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1} />
           )
         ) : (
           baseTexture ? (
-            <meshStandardMaterial map={baseTexture} transparent opacity={0.8} roughness={0.8} metalness={0} />
+            <meshStandardMaterial map={baseTexture} transparent opacity={0.8} roughness={0.8} metalness={0}
+              clippingPlanes={NO_CLIP} />
           ) : (
-            <meshStandardMaterial color={PANEL_COLOR} transparent opacity={0.8} roughness={0.8} metalness={0} />
+            <meshStandardMaterial color={PANEL_COLOR} transparent opacity={0.8} roughness={0.8} metalness={0}
+              clippingPlanes={NO_CLIP} />
           )
         )}
       </mesh>
+      {renderMode === 'solid' && edgeOpacity > 0 && (
+        <lineSegments position={bbPos} geometry={edgesGeo}>
+          <lineBasicMaterial color="#000000" transparent opacity={edgeOpacity} />
+        </lineSegments>
+      )}
     </group>
   )
 }
 
 export default function AutoEndPanels({
-  room, renderMode, flipOps = false,
+  room, renderMode, flipOps = false, edgeOpacity = 0,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null,
 }: AutoEndPanelsProps) {
@@ -102,6 +122,7 @@ export default function AutoEndPanels({
           room={room}
           renderMode={renderMode}
           baseTexture={baseTexture}
+          edgeOpacity={edgeOpacity}
         />
       ))}
     </group>

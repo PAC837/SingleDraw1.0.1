@@ -28,6 +28,7 @@ interface ProductViewProps {
   textureFolder?: FileSystemDirectoryHandle | null
   textureId?: number | null
   textureFilename?: string | null
+  edgeOpacity?: number
   singleDrawBrand?: string | null
   singleDrawTexture?: string | null
   modelsFolder?: FileSystemDirectoryHandle | null
@@ -123,15 +124,18 @@ function usePartTexture(
   }, [baseTexture, textureId, partL, partW])
 }
 
+const NO_CLIP: never[] = []  // empty array — opts product materials out of global clip plane
+
 interface PartMeshProps {
   part: MozPart
   renderMode?: RenderMode
   baseTexture?: Texture | null
   textureId?: number | null
   modelsFolder?: FileSystemDirectoryHandle | null
+  edgeOpacity?: number
 }
 
-function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null }: PartMeshProps) {
+function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null, edgeOpacity = 0 }: PartMeshProps) {
   const length = Math.max(part.l, 1)
   const width = Math.max(part.w, 1)
   const isRodPart = part.name.toLowerCase().includes('rod')
@@ -202,32 +206,50 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
         <mesh rotation={[0, 0, Math.PI / 2]}>
           <cylinderGeometry args={[width / 2, width / 2, length, 16]} />
           {renderMode === 'solid' ? (
-            <meshStandardMaterial color={color} roughness={0.7} metalness={0.3} />
+            <meshStandardMaterial color={color} roughness={0.7} metalness={0.3}
+              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1} />
           ) : (
-            <meshStandardMaterial color={color} transparent opacity={0.8} roughness={0.8} metalness={0.1} />
+            <meshStandardMaterial color={color} transparent opacity={0.8} roughness={0.8} metalness={0.1}
+              clippingPlanes={NO_CLIP} />
           )}
         </mesh>
+        {renderMode === 'solid' && edgeOpacity > 0 && (
+          <lineSegments rotation={[0, 0, Math.PI / 2]} geometry={edgesGeo}>
+            <lineBasicMaterial color="#000000" transparent opacity={edgeOpacity} />
+          </lineSegments>
+        )}
       </group>
     )
   }
 
   return (
-    <mesh position={position} quaternion={quaternion}>
-      <boxGeometry args={[length, thick, width]} />
-      {renderMode === 'solid' ? (
-        partTex ? (
-          <meshStandardMaterial key="solid-tex" map={partTex} roughness={0.7} metalness={0.1} />
+    <group>
+      <mesh position={position} quaternion={quaternion}>
+        <boxGeometry args={[length, thick, width]} />
+        {renderMode === 'solid' ? (
+          partTex ? (
+            <meshStandardMaterial key="solid-tex" map={partTex} roughness={0.7} metalness={0.1}
+              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1} />
+          ) : (
+            <meshStandardMaterial key="solid" color={color} roughness={0.7} metalness={0.1}
+              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1} />
+          )
         ) : (
-          <meshStandardMaterial key="solid" color={color} roughness={0.7} metalness={0.1} />
-        )
-      ) : (
-        partTex ? (
-          <meshStandardMaterial key="ghosted-tex" map={partTex} transparent opacity={0.8} roughness={0.8} metalness={0} />
-        ) : (
-          <meshStandardMaterial key="ghosted" color={color} transparent opacity={0.8} roughness={0.8} metalness={0} />
-        )
+          partTex ? (
+            <meshStandardMaterial key="ghosted-tex" map={partTex} transparent opacity={0.8} roughness={0.8} metalness={0}
+              clippingPlanes={NO_CLIP} />
+          ) : (
+            <meshStandardMaterial key="ghosted" color={color} transparent opacity={0.8} roughness={0.8} metalness={0}
+              clippingPlanes={NO_CLIP} />
+          )
+        )}
+      </mesh>
+      {renderMode === 'solid' && edgeOpacity > 0 && (
+        <lineSegments position={position} quaternion={quaternion} geometry={edgesGeo}>
+          <lineBasicMaterial color="#000000" transparent opacity={edgeOpacity} />
+        </lineSegments>
       )}
-    </mesh>
+    </group>
   )
 }
 
@@ -235,6 +257,7 @@ export default function ProductView({
   product, productIndex, worldOffset, wallAngleDeg, renderMode = 'ghosted',
   showBoundingBox = false, selected = false, onSelect, onResize, onResizeWidth, onUpdateElev, onUpdateX,
   onBumpLeft, onBumpRight, onRemove,
+  edgeOpacity = 0,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null, modelsFolder = null,
 }: ProductViewProps) {
@@ -271,6 +294,7 @@ export default function ProductView({
           baseTexture={baseTexture}
           textureId={textureId}
           modelsFolder={modelsFolder}
+          edgeOpacity={edgeOpacity}
         />
       ))}
 

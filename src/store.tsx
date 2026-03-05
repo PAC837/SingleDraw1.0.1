@@ -62,6 +62,7 @@ const initialState: AppState = {
   cameraResetKey: 0,
   selectedProduct: null,
   flipOps: false,
+  edgeOpacity: 0.5,
 }
 
 type Action =
@@ -120,6 +121,7 @@ type Action =
   | { type: 'UPDATE_FIXTURE'; fixtureIdTag: number; fields: Partial<Pick<MozFixture, 'width' | 'height' | 'elev' | 'x'>> }
   | { type: 'TOGGLE_LIBRARY' }
   | { type: 'TOGGLE_FLIP_OPS' }
+  | { type: 'SET_EDGE_OPACITY'; value: number }
   | { type: 'ALIGN_WALL_TOPS' }
   | { type: 'UNDO' }
 
@@ -438,6 +440,8 @@ function reducer(state: AppState, action: Action): AppState {
       }
       return { ...state, flipOps: newFlipOps, room: { ...state.room, products } }
     }
+    case 'SET_EDGE_OPACITY':
+      return { ...state, edgeOpacity: action.value }
     case 'ALIGN_WALL_TOPS': {
       if (!state.room || state.room.products.length === 0) return state
       const targetTop = state.unitHeight

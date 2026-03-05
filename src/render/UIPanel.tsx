@@ -53,6 +53,8 @@ interface UIPanelProps {
   onPlaceProduct: (productIndex: number, wallNumber: number) => void
   onUpdateProductDimension: (productIndex: number, field: 'width' | 'depth' | 'height', value: number, anchor?: 'left' | 'right') => void
   onRemoveProduct: (productIndex: number) => void
+  edgeOpacity: number
+  onSetEdgeOpacity: (value: number) => void
 }
 
 function Toggle({
@@ -183,6 +185,7 @@ export default function UIPanel({
   libraryFolder, availableLibraryFiles, onLinkLibraryFolder, onLoadFromLibrary, onGenerateGlbScript,
   sketchUpFolder, onLinkSketchUpFolder, modelsFolder, onLinkModelsFolder,
   onCreateRoom, onPlaceProduct, onUpdateProductDimension, onRemoveProduct,
+  edgeOpacity, onSetEdgeOpacity,
 }: UIPanelProps) {
   const fmt = (mm: number) => formatDim(mm, useInches)
 
@@ -432,6 +435,16 @@ export default function UIPanel({
         </h2>
         <div className="mb-3">
           <RenderModeSelector mode={renderMode} onChange={onSetRenderMode} />
+        </div>
+        <div className="mb-3">
+          <label className="text-xs text-gray-400 flex justify-between">
+            <span>Edge Opacity</span>
+            <span>{Math.round(edgeOpacity * 100)}%</span>
+          </label>
+          <input type="range" min={0} max={1} step={0.05}
+            value={edgeOpacity}
+            onChange={e => onSetEdgeOpacity(parseFloat(e.target.value))}
+            className="w-full accent-[var(--accent)]" />
         </div>
         <div className="space-y-2">
           <Toggle label="Origin Marker" checked={overlays.originMarker} onChange={() => onToggleOverlay('originMarker')} />

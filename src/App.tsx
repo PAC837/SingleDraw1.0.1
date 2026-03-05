@@ -21,6 +21,7 @@ import MiniRoomPreview from './render/MiniRoomPreview'
 import AutoEndPanels from './render/AutoEndPanels'
 import AdvancedSettingsButton from './render/AdvancedSettingsButton'
 import LibraryButton from './render/LibraryButton'
+import ImportRoomButton from './render/ImportRoomButton'
 import { createRectangularRoom, createReachInRoom, createWalkInRoom, createWalkInDeepRoom, createAngledRoom } from './mozaik/roomFactory'
 import { computeProductWorldOffset, computeWallGeometries } from './math/wallMath'
 import { mozPosToThree } from './math/basis'
@@ -175,6 +176,8 @@ function AppInner() {
         onPlaceProduct={handlePlaceProduct}
         onUpdateProductDimension={handleUpdateProductDimension}
         onRemoveProduct={handleRemoveProduct}
+        edgeOpacity={state.edgeOpacity}
+        onSetEdgeOpacity={(value: number) => dispatch({ type: 'SET_EDGE_OPACITY', value })}
       />
       <div className="flex-1 relative">
         <Scene orbitTarget={roomCenter} orthographic={state.wallEditorActive} roomWalls={state.wallEditorActive ? state.room?.walls : undefined} resetKey={state.cameraResetKey} onPointerMissed={() => {
@@ -250,6 +253,7 @@ function AppInner() {
                 onBumpLeft={handleBumpLeft}
                 onBumpRight={handleBumpRight}
                 onRemove={handleRemoveProduct}
+                edgeOpacity={state.edgeOpacity}
                 textureFolder={state.textureFolder}
                 textureId={resolvedTextureId}
                 textureFilename={resolvedTextureFilename}
@@ -266,6 +270,7 @@ function AppInner() {
               room={state.room}
               renderMode={state.renderMode}
               flipOps={state.flipOps}
+              edgeOpacity={state.edgeOpacity}
               textureFolder={state.textureFolder}
               textureId={resolvedTextureId}
               textureFilename={resolvedTextureFilename}
@@ -281,6 +286,7 @@ function AppInner() {
               product={mf.product}
               renderMode={state.renderMode}
               showBoundingBox={state.overlays.boundingBoxes}
+              edgeOpacity={state.edgeOpacity}
               textureFolder={state.textureFolder}
               textureId={resolvedTextureId}
               textureFilename={resolvedTextureFilename}
@@ -349,6 +355,7 @@ function AppInner() {
             onToggleFlipOps={() => dispatch({ type: 'TOGGLE_FLIP_OPS' })}
             onAlignWallTops={() => dispatch({ type: 'ALIGN_WALL_TOPS' })}
           />
+          <ImportRoomButton onImportRoom={(room) => dispatch({ type: 'CREATE_ROOM', room })} />
         </div>
 
         {state.wallEditorActive && state.selectedWall !== null && state.room && (() => {
@@ -378,6 +385,7 @@ function AppInner() {
               onAddFixture={(fixture) => dispatch({ type: 'ADD_FIXTURE', fixture })}
               onRemoveFixture={(idTag) => dispatch({ type: 'REMOVE_FIXTURE', fixtureIdTag: idTag })}
               nextIdTag={maxIdTag + 1}
+              hasProducts={state.room.products.length > 0}
             />
           )
         })()}

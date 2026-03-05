@@ -221,6 +221,7 @@ export interface AppState {
   cameraResetKey: number
   selectedProduct: number | null
   flipOps: boolean
+  edgeOpacity: number           // 0–1 — black edge line opacity in solid mode
 }
 
 /** Check if product name indicates a wall-mount section (PAC Library convention). */
