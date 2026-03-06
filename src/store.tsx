@@ -101,6 +101,7 @@ const initialState: AppState = {
   toneMapping: LinearToneMapping,
   bgColor: '#ffffff',
   hdriEnabled: true,
+  hdriIntensity: 0.5,
 }
 
 type Action =
@@ -174,6 +175,7 @@ type Action =
   | { type: 'SET_BG_COLOR'; value: string }
   | { type: 'ALIGN_WALL_TOPS' }
   | { type: 'TOGGLE_HDRI' }
+  | { type: 'SET_HDRI_INTENSITY'; value: number }
   | { type: 'UNDO' }
 
 function reducer(state: AppState, action: Action): AppState {
@@ -540,6 +542,8 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, bgColor: action.value, renderPreset: null }
     case 'TOGGLE_HDRI':
       return { ...state, hdriEnabled: !state.hdriEnabled }
+    case 'SET_HDRI_INTENSITY':
+      return { ...state, hdriIntensity: action.value }
     case 'ALIGN_WALL_TOPS': {
       if (!state.room || state.room.products.length === 0) return state
       const targetTop = state.unitHeight

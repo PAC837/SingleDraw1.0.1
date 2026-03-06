@@ -232,6 +232,7 @@ export interface AppState {
   toneMapping: number             // Three.js ToneMapping enum value
   bgColor: string                 // canvas background hex color
   hdriEnabled: boolean             // drei Environment HDRI lighting toggle
+  hdriIntensity: number            // environment intensity (0–2)
 }
 
 /** Check if product name indicates a wall-mount section (PAC Library convention). */

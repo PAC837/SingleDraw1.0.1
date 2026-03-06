@@ -45,6 +45,47 @@ src/
 - Default basis mapping: `(Xm, Ym, Zm) → (Xm, Zm, -Ym)`
 - Apply the same basis change to rotations (not just positions).
 
+## Design System
+
+**Theme:** Always dark. No light mode. No component libraries (Material UI, Chakra, etc.) — Tailwind only.
+
+**Color tokens** (CSS variables in `src/index.css`):
+| Token | Value | Use |
+|-------|-------|-----|
+| `--accent` | `#AAFF00` | Primary actions, active borders, highlights |
+| `--bg-dark` | `#111111` | App background |
+| `--bg-panel` | `#1a1a1a` | Panels, cards, floating elements |
+| `--text-primary` | `#ffffff` | Body text |
+| `--text-secondary` | `#999999` | Labels, secondary text |
+
+**Supporting grays:** Borders `#333`/`#555`, inputs/buttons `#1e1e1e`/`#222`, hover `bg-gray-700`, disabled `opacity-40 cursor-not-allowed`.
+
+**Wall color is `#e8e0d8`** — DO NOT CHANGE.
+
+**Typography scale:**
+- Title: `text-xl font-bold`
+- Section header: `text-xs font-semibold uppercase tracking-wider text-[var(--accent)]`
+- Body: `text-sm`
+- Labels: `text-xs`
+- Tiny: `text-[10px]`
+- Font: `system-ui, -apple-system, sans-serif` (no custom fonts)
+
+**Component patterns:**
+- **Toolbar buttons:** `w-16 h-16 rounded-full`, border `2px solid #555` (inactive) / `2px solid var(--accent)` (active), icon `#aaa` → `var(--accent)`
+- **Floating panels:** `bg-[var(--bg-panel)] rounded-lg shadow-lg border border-[#333]`, max-height `calc(100vh - 80px)`, `overflow-y-auto`
+- **Section headers:** `text-xs font-semibold uppercase tracking-wider text-[var(--accent)] border-b border-[var(--accent)] pb-1 mb-3`
+- **Primary buttons:** `bg-[var(--accent)] text-black font-medium px-3 py-2 rounded hover:opacity-90`
+- **Secondary buttons:** `bg-gray-800 text-white border border-gray-600 px-3 py-1.5 rounded hover:bg-gray-700 transition-colors`
+- **Toggle buttons:** inactive `bg-[#333] text-[#aaa]`, active `bg-[var(--accent)] text-black font-medium`
+- **Inputs:** `text-xs px-2 py-1 bg-gray-800 border border-[var(--accent)] text-white rounded`
+- **Checkboxes:** `accent-[var(--accent)] cursor-pointer`
+- **SVG icons:** inline with dynamic color props, `strokeWidth="1.5"`
+
+**Layout:**
+- Sidebar: `w-80`, sections separated by `border-b border-gray-800`, padding `p-4`
+- Card padding: `p-2`, flex gap: `gap-2` (standard) / `gap-1` (tight)
+- All transitions: `transition-colors` or `transition-all`
+
 ## Mozaik File Rules
 
 When reading any Mozaik file (DES/MOZ/MOS/SBK/BAK), always announce:

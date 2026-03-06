@@ -76,6 +76,8 @@ interface UIPanelProps {
   onSetBgColor: (value: string) => void
   hdriEnabled: boolean
   onToggleHdri: () => void
+  hdriIntensity: number
+  onSetHdriIntensity: (value: number) => void
 }
 
 function LibrarySection({
@@ -170,7 +172,7 @@ export default function UIPanel({
   warmth, onSetWarmth,
   exposure, onSetExposure,
   toneMapping, onSetToneMapping,
-  bgColor, onSetBgColor, hdriEnabled, onToggleHdri,
+  bgColor, onSetBgColor, hdriEnabled, onToggleHdri, hdriIntensity, onSetHdriIntensity,
 }: UIPanelProps) {
   const fmt = (mm: number) => formatDim(mm, useInches)
 
@@ -427,6 +429,7 @@ export default function UIPanel({
         toneMapping={toneMapping} onSetToneMapping={onSetToneMapping}
         bgColor={bgColor} onSetBgColor={onSetBgColor}
         hdriEnabled={hdriEnabled} onToggleHdri={onToggleHdri}
+        hdriIntensity={hdriIntensity} onSetHdriIntensity={onSetHdriIntensity}
         overlays={overlays} onToggleOverlay={onToggleOverlay}
       />
 

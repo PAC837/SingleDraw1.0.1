@@ -20,9 +20,6 @@ import MiniRoomPreview from './render/MiniRoomPreview'
 import AutoEndPanels from './render/AutoEndPanels'
 import AdvancedSettingsButton from './render/AdvancedSettingsButton'
 import LibraryButton from './render/LibraryButton'
-import ImportRoomButton from './render/ImportRoomButton'
-import ScreenshotButton from './render/ScreenshotButton'
-import RenderButton from './render/RenderButton'
 import { createRectangularRoom, createReachInRoom, createWalkInRoom, createWalkInDeepRoom, createAngledRoom } from './mozaik/roomFactory'
 import { computeProductWorldOffset, computeWallGeometries } from './math/wallMath'
 import { mozPosToThree } from './math/basis'
@@ -207,6 +204,8 @@ function AppInner() {
         onSetBgColor={(value: string) => dispatch({ type: 'SET_BG_COLOR', value })}
         hdriEnabled={state.hdriEnabled}
         onToggleHdri={() => dispatch({ type: 'TOGGLE_HDRI' })}
+        hdriIntensity={state.hdriIntensity}
+        onSetHdriIntensity={(value: number) => dispatch({ type: 'SET_HDRI_INTENSITY', value })}
       />
       <div className="flex-1 relative">
         <Scene
@@ -225,6 +224,7 @@ function AppInner() {
           toneMapping={state.toneMapping}
           bgColor={state.bgColor}
           hdriEnabled={state.hdriEnabled}
+          hdriIntensity={state.hdriIntensity}
         >
           <DebugOverlaysComponent overlays={state.overlays} room={state.room} />
 
@@ -404,9 +404,6 @@ function AppInner() {
             onToggleFlipOps={() => dispatch({ type: 'TOGGLE_FLIP_OPS' })}
             onAlignWallTops={() => dispatch({ type: 'ALIGN_WALL_TOPS' })}
           />
-          <ImportRoomButton onImportRoom={(room) => dispatch({ type: 'CREATE_ROOM', room })} />
-          <ScreenshotButton />
-          <RenderButton />
         </div>
 
         {state.wallEditorActive && state.selectedWall !== null && state.room && (() => {

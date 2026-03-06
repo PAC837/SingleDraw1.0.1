@@ -20,6 +20,7 @@ interface SceneProps {
   toneMapping?: number
   bgColor?: string
   hdriEnabled?: boolean
+  hdriIntensity?: number
 }
 
 /** Inner component so useEffect runs inside the R3F Canvas context. */
@@ -177,19 +178,11 @@ function warmthToColors(warmth: number): { sky: string; ground: string } {
   return { sky: lerp(from.sky, to.sky), ground: lerp(from.ground, to.ground) }
 }
 
-/** Module-level ref for canvas capture from outside the R3F tree. */
-let canvasElement: HTMLCanvasElement | null = null
-
-function CanvasCapture() {
-  const { gl } = useThree()
-  canvasElement = gl.domElement
+/** Sets scene.environmentIntensity reactively. */
+function EnvironmentIntensity({ intensity }: { intensity: number }) {
+  const { scene } = useThree()
+  useEffect(() => { scene.environmentIntensity = intensity }, [scene, intensity])
   return null
-}
-
-/** Capture current viewport as a PNG data URL. */
-export function captureCanvas(): string | null {
-  if (!canvasElement) return null
-  return canvasElement.toDataURL('image/png')
 }
 
 export default function Scene({
@@ -197,6 +190,7 @@ export default function Scene({
   ambientIntensity = 0.6, directionalIntensity = 0.7, warmth = 0,
   exposure = 1.0, toneMapping = LinearToneMapping, bgColor = '#ffffff',
   hdriEnabled = true,
+  hdriIntensity = 0.5,
 }: SceneProps) {
   const hemiColors = useMemo(() => warmthToColors(warmth), [warmth])
 
@@ -213,13 +207,17 @@ export default function Scene({
       style={{ background: bgColor }}
       onPointerMissed={onPointerMissed}
     >
-      <CanvasCapture />
       <RendererSettings toneMapping={toneMapping} exposure={exposure} />
       <ambientLight intensity={ambientIntensity} />
       <hemisphereLight args={[hemiColors.sky, hemiColors.ground, 0.5]} />
       <directionalLight position={[5000, 10000, 5000]} intensity={directionalIntensity} />
       <directionalLight position={[-3000, 8000, -3000]} intensity={directionalIntensity * 0.43} />
-      {hdriEnabled && <Environment preset="apartment" background={false} />}
+      {hdriEnabled && (
+        <>
+          <Environment preset="apartment" background={false} />
+          <EnvironmentIntensity intensity={hdriIntensity} />
+        </>
+      )}
       {children}
       {orthographic && <OrthoCamera target={orbitTarget} walls={roomWalls} />}
       <SceneOrbitControls key={orthographic ? 'ortho' : 'persp'} target={orbitTarget} disableRotate={orthographic} resetKey={resetKey} />
