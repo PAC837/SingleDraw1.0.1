@@ -19,6 +19,16 @@ import { floorPanelAttrs, floorPanelInnerXml, wallPanelAttrs, wallPanelInnerXml 
 export const PANEL_THICK = 19 // mm (3/4" standard wood panel)
 
 const DEPTH_TOL = 1 // mm — tolerance for "same depth" comparison
+const END_TYPES = new Set(['fend', 'uend', 'bend'])
+
+/** Check if a product already has an end panel part on the given side. */
+function hasEndPart(product: MozProduct, side: 'left' | 'right'): boolean {
+  return product.parts.some(p => {
+    if (!END_TYPES.has(p.type.toLowerCase())) return false
+    if (side === 'left') return p.x < PANEL_THICK + 1
+    return p.x > product.width - PANEL_THICK - 1
+  })
+}
 
 export interface AutoEndPanel {
   wallNumber: number
@@ -60,9 +70,10 @@ export function computeAutoEndPanels(
       const rightEdge = prod.x + prod.width
 
       // --- LEFT SIDE ---
+      const prodHasLeftEnd = hasEndPart(prod, 'left')
       if (i === 0) {
         // First product — left panel if room before it
-        if (leftEdge >= PANEL_THICK) {
+        if (leftEdge >= PANEL_THICK && !prodHasLeftEnd) {
           panels.push({
             wallNumber: wn, x: leftEdge - PANEL_THICK, width: PANEL_THICK,
             height: prod.height, depth: prod.depth, elev: prod.elev,
@@ -81,7 +92,7 @@ export function computeAutoEndPanels(
           (prod.elev >= prev.elev - DEPTH_TOL && (prod.height + prod.elev) <= (prev.height + prev.elev) + DEPTH_TOL)
         ))
 
-        if (!sameProfile && gap >= PANEL_THICK) {
+        if (!sameProfile && gap >= PANEL_THICK && !prodHasLeftEnd) {
           // Different depth — this product needs its own left panel
           panels.push({
             wallNumber: wn, x: leftEdge - PANEL_THICK, width: PANEL_THICK,
@@ -93,9 +104,10 @@ export function computeAutoEndPanels(
       }
 
       // --- RIGHT SIDE ---
+      const prodHasRightEnd = hasEndPart(prod, 'right')
       if (i === sorted.length - 1) {
         // Last product — right panel if room after it
-        if (usable - rightEdge >= PANEL_THICK) {
+        if (usable - rightEdge >= PANEL_THICK && !prodHasRightEnd) {
           panels.push({
             wallNumber: wn, x: rightEdge, width: PANEL_THICK,
             height: prod.height, depth: prod.depth, elev: prod.elev,
@@ -104,6 +116,7 @@ export function computeAutoEndPanels(
         }
       } else {
         const next = sorted[i + 1]
+        const nextHasLeftEnd = hasEndPart(next, 'left')
         const gap = next.x - rightEdge
         const sameProfile = (
           Math.abs(prod.depth - next.depth) < DEPTH_TOL
@@ -116,37 +129,45 @@ export function computeAutoEndPanels(
 
         if (gap >= PANEL_THICK) {
           if (sameProfile && gap <= 2 * PANEL_THICK) {
-            // Shared panel — taller defines height/elev, deeper defines depth/texture
-            const taller = prod.height >= next.height ? prod : next
-            const deeper = prod.depth >= next.depth ? prod : next
-            const deeperIdx = prod.depth >= next.depth ? prodIdx : prodIndices[i + 1]
-            panels.push({
-              wallNumber: wn, x: rightEdge, width: PANEL_THICK,
-              height: taller.height,
-              depth: deeper.depth,
-              elev: taller.elev,
-              adjacentProductIndex: deeperIdx, side: 'shared',
-            })
+            // Shared panel — skip if both sides already have ends
+            if (!prodHasRightEnd && !nextHasLeftEnd) {
+              const taller = prod.height >= next.height ? prod : next
+              const deeper = prod.depth >= next.depth ? prod : next
+              const deeperIdx = prod.depth >= next.depth ? prodIdx : prodIndices[i + 1]
+              panels.push({
+                wallNumber: wn, x: rightEdge, width: PANEL_THICK,
+                height: taller.height,
+                depth: deeper.depth,
+                elev: taller.elev,
+                adjacentProductIndex: deeperIdx, side: 'shared',
+              })
+            }
           } else if (sameProfile) {
             // Separated same-depth — each edge gets its own panel
-            panels.push({
-              wallNumber: wn, x: rightEdge, width: PANEL_THICK,
-              height: prod.height, depth: prod.depth, elev: prod.elev,
-              adjacentProductIndex: prodIdx, side: 'right',
-            })
-            const nextIdx = prodIndices[i + 1]
-            panels.push({
-              wallNumber: wn, x: next.x - PANEL_THICK, width: PANEL_THICK,
-              height: next.height, depth: next.depth, elev: next.elev,
-              adjacentProductIndex: nextIdx, side: 'left',
-            })
+            if (!prodHasRightEnd) {
+              panels.push({
+                wallNumber: wn, x: rightEdge, width: PANEL_THICK,
+                height: prod.height, depth: prod.depth, elev: prod.elev,
+                adjacentProductIndex: prodIdx, side: 'right',
+              })
+            }
+            if (!nextHasLeftEnd) {
+              const nextIdx = prodIndices[i + 1]
+              panels.push({
+                wallNumber: wn, x: next.x - PANEL_THICK, width: PANEL_THICK,
+                height: next.height, depth: next.depth, elev: next.elev,
+                adjacentProductIndex: nextIdx, side: 'left',
+              })
+            }
           } else {
             // Different depth — panel on this product's right edge only
-            panels.push({
-              wallNumber: wn, x: rightEdge, width: PANEL_THICK,
-              height: prod.height, depth: prod.depth, elev: prod.elev,
-              adjacentProductIndex: prodIdx, side: 'right',
-            })
+            if (!prodHasRightEnd) {
+              panels.push({
+                wallNumber: wn, x: rightEdge, width: PANEL_THICK,
+                height: prod.height, depth: prod.depth, elev: prod.elev,
+                adjacentProductIndex: prodIdx, side: 'right',
+              })
+            }
           }
         }
         // gap < PANEL_THICK: no room, skip

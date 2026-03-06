@@ -33,14 +33,14 @@ export default function AdvancedSettingsButton({
       <button
         onClick={onToggle}
         title="Advanced settings"
-        className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+        className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
         style={{
           background: open ? 'var(--bg-panel)' : '#1e1e1e',
           border: `2px solid ${open ? 'var(--accent)' : '#555'}`,
         }}
       >
         {/* Sliders / tune icon */}
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <svg width="40" height="40" viewBox="0 0 20 20" fill="none">
           <line x1="4" y1="5" x2="16" y2="5" stroke={c} strokeWidth="1.3" />
           <line x1="4" y1="10" x2="16" y2="10" stroke={c} strokeWidth="1.3" />
           <line x1="4" y1="15" x2="16" y2="15" stroke={c} strokeWidth="1.3" />
@@ -52,7 +52,7 @@ export default function AdvancedSettingsButton({
 
       {open && (
         <div
-          className="absolute top-12 left-0 z-20 rounded-lg p-3 space-y-2"
+          className="absolute top-[72px] left-0 z-20 rounded-lg p-3 space-y-2"
           style={{ background: '#1e1e1e', border: '1px solid var(--accent)', minWidth: 180 }}
         >
           <label className="text-[10px] text-gray-400 uppercase tracking-wider">Advanced</label>

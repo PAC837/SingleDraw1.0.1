@@ -1,6 +1,6 @@
 import { useRef, useEffect, useMemo } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, Environment } from '@react-three/drei'
 import { OrthographicCamera, LinearToneMapping } from 'three'
 import type { ReactNode } from 'react'
 import type { OrbitControls as OrbitControlsType } from 'three-stdlib'
@@ -19,6 +19,7 @@ interface SceneProps {
   exposure?: number
   toneMapping?: number
   bgColor?: string
+  hdriEnabled?: boolean
 }
 
 /** Inner component so useEffect runs inside the R3F Canvas context. */
@@ -176,10 +177,26 @@ function warmthToColors(warmth: number): { sky: string; ground: string } {
   return { sky: lerp(from.sky, to.sky), ground: lerp(from.ground, to.ground) }
 }
 
+/** Module-level ref for canvas capture from outside the R3F tree. */
+let canvasElement: HTMLCanvasElement | null = null
+
+function CanvasCapture() {
+  const { gl } = useThree()
+  canvasElement = gl.domElement
+  return null
+}
+
+/** Capture current viewport as a PNG data URL. */
+export function captureCanvas(): string | null {
+  if (!canvasElement) return null
+  return canvasElement.toDataURL('image/png')
+}
+
 export default function Scene({
   children, orbitTarget, orthographic, roomWalls, resetKey, onPointerMissed,
   ambientIntensity = 0.6, directionalIntensity = 0.7, warmth = 0,
   exposure = 1.0, toneMapping = LinearToneMapping, bgColor = '#ffffff',
+  hdriEnabled = true,
 }: SceneProps) {
   const hemiColors = useMemo(() => warmthToColors(warmth), [warmth])
 
@@ -192,15 +209,17 @@ export default function Scene({
         far: 100000,
         up: [0, 1, 0],
       }}
-      gl={{ antialias: true }}
+      gl={{ antialias: true, preserveDrawingBuffer: true }}
       style={{ background: bgColor }}
       onPointerMissed={onPointerMissed}
     >
+      <CanvasCapture />
       <RendererSettings toneMapping={toneMapping} exposure={exposure} />
       <ambientLight intensity={ambientIntensity} />
       <hemisphereLight args={[hemiColors.sky, hemiColors.ground, 0.5]} />
       <directionalLight position={[5000, 10000, 5000]} intensity={directionalIntensity} />
       <directionalLight position={[-3000, 8000, -3000]} intensity={directionalIntensity * 0.43} />
+      {hdriEnabled && <Environment preset="apartment" background={false} />}
       {children}
       {orthographic && <OrthoCamera target={orbitTarget} walls={roomWalls} />}
       <SceneOrbitControls key={orthographic ? 'ortho' : 'persp'} target={orbitTarget} disableRotate={orthographic} resetKey={resetKey} />

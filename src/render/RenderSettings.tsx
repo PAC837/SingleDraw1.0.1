@@ -30,6 +30,8 @@ interface RenderSettingsProps {
   onSetToneMapping: (value: number) => void
   bgColor: string
   onSetBgColor: (value: string) => void
+  hdriEnabled: boolean
+  onToggleHdri: () => void
   overlays: DebugOverlays
   onToggleOverlay: (key: keyof DebugOverlays) => void
 }
@@ -100,7 +102,7 @@ export default function RenderSettings({
   ambientIntensity, onSetAmbientIntensity, directionalIntensity, onSetDirectionalIntensity,
   warmth, onSetWarmth, exposure, onSetExposure,
   toneMapping, onSetToneMapping, bgColor, onSetBgColor,
-  overlays, onToggleOverlay,
+  hdriEnabled, onToggleHdri, overlays, onToggleOverlay,
 }: RenderSettingsProps) {
   return (
     <div className="p-4 border-b border-gray-800">
@@ -134,6 +136,9 @@ export default function RenderSettings({
       <Slider label="Directional" value={directionalIntensity} min={0} max={2} step={0.1} format={fmtDec} onChange={onSetDirectionalIntensity} />
       <Slider label="Warmth" value={warmth} min={-1} max={1} step={0.1} format={fmtDec} onChange={onSetWarmth} />
       <Slider label="Exposure" value={exposure} min={0.5} max={2} step={0.1} format={fmtDec} onChange={onSetExposure} />
+      <div className="mb-3">
+        <Toggle label="HDRI Lighting" checked={hdriEnabled} onChange={onToggleHdri} />
+      </div>
 
       <div className="mb-3">
         <label className="text-xs text-gray-400 mb-1 block">Tone Mapping</label>

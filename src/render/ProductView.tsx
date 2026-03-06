@@ -17,7 +17,7 @@ interface ProductViewProps {
   renderMode?: RenderMode
   showBoundingBox?: boolean
   selected?: boolean
-  onSelect?: (index: number) => void
+  onSelect?: (index: number, shiftKey?: boolean) => void
   onResize?: (index: number, field: 'width' | 'depth' | 'height', value: number, anchor?: 'left' | 'right') => void
   onResizeWidth?: (index: number, value: number, anchor: 'left' | 'right') => void
   onUpdateElev?: (index: number, elev: number) => void
@@ -126,7 +126,6 @@ function usePartTexture(
   }, [baseTexture, textureId, partL, partW])
 }
 
-const NO_CLIP: never[] = []  // empty array — opts product materials out of global clip plane
 
 interface PartMeshProps {
   part: MozPart
@@ -211,10 +210,10 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
           <cylinderGeometry args={[width / 2, width / 2, length, 16]} />
           {renderMode === 'solid' ? (
             <meshStandardMaterial color={color} roughness={0.7} metalness={0.3}
-              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
+polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
           ) : (
             <meshStandardMaterial color={color} transparent opacity={0.8} roughness={0.8} metalness={0.1}
-              clippingPlanes={NO_CLIP} />
+/>
           )}
         </mesh>
         {renderMode === 'solid' && edgeOpacity > 0 && (
@@ -233,18 +232,18 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
         {renderMode === 'solid' ? (
           partTex ? (
             <meshStandardMaterial key="solid-tex" map={partTex} roughness={0.7} metalness={0.1}
-              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
+polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
           ) : (
             <meshStandardMaterial key="solid" color={color} roughness={0.7} metalness={0.1}
-              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
+polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
           )
         ) : (
           partTex ? (
             <meshStandardMaterial key="ghosted-tex" map={partTex} transparent opacity={0.8} roughness={0.8} metalness={0}
-              clippingPlanes={NO_CLIP} />
+/>
           ) : (
             <meshStandardMaterial key="ghosted" color={color} transparent opacity={0.8} roughness={0.8} metalness={0}
-              clippingPlanes={NO_CLIP} />
+/>
           )
         )}
       </mesh>
@@ -308,7 +307,7 @@ export default function ProductView({
       {productIndex !== undefined && onSelect && (
         <mesh
           position={bbPos}
-          onClick={(e) => { e.stopPropagation(); onSelect(productIndex) }}
+          onClick={(e) => { e.stopPropagation(); onSelect(productIndex, e.shiftKey) }}
           onPointerOver={() => setHovered(true)}
           onPointerOut={() => setHovered(false)}
         >

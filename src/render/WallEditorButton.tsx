@@ -15,7 +15,7 @@ export default function WallEditorButton({ active, disabled, onToggle }: WallEdi
       onClick={onToggle}
       disabled={disabled}
       title={active ? 'Back to 3D view' : 'Wall editor (plan view)'}
-      className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+      className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
       style={{
         background: active ? 'var(--bg-panel)' : '#1e1e1e',
         border: `2px solid ${active ? 'var(--accent)' : '#555'}`,
@@ -23,7 +23,7 @@ export default function WallEditorButton({ active, disabled, onToggle }: WallEdi
         cursor: disabled ? 'not-allowed' : 'pointer',
       }}
     >
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="40" height="40" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect
           x="3" y="3" width="14" height="14"
           stroke={active ? 'var(--accent)' : '#aaa'}

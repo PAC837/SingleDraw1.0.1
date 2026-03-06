@@ -25,7 +25,7 @@ const ORBIT_ITEMS: { key: 'allWalls' | 'floor' | 'products' | 'inserts'; label: 
 function EyeIcon({ active }: { active: boolean }) {
   const c = active ? 'var(--accent)' : '#aaa'
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+    <svg width="40" height="40" viewBox="0 0 20 20" fill="none">
       <path
         d="M1.5 10S5 4.5 10 4.5 18.5 10 18.5 10 15 15.5 10 15.5 1.5 10 1.5 10z"
         stroke={c} strokeWidth="1.5" fill="none"
@@ -96,7 +96,7 @@ export default function VisibilityMenu({
       <button
         onClick={onToggle}
         title="Toggle visibility"
-        className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+        className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
         style={{
           background: open ? 'var(--bg-panel)' : '#1e1e1e',
           border: `2px solid ${open ? 'var(--accent)' : '#555'}`,

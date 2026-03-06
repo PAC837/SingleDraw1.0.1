@@ -17,7 +17,7 @@ const LABELS: Record<RenderMode, string> = {
 }
 
 /** Ghost silhouette — rounded top + wavy bottom + two eyes. */
-export function GhostIcon({ color, size = 24 }: { color: string; size?: number }) {
+export function GhostIcon({ color, size = 40 }: { color: string; size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <path
@@ -31,7 +31,7 @@ export function GhostIcon({ color, size = 24 }: { color: string; size?: number }
 }
 
 /** Brick wall — stacked offset rectangles. */
-export function BrickIcon({ color, size = 24 }: { color: string; size?: number }) {
+export function BrickIcon({ color, size = 40 }: { color: string; size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <rect x="2" y="4" width="9" height="5" stroke={color} strokeWidth="1.4" />
@@ -45,7 +45,7 @@ export function BrickIcon({ color, size = 24 }: { color: string; size?: number }
 }
 
 /** Wireframe cube outline. */
-export function WireframeIcon({ color, size = 24 }: { color: string; size?: number }) {
+export function WireframeIcon({ color, size = 40 }: { color: string; size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       {/* Front face */}
@@ -75,7 +75,7 @@ export default function RenderModeButton({ mode, onCycle }: RenderModeButtonProp
     <button
       onClick={onCycle}
       title={LABELS[mode]}
-      className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+      className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
       style={{
         background: 'var(--bg-panel)',
         border: `2px solid ${c}`,

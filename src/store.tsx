@@ -88,7 +88,7 @@ const initialState: AppState = {
   productConfigOpen: false,
   libraryOpen: false,
   cameraResetKey: 0,
-  selectedProduct: null,
+  selectedProducts: [],
   flipOps: false,
   edgeOpacity: 0.5,
   polygonOffsetFactor: 1,
@@ -100,6 +100,7 @@ const initialState: AppState = {
   exposure: 1.0,
   toneMapping: LinearToneMapping,
   bgColor: '#ffffff',
+  hdriEnabled: true,
 }
 
 type Action =
@@ -127,6 +128,7 @@ type Action =
   | { type: 'PLACE_PRODUCT'; product: MozProduct }
   | { type: 'UPDATE_ROOM_PRODUCT'; index: number; field: 'width' | 'depth' | 'height'; value: number }
   | { type: 'REMOVE_ROOM_PRODUCT'; index: number }
+  | { type: 'REMOVE_ROOM_PRODUCTS'; indices: number[] }
   | { type: 'CLEAR_ROOM' }
   | { type: 'CLEAR_PRODUCTS' }
   | { type: 'SET_LIBRARY_FOLDER'; folder: FileSystemDirectoryHandle }
@@ -152,6 +154,8 @@ type Action =
   | { type: 'ADD_FIXTURE'; fixture: MozFixture }
   | { type: 'REMOVE_FIXTURE'; fixtureIdTag: number }
   | { type: 'SELECT_PRODUCT'; index: number | null }
+  | { type: 'TOGGLE_PRODUCT_SELECTION'; index: number }
+  | { type: 'CLEAR_SELECTION' }
   | { type: 'UPDATE_ROOM_PRODUCT_ELEV'; index: number; elev: number }
   | { type: 'UPDATE_ROOM_PRODUCT_X'; index: number; x: number }
   | { type: 'MOVE_FIXTURE'; fixtureIdTag: number; x: number }
@@ -169,6 +173,7 @@ type Action =
   | { type: 'SET_TONE_MAPPING'; value: number }
   | { type: 'SET_BG_COLOR'; value: string }
   | { type: 'ALIGN_WALL_TOPS' }
+  | { type: 'TOGGLE_HDRI' }
   | { type: 'UNDO' }
 
 function reducer(state: AppState, action: Action): AppState {
@@ -178,7 +183,7 @@ function reducer(state: AppState, action: Action): AppState {
         ...state,
         wallEditorActive: false,
         selectedWall: null,
-        selectedProduct: null,
+        selectedProducts: [],
         dragTarget: null,
         visibilityMenuOpen: false,
         productConfigOpen: false,
@@ -246,14 +251,26 @@ function reducer(state: AppState, action: Action): AppState {
       if (!state.room) return state
       return {
         ...state,
-        selectedProduct: state.selectedProduct === action.index ? null
-          : state.selectedProduct !== null && state.selectedProduct > action.index
-            ? state.selectedProduct - 1 : state.selectedProduct,
+        selectedProducts: state.selectedProducts
+          .filter(si => si !== action.index)
+          .map(si => si > action.index ? si - 1 : si),
         room: {
           ...state.room,
           products: state.room.products.filter((_, i) => i !== action.index),
         },
       }
+    case 'REMOVE_ROOM_PRODUCTS': {
+      if (!state.room) return state
+      const removeSet = new Set(action.indices)
+      return {
+        ...state,
+        selectedProducts: [],
+        room: {
+          ...state.room,
+          products: state.room.products.filter((_, i) => !removeSet.has(i)),
+        },
+      }
+    }
     case 'CLEAR_ROOM':
       return { ...state, room: null }
     case 'CLEAR_PRODUCTS':
@@ -441,7 +458,14 @@ function reducer(state: AppState, action: Action): AppState {
     case 'TOGGLE_LIBRARY':
       return { ...state, libraryOpen: !state.libraryOpen }
     case 'SELECT_PRODUCT':
-      return { ...state, selectedProduct: action.index }
+      return { ...state, selectedProducts: action.index !== null ? [action.index] : [] }
+    case 'TOGGLE_PRODUCT_SELECTION': {
+      const idx = action.index
+      const has = state.selectedProducts.includes(idx)
+      return { ...state, selectedProducts: has ? state.selectedProducts.filter(i => i !== idx) : [...state.selectedProducts, idx] }
+    }
+    case 'CLEAR_SELECTION':
+      return { ...state, selectedProducts: [] }
     case 'UPDATE_ROOM_PRODUCT_ELEV': {
       if (!state.room) return state
       return {
@@ -514,6 +538,8 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, toneMapping: action.value, renderPreset: null }
     case 'SET_BG_COLOR':
       return { ...state, bgColor: action.value, renderPreset: null }
+    case 'TOGGLE_HDRI':
+      return { ...state, hdriEnabled: !state.hdriEnabled }
     case 'ALIGN_WALL_TOPS': {
       if (!state.room || state.room.products.length === 0) return state
       const targetTop = state.unitHeight
@@ -537,7 +563,7 @@ function reducer(state: AppState, action: Action): AppState {
 
 // Undo system — wraps reducer with history stack (max 50 snapshots)
 const UNDOABLE = new Set([
-  'PLACE_PRODUCT', 'REMOVE_ROOM_PRODUCT', 'UPDATE_ROOM_PRODUCT',
+  'PLACE_PRODUCT', 'REMOVE_ROOM_PRODUCT', 'REMOVE_ROOM_PRODUCTS', 'UPDATE_ROOM_PRODUCT',
   'MOVE_FIXTURE', 'UPDATE_FIXTURE', 'ADD_FIXTURE', 'REMOVE_FIXTURE',
   'MOVE_JOINT', 'SPLIT_WALL', 'UPDATE_WALL', 'CREATE_ROOM', 'CLEAR_ROOM',
 ])

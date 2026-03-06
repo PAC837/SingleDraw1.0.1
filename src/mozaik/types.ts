@@ -219,7 +219,7 @@ export interface AppState {
   productConfigOpen: boolean
   libraryOpen: boolean
   cameraResetKey: number
-  selectedProduct: number | null
+  selectedProducts: number[]
   flipOps: boolean
   edgeOpacity: number           // 0–1 — black edge line opacity in solid mode
   polygonOffsetFactor: number   // 0–10 — depth offset factor for solid faces
@@ -231,6 +231,7 @@ export interface AppState {
   exposure: number                // 0.5–2 — tone mapping exposure
   toneMapping: number             // Three.js ToneMapping enum value
   bgColor: string                 // canvas background hex color
+  hdriEnabled: boolean             // drei Environment HDRI lighting toggle
 }
 
 /** Check if product name indicates a wall-mount section (PAC Library convention). */

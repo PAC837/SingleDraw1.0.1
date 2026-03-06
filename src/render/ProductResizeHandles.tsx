@@ -26,6 +26,7 @@ import { mozPosToThree } from '../math/basis'
 import { MODULAR_HEIGHTS, MODULAR_DEPTHS } from '../mozaik/modularValues'
 
 const INCH = 25.4
+const MIN_WIDTH = 8 * INCH  // 203.2mm — 8" minimum product width
 const BALL_R = 30
 const LOCK_THRESHOLD = 5
 const PI = Math.PI
@@ -347,7 +348,7 @@ function HandleBall({
       switch (role) {
         case 'width': {
           const raw = startVals.current.width + dxMm * sign * screenSign
-          const snapped = snapValue(Math.max(INCH, raw), 'width')
+          const snapped = snapValue(Math.max(MIN_WIDTH, raw), 'width')
           const anchor: 'left' | 'right' = sign < 0 ? 'left' : 'right'
           onResizeWidth(productIndex, snapped, anchor)
           break

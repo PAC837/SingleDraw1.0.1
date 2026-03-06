@@ -45,7 +45,7 @@ function resizePart(
     case 'width':
       // Scale X position proportionally
       x = x * ratio
-      // Grow L for width-spanning parts
+      // Grow L for width-spanning parts (tight tolerance)
       if (WIDTH_SPANNING_TYPES.has(typeLower) && Math.abs(l - oldValue) < TOLERANCE) {
         l += delta
       }
@@ -53,6 +53,19 @@ function resizePart(
       if (isRod(part) && l > oldValue * 0.8) {
         l += delta
       }
+      // Drawer faces: L spans width (includes overlay overhang beyond product width)
+      if (typeLower === 'drawer' && l > oldValue * 0.7) {
+        l += delta
+      }
+      // Drawer backs: L spans width (slightly narrower than product)
+      if (typeLower === 'drawerback' && l > oldValue * 0.7) {
+        l += delta
+      }
+      // Drawer bottoms: W spans width (rotated part — L is depth, W is width)
+      if (typeLower === 'drawerbottom' && w > oldValue * 0.7) {
+        w += delta
+      }
+      // Metal (drawer slides): L is depth — do NOT grow
       // Scale shape points X coordinates
       if (shapePoints.length > 0) {
         shapePoints = shapePoints.map(sp => ({

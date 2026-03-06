@@ -8,6 +8,11 @@ import type { MozProduct, MozPart } from '../mozaik/types'
 
 interface ProductPreviewProps {
   product: MozProduct
+  cardWidth?: number      // px — total white container width (default 160)
+  cardHeight?: number     // px — fixed card height, 0 = auto (default 0)
+  sectionWidth?: number   // px — wireframe draw area width (default 104)
+  gapTop?: number         // px — space above section (default 6)
+  gapBottom?: number      // px — space below section (default 6)
 }
 
 type PartCategory = 'side' | 'structural' | 'shelf' | 'rod' | 'toe' | 'drawer' | 'door'
@@ -34,8 +39,6 @@ function categorizePart(part: MozPart): PartCategory | null {
   return null
 }
 
-const SVG_WIDTH = 160
-const MARGIN = 6
 const MAX_SVG_H = 120
 const PANEL_THICK = 19  // mm — standard wood panel
 const ROD_THICK = 4     // px — rod tube thickness in SVG
@@ -52,7 +55,14 @@ const BODY_NARROW = 0         // hem narrowing inward (px)
 const DROP_PCT = 85           // shirt length as % of available space
 const HANGER_OFFSETS = [-15, -3, 14]  // horizontal offsets for 3 hangers
 
-export default function ProductPreview({ product }: ProductPreviewProps) {
+export default function ProductPreview({
+  product,
+  cardWidth: CW = 160,
+  cardHeight: CH = 0,
+  sectionWidth: SW = 104,
+  gapTop: GT = 6,
+  gapBottom: GB = 6,
+}: ProductPreviewProps) {
   const parts = useMemo(() => {
     const result: CategorizedPart[] = []
 
@@ -143,25 +153,30 @@ export default function ProductPreview({ product }: ProductPreviewProps) {
   const hasLeftSide = sides.some(s => s.x < product.width / 2)
   const hasRightSide = sides.some(s => s.x >= product.width / 2)
 
-  // Scale to fit SVG — use product's own width, capped to MAX_SVG_H
-  const drawW = (SVG_WIDTH - MARGIN * 2) * 0.7
-  const maxDrawH = MAX_SVG_H - MARGIN * 2
+  // Scale to fit SVG — section area is SW wide, centered in CW card
+  const drawW = SW
+  const maxDrawH = (CH > 0 ? CH : MAX_SVG_H) - GT - GB
   const refW = Math.max(product.width, 304.8) // floor at 12" so narrow products don't blow up
   const scale = Math.min(drawW / refW, maxDrawH / product.height)
   const drawH = product.height * scale
-  const svgH = drawH + MARGIN * 2
+  const svgH = CH > 0 ? CH : drawH + GT + GB
 
   const panelPx = Math.max(PANEL_THICK * scale, 3)  // sides + floor/top: at least 3px
   const sideW = panelPx + 1
   const structuralH = panelPx                       // floor/top same as sides
   const shelfH = Math.max(Math.round(panelPx * 0.75), 2) // middle shelves: 3/4 thickness
 
+  // Center section in card
+  const xOff = (CW - drawW) / 2  // horizontal centering
+  const availH = CH > 0 ? CH - GT - GB : drawH
+  const yOff = GT + (availH - drawH) / 2  // vertical centering (or just GT when auto)
+
   // Convert Mozaik Z (bottom=0) to SVG Y (top=0)
-  const toY = (z: number, h: number) => MARGIN + drawH - (z * scale) - (h * scale)
+  const toY = (z: number, h: number) => yOff + drawH - (z * scale) - (h * scale)
 
   // Inner content area (between side panels)
-  const innerLeft = MARGIN + (hasLeftSide ? sideW : 0)
-  const innerRight = MARGIN + drawW - (hasRightSide ? sideW : 0)
+  const innerLeft = xOff + (hasLeftSide ? sideW : 0)
+  const innerRight = xOff + drawW - (hasRightSide ? sideW : 0)
   const innerW = innerRight - innerLeft
 
   // Deduplicate structural shelves (floor/top) by Z position (within 5mm tolerance)
@@ -205,14 +220,14 @@ export default function ProductPreview({ product }: ProductPreviewProps) {
 
   return (
     <svg
-      width={SVG_WIDTH}
+      width={CW}
       height={svgH}
       className="rounded"
       style={{ background: '#ffffff' }}
     >
       {/* Outer product border */}
       <rect
-        x={MARGIN} y={MARGIN}
+        x={xOff} y={yOff}
         width={drawW} height={drawH}
         fill="none" stroke="#000" strokeWidth={1.5}
       />
@@ -220,7 +235,7 @@ export default function ProductPreview({ product }: ProductPreviewProps) {
       {/* Left side panel */}
       {hasLeftSide && (
         <rect
-          x={MARGIN} y={MARGIN}
+          x={xOff} y={yOff}
           width={sideW} height={drawH}
           fill="#000" stroke="none"
         />
@@ -229,7 +244,7 @@ export default function ProductPreview({ product }: ProductPreviewProps) {
       {/* Right side panel */}
       {hasRightSide && (
         <rect
-          x={MARGIN + drawW - sideW} y={MARGIN}
+          x={xOff + drawW - sideW} y={yOff}
           width={sideW} height={drawH}
           fill="#000" stroke="none"
         />

@@ -9,7 +9,6 @@ import DebugOverlaysComponent from './render/DebugOverlays'
 import ProbeScene from './render/ProbeScene'
 import FloorPlane from './render/FloorPlane'
 import RoomFloor from './render/RoomFloor'
-import CameraClipPlane from './render/CameraClipPlane'
 import HomeButton from './render/HomeButton'
 import WallEditorButton from './render/WallEditorButton'
 import VisibilityMenu from './render/VisibilityMenu'
@@ -22,6 +21,8 @@ import AutoEndPanels from './render/AutoEndPanels'
 import AdvancedSettingsButton from './render/AdvancedSettingsButton'
 import LibraryButton from './render/LibraryButton'
 import ImportRoomButton from './render/ImportRoomButton'
+import ScreenshotButton from './render/ScreenshotButton'
+import RenderButton from './render/RenderButton'
 import { createRectangularRoom, createReachInRoom, createWalkInRoom, createWalkInDeepRoom, createAngledRoom } from './mozaik/roomFactory'
 import { computeProductWorldOffset, computeWallGeometries } from './math/wallMath'
 import { mozPosToThree } from './math/basis'
@@ -47,21 +48,29 @@ function AppInner() {
   // Product placement, manipulation, collision-clamped movement, bump
   const {
     handlePlaceProduct, handleUpdateProductDimension, handleResizeProductWidth, handleRemoveProduct,
-    selectProduct, handleUpdateProductElev, handleUpdateProductX,
+    handleRemoveProducts, selectProduct, handleUpdateProductElev, handleUpdateProductX,
     handleBumpLeft, handleBumpRight,
   } = useProductActions()
 
-  // Ctrl+Z / Cmd+Z undo
+  // Keyboard shortcuts: Ctrl+Z undo, Delete batch-remove, Escape clear selection
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
         e.preventDefault()
         dispatch({ type: 'UNDO' })
       }
+      if (e.key === 'Delete' && state.selectedProducts.length > 0) {
+        e.preventDefault()
+        handleRemoveProducts([...state.selectedProducts])
+      }
+      if (e.key === 'Escape' && state.selectedProducts.length > 0) {
+        e.preventDefault()
+        dispatch({ type: 'CLEAR_SELECTION' })
+      }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [dispatch])
+  }, [dispatch, state.selectedProducts, handleRemoveProducts])
 
   const toggleOverlay = useCallback(
     (key: keyof DebugOverlays) => dispatch({ type: 'TOGGLE_OVERLAY', key }),
@@ -196,6 +205,8 @@ function AppInner() {
         onSetToneMapping={(value: number) => dispatch({ type: 'SET_TONE_MAPPING', value })}
         bgColor={state.bgColor}
         onSetBgColor={(value: string) => dispatch({ type: 'SET_BG_COLOR', value })}
+        hdriEnabled={state.hdriEnabled}
+        onToggleHdri={() => dispatch({ type: 'TOGGLE_HDRI' })}
       />
       <div className="flex-1 relative">
         <Scene
@@ -205,7 +216,7 @@ function AppInner() {
           resetKey={state.cameraResetKey}
           onPointerMissed={() => {
             if (state.selectedWall !== null) dispatch({ type: 'SELECT_WALL', wallNumber: null })
-            if (state.selectedProduct !== null) dispatch({ type: 'SELECT_PRODUCT', index: null })
+            if (state.selectedProducts.length > 0) dispatch({ type: 'CLEAR_SELECTION' })
           }}
           ambientIntensity={state.ambientIntensity}
           directionalIntensity={state.directionalIntensity}
@@ -213,12 +224,12 @@ function AppInner() {
           exposure={state.exposure}
           toneMapping={state.toneMapping}
           bgColor={state.bgColor}
+          hdriEnabled={state.hdriEnabled}
         >
           <DebugOverlaysComponent overlays={state.overlays} room={state.room} />
 
           {state.overlays.probeScene && <ProbeScene />}
 
-          <CameraClipPlane roomCenter={roomCenter} enabled={state.renderMode === 'solid'} />
           {state.visibility.floor && <FloorPlane />}
 
           {state.room && state.room.walls.length > 0 && (
@@ -265,6 +276,8 @@ function AppInner() {
           {state.visibility.products && state.room?.products.map((product, i) => {
             const offset = computeProductWorldOffset(product, state.room!.walls, state.room!.wallJoints)
             if (!offset) console.warn(`[RENDER] Product "${product.prodName}" on wall "${product.wall}" — offset is null!`)
+            const isSelected = state.selectedProducts.includes(i)
+            const isLastSelected = isSelected && i === state.selectedProducts[state.selectedProducts.length - 1]
             return (
               <ProductView
                 key={`room-${i}`}
@@ -274,15 +287,15 @@ function AppInner() {
                 wallAngleDeg={offset?.wallAngleDeg}
                 renderMode={state.renderMode}
                 showBoundingBox={state.overlays.boundingBoxes}
-                selected={state.selectedProduct === i}
+                selected={isSelected}
                 onSelect={selectProduct}
-                onResize={handleUpdateProductDimension}
-                onResizeWidth={handleResizeProductWidth}
-                onUpdateElev={handleUpdateProductElev}
-                onUpdateX={handleUpdateProductX}
-                onBumpLeft={handleBumpLeft}
-                onBumpRight={handleBumpRight}
-                onRemove={handleRemoveProduct}
+                onResize={isLastSelected ? handleUpdateProductDimension : undefined}
+                onResizeWidth={isLastSelected ? handleResizeProductWidth : undefined}
+                onUpdateElev={isLastSelected ? handleUpdateProductElev : undefined}
+                onUpdateX={isLastSelected ? handleUpdateProductX : undefined}
+                onBumpLeft={isLastSelected ? handleBumpLeft : undefined}
+                onBumpRight={isLastSelected ? handleBumpRight : undefined}
+                onRemove={isLastSelected ? () => handleRemoveProducts([...state.selectedProducts]) : undefined}
                 edgeOpacity={state.edgeOpacity}
                 polyFactor={state.polygonOffsetFactor}
                 polyUnits={state.polygonOffsetUnits}
@@ -392,6 +405,8 @@ function AppInner() {
             onAlignWallTops={() => dispatch({ type: 'ALIGN_WALL_TOPS' })}
           />
           <ImportRoomButton onImportRoom={(room) => dispatch({ type: 'CREATE_ROOM', room })} />
+          <ScreenshotButton />
+          <RenderButton />
         </div>
 
         {state.wallEditorActive && state.selectedWall !== null && state.room && (() => {

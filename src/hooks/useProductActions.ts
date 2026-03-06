@@ -94,7 +94,7 @@ export function useProductActions() {
       const maxW = computeMaxProductWidth(
         room.products, index, room.walls, room.wallJoints, anchor, stateRef.current.flipOps,
       )
-      const clamped = Math.min(Math.max(25.4, newWidth), maxW)
+      const clamped = Math.min(Math.max(203.2, newWidth), maxW)
       dispatch({ type: 'UPDATE_ROOM_PRODUCT', index, field: 'width' as const, value: clamped })
       if (anchor === 'right') {
         // Left ball: right edge stays fixed → shift X by clamped delta
@@ -113,7 +113,20 @@ export function useProductActions() {
   )
 
   const selectProduct = useCallback(
-    (index: number) => dispatch({ type: 'SELECT_PRODUCT', index }),
+    (index: number, shiftKey?: boolean) => {
+      if (shiftKey) {
+        dispatch({ type: 'TOGGLE_PRODUCT_SELECTION', index })
+      } else {
+        dispatch({ type: 'SELECT_PRODUCT', index })
+      }
+    },
+    [dispatch],
+  )
+
+  const handleRemoveProducts = useCallback(
+    (indices: number[]) => {
+      dispatch({ type: 'REMOVE_ROOM_PRODUCTS', indices })
+    },
     [dispatch],
   )
 
@@ -185,6 +198,7 @@ export function useProductActions() {
     handleUpdateProductDimension,
     handleResizeProductWidth,
     handleRemoveProduct,
+    handleRemoveProducts,
     selectProduct,
     handleUpdateProductElev,
     handleUpdateProductX,

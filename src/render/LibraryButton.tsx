@@ -22,6 +22,13 @@ export default function LibraryButton({
 }: LibraryButtonProps) {
   const ref = useRef<HTMLDivElement>(null)
 
+  // Finalized card proportions
+  const cardW = 125
+  const cardH = 265
+  const secW = 85
+  const gapTop = 6
+  const gapBot = 10
+
   useEffect(() => {
     if (!open) return
     const handler = (e: PointerEvent) => {
@@ -39,14 +46,14 @@ export default function LibraryButton({
       <button
         onClick={onToggle}
         title="Product library"
-        className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+        className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
         style={{
           background: open ? 'var(--bg-panel)' : '#1e1e1e',
           border: `2px solid ${open ? 'var(--accent)' : '#555'}`,
         }}
       >
         {/* Bookshelf icon */}
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <svg width="40" height="40" viewBox="0 0 20 20" fill="none">
           <rect x="3" y="3" width="14" height="14" rx="1.5" stroke={c} strokeWidth="1.5" fill="none" />
           <line x1="7" y1="3" x2="7" y2="17" stroke={c} strokeWidth="1" />
           <line x1="11" y1="3" x2="11" y2="17" stroke={c} strokeWidth="1" />
@@ -56,11 +63,11 @@ export default function LibraryButton({
 
       {open && (
         <div
-          className="absolute top-12 left-0 z-20 rounded-lg p-3 space-y-2 overflow-y-auto"
+          className="absolute top-[72px] left-0 z-20 rounded-lg p-3 space-y-2 overflow-y-auto"
           style={{
             background: '#1e1e1e',
             border: '1px solid var(--accent)',
-            minWidth: 200,
+            minWidth: Math.max(200, cardW + 24),
             maxHeight: 'calc(100vh - 80px)',
           }}
         >
@@ -97,7 +104,9 @@ export default function LibraryButton({
               <p className="text-xs font-medium text-white mb-1 truncate">
                 {mf.product.prodName}
               </p>
-              <ProductPreview product={mf.product} />
+              <ProductPreview product={mf.product}
+                cardWidth={cardW} cardHeight={cardH}
+                sectionWidth={secW} gapTop={gapTop} gapBottom={gapBot} />
               <p className="text-[10px] text-gray-400 mt-1">
                 {fmt(mf.product.width)} x {fmt(mf.product.height)} x {fmt(mf.product.depth)}
               </p>

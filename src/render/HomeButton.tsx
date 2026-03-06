@@ -13,13 +13,13 @@ export default function HomeButton({ active, onGoHome }: HomeButtonProps) {
     <button
       onClick={onGoHome}
       title="Home (3D view)"
-      className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+      className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
       style={{
         background: active ? 'var(--bg-panel)' : '#1e1e1e',
         border: `2px solid ${active ? 'var(--accent)' : '#555'}`,
       }}
     >
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <svg width="40" height="40" viewBox="0 0 20 20" fill="none">
         <path
           d="M3 10L10 3l7 7"
           stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"

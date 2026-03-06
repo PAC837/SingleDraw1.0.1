@@ -28,7 +28,6 @@ interface AutoEndPanelsProps {
 }
 
 const PANEL_COLOR = '#d4c5a9' // matches FEnd color from ProductView
-const NO_CLIP: never[] = []
 const RENDER_INSET = 1 // mm — shrink rendered panel to avoid coplanar z-fight with product faces
 
 function EndPanelMesh({
@@ -93,19 +92,19 @@ function EndPanelMesh({
           <meshBasicMaterial color={PANEL_COLOR} wireframe />
         ) : renderMode === 'solid' ? (
           panelTex ? (
-            <meshStandardMaterial map={panelTex} roughness={0.7} metalness={0.1}
-              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits + 1} />
+            <meshStandardMaterial key="solid-tex" map={panelTex} roughness={0.7} metalness={0.1}
+polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits + 1} />
           ) : (
-            <meshStandardMaterial color={PANEL_COLOR} roughness={0.7} metalness={0.1}
-              clippingPlanes={NO_CLIP} polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits + 1} />
+            <meshStandardMaterial key="solid" color={PANEL_COLOR} roughness={0.7} metalness={0.1}
+polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits + 1} />
           )
         ) : (
           panelTex ? (
-            <meshStandardMaterial map={panelTex} transparent opacity={0.8} roughness={0.8} metalness={0}
-              clippingPlanes={NO_CLIP} />
+            <meshStandardMaterial key="ghosted-tex" map={panelTex} transparent opacity={0.8} roughness={0.8} metalness={0}
+/>
           ) : (
-            <meshStandardMaterial color={PANEL_COLOR} transparent opacity={0.8} roughness={0.8} metalness={0}
-              clippingPlanes={NO_CLIP} />
+            <meshStandardMaterial key="ghosted" color={PANEL_COLOR} transparent opacity={0.8} roughness={0.8} metalness={0}
+/>
           )
         )}
       </mesh>

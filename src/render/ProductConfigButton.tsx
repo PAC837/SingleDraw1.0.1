@@ -52,13 +52,13 @@ export default function ProductConfigButton({
       <button
         onClick={onToggle}
         title="Product configuration"
-        className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+        className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
         style={{
           background: open ? 'var(--bg-panel)' : '#1e1e1e',
           border: `2px solid ${open ? 'var(--accent)' : '#555'}`,
         }}
       >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <svg width="40" height="40" viewBox="0 0 20 20" fill="none">
           <rect x="4" y="2" width="12" height="16" rx="1.5" stroke={c} strokeWidth="1.5" fill="none" />
           <line x1="7" y1="6" x2="13" y2="6" stroke={c2} strokeWidth="1.2" />
           <line x1="7" y1="9" x2="13" y2="9" stroke={c2} strokeWidth="1.2" />
@@ -68,7 +68,7 @@ export default function ProductConfigButton({
 
       {open && (
         <div
-          className="absolute top-12 left-0 z-20 rounded-lg p-3 space-y-2.5"
+          className="absolute top-[72px] left-0 z-20 rounded-lg p-3 space-y-2.5"
           style={{ background: '#1e1e1e', border: '1px solid var(--accent)', minWidth: 220 }}
         >
           {/* Mode toggle */}
