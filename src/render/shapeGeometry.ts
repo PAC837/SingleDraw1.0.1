@@ -197,17 +197,19 @@ export function buildPartGeometry(part: MozPart): {
 
 /**
  * Compute the 2D outline of a product's footprint.
- * Prefers TopShapeXml (product-level outline), falls back to Bottom part's
- * shape points for L-shaped products, then rectangular outline.
+ * For CRN (non-rect) products: uses TopShapeXml or Bottom part's L-shape points.
+ * For rect products: always uses product width × depth (reliable on resize).
  * Returns points in Mozaik product-local coords (X = width, Y = depth).
  */
 export function computeProductOutline(product: MozProduct): [number, number][] {
-  if (product.topShapePoints && product.topShapePoints.length >= 3) {
+  if (!product.isRectShape && product.topShapePoints && product.topShapePoints.length >= 3) {
     return product.topShapePoints.map(p => [p.x, p.y] as [number, number])
   }
-  const bottom = product.parts.find(p => p.type.toLowerCase() === 'bottom')
-  if (bottom && bottom.shapePoints.length >= 3 && !isAxisAlignedRect(bottom.shapePoints)) {
-    return bottom.shapePoints.map(p => [p.x, p.y] as [number, number])
+  if (!product.isRectShape) {
+    const bottom = product.parts.find(p => p.type.toLowerCase() === 'bottom')
+    if (bottom && bottom.shapePoints.length >= 3 && !isAxisAlignedRect(bottom.shapePoints)) {
+      return bottom.shapePoints.map(p => [p.x, p.y] as [number, number])
+    }
   }
   const w = product.width, d = product.depth
   return [[0, 0], [w, 0], [w, d], [0, d]]

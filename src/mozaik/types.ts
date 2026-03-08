@@ -170,6 +170,18 @@ export interface MozProduct {
   parameters: CabProdParm[]  // parsed from <CabProdParms>
   rawAttributes: Record<string, string>
   rawInnerXml: string  // everything between <Product> and </Product> from MOZ file
+  /** Cached CRN dependency map — computed once from original product, reused on resize */
+  _crnDeps?: {
+    originalW: number
+    originalD: number
+    parts: Array<{
+      x: { dep: 'W' | 'D' | null; orig: number }
+      y: { dep: 'W' | 'D' | null; orig: number }
+      l: { dep: 'W' | 'D' | null; orig: number }
+      w: { dep: 'W' | 'D' | null; orig: number }
+      sp: Array<{ x: { dep: 'W' | 'D' | null; orig: number }; y: { dep: 'W' | 'D' | null; orig: number } }>
+    }>
+  }
 }
 
 /** MOZ file wrapper (binary header + XML product). */
