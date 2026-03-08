@@ -2,6 +2,9 @@ import { useState } from 'react'
 import type { MozFile, MozProduct, MozWall, MozWallJoint } from '../mozaik/types'
 import { formatDim } from '../math/units'
 import { usableWallLength, productsOnWall } from '../mozaik/wallPlacement'
+import SectionHeader from '../ui/SectionHeader'
+import Input from '../ui/Input'
+import Button from '../ui/Button'
 
 interface PlaceProductPanelProps {
   standaloneProducts: MozFile[]
@@ -34,9 +37,7 @@ export default function PlaceProductPanel({
 
   return (
     <>
-      <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-        Place Products
-      </h2>
+      <SectionHeader>Place Products</SectionHeader>
 
       {/* Product selector */}
       {standaloneProducts.length > 0 && (
@@ -54,12 +55,13 @@ export default function PlaceProductPanel({
           </select>
 
           {selectedWall !== null ? (
-            <button
+            <Button
+              variant="primary"
               onClick={() => onPlaceProduct(selectedProductIdx, selectedWall)}
-              className="w-full text-xs px-3 py-2 bg-[var(--accent)] text-black font-medium rounded hover:opacity-90 transition-opacity"
+              className="w-full"
             >
               Add to Wall {selectedWall}
-            </button>
+            </Button>
           ) : (
             <p className="text-xs text-[var(--text-secondary)]">Click a wall to select it</p>
           )}
@@ -95,29 +97,29 @@ export default function PlaceProductPanel({
               <div className="flex gap-2">
                 <label className="flex-1">
                   <span className="text-[10px] text-[var(--text-secondary)]">W</span>
-                  <input
+                  <Input
                     type="number"
                     value={Math.round(product.width)}
                     onChange={(e) => onUpdateProductDimension(index, 'width', Number(e.target.value))}
-                    className="w-full text-xs px-1 py-0.5 bg-gray-800 rounded border border-[var(--accent)] text-white"
+                    className="w-full px-1 py-0.5"
                   />
                 </label>
                 <label className="flex-1">
                   <span className="text-[10px] text-[var(--text-secondary)]">D</span>
-                  <input
+                  <Input
                     type="number"
                     value={Math.round(product.depth)}
                     onChange={(e) => onUpdateProductDimension(index, 'depth', Number(e.target.value))}
-                    className="w-full text-xs px-1 py-0.5 bg-gray-800 rounded border border-[var(--accent)] text-white"
+                    className="w-full px-1 py-0.5"
                   />
                 </label>
                 <label className="flex-1">
                   <span className="text-[10px] text-[var(--text-secondary)]">H</span>
-                  <input
+                  <Input
                     type="number"
                     value={Math.round(product.height)}
                     onChange={(e) => onUpdateProductDimension(index, 'height', Number(e.target.value))}
-                    className="w-full text-xs px-1 py-0.5 bg-gray-800 rounded border border-[var(--accent)] text-white"
+                    className="w-full px-1 py-0.5"
                   />
                 </label>
               </div>

@@ -6,6 +6,7 @@
 import { LinearToneMapping, ACESFilmicToneMapping } from 'three'
 import type { RenderMode, DebugOverlays } from '../mozaik/types'
 import { RENDER_PRESETS } from '../store'
+import SectionHeader from '../ui/SectionHeader'
 
 interface RenderSettingsProps {
   renderMode: RenderMode
@@ -109,9 +110,7 @@ export default function RenderSettings({
 }: RenderSettingsProps) {
   return (
     <div className="p-4 border-b border-gray-800">
-      <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-        Render
-      </h2>
+      <SectionHeader>Render</SectionHeader>
       <div className="mb-3">
         <RenderModeSelector mode={renderMode} onChange={onSetRenderMode} />
       </div>

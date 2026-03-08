@@ -6,6 +6,7 @@
 import { useState, useEffect } from 'react'
 import type { MozWall, MozFixture } from '../mozaik/types'
 import { formatDim, mmToInches, inchesToMm } from '../math/units'
+import Input from '../ui/Input'
 
 type FixtureType = 'opening' | 'door' | 'double_door' | 'window'
 
@@ -119,7 +120,6 @@ export default function WallEditorPanel({
   }
 
   const unit = useInches ? 'in' : 'mm'
-  const inputCls = 'flex-1 text-xs px-2 py-1 bg-gray-800 rounded border border-[var(--accent)] text-white'
   const btnCls = 'text-xs px-3 py-1.5 rounded border border-[var(--accent)] bg-gray-800 hover:bg-gray-700 transition-colors'
 
   return (
@@ -134,8 +134,8 @@ export default function WallEditorPanel({
       <label className="block">
         <span className="text-xs text-[var(--text-secondary)]">Length ({unit})</span>
         <div className="flex items-center gap-1 mt-1">
-          <input type="number" value={lenStr} onChange={e => setLenStr(e.target.value)}
-            onBlur={commitLength} onKeyDown={e => e.key === 'Enter' && commitLength()} className={inputCls} />
+          <Input type="number" value={lenStr} onChange={e => setLenStr(e.target.value)}
+            onBlur={commitLength} onKeyDown={e => e.key === 'Enter' && commitLength()} className="flex-1" />
           <span className="text-xs text-[var(--text-secondary)] w-16 text-right">{formatDim(wall.len, useInches)}</span>
         </div>
       </label>
@@ -143,8 +143,8 @@ export default function WallEditorPanel({
       <label className="block">
         <span className="text-xs text-[var(--text-secondary)]">Height ({unit})</span>
         <div className="flex items-center gap-1 mt-1">
-          <input type="number" value={heightStr} onChange={e => setHeightStr(e.target.value)}
-            onBlur={commitHeight} onKeyDown={e => e.key === 'Enter' && commitHeight()} className={inputCls} />
+          <Input type="number" value={heightStr} onChange={e => setHeightStr(e.target.value)}
+            onBlur={commitHeight} onKeyDown={e => e.key === 'Enter' && commitHeight()} className="flex-1" />
           <span className="text-xs text-[var(--text-secondary)] w-16 text-right">{formatDim(wall.height, useInches)}</span>
         </div>
       </label>
@@ -198,16 +198,16 @@ export default function WallEditorPanel({
           </div>
           <label className="block">
             <span className="text-[10px] text-[var(--text-secondary)]">Width ({unit})</span>
-            <input type="number" value={fWidth} onChange={e => setFWidth(e.target.value)} className={`w-full ${inputCls}`} />
+            <Input type="number" value={fWidth} onChange={e => setFWidth(e.target.value)} className="w-full" />
           </label>
           <label className="block">
             <span className="text-[10px] text-[var(--text-secondary)]">Height ({unit})</span>
-            <input type="number" value={fHeight} onChange={e => setFHeight(e.target.value)} className={`w-full ${inputCls}`} />
+            <Input type="number" value={fHeight} onChange={e => setFHeight(e.target.value)} className="w-full" />
           </label>
           {activeForm === 'window' && (
             <label className="block">
               <span className="text-[10px] text-[var(--text-secondary)]">Elevation ({unit})</span>
-              <input type="number" value={fElev} onChange={e => setFElev(e.target.value)} className={`w-full ${inputCls}`} />
+              <Input type="number" value={fElev} onChange={e => setFElev(e.target.value)} className="w-full" />
             </label>
           )}
           <label className="flex items-center gap-2 text-xs">
@@ -217,7 +217,7 @@ export default function WallEditorPanel({
           {!fCentered && (
             <label className="block">
               <span className="text-[10px] text-[var(--text-secondary)]">Distance from left ({unit})</span>
-              <input type="number" value={fDistLeft} onChange={e => setFDistLeft(e.target.value)} className={`w-full ${inputCls}`} />
+              <Input type="number" value={fDistLeft} onChange={e => setFDistLeft(e.target.value)} className="w-full" />
             </label>
           )}
           <button onClick={commitFixture} className={`w-full ${btnCls} py-1.5 mt-1`}>

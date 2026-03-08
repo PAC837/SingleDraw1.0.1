@@ -3,17 +3,21 @@
  * Currently contains: Flip Ops toggle.
  */
 import { useEffect, useRef } from 'react'
+import ToolbarButton from '../ui/ToolbarButton'
+import FloatingPanel from '../ui/FloatingPanel'
 
 interface AdvancedSettingsButtonProps {
   open: boolean
   flipOps: boolean
+  showOperations: boolean
   onToggle: () => void
   onToggleFlipOps: () => void
+  onToggleShowOps: () => void
   onAlignWallTops: () => void
 }
 
 export default function AdvancedSettingsButton({
-  open, flipOps, onToggle, onToggleFlipOps, onAlignWallTops,
+  open, flipOps, showOperations, onToggle, onToggleFlipOps, onToggleShowOps, onAlignWallTops,
 }: AdvancedSettingsButtonProps) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -30,15 +34,7 @@ export default function AdvancedSettingsButton({
 
   return (
     <div ref={ref} className="relative">
-      <button
-        onClick={onToggle}
-        title="Advanced settings"
-        className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
-        style={{
-          background: open ? 'var(--bg-panel)' : '#1e1e1e',
-          border: `2px solid ${open ? 'var(--accent)' : '#555'}`,
-        }}
-      >
+      <ToolbarButton active={open} title="Advanced settings" onClick={onToggle}>
         {/* Sliders / tune icon */}
         <svg width="40" height="40" viewBox="0 0 20 20" fill="none">
           <line x1="4" y1="5" x2="16" y2="5" stroke={c} strokeWidth="1.3" />
@@ -48,13 +44,10 @@ export default function AdvancedSettingsButton({
           <circle cx="13" cy="10" r="2" fill="#1e1e1e" stroke={c} strokeWidth="1.3" />
           <circle cx="7" cy="15" r="2" fill="#1e1e1e" stroke={c} strokeWidth="1.3" />
         </svg>
-      </button>
+      </ToolbarButton>
 
       {open && (
-        <div
-          className="absolute top-[72px] left-0 z-20 rounded-lg p-3 space-y-2"
-          style={{ background: '#1e1e1e', border: '1px solid var(--accent)', minWidth: 180 }}
-        >
+        <FloatingPanel className="absolute top-[72px] left-0" style={{ minWidth: 180 }}>
           <label className="text-[10px] text-gray-400 uppercase tracking-wider">Advanced</label>
 
           {/* Flip Ops toggle */}
@@ -73,6 +66,22 @@ export default function AdvancedSettingsButton({
             Tops-aligned sections share a panel even at different heights
           </p>
 
+          {/* Show Operations toggle */}
+          <button
+            onClick={onToggleShowOps}
+            className="w-full flex items-center justify-between text-xs px-2 py-1.5 rounded transition-colors mt-1"
+            style={{
+              background: showOperations ? 'var(--accent)' : '#333',
+              color: showOperations ? '#000' : '#aaa',
+            }}
+          >
+            <span className="font-medium">Show Operations</span>
+            <span className="text-[10px] opacity-70">{showOperations ? 'ON' : 'OFF'}</span>
+          </button>
+          <p className="text-[9px] text-gray-500 leading-tight">
+            Display drill holes and shelf pins on parts
+          </p>
+
           {/* Align Wall Tops — one-shot action */}
           <button
             onClick={onAlignWallTops}
@@ -85,7 +94,7 @@ export default function AdvancedSettingsButton({
           <p className="text-[9px] text-gray-500 leading-tight">
             Snap wall cabinet tops to tallest floor cabinet height on each wall
           </p>
-        </div>
+        </FloatingPanel>
       )}
     </div>
   )

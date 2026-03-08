@@ -1,4 +1,4 @@
-import type { MozFile, MozProduct, MozPart, MozRotation, MozShapePoint } from './types'
+import type { MozFile, MozProduct, MozPart, MozRotation, MozShapePoint, MozOperation, CabProdParm } from './types'
 import {
   parseXmlString, getAttrFloat, getAttrStr, getAttrInt,
   getChildren, getChild, getAllAttrs,
@@ -60,6 +60,30 @@ function parseProduct(el: Element, rawInnerXml: string = ''): MozProduct {
   const partsEl = getChild(el, 'CabProdParts')
   const parts = partsEl ? getChildren(partsEl, 'CabProdPart').map(parsePart) : []
 
+  const parmsEl = getChild(el, 'CabProdParms')
+  const parameters = parmsEl
+    ? getChildren(parmsEl, 'CabProdParm').map(p => ({
+        name: getAttrStr(p, 'Name'),
+        type: getAttrInt(p, 'Type'),
+        value: getAttrStr(p, 'Value'),
+        desc: getAttrStr(p, 'Desc', ''),
+        category: getAttrInt(p, 'Category'),
+        options: getAttrStr(p, 'Options', ''),
+        maxVal: getAttrFloat(p, 'MaxVal'),
+        minVal: getAttrFloat(p, 'MinVal'),
+      }))
+    : []
+
+  if (parameters.length > 0) {
+    console.log(`[MOZ] Parameters: ${parameters.map(p => `${p.name}=${p.value}`).join(', ')}`)
+  }
+
+  // Parse TopShapeXml — product-level outline shape (L-shape for CRN products)
+  const topShapePoints = parseShapePoints(getChild(el, 'TopShapeXml'))
+  if (topShapePoints.length > 0) {
+    console.log(`[MOZ] TopShape: ${topShapePoints.length} points`)
+  }
+
   return {
     uniqueId: getAttrStr(el, 'UniqueID'),
     prodName: getAttrStr(el, 'ProdName'),
@@ -73,9 +97,36 @@ function parseProduct(el: Element, rawInnerXml: string = ''): MozProduct {
     rot: getAttrFloat(el, 'Rot'),
     wall: getAttrStr(el, 'Wall', '0'),
     parts,
+    isRectShape: getAttrStr(el, 'IsRectShape', 'True') !== 'False',
+    topShapePoints,
+    parameters,
     rawAttributes: getAllAttrs(el),
     rawInnerXml,
   }
+}
+
+/** Parse ShapePoints from a shape XML element (PartShapeXml or TopShapeXml). */
+function parseShapePoints(shapeEl: Element | null): MozShapePoint[] {
+  if (!shapeEl) return []
+  return getChildren(shapeEl, 'ShapePoint').map((sp) => {
+    const pt: MozShapePoint = {
+      id: getAttrInt(sp, 'ID'),
+      x: getAttrFloat(sp, 'X'),
+      y: getAttrFloat(sp, 'Y'),
+      ptType: getAttrInt(sp, 'PtType'),
+      data: getAttrFloat(sp, 'Data'),
+      edgeType: getAttrInt(sp, 'EdgeType'),
+      sideName: getAttrStr(sp, 'SideName'),
+    }
+    // Capture parametric equations if present
+    const xEq = getAttrStr(sp, 'X_Eq', '')
+    const yEq = getAttrStr(sp, 'Y_Eq', '')
+    const dataEq = getAttrStr(sp, 'Data_Eq', '')
+    if (xEq) pt.xEq = xEq
+    if (yEq) pt.yEq = yEq
+    if (dataEq) pt.dataEq = dataEq
+    return pt
+  })
 }
 
 function parsePart(el: Element): MozPart {
@@ -88,20 +139,21 @@ function parsePart(el: Element): MozPart {
     r3: (getAttrStr(el, 'R3', 'Z') as 'X' | 'Y' | 'Z'),
   }
 
-  const shapeEl = getChild(el, 'PartShapeXml')
-  const shapePoints: MozShapePoint[] = shapeEl
-    ? getChildren(shapeEl, 'ShapePoint').map((sp) => ({
-        id: getAttrInt(sp, 'ID'),
-        x: getAttrFloat(sp, 'X'),
-        y: getAttrFloat(sp, 'Y'),
-        edgeType: getAttrInt(sp, 'EdgeType'),
-        sideName: getAttrStr(sp, 'SideName'),
-      }))
-    : []
+  const shapePoints = parseShapePoints(getChild(el, 'PartShapeXml'))
+
+  const operations = parseOperations(el)
+
+  const partName = getAttrStr(el, 'Name')
+  if (operations.length > 0) {
+    const holes = operations.filter(o => o.type === 'hole').length
+    const bores = operations.filter(o => o.type === 'linebore').length
+    const pockets = operations.filter(o => o.type === 'pocket').length
+    console.log(`[MOZ] Part "${partName}": ${operations.length} ops (${holes} holes, ${bores} linebores, ${pockets} pockets)`)
+  }
 
   return {
-    name: getAttrStr(el, 'Name'),
-    reportName: getAttrStr(el, 'ReportName', getAttrStr(el, 'Name')),
+    name: partName,
+    reportName: getAttrStr(el, 'ReportName', partName),
     type: getAttrStr(el, 'Type'),
     x: getAttrFloat(el, 'X'),
     y: getAttrFloat(el, 'Y'),
@@ -112,6 +164,78 @@ function parsePart(el: Element): MozPart {
     quan: getAttrInt(el, 'Quan', 1),
     layer: getAttrInt(el, 'Layer'),
     shapePoints,
+    operations,
     suPartName: getAttrStr(el, 'SUPartName', ''),
   }
+}
+
+/** Parse <PartOpsXml> child operations. */
+function parseOperations(partEl: Element): MozOperation[] {
+  const opsEl = getChild(partEl, 'PartOpsXml')
+  if (!opsEl) return []
+  const ops: MozOperation[] = []
+
+  for (const hole of getChildren(opsEl, 'OperationHole')) {
+    if (getAttrStr(hole, 'Hide') === 'True') continue
+    ops.push({
+      type: 'hole',
+      x: getAttrFloat(hole, 'X'),
+      y: getAttrFloat(hole, 'Y'),
+      depth: getAttrFloat(hole, 'Depth'),
+      diameter: getAttrFloat(hole, 'Diameter'),
+      flipSideOp: getAttrStr(hole, 'FlipSideOp') === 'True',
+    })
+  }
+
+  for (const bore of getChildren(opsEl, 'OperationLineBore')) {
+    if (getAttrStr(bore, 'Hide') === 'True') continue
+    ops.push({
+      type: 'linebore',
+      x: getAttrFloat(bore, 'X'),
+      y: getAttrFloat(bore, 'Y'),
+      depth: getAttrFloat(bore, 'Depth'),
+      diameter: getAttrFloat(bore, 'Diameter'),
+      quan: getAttrInt(bore, 'Quan'),
+      ang: getAttrFloat(bore, 'Ang'),
+      flipSideOp: getAttrStr(bore, 'FlipSideOp') === 'True',
+    })
+  }
+
+  for (const pocket of getChildren(opsEl, 'OperationPocket')) {
+    if (getAttrStr(pocket, 'Hide') === 'True') continue
+    const nodes = getChildren(pocket, 'OperationToolPathNode').map(n => ({
+      x: getAttrFloat(n, 'X'),
+      y: getAttrFloat(n, 'Y'),
+    }))
+    ops.push({
+      type: 'pocket',
+      x: getAttrFloat(pocket, 'X'),
+      y: getAttrFloat(pocket, 'Y'),
+      depth: getAttrFloat(pocket, 'Depth'),
+      closedShape: getAttrStr(pocket, 'ClosedShape') === 'True',
+      toolPathNodes: nodes,
+    })
+  }
+
+  return ops
+}
+
+/** Quick-parse just CabProdParms from a MOZ file (no parts/shapes). */
+export function parseMozParams(fileContent: string): CabProdParm[] {
+  const xmlStart = fileContent.indexOf('<?xml')
+  if (xmlStart === -1) return []
+  const doc = parseXmlString(fileContent.slice(xmlStart))
+  const root = doc.documentElement
+  const parmsEl = getChild(root, 'CabProdParms')
+  if (!parmsEl) return []
+  return getChildren(parmsEl, 'CabProdParm').map(p => ({
+    name: getAttrStr(p, 'Name'),
+    type: getAttrInt(p, 'Type'),
+    value: getAttrStr(p, 'Value'),
+    desc: getAttrStr(p, 'Desc', ''),
+    category: getAttrInt(p, 'Category'),
+    options: getAttrStr(p, 'Options', ''),
+    maxVal: getAttrFloat(p, 'MaxVal'),
+    minVal: getAttrFloat(p, 'MinVal'),
+  }))
 }

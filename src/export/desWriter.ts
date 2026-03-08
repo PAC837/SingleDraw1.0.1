@@ -297,7 +297,7 @@ function serializePart(part: MozPart): string {
   lines.push(`        <CabProdPart ${partAttrs}>`)
   lines.push('          <PartShapeXml Version="2" Name="" Type="0" RadiusX="0" RadiusY="0" Source="0" Data1="0" Data2="0" RotAng="0" DoNotTranslateTo00="False">')
   for (const sp of part.shapePoints) {
-    lines.push(`            <ShapePoint ID="${sp.id}" X="${num(sp.x)}" Y="${num(sp.y)}" PtType="0" Data="0" EdgeType="${sp.edgeType}" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="${esc(sp.sideName)}" />`)
+    lines.push(`            <ShapePoint ID="${sp.id}" X="${num(sp.x)}" Y="${num(sp.y)}" PtType="${sp.ptType}" Data="${num(sp.data)}" EdgeType="${sp.edgeType}" Anchor="" EBand="0" X_Eq="" Y_Eq="" Data_Eq="" LAdj="0" RAdj="0" TAdj="0" BAdj="0" Scribe="0" Source="0" BoreHoles="0" EBandLock="False" SideName="${esc(sp.sideName)}" />`)
   }
   lines.push('          </PartShapeXml>')
   lines.push('        </CabProdPart>')

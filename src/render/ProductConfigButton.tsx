@@ -2,9 +2,11 @@
  * Toolbar button + dropdown for product placement configuration.
  * Sets floor/wall mode, wall height, section height, elevation, and room presets.
  */
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { mmToInches, inchesToMm, formatDim } from '../math/units'
 import { snapModularHeight } from '../mozaik/modularValues'
+import ToolbarButton from '../ui/ToolbarButton'
+import FloatingPanel from '../ui/FloatingPanel'
 
 interface ProductConfigButtonProps {
   open: boolean
@@ -30,15 +32,12 @@ export default function ProductConfigButton({
   open, placementMode, unitHeight, wallSectionHeight, wallMountTopAt, wallHeight, useInches,
   onToggle, onSetMode, onSetUnitHeight, onSetWallSectionHeight, onSetWallHeight, onCreatePresetRoom,
 }: ProductConfigButtonProps) {
-  const ref = useRef<HTMLDivElement>(null)
-
+  // Close only when clicking the 3D canvas background (onPointerMissed)
   useEffect(() => {
     if (!open) return
-    const handler = (e: PointerEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) onToggle()
-    }
-    document.addEventListener('pointerdown', handler)
-    return () => document.removeEventListener('pointerdown', handler)
+    const handler = () => onToggle()
+    window.addEventListener('canvas-bg-click', handler)
+    return () => window.removeEventListener('canvas-bg-click', handler)
   }, [open, onToggle])
 
   const wallHtIn = Math.round(mmToInches(wallHeight))
@@ -48,29 +47,18 @@ export default function ProductConfigButton({
   const c2 = open ? 'var(--accent)' : '#888'
 
   return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={onToggle}
-        title="Product configuration"
-        className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
-        style={{
-          background: open ? 'var(--bg-panel)' : '#1e1e1e',
-          border: `2px solid ${open ? 'var(--accent)' : '#555'}`,
-        }}
-      >
+    <div className="relative">
+      <ToolbarButton active={open} title="Product configuration" onClick={onToggle}>
         <svg width="40" height="40" viewBox="0 0 20 20" fill="none">
           <rect x="4" y="2" width="12" height="16" rx="1.5" stroke={c} strokeWidth="1.5" fill="none" />
           <line x1="7" y1="6" x2="13" y2="6" stroke={c2} strokeWidth="1.2" />
           <line x1="7" y1="9" x2="13" y2="9" stroke={c2} strokeWidth="1.2" />
           <line x1="7" y1="12" x2="11" y2="12" stroke={c2} strokeWidth="1.2" />
         </svg>
-      </button>
+      </ToolbarButton>
 
       {open && (
-        <div
-          className="absolute top-[72px] left-0 z-20 rounded-lg p-3 space-y-2.5"
-          style={{ background: '#1e1e1e', border: '1px solid var(--accent)', minWidth: 220 }}
-        >
+        <FloatingPanel className="absolute top-[72px] left-0 space-y-2.5" style={{ minWidth: 220 }}>
           {/* Mode toggle */}
           <div className="flex gap-1">
             {(['floor', 'wall'] as const).map(m => (
@@ -191,7 +179,7 @@ export default function ProductConfigButton({
               <PresetIcon preset="angled" label="Angled" onClick={onCreatePresetRoom} />
             </div>
           </div>
-        </div>
+        </FloatingPanel>
       )}
     </div>
   )

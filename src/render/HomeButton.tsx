@@ -1,6 +1,7 @@
 /**
  * Home button — returns to 3D view and closes all open panels.
  */
+import ToolbarButton from '../ui/ToolbarButton'
 
 interface HomeButtonProps {
   active: boolean
@@ -10,15 +11,7 @@ interface HomeButtonProps {
 export default function HomeButton({ active, onGoHome }: HomeButtonProps) {
   const c = active ? 'var(--accent)' : '#aaa'
   return (
-    <button
-      onClick={onGoHome}
-      title="Home (3D view)"
-      className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
-      style={{
-        background: active ? 'var(--bg-panel)' : '#1e1e1e',
-        border: `2px solid ${active ? 'var(--accent)' : '#555'}`,
-      }}
-    >
+    <ToolbarButton active={active} title="Home (3D view)" onClick={onGoHome}>
       <svg width="40" height="40" viewBox="0 0 20 20" fill="none">
         <path
           d="M3 10L10 3l7 7"
@@ -29,6 +22,6 @@ export default function HomeButton({ active, onGoHome }: HomeButtonProps) {
           stroke={c} strokeWidth="1.5" fill="none"
         />
       </svg>
-    </button>
+    </ToolbarButton>
   )
 }

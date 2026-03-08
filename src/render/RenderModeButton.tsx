@@ -4,6 +4,7 @@
  */
 
 import type { RenderMode } from '../mozaik/types'
+import ToolbarButton from '../ui/ToolbarButton'
 
 interface RenderModeButtonProps {
   mode: RenderMode
@@ -70,18 +71,9 @@ export function ModeIcon({ mode, color, size }: { mode: RenderMode; color: strin
 }
 
 export default function RenderModeButton({ mode, onCycle }: RenderModeButtonProps) {
-  const c = 'var(--accent)'
   return (
-    <button
-      onClick={onCycle}
-      title={LABELS[mode]}
-      className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
-      style={{
-        background: 'var(--bg-panel)',
-        border: `2px solid ${c}`,
-      }}
-    >
-      <ModeIcon mode={mode} color={c} />
-    </button>
+    <ToolbarButton active={true} title={LABELS[mode]} onClick={onCycle}>
+      <ModeIcon mode={mode} color="var(--accent)" />
+    </ToolbarButton>
   )
 }

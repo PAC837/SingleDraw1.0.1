@@ -7,6 +7,9 @@ import { mozEulerToQuaternion } from '../math/rotations'
 import { DEG2RAD } from '../math/constants'
 import { useProductTexture, useTextureByFilename, useSingleDrawTexture, lookupTexture } from './useProductTexture'
 import { useProductModel } from './useProductModel'
+import { buildPartGeometry, panelThickness, computeProductOutline } from './shapeGeometry'
+import { generateSystemHoles } from '../mozaik/systemHoles'
+import OperationMarkers from './OperationMarkers'
 import ProductResizeHandles from './ProductResizeHandles'
 
 interface ProductViewProps {
@@ -31,47 +34,56 @@ interface ProductViewProps {
   edgeOpacity?: number
   polyFactor?: number
   polyUnits?: number
+  showOperations?: boolean
   singleDrawBrand?: string | null
   singleDrawTexture?: string | null
   modelsFolder?: FileSystemDirectoryHandle | null
+  hoveredPart?: { productIndex: number; partIndex: number } | null
 }
 
-/** 12 thin rectangular prisms forming a visible bounding box. */
-function BoundingBoxEdges({ w, h, d }: { w: number; h: number; d: number }) {
-  const BAR = 4 // mm cross-section
+/**
+ * Product outline drawn as thin bars tracing the 2D footprint at bottom and top,
+ * with vertical bars at each vertex. Follows L-shapes for corner products.
+ * Outline points are in Mozaik product-local coords (X = width, Y = depth).
+ */
+function ProductOutline({ outline, height }: { outline: [number, number][]; height: number }) {
+  const BAR = 4
   const color = '#AAFF00'
 
-  // 12 edges: 4 along each axis
-  const edges = useMemo(() => {
-    const hx = w / 2, hy = h / 2, hz = d / 2
-    const result: { pos: [number, number, number]; size: [number, number, number] }[] = []
+  const bars = useMemo(() => {
+    const result: { pos: [number, number, number]; size: [number, number, number]; rotY: number }[] = []
+    const n = outline.length
 
-    // 4 edges along X (width)
-    for (const y of [-hy, hy]) {
-      for (const z of [-hz, hz]) {
-        result.push({ pos: [0, y, z], size: [w, BAR, BAR] })
-      }
-    }
-    // 4 edges along Y (height in Three.js)
-    for (const x of [-hx, hx]) {
-      for (const z of [-hz, hz]) {
-        result.push({ pos: [x, 0, z], size: [BAR, h, BAR] })
-      }
-    }
-    // 4 edges along Z (depth in Three.js)
-    for (const x of [-hx, hx]) {
-      for (const y of [-hy, hy]) {
-        result.push({ pos: [x, y, 0], size: [BAR, BAR, d] })
-      }
+    for (let i = 0; i < n; i++) {
+      const [mx1, my1] = outline[i]
+      const [mx2, my2] = outline[(i + 1) % n]
+      // Three.js coords (inside product group): mozPosToThree(x, y, z) = (x, z, -y)
+      const x1 = mx1, z1 = -my1
+      const x2 = mx2, z2 = -my2
+
+      const dx = x2 - x1, dz = z2 - z1
+      const len = Math.sqrt(dx * dx + dz * dz)
+      if (len < 0.1) continue
+
+      const midX = (x1 + x2) / 2, midZ = (z1 + z2) / 2
+      // Rotate box (default along X) to align with edge direction in XZ plane
+      const rotY = -Math.atan2(dz, dx)
+
+      // Bottom edge (Y = 0)
+      result.push({ pos: [midX, 0, midZ], size: [len + BAR, BAR, BAR], rotY })
+      // Top edge (Y = height)
+      result.push({ pos: [midX, height, midZ], size: [len + BAR, BAR, BAR], rotY })
+      // Vertical bar at vertex i
+      result.push({ pos: [x1, height / 2, z1], size: [BAR, height + BAR, BAR], rotY: 0 })
     }
     return result
-  }, [w, h, d])
+  }, [outline, height])
 
   return (
     <group>
-      {edges.map((e, i) => (
-        <mesh key={i} position={e.pos} renderOrder={999}>
-          <boxGeometry args={e.size} />
+      {bars.map((b, i) => (
+        <mesh key={i} position={b.pos} rotation={[0, b.rotY, 0]} renderOrder={999}>
+          <boxGeometry args={b.size} />
           <meshBasicMaterial color={color} depthTest={false} />
         </mesh>
       ))}
@@ -90,15 +102,6 @@ function partColor(type: string): string {
     case 'adjshelf': return '#c8b896'
     case 'fend': return '#d4c5a9'
     default: return '#b8a88a'
-  }
-}
-
-/** Infer panel thickness (Mozaik local Z) by part type. Parts only store W and L. */
-function panelThickness(type: string, name: string, partW: number): number {
-  if (name.toLowerCase().includes('rod')) return partW  // cylindrical cross-section ≈ diameter
-  switch (type.toLowerCase()) {
-    case 'metal': return 3   // metal brackets/hangers
-    default: return 19       // 3/4" standard panel (wood parts, toe, fend, shelves)
   }
 }
 
@@ -136,14 +139,22 @@ interface PartMeshProps {
   edgeOpacity?: number
   polyFactor?: number
   polyUnits?: number
+  showOperations?: boolean
+  highlighted?: boolean
 }
 
-function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null, edgeOpacity = 0, polyFactor = 1, polyUnits = 1 }: PartMeshProps) {
+function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null, edgeOpacity = 0, polyFactor = 1, polyUnits = 1, showOperations = true, highlighted = false }: PartMeshProps) {
   const length = Math.max(part.l, 1)
   const width = Math.max(part.w, 1)
   const isRodPart = part.name.toLowerCase().includes('rod')
   const thick = panelThickness(part.type, part.name, width)
   const glbModel = useProductModel(modelsFolder, part.suPartName)
+
+  // Build geometry from shape points (ExtrudeGeometry for non-rectangular)
+  const partGeo = useMemo(() => {
+    if (isRodPart) return null // rods use CylinderGeometry
+    return buildPartGeometry(part)
+  }, [part, isRodPart])
 
   const { position, quaternion } = useMemo(() => {
     const mozQuat = mozEulerToQuaternion(part.rotation)
@@ -153,28 +164,35 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
       mozQuat.premultiply(pullFix)
     }
 
-    const centerLocal = new Vector3(length / 2, width / 2, thick / 2)
+    // For shaped parts, use shape bounds center; for boxes, use L/2, W/2
+    const cx = partGeo ? partGeo.centerX : length / 2
+    const cy = partGeo ? partGeo.centerY : width / 2
+    const centerLocal = new Vector3(cx, cy, thick / 2)
     const centerOffset = centerLocal.applyQuaternion(mozQuat)
 
     const pos = mozPosToThree(part.x + centerOffset.x, part.y + centerOffset.y, part.z + centerOffset.z)
     const threeQuat = mozQuatToThree(mozQuat)
 
     return { position: pos, quaternion: threeQuat }
-  }, [part, length, width, thick])
+  }, [part, length, width, thick, partGeo])
 
   // All hooks must be called before any early returns (React rules of hooks)
   const edgesGeo = useMemo(() => {
+    if (partGeo) {
+      // Use the actual part geometry for edges
+      return new EdgesGeometry(partGeo.geometry, 15)
+    }
     const geo = isRodPart
       ? new CylinderGeometry(width / 2, width / 2, length, 16)
       : new BoxGeometry(length, thick, width)
     const edges = new EdgesGeometry(geo)
     geo.dispose()
     return edges
-  }, [length, thick, width, isRodPart])
+  }, [length, thick, width, isRodPart, partGeo])
 
   const isMetal = part.type.toLowerCase() === 'metal'
   const partTex = usePartTexture(isMetal ? null : baseTexture, textureId, length, width)
-  const color = partColor(part.type)
+  const color = highlighted ? '#AAFF00' : partColor(part.type)
 
   // GLB model available — render it instead of box geometry
   if (glbModel) {
@@ -188,17 +206,45 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
     )
   }
 
-  if (renderMode === 'wireframe') {
-    return isRodPart ? (
+  // Shared operations JSX — used in wireframe and solid/ghosted returns
+  const opsJsx = showOperations ? (() => {
+    const ops = part.operations.length > 0
+      ? part.operations
+      : part.type.toLowerCase() === 'fend'
+        ? generateSystemHoles(length, width)
+        : []
+    if (ops.length === 0) return null
+    return (
       <group position={position} quaternion={quaternion}>
-        <lineSegments rotation={[0, 0, Math.PI / 2]} geometry={edgesGeo}>
-          <lineBasicMaterial color={color} />
-        </lineSegments>
+        <OperationMarkers
+          operations={ops}
+          centerX={partGeo ? partGeo.centerX : length / 2}
+          centerY={partGeo ? partGeo.centerY : width / 2}
+          thick={thick}
+          isShape={partGeo?.isShape ?? false}
+          partL={length}
+          partW={width}
+        />
       </group>
-    ) : (
-      <lineSegments position={position} quaternion={quaternion} geometry={edgesGeo}>
-        <lineBasicMaterial color={color} />
-      </lineSegments>
+    )
+  })() : null
+
+  if (renderMode === 'wireframe') {
+    return (
+      <group>
+        {isRodPart ? (
+          <group position={position} quaternion={quaternion}>
+            <lineSegments rotation={[0, 0, Math.PI / 2]} geometry={edgesGeo}>
+              <lineBasicMaterial color={color} />
+            </lineSegments>
+          </group>
+        ) : (
+          <lineSegments position={position} quaternion={quaternion} geometry={edgesGeo}>
+            <lineBasicMaterial color={color} />
+          </lineSegments>
+        )}
+        {opsJsx}
+      </group>
     )
   }
 
@@ -227,8 +273,10 @@ polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
 
   return (
     <group>
-      <mesh position={position} quaternion={quaternion}>
-        <boxGeometry args={[length, thick, width]} />
+      <mesh position={position} quaternion={quaternion}
+        geometry={partGeo?.isShape ? partGeo.geometry : undefined}
+      >
+        {!partGeo?.isShape && <boxGeometry args={[length, thick, width]} />}
         {renderMode === 'solid' ? (
           partTex ? (
             <meshStandardMaterial key="solid-tex" map={partTex} roughness={0.7} metalness={0.1}
@@ -252,6 +300,7 @@ polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
           <lineBasicMaterial color="#000000" transparent opacity={edgeOpacity} />
         </lineSegments>
       )}
+      {opsJsx}
     </group>
   )
 }
@@ -259,10 +308,11 @@ polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
 export default function ProductView({
   product, productIndex, worldOffset, wallAngleDeg, renderMode = 'ghosted',
   showBoundingBox = false, selected = false, onSelect, onResize, onResizeWidth, onUpdateElev, onUpdateX,
-  onBumpLeft, onBumpRight, onRemove,
+  onBumpLeft, onBumpRight, onRemove, showOperations = true,
   edgeOpacity = 0, polyFactor = 1, polyUnits = 1,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null, modelsFolder = null,
+  hoveredPart = null,
 }: ProductViewProps) {
   const [hovered, setHovered] = useState(false)
   // Priority: SingleDraw (brand picker) → filename-based (user override) → textureId-based (DES default)
@@ -285,6 +335,8 @@ export default function ProductView({
     [product],
   )
 
+  const outline = useMemo(() => computeProductOutline(product), [product])
+
   const showBox = showBoundingBox || selected
 
   return (
@@ -300,6 +352,8 @@ export default function ProductView({
           edgeOpacity={edgeOpacity}
           polyFactor={polyFactor}
           polyUnits={polyUnits}
+          showOperations={showOperations}
+          highlighted={hoveredPart?.productIndex === productIndex && hoveredPart?.partIndex === i}
         />
       ))}
 
@@ -318,16 +372,12 @@ export default function ProductView({
 
       {/* Hover outline when not selected */}
       {hovered && !selected && (
-        <group position={bbPos}>
-          <BoundingBoxEdges w={product.width} h={product.height} d={product.depth} />
-        </group>
+        <ProductOutline outline={outline} height={product.height} />
       )}
 
-      {/* Bounding box + resize handles when selected or debug overlay enabled */}
+      {/* Shaped outline when selected or debug overlay enabled */}
       {showBox && (
-        <group position={bbPos}>
-          <BoundingBoxEdges w={product.width} h={product.height} d={product.depth} />
-        </group>
+        <ProductOutline outline={outline} height={product.height} />
       )}
 
       {/* Resize handles only when selected */}

@@ -23,6 +23,7 @@ interface PlanViewOverlayProps {
   onMoveJoint: (jointIndex: number, newX: number, newY: number) => void
   onMoveFixture: (fixtureIdTag: number, newX: number) => void
   onUpdateFixture: (fixtureIdTag: number, fields: Partial<Pick<MozFixture, 'width' | 'height' | 'elev' | 'x'>>) => void
+  onExitPlanView?: () => void
 }
 
 const handleGeo = new CircleGeometry(80, 24)
@@ -118,7 +119,7 @@ function Row({ label, defaultValue, onCommit, iCls, lCls }: {
 }
 
 export default function PlanViewOverlay({
-  room, useInches, dragTarget, onSetDragTarget, onMoveJoint, onMoveFixture, onUpdateFixture,
+  room, useInches, dragTarget, onSetDragTarget, onMoveJoint, onMoveFixture, onUpdateFixture, onExitPlanView,
 }: PlanViewOverlayProps) {
   const { camera, gl } = useThree()
   const [hoveredHandle, setHoveredHandle] = useState<number | null>(null)
@@ -132,6 +133,20 @@ export default function PlanViewOverlay({
     () => computeWallGeometries(room.walls),
     [room.walls],
   )
+
+  // Room bounding box in Mozaik 2D with 500mm padding for click-outside detection
+  const roomBounds = useMemo(() => {
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity
+    for (const w of room.walls) {
+      const end = wallEndpoint(w)
+      minX = Math.min(minX, w.posX, end[0])
+      maxX = Math.max(maxX, w.posX, end[0])
+      minY = Math.min(minY, w.posY, end[1])
+      maxY = Math.max(maxY, w.posY, end[1])
+    }
+    const pad = 500
+    return { minX: minX - pad, maxX: maxX + pad, minY: minY - pad, maxY: maxY + pad }
+  }, [room.walls])
 
   // Joint corner positions: joint[i] connects wall[i].end to wall[i+1].start
   const jointPositions = useMemo(() => {
@@ -306,7 +321,18 @@ export default function PlanViewOverlay({
         position={[0, wallHeight + 100, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
         onPointerMove={(e) => { e.stopPropagation(); handlePointerMove(e.nativeEvent) }}
-        onPointerUp={(e) => { e.stopPropagation(); handlePointerUp(e.nativeEvent) }}
+        onPointerUp={(e) => {
+          e.stopPropagation()
+          handlePointerUp(e.nativeEvent)
+          // Exit plan view if clicking empty space outside room bounds
+          if (!dragTarget) {
+            const mx = e.point.x
+            const my = -e.point.z
+            if (mx < roomBounds.minX || mx > roomBounds.maxX || my < roomBounds.minY || my > roomBounds.maxY) {
+              onExitPlanView?.()
+            }
+          }
+        }}
       >
         <planeGeometry args={[200000, 200000]} />
         <meshBasicMaterial visible={false} />

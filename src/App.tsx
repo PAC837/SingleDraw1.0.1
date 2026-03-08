@@ -19,7 +19,12 @@ import PlanViewOverlay from './render/PlanViewOverlay'
 import MiniRoomPreview from './render/MiniRoomPreview'
 import AutoEndPanels from './render/AutoEndPanels'
 import AdvancedSettingsButton from './render/AdvancedSettingsButton'
-import LibraryButton from './render/LibraryButton'
+import UnitTypePills from './render/UnitTypePills'
+import AdminButton from './render/AdminButton'
+import AdminPanel from './render/AdminPanel'
+import PartInspector from './render/PartInspector'
+import { loadLibraryConfig } from './export/libraryConfigStore'
+import { useControlledLibrary } from './hooks/useControlledLibrary'
 import { createRectangularRoom, createReachInRoom, createWalkInRoom, createWalkInDeepRoom, createAngledRoom } from './mozaik/roomFactory'
 import { computeProductWorldOffset, computeWallGeometries } from './math/wallMath'
 import { mozPosToThree } from './math/basis'
@@ -49,6 +54,22 @@ function AppInner() {
     handleBumpLeft, handleBumpRight,
   } = useProductActions()
 
+  // Controlled Library Method: folder tree, dynamic groups, unit type pills
+  const { folderTree, columns, assignments, dynamicGroups, handlePlaceGroup } =
+    useControlledLibrary(handlePlaceProduct)
+
+  // Build product parameter map for admin panel (filename → CabProdParm[])
+  const productParams = useMemo(() => {
+    const map: Record<string, import('./mozaik/types').CabProdParm[]> = {}
+    for (const mf of state.standaloneProducts) {
+      const filename = mf.product.prodName + '.moz'
+      if (mf.product.parameters.length > 0) {
+        map[filename] = mf.product.parameters
+      }
+    }
+    return map
+  }, [state.standaloneProducts])
+
   // Keyboard shortcuts: Ctrl+Z undo, Delete batch-remove, Escape clear selection
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -68,6 +89,20 @@ function AppInner() {
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
   }, [dispatch, state.selectedProducts, handleRemoveProducts])
+
+  // Load persisted library config on startup
+  useEffect(() => {
+    loadLibraryConfig().then(config => {
+      if (config) dispatch({ type: 'SET_LIBRARY_CONFIG', config })
+    })
+  }, [dispatch])
+
+  // Auto-load active products from persisted config when library folder is ready
+  useEffect(() => {
+    if (state.libraryFolder && state.libraryConfig.activeProducts.length > 0) {
+      loadFromLibrary(state.libraryConfig.activeProducts)
+    }
+  }, [state.libraryFolder, state.libraryConfig.activeProducts, loadFromLibrary])
 
   const toggleOverlay = useCallback(
     (key: keyof DebugOverlays) => dispatch({ type: 'TOGGLE_OVERLAY', key }),
@@ -214,6 +249,7 @@ function AppInner() {
           roomWalls={state.wallEditorActive ? state.room?.walls : undefined}
           resetKey={state.cameraResetKey}
           onPointerMissed={() => {
+            window.dispatchEvent(new Event('canvas-bg-click'))
             if (state.selectedWall !== null) dispatch({ type: 'SELECT_WALL', wallNumber: null })
             if (state.selectedProducts.length > 0) dispatch({ type: 'CLEAR_SELECTION' })
           }}
@@ -267,6 +303,7 @@ function AppInner() {
                   onMoveJoint={(jointIndex, newX, newY) => dispatch({ type: 'MOVE_JOINT', jointIndex, newX, newY })}
                   onMoveFixture={(fixtureIdTag, x) => dispatch({ type: 'MOVE_FIXTURE', fixtureIdTag, x })}
                   onUpdateFixture={(fixtureIdTag, fields) => dispatch({ type: 'UPDATE_FIXTURE', fixtureIdTag, fields })}
+                  onExitPlanView={() => dispatch({ type: 'TOGGLE_WALL_EDITOR' })}
                 />
               )}
             </>
@@ -302,9 +339,11 @@ function AppInner() {
                 textureFolder={state.textureFolder}
                 textureId={resolvedTextureId}
                 textureFilename={resolvedTextureFilename}
+                showOperations={state.showOperations}
                 singleDrawBrand={state.selectedSingleDrawBrand}
                 singleDrawTexture={state.selectedSingleDrawTexture}
                 modelsFolder={state.modelsFolder}
+                hoveredPart={state.hoveredPart}
               />
             )
           })}
@@ -323,6 +362,7 @@ function AppInner() {
               textureFilename={resolvedTextureFilename}
               singleDrawBrand={state.selectedSingleDrawBrand}
               singleDrawTexture={state.selectedSingleDrawTexture}
+              showOperations={state.showOperations}
             />
           )}
 
@@ -339,16 +379,18 @@ function AppInner() {
               textureFolder={state.textureFolder}
               textureId={resolvedTextureId}
               textureFilename={resolvedTextureFilename}
+              showOperations={state.showOperations}
               singleDrawBrand={state.selectedSingleDrawBrand}
               singleDrawTexture={state.selectedSingleDrawTexture}
               modelsFolder={state.modelsFolder}
+              hoveredPart={state.hoveredPart}
             />
           ))}
         </Scene>
 
         <div className="absolute top-3 left-3 z-10 flex items-start gap-2">
           <HomeButton
-            active={state.wallEditorActive || state.productConfigOpen || state.visibilityMenuOpen || state.libraryOpen}
+            active={state.wallEditorActive || state.productConfigOpen || state.visibilityMenuOpen || state.libraryOpen || state.adminOpen}
             onGoHome={() => dispatch({ type: 'GO_HOME' })}
           />
           <ProductConfigButton
@@ -371,16 +413,6 @@ function AppInner() {
             disabled={!state.room}
             onToggle={() => dispatch({ type: 'TOGGLE_WALL_EDITOR' })}
           />
-          <LibraryButton
-            open={state.libraryOpen}
-            products={state.standaloneProducts}
-            useInches={state.useInches}
-            selectedWall={state.selectedWall}
-            onToggle={() => dispatch({ type: 'TOGGLE_LIBRARY' })}
-            onPlaceProduct={(productIndex) => {
-              if (state.selectedWall !== null) handlePlaceProduct(productIndex, state.selectedWall)
-            }}
-          />
           <VisibilityMenu
             open={state.visibilityMenuOpen}
             visibility={state.visibility}
@@ -400,9 +432,31 @@ function AppInner() {
           <AdvancedSettingsButton
             open={advancedOpen}
             flipOps={state.flipOps}
+            showOperations={state.showOperations}
             onToggle={() => setAdvancedOpen(o => !o)}
             onToggleFlipOps={() => dispatch({ type: 'TOGGLE_FLIP_OPS' })}
+            onToggleShowOps={() => dispatch({ type: 'TOGGLE_SHOW_OPERATIONS' })}
             onAlignWallTops={() => dispatch({ type: 'ALIGN_WALL_TOPS' })}
+          />
+          <AdminButton
+            open={state.adminOpen}
+            onToggle={() => dispatch({ type: 'TOGGLE_ADMIN' })}
+          />
+        </div>
+
+        <div className="absolute top-[96px] left-3 z-10">
+          <UnitTypePills
+            columns={columns}
+            assignments={assignments}
+            dynamicGroups={dynamicGroups}
+            products={state.standaloneProducts}
+            selectedWall={state.selectedWall}
+            unitHeight={state.unitHeight}
+            wallSectionHeight={state.wallSectionHeight}
+            onPlaceProduct={(productIndex) => {
+              if (state.selectedWall !== null) handlePlaceProduct(productIndex, state.selectedWall)
+            }}
+            onPlaceGroup={handlePlaceGroup}
           />
         </div>
 
@@ -457,6 +511,22 @@ function AppInner() {
             <div className="font-bold mb-1">Missing GLB models ({missingModels.length}):</div>
             {missingModels.map(name => <div key={name}>{name}</div>)}
           </div>
+        )}
+
+        <PartInspector />
+
+        {state.adminOpen && (
+          <AdminPanel
+            folderTree={folderTree}
+            availableLibraryFiles={state.availableLibraryFiles}
+            libraryConfig={state.libraryConfig}
+            productParams={productParams}
+            libraryFolder={state.libraryFolder}
+            onUpdateConfig={(config) => dispatch({ type: 'SET_LIBRARY_CONFIG', config })}
+            onRemoveProduct={(filename) => dispatch({ type: 'REMOVE_MOZ', filename })}
+            onLoadProducts={loadFromLibrary}
+            onClose={() => dispatch({ type: 'TOGGLE_ADMIN' })}
+          />
         )}
       </div>
     </div>

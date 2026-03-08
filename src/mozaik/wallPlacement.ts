@@ -5,7 +5,7 @@
 
 import type { MozWall, MozWallJoint, MozProduct } from './types'
 import { computeWallTrims } from '../math/wallMath'
-import { PANEL_THICK } from './autoEndPanels'
+import { PANEL_THICK, getEffectiveDepth } from './autoEndPanels'
 
 /** Get usable wall length after joint trims. */
 export function usableWallLength(
@@ -26,6 +26,57 @@ export function productsOnWall(products: MozProduct[], wallNumber: number): MozP
     const ref = parseInt(p.wall.split('_')[0], 10)
     return ref === wallNumber
   })
+}
+
+/** Get phantom obstacles from CRN perpendicular arms extending onto this wall. */
+function getCrnPhantomObstacles(
+  wallNumber: number,
+  products: MozProduct[],
+  walls: MozWall[],
+  joints: MozWallJoint[],
+): MozProduct[] {
+  const phantoms: MozProduct[] = []
+  const wallIdx = walls.findIndex(w => w.wallNumber === wallNumber)
+  if (wallIdx < 0) return phantoms
+
+  for (const prod of products) {
+    if (prod.isRectShape !== false) continue
+    const crnWallNum = parseInt(prod.wall.split('_')[0], 10)
+    const crnWallIdx = walls.findIndex(w => w.wallNumber === crnWallNum)
+    if (crnWallIdx < 0) continue
+    const crnUsable = usableWallLength(crnWallNum, walls, joints)
+    const effDepth = getEffectiveDepth(prod)
+
+    // CRN at wall START → arm on PREVIOUS wall's end
+    if (prod.x <= PANEL_THICK) {
+      const prevIdx = (crnWallIdx - 1 + walls.length) % walls.length
+      if (walls[prevIdx].wallNumber === wallNumber) {
+        const wUsable = usableWallLength(wallNumber, walls, joints)
+        phantoms.push({
+          ...prod,
+          x: wUsable - prod.depth,
+          width: prod.depth,
+          depth: effDepth,
+          wall: `${wallNumber}_1`,
+        })
+      }
+    }
+
+    // CRN at wall END → arm on NEXT wall's start
+    if (crnUsable - (prod.x + prod.width) < PANEL_THICK) {
+      const nextIdx = (crnWallIdx + 1) % walls.length
+      if (walls[nextIdx].wallNumber === wallNumber) {
+        phantoms.push({
+          ...prod,
+          x: 0,
+          width: prod.depth,
+          depth: effDepth,
+          wall: `${wallNumber}_1`,
+        })
+      }
+    }
+  }
+  return phantoms
 }
 
 /** Gap between two products: PANEL_THICK if profiles match (shared panel), 2×PANEL_THICK otherwise.
@@ -71,37 +122,45 @@ export function findNextAvailableX(
   productDepth: number,
   wallUsableLength: number,
   flipOps = false,
+  walls: MozWall[] = [],
+  joints: MozWallJoint[] = [],
+  isNonRect = false,
 ): number | null {
   if (productWidth <= 0) return null
 
-  const wallProducts = productsOnWall(products, wallNumber)
+  const edgeGap = isNonRect ? 0 : PANEL_THICK
+
+  const wallProducts = [
+    ...productsOnWall(products, wallNumber),
+    ...getCrnPhantomObstacles(wallNumber, products, walls, joints),
+  ]
 
   // No products yet — place after left panel space
   if (wallProducts.length === 0) {
-    const needed = PANEL_THICK + productWidth + PANEL_THICK
-    return needed <= wallUsableLength ? PANEL_THICK : null
+    const needed = edgeGap + productWidth + edgeGap
+    return needed <= wallUsableLength ? edgeGap : null
   }
 
   const sorted = [...wallProducts].sort((a, b) => a.x - b.x)
 
   // Gap before first product (left wall panel + product + profile gap to first neighbor)
-  const rightGap0 = profileGap(sorted[0].height, productHeight, sorted[0].elev, productElev, sorted[0].depth, productDepth, flipOps)
-  if (sorted[0].x >= PANEL_THICK + productWidth + rightGap0) return PANEL_THICK
+  const rightGap0 = profileGap(sorted[0].height, productHeight, sorted[0].elev, productElev, getEffectiveDepth(sorted[0]), productDepth, flipOps)
+  if (sorted[0].x >= edgeGap + productWidth + rightGap0) return edgeGap
 
   // Gaps between existing products
   for (let i = 0; i < sorted.length - 1; i++) {
     const gapStart = sorted[i].x + sorted[i].width
     const gapEnd = sorted[i + 1].x
-    const lGap = profileGap(sorted[i].height, productHeight, sorted[i].elev, productElev, sorted[i].depth, productDepth, flipOps)
-    const rGap = profileGap(sorted[i + 1].height, productHeight, sorted[i + 1].elev, productElev, sorted[i + 1].depth, productDepth, flipOps)
+    const lGap = profileGap(sorted[i].height, productHeight, sorted[i].elev, productElev, getEffectiveDepth(sorted[i]), productDepth, flipOps)
+    const rGap = profileGap(sorted[i + 1].height, productHeight, sorted[i + 1].elev, productElev, getEffectiveDepth(sorted[i + 1]), productDepth, flipOps)
     if (gapEnd - gapStart >= lGap + productWidth + rGap) return gapStart + lGap
   }
 
   // Gap after last product (profile gap + product + right wall panel)
   const last = sorted[sorted.length - 1]
   const lastEnd = last.x + last.width
-  const lGap = profileGap(last.height, productHeight, last.elev, productElev, last.depth, productDepth, flipOps)
-  if (wallUsableLength - lastEnd >= lGap + productWidth + PANEL_THICK) return lastEnd + lGap
+  const lGap = profileGap(last.height, productHeight, last.elev, productElev, getEffectiveDepth(last), productDepth, flipOps)
+  if (wallUsableLength - lastEnd >= lGap + productWidth + edgeGap) return lastEnd + lGap
 
   return null
 }
@@ -125,10 +184,11 @@ export function computeProductXBounds(
   const wallNumber = parseInt(product.wall.split('_')[0], 10)
   const usable = usableWallLength(wallNumber, walls, joints)
 
-  // Other products on the same wall, excluding the one being moved
-  const others = productsOnWall(products, wallNumber)
-    .filter(p => p !== product)
-    .sort((a, b) => a.x - b.x)
+  // Other products on the same wall + CRN phantom arms, excluding the one being moved
+  const others = [
+    ...productsOnWall(products, wallNumber).filter(p => p !== product),
+    ...getCrnPhantomObstacles(wallNumber, products, walls, joints),
+  ].sort((a, b) => a.x - b.x)
 
   // Left neighbor: rightmost product starting before this one
   const leftNeighbors = others.filter(p => p.x < product.x)
@@ -137,16 +197,19 @@ export function computeProductXBounds(
   // Right neighbor: leftmost product starting after this one
   const rightNeighbor = others.find(p => p.x > product.x) ?? null
 
-  const leftGap = leftNeighbor ? profileGap(product.height, leftNeighbor.height, product.elev, leftNeighbor.elev, product.depth, leftNeighbor.depth, flipOps) : 0
-  const rightGap = rightNeighbor ? profileGap(product.height, rightNeighbor.height, product.elev, rightNeighbor.elev, product.depth, rightNeighbor.depth, flipOps) : 0
+  const isNonRect = product.isRectShape === false
+  const edgeGap = isNonRect ? 0 : PANEL_THICK
+
+  const leftGap = leftNeighbor ? profileGap(product.height, leftNeighbor.height, product.elev, leftNeighbor.elev, getEffectiveDepth(product), getEffectiveDepth(leftNeighbor), flipOps) : 0
+  const rightGap = rightNeighbor ? profileGap(product.height, rightNeighbor.height, product.elev, rightNeighbor.elev, getEffectiveDepth(product), getEffectiveDepth(rightNeighbor), flipOps) : 0
 
   const minX = leftNeighbor
-    ? Math.max(PANEL_THICK, leftNeighbor.x + leftNeighbor.width + leftGap)
-    : PANEL_THICK
+    ? Math.max(edgeGap, leftNeighbor.x + leftNeighbor.width + leftGap)
+    : edgeGap
 
   const maxX = rightNeighbor
-    ? Math.min(usable - product.width - PANEL_THICK, rightNeighbor.x - product.width - rightGap)
-    : usable - product.width - PANEL_THICK
+    ? Math.min(usable - product.width - edgeGap, rightNeighbor.x - product.width - rightGap)
+    : usable - product.width - edgeGap
 
   return {
     minX,
@@ -177,21 +240,22 @@ export function computeMaxProductWidth(
 
   const wallNumber = parseInt(product.wall.split('_')[0], 10)
   const usable = usableWallLength(wallNumber, walls, joints)
-  const others = productsOnWall(products, wallNumber)
-    .filter(p => p !== product)
-    .sort((a, b) => a.x - b.x)
+  const others = [
+    ...productsOnWall(products, wallNumber).filter(p => p !== product),
+    ...getCrnPhantomObstacles(wallNumber, products, walls, joints),
+  ].sort((a, b) => a.x - b.x)
 
   // Left boundary: nearest left neighbor's right edge + gap, or wall start + panel
   const leftNeighbors = others.filter(p => p.x + p.width <= product.x + 1)
   const leftNeighbor = leftNeighbors.length > 0 ? leftNeighbors[leftNeighbors.length - 1] : null
-  const leftGap = leftNeighbor ? profileGap(product.height, leftNeighbor.height, product.elev, leftNeighbor.elev, product.depth, leftNeighbor.depth, flipOps) : 0
+  const leftGap = leftNeighbor ? profileGap(product.height, leftNeighbor.height, product.elev, leftNeighbor.elev, getEffectiveDepth(product), getEffectiveDepth(leftNeighbor), flipOps) : 0
   const leftBound = leftNeighbor
     ? leftNeighbor.x + leftNeighbor.width + leftGap
     : PANEL_THICK
 
   // Right boundary: nearest right neighbor's left edge - gap, or wall end - panel
   const rightNeighbor = others.find(p => p.x >= product.x + product.width - 1) ?? null
-  const rightGap = rightNeighbor ? profileGap(product.height, rightNeighbor.height, product.elev, rightNeighbor.elev, product.depth, rightNeighbor.depth, flipOps) : 0
+  const rightGap = rightNeighbor ? profileGap(product.height, rightNeighbor.height, product.elev, rightNeighbor.elev, getEffectiveDepth(product), getEffectiveDepth(rightNeighbor), flipOps) : 0
   const rightBound = rightNeighbor
     ? rightNeighbor.x - rightGap
     : usable - PANEL_THICK
@@ -202,11 +266,11 @@ export function computeMaxProductWidth(
 }
 
 /**
- * After a product's height changes, repack all products on the same wall so
- * every adjacent pair has the correct profile gap. Single left-to-right pass:
- * each product is placed at idealX = prev.x + prev.width + profileGap.
- * Products that were too close get pushed right; products with excess gap
- * get pulled left. Returns array of {index, x} adjustments to apply.
+ * Repack all products on a wall so every adjacent pair has the correct
+ * profile gap. Includes CRN phantom obstacles as fixed (non-adjustable)
+ * neighbors. Bidirectional pass: left-to-right pushes products right,
+ * right-to-left pushes products left away from right-side phantoms.
+ * Returns array of {index, x} adjustments to apply.
  */
 export function adjustNeighborGaps(
   products: MozProduct[],
@@ -221,31 +285,56 @@ export function adjustNeighborGaps(
   const wallNumber = parseInt(product.wall.split('_')[0], 10)
   const usable = usableWallLength(wallNumber, walls, joints)
 
-  // All products on this wall with their original indices, sorted by x
-  const wallProds = products
-    .map((p, i) => ({ p, i }))
+  // Real products on this wall with their original indices
+  const wallProds: { p: MozProduct; i: number; phantom: boolean }[] = products
+    .map((p, i) => ({ p, i, phantom: false }))
     .filter(({ p }) => parseInt(p.wall.split('_')[0], 10) === wallNumber)
-    .sort((a, b) => a.p.x - b.p.x)
 
+  // Add CRN phantom obstacles as fixed entries
+  for (const ph of getCrnPhantomObstacles(wallNumber, products, walls, joints)) {
+    wallProds.push({ p: ph, i: -1, phantom: true })
+  }
+
+  wallProds.sort((a, b) => a.p.x - b.p.x)
   if (wallProds.length < 2) return []
 
   const adjusted = new Map<number, number>() // index → newX
 
-  // Single pass: repack left-to-right, every pair gets the correct gap.
-  // Only adjust products that were already adjacent (panel-gap distance).
-  // Products with intentional spacing (> 3 panel thicknesses) are left alone.
+  // Left-to-right pass: push products right away from left neighbors/phantoms
   for (let k = 0; k < wallProds.length - 1; k++) {
     const curr = wallProds[k]
     const next = wallProds[k + 1]
+    if (next.phantom) continue  // Don't adjust phantom positions
     const currentGap = next.p.x - (curr.p.x + curr.p.width)
-    if (currentGap > 3 * PANEL_THICK) continue
-    const gap = profileGap(curr.p.height, next.p.height, curr.p.elev, next.p.elev, curr.p.depth, next.p.depth, flipOps)
+    if (currentGap > 5 * PANEL_THICK) continue
+    const gap = profileGap(curr.p.height, next.p.height, curr.p.elev, next.p.elev,
+      getEffectiveDepth(curr.p), getEffectiveDepth(next.p), flipOps)
     const idealX = curr.p.x + curr.p.width + gap
-    const clampedX = Math.min(idealX, usable - next.p.width - PANEL_THICK)
+    const nextEdgeGap = next.p.isRectShape === false ? 0 : PANEL_THICK
+    const clampedX = Math.min(idealX, usable - next.p.width - nextEdgeGap)
 
     if (Math.abs(next.p.x - clampedX) > 0.5) {
       wallProds[k + 1] = { ...next, p: { ...next.p, x: clampedX } }
       adjusted.set(next.i, clampedX)
+    }
+  }
+
+  // Right-to-left pass: push products left away from right phantoms
+  for (let k = wallProds.length - 1; k > 0; k--) {
+    const curr = wallProds[k]
+    const prev = wallProds[k - 1]
+    if (prev.phantom) continue  // Don't adjust phantom positions
+    const currentGap = curr.p.x - (prev.p.x + prev.p.width)
+    if (currentGap > 5 * PANEL_THICK) continue
+    const gap = profileGap(prev.p.height, curr.p.height, prev.p.elev, curr.p.elev,
+      getEffectiveDepth(prev.p), getEffectiveDepth(curr.p), flipOps)
+    const idealX = curr.p.x - gap - prev.p.width
+    const prevEdgeGap = prev.p.isRectShape === false ? 0 : PANEL_THICK
+    const clampedX = Math.max(prevEdgeGap, idealX)
+
+    if (prev.p.x > clampedX + 0.5) {
+      wallProds[k - 1] = { ...prev, p: { ...prev.p, x: clampedX } }
+      adjusted.set(prev.i, clampedX)
     }
   }
 
@@ -279,16 +368,16 @@ export function computeElevWidthAdjustment(
   let xDelta = 0
 
   if (leftNeighbor) {
-    const oldGap = profileGap(product.height, leftNeighbor.height, product.elev, leftNeighbor.elev, product.depth, leftNeighbor.depth, flipOps)
-    const newGap = profileGap(product.height, leftNeighbor.height, newElev, leftNeighbor.elev, product.depth, leftNeighbor.depth, flipOps)
+    const oldGap = profileGap(product.height, leftNeighbor.height, product.elev, leftNeighbor.elev, getEffectiveDepth(product), getEffectiveDepth(leftNeighbor), flipOps)
+    const newGap = profileGap(product.height, leftNeighbor.height, newElev, leftNeighbor.elev, getEffectiveDepth(product), getEffectiveDepth(leftNeighbor), flipOps)
     const delta = newGap - oldGap  // +19 = shared→separate, -19 = separate→shared
     widthDelta -= delta
     xDelta += delta
   }
 
   if (rightNeighbor) {
-    const oldGap = profileGap(product.height, rightNeighbor.height, product.elev, rightNeighbor.elev, product.depth, rightNeighbor.depth, flipOps)
-    const newGap = profileGap(product.height, rightNeighbor.height, newElev, rightNeighbor.elev, product.depth, rightNeighbor.depth, flipOps)
+    const oldGap = profileGap(product.height, rightNeighbor.height, product.elev, rightNeighbor.elev, getEffectiveDepth(product), getEffectiveDepth(rightNeighbor), flipOps)
+    const newGap = profileGap(product.height, rightNeighbor.height, newElev, rightNeighbor.elev, getEffectiveDepth(product), getEffectiveDepth(rightNeighbor), flipOps)
     const delta = newGap - oldGap
     widthDelta -= delta
   }

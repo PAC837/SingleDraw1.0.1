@@ -1,11 +1,12 @@
 import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react'
 import { LinearToneMapping, ACESFilmicToneMapping } from 'three'
 import { isWallMount } from './mozaik/types'
-import type { AppState, Visibility, RenderMode, MozRoom, MozFile, MozProduct, MozFixture, MozWall, DebugOverlays, DragTarget } from './mozaik/types'
+import type { AppState, Visibility, RenderMode, MozRoom, MozFile, MozProduct, MozFixture, MozWall, DebugOverlays, DragTarget, LibraryConfig } from './mozaik/types'
 import { updateWallLength, updateWallHeight, moveJoint, splitWallAtCenter, rebuildJoints, toggleFollowAngle, toggleJointMiter } from './math/wallEditor'
 import { adjustNeighborGaps } from './mozaik/wallPlacement'
 import { resizeProduct } from './mozaik/productResize'
 import { snapModularHeight } from './mozaik/modularValues'
+import { createDefaultColumns } from './mozaik/unitTypes'
 
 /** Pre-configured render setting combos with lighting. */
 export const RENDER_PRESETS: Record<string, {
@@ -102,12 +103,17 @@ const initialState: AppState = {
   bgColor: '#ffffff',
   hdriEnabled: true,
   hdriIntensity: 0.5,
+  adminOpen: false,
+  showOperations: true,
+  libraryConfig: { activeProducts: [], variantMappings: [], unitTypeColumns: createDefaultColumns(), productAssignments: {}, version: 2 },
+  hoveredPart: null,
 }
 
 type Action =
   | { type: 'GO_HOME' }
   | { type: 'LOAD_ROOM'; room: MozRoom }
   | { type: 'LOAD_MOZ'; file: MozFile }
+  | { type: 'REMOVE_MOZ'; filename: string }
   | { type: 'TOGGLE_OVERLAY'; key: keyof DebugOverlays }
   | { type: 'SELECT_WALL'; wallNumber: number | null }
   | { type: 'TOGGLE_UNITS' }
@@ -163,6 +169,7 @@ type Action =
   | { type: 'UPDATE_FIXTURE'; fixtureIdTag: number; fields: Partial<Pick<MozFixture, 'width' | 'height' | 'elev' | 'x'>> }
   | { type: 'TOGGLE_LIBRARY' }
   | { type: 'TOGGLE_FLIP_OPS' }
+  | { type: 'TOGGLE_SHOW_OPERATIONS' }
   | { type: 'SET_EDGE_OPACITY'; value: number }
   | { type: 'SET_POLYGON_OFFSET_FACTOR'; value: number }
   | { type: 'SET_POLYGON_OFFSET_UNITS'; value: number }
@@ -176,6 +183,9 @@ type Action =
   | { type: 'ALIGN_WALL_TOPS' }
   | { type: 'TOGGLE_HDRI' }
   | { type: 'SET_HDRI_INTENSITY'; value: number }
+  | { type: 'TOGGLE_ADMIN' }
+  | { type: 'SET_LIBRARY_CONFIG'; config: LibraryConfig }
+  | { type: 'SET_HOVERED_PART'; part: { productIndex: number; partIndex: number } | null }
   | { type: 'UNDO' }
 
 function reducer(state: AppState, action: Action): AppState {
@@ -190,12 +200,22 @@ function reducer(state: AppState, action: Action): AppState {
         visibilityMenuOpen: false,
         productConfigOpen: false,
         libraryOpen: false,
+        adminOpen: false,
         cameraResetKey: state.cameraResetKey + 1,
       }
     case 'LOAD_ROOM':
       return { ...state, room: action.room, visibility: defaultVisibility, wallHeight: action.room.parms.H_Walls }
     case 'LOAD_MOZ':
       return { ...state, standaloneProducts: [...state.standaloneProducts, action.file] }
+    case 'REMOVE_MOZ': {
+      const baseName = action.filename.replace(/\.moz$/i, '')
+      return {
+        ...state,
+        standaloneProducts: state.standaloneProducts.filter(
+          mf => mf.product.prodName !== baseName
+        ),
+      }
+    }
     case 'TOGGLE_OVERLAY':
       return { ...state, overlays: { ...state.overlays, [action.key]: !state.overlays[action.key] } }
     case 'SELECT_WALL':
@@ -232,12 +252,33 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, selectedSingleDrawTexture: action.filename }
     case 'CREATE_ROOM':
       return { ...state, room: action.room, selectedWall: null, visibility: defaultVisibility, wallHeight: action.room.parms.H_Walls }
-    case 'PLACE_PRODUCT':
+    case 'PLACE_PRODUCT': {
       if (!state.room) return state
-      return {
-        ...state,
-        room: { ...state.room, products: [...state.room.products, action.product] },
+      let products = [...state.room.products, action.product]
+
+      // If placed product is CRN, repack adjacent walls affected by its phantom arms
+      if (action.product.isRectShape === false) {
+        const wn = parseInt(action.product.wall.split('_')[0], 10)
+        const wallIdx = state.room.walls.findIndex(w => w.wallNumber === wn)
+        if (wallIdx >= 0) {
+          const adjWalls = new Set<number>()
+          const prevWall = state.room.walls[(wallIdx - 1 + state.room.walls.length) % state.room.walls.length]
+          const nextWall = state.room.walls[(wallIdx + 1) % state.room.walls.length]
+          adjWalls.add(prevWall.wallNumber)
+          adjWalls.add(nextWall.wallNumber)
+          for (const adjWn of adjWalls) {
+            const idx = products.findIndex(p => parseInt(p.wall.split('_')[0], 10) === adjWn)
+            if (idx >= 0) {
+              const adjs = adjustNeighborGaps(products, idx, state.room.walls, state.room.wallJoints, state.flipOps)
+              for (const adj of adjs) {
+                products = products.map((pr, i) => i === adj.index ? { ...pr, x: adj.x } : pr)
+              }
+            }
+          }
+        }
       }
+      return { ...state, room: { ...state.room, products } }
+    }
     case 'UPDATE_ROOM_PRODUCT':
       if (!state.room) return state
       return {
@@ -499,19 +540,16 @@ function reducer(state: AppState, action: Action): AppState {
       }
       // Repack all walls so gaps match the new panel sharing mode
       let products = [...state.room.products]
-      const seenWalls = new Set<number>()
-      for (const p of products) {
-        const wn = parseInt(p.wall.split('_')[0], 10)
-        if (seenWalls.has(wn)) continue
-        seenWalls.add(wn)
-        const idx = products.indexOf(p)
-        const adjs = adjustNeighborGaps(products, idx, state.room.walls, state.room.wallJoints, newFlipOps)
+      for (let i = 0; i < products.length; i++) {
+        const adjs = adjustNeighborGaps(products, i, state.room.walls, state.room.wallJoints, newFlipOps)
         for (const adj of adjs) {
-          products = products.map((pr, i) => i === adj.index ? { ...pr, x: adj.x } : pr)
+          products = products.map((pr, j) => j === adj.index ? { ...pr, x: adj.x } : pr)
         }
       }
       return { ...state, flipOps: newFlipOps, room: { ...state.room, products } }
     }
+    case 'TOGGLE_SHOW_OPERATIONS':
+      return { ...state, showOperations: !state.showOperations }
     case 'SET_EDGE_OPACITY':
       return { ...state, edgeOpacity: action.value, renderPreset: null }
     case 'SET_POLYGON_OFFSET_FACTOR':
@@ -544,6 +582,12 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, hdriEnabled: !state.hdriEnabled }
     case 'SET_HDRI_INTENSITY':
       return { ...state, hdriIntensity: action.value }
+    case 'TOGGLE_ADMIN':
+      return { ...state, adminOpen: !state.adminOpen }
+    case 'SET_LIBRARY_CONFIG':
+      return { ...state, libraryConfig: action.config }
+    case 'SET_HOVERED_PART':
+      return { ...state, hoveredPart: action.part }
     case 'ALIGN_WALL_TOPS': {
       if (!state.room || state.room.products.length === 0) return state
       const targetTop = state.unitHeight

@@ -88,9 +88,38 @@ export interface MozShapePoint {
   id: number
   x: number
   y: number
+  ptType: number       // 0 = corner/straight, 1 = corner fillet
+  data: number         // fillet radius (when ptType=1)
   edgeType: number
   sideName: string
+  xEq?: string         // X_Eq parametric formula (e.g., "W-CornerEndWRight")
+  yEq?: string         // Y_Eq parametric formula
+  dataEq?: string      // Data_Eq parametric formula (e.g., "CornerRadius")
 }
+
+// ── Manufacturing operations from <PartOpsXml> ────────────────────
+
+export interface MozOperationHole {
+  type: 'hole'
+  x: number; y: number; depth: number; diameter: number
+  flipSideOp: boolean
+}
+
+export interface MozOperationLineBore {
+  type: 'linebore'
+  x: number; y: number; depth: number; diameter: number
+  quan: number; ang: number
+  flipSideOp: boolean
+}
+
+export interface MozOperationPocket {
+  type: 'pocket'
+  x: number; y: number; depth: number
+  closedShape: boolean
+  toolPathNodes: { x: number; y: number }[]
+}
+
+export type MozOperation = MozOperationHole | MozOperationLineBore | MozOperationPocket
 
 /** A single cabinet part from <CabProdPart>. */
 export interface MozPart {
@@ -106,7 +135,20 @@ export interface MozPart {
   quan: number
   layer: number
   shapePoints: MozShapePoint[]
+  operations: MozOperation[]
   suPartName: string   // SketchUp model filename, e.g. "Black Closet Rod (Oval).skp"
+}
+
+/** Mozaik product parameter override from <CabProdParm>. */
+export interface CabProdParm {
+  name: string
+  type: number      // 0 = numeric, 1 = boolean
+  value: string
+  desc: string
+  category: number
+  options: string
+  maxVal: number
+  minVal: number
 }
 
 /** Product-level data from <Product> in DES or MOZ root. */
@@ -123,6 +165,9 @@ export interface MozProduct {
   rot: number
   wall: string         // wall reference, e.g., "3_1" or "0"
   parts: MozPart[]
+  isRectShape: boolean // false for L-shaped corner products (CRN)
+  topShapePoints: MozShapePoint[]  // from <TopShapeXml> — product-level outline with equations
+  parameters: CabProdParm[]  // parsed from <CabProdParms>
   rawAttributes: Record<string, string>
   rawInnerXml: string  // everything between <Product> and </Product> from MOZ file
 }
@@ -233,6 +278,49 @@ export interface AppState {
   bgColor: string                 // canvas background hex color
   hdriEnabled: boolean             // drei Environment HDRI lighting toggle
   hdriIntensity: number            // environment intensity (0–2)
+  adminOpen: boolean               // admin panel visible
+  showOperations: boolean           // show drill holes / shelf pins on parts
+  libraryConfig: LibraryConfig     // persisted library product config
+  hoveredPart: { productIndex: number; partIndex: number } | null  // part inspector highlight
+}
+
+// ── Library config types ────────────────────────────────────────────
+
+/** Mapping from height preset to MOZ filename for a product variant group. */
+export interface ProductVariantMapping {
+  groupName: string                    // e.g., "DH" (auto-detected base name)
+  genericFile: string                  // MOZ filename used as preview/default
+  variants: Record<string, string>     // height label → MOZ filename, e.g. { "84": "84 DH.moz", "96": "96 DH.moz" }
+}
+
+// ── Controlled Library Method ──────────────────────────────────────
+
+/** A unit type column definition (built-in or user-defined). */
+export interface UnitTypeColumn {
+  id: string            // 'floor' | 'wall' | ... | 'user-1' .. 'user-5'
+  label: string         // display name (editable for user columns)
+  isBuiltin: boolean
+}
+
+/** Product assignments: MOZ filename → array of unit type column IDs checked. */
+export type ProductAssignments = Record<string, string[]>
+
+/** A dynamic product group — products sharing suffix + root folder + column. */
+export interface DynamicProductGroup {
+  groupName: string              // the suffix, e.g., "DH"
+  unitTypeId: string             // which column they're grouped under
+  rootFolderName: string         // top-level Library.ndx folder name
+  memberFiles: string[]          // MOZ filenames in this group
+  heightMap: Record<number, string>  // inch label → MOZ filename
+}
+
+/** Persisted library configuration (IndexedDB). Version 2 adds controlled library. */
+export interface LibraryConfig {
+  activeProducts: string[]             // derived: products with any assignment
+  variantMappings: ProductVariantMapping[]
+  unitTypeColumns?: UnitTypeColumn[]     // 15 columns (10 built-in + 5 user)
+  productAssignments?: ProductAssignments // product → column IDs
+  version?: number                       // 2 for controlled library
 }
 
 /** Check if product name indicates a wall-mount section (PAC Library convention). */

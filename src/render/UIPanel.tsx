@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import type { DebugOverlays, MozRoom, MozFile, RenderMode } from '../mozaik/types'
 import { formatDim } from '../math/units'
+import SectionHeader from '../ui/SectionHeader'
+import Button from '../ui/Button'
 import FileLoader from './FileLoader'
 import CreateRoomPanel from './CreateRoomPanel'
 import PlaceProductPanel from './PlaceProductPanel'
@@ -101,9 +103,7 @@ function LibrarySection({
 
   return (
     <div className="p-4 border-b border-gray-800">
-      <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-        Libraries
-      </h2>
+      <SectionHeader>Libraries</SectionHeader>
       <div className="space-y-2">
         <button
           onClick={onLinkLibraryFolder}
@@ -198,17 +198,13 @@ export default function UIPanel({
 
       {/* File Loading */}
       <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-          Files
-        </h2>
+        <SectionHeader>Files</SectionHeader>
         <FileLoader />
       </div>
 
       {/* Job Folder + Export */}
       <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-          Export
-        </h2>
+        <SectionHeader>Export</SectionHeader>
         <div className="space-y-2">
           <button
             onClick={onLinkJobFolder}
@@ -217,12 +213,9 @@ export default function UIPanel({
             {jobFolder ? `Job: ${jobFolder.name}` : 'Link Job Folder...'}
           </button>
           {room && jobFolder && (
-            <button
-              onClick={onExportDes}
-              className="w-full text-xs px-3 py-2 bg-[var(--accent)] text-black font-medium rounded hover:opacity-90 transition-opacity"
-            >
+            <Button variant="primary" onClick={onExportDes} className="w-full">
               Export DES to Job
-            </button>
+            </Button>
           )}
         </div>
       </div>
@@ -237,9 +230,7 @@ export default function UIPanel({
 
       {/* 3D Models */}
       <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-          3D Models
-        </h2>
+        <SectionHeader>3D Models</SectionHeader>
         <div className="space-y-2">
           <button
             onClick={onLinkSketchUpFolder}
@@ -288,9 +279,7 @@ export default function UIPanel({
 
       {/* Textures */}
       <div className="p-4 border-b border-gray-800">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-          Textures
-        </h2>
+        <SectionHeader>Textures</SectionHeader>
         <div className="space-y-2">
           <button
             onClick={onLinkTextureFolder}
@@ -436,9 +425,7 @@ export default function UIPanel({
       {/* Room Info */}
       {room && (
         <div className="p-4 border-b border-gray-800">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-            Room
-          </h2>
+          <SectionHeader>Room</SectionHeader>
           <div className="text-sm space-y-1">
             <p><span className="text-[var(--text-secondary)]">Name:</span> {room.name}</p>
             <p><span className="text-[var(--text-secondary)]">Walls:</span> {room.walls.length}</p>
@@ -466,9 +453,7 @@ export default function UIPanel({
       {/* Products */}
       {products.length > 0 && (
         <div className="p-4 border-b border-gray-800">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-            Products ({products.length})
-          </h2>
+          <SectionHeader>Products ({products.length})</SectionHeader>
           <div className="space-y-2">
             {products.map((mf, i) => (
               <div key={i} className="text-sm bg-[var(--bg-dark)] rounded p-2">
@@ -495,9 +480,7 @@ export default function UIPanel({
       {/* Room products */}
       {room && room.products.length > 0 && (
         <div className="p-4">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] mb-3 border-b border-[var(--accent)] pb-1">
-            Room Products ({room.products.length})
-          </h2>
+          <SectionHeader>Room Products ({room.products.length})</SectionHeader>
           <div className="space-y-2">
             {room.products.map((p, i) => (
               <div key={i} className="text-sm bg-[var(--bg-dark)] rounded p-2">

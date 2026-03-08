@@ -134,6 +134,24 @@ function parseProduct(el: Element): MozProduct {
   const partsEl = getChild(el, 'CabProdParts')
   const parts = partsEl ? getChildren(partsEl, 'CabProdPart').map(parsePart) : []
 
+  const parmsEl = getChild(el, 'CabProdParms')
+  const parameters = parmsEl
+    ? getChildren(parmsEl, 'CabProdParm').map(p => ({
+        name: getAttrStr(p, 'Name'),
+        type: getAttrInt(p, 'Type'),
+        value: getAttrStr(p, 'Value'),
+        desc: getAttrStr(p, 'Desc', ''),
+        category: getAttrInt(p, 'Category'),
+        options: getAttrStr(p, 'Options', ''),
+        maxVal: getAttrFloat(p, 'MaxVal'),
+        minVal: getAttrFloat(p, 'MinVal'),
+      }))
+    : []
+
+  // Parse TopShapeXml — product-level outline (L-shape for CRN products)
+  const topShapeEl = getChild(el, 'TopShapeXml')
+  const topShapePoints = topShapeEl ? parseShapePoints(topShapeEl) : []
+
   return {
     uniqueId: getAttrStr(el, 'UniqueID'),
     prodName: getAttrStr(el, 'ProdName'),
@@ -147,6 +165,9 @@ function parseProduct(el: Element): MozProduct {
     rot: getAttrFloat(el, 'Rot'),
     wall: getAttrStr(el, 'Wall', '0'),
     parts,
+    isRectShape: getAttrStr(el, 'IsRectShape', 'True') !== 'False',
+    topShapePoints,
+    parameters,
     rawAttributes: getAllAttrs(el),
     rawInnerXml: '',  // DES-loaded products use rawText passthrough
   }
@@ -170,6 +191,7 @@ function parsePart(el: Element): MozPart {
     quan: getAttrInt(el, 'Quan', 1),
     layer: getAttrInt(el, 'Layer'),
     shapePoints,
+    operations: [],
     suPartName: getAttrStr(el, 'SUPartName', ''),
   }
 }
@@ -186,13 +208,24 @@ function parseRotation(el: Element): MozRotation {
 }
 
 function parseShapePoints(shapeEl: Element): MozShapePoint[] {
-  return getChildren(shapeEl, 'ShapePoint').map((el) => ({
-    id: getAttrInt(el, 'ID'),
-    x: getAttrFloat(el, 'X'),
-    y: getAttrFloat(el, 'Y'),
-    edgeType: getAttrInt(el, 'EdgeType'),
-    sideName: getAttrStr(el, 'SideName'),
-  }))
+  return getChildren(shapeEl, 'ShapePoint').map((el) => {
+    const pt: MozShapePoint = {
+      id: getAttrInt(el, 'ID'),
+      x: getAttrFloat(el, 'X'),
+      y: getAttrFloat(el, 'Y'),
+      ptType: getAttrInt(el, 'PtType'),
+      data: getAttrFloat(el, 'Data'),
+      edgeType: getAttrInt(el, 'EdgeType'),
+      sideName: getAttrStr(el, 'SideName'),
+    }
+    const xEq = getAttrStr(el, 'X_Eq', '')
+    const yEq = getAttrStr(el, 'Y_Eq', '')
+    const dataEq = getAttrStr(el, 'Data_Eq', '')
+    if (xEq) pt.xEq = xEq
+    if (yEq) pt.yEq = yEq
+    if (dataEq) pt.dataEq = dataEq
+    return pt
+  })
 }
 
 /** Extract texture IDs from RoomSet and first MaterialTemplateSelection. */

@@ -12,6 +12,8 @@ import { computeProductWorldOffset } from '../math/wallMath'
 import { mozPosToThree } from '../math/basis'
 import { DEG2RAD } from '../math/constants'
 import { useProductTexture, useTextureByFilename, useSingleDrawTexture, lookupTexture } from './useProductTexture'
+import OperationMarkers from './OperationMarkers'
+import { generateSystemHoles } from '../mozaik/systemHoles'
 
 interface AutoEndPanelsProps {
   room: MozRoom
@@ -25,6 +27,7 @@ interface AutoEndPanelsProps {
   textureFilename?: string | null
   singleDrawBrand?: string | null
   singleDrawTexture?: string | null
+  showOperations?: boolean
 }
 
 const PANEL_COLOR = '#d4c5a9' // matches FEnd color from ProductView
@@ -32,7 +35,7 @@ const RENDER_INSET = 1 // mm — shrink rendered panel to avoid coplanar z-fight
 
 function EndPanelMesh({
   panel, room, renderMode, baseTexture, textureId = null,
-  edgeOpacity = 0, polyFactor = 1, polyUnits = 1,
+  edgeOpacity = 0, polyFactor = 1, polyUnits = 1, showOperations = true,
 }: {
   panel: AutoEndPanel
   room: MozRoom
@@ -42,6 +45,7 @@ function EndPanelMesh({
   edgeOpacity?: number
   polyFactor?: number
   polyUnits?: number
+  showOperations?: boolean
 }) {
   const offset = useMemo(() => {
     // Create a pseudo-product to compute world position via existing wall math
@@ -113,6 +117,32 @@ polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits
           <lineBasicMaterial color="#000000" transparent opacity={edgeOpacity} />
         </lineSegments>
       )}
+      {showOperations && (() => {
+        const ops = generateSystemHoles(panel.height, panel.depth)
+        if (ops.length === 0) return null
+        const flippedOps = panel.side === 'left'
+          ? ops.map(op => ({ ...op, flipSideOp: true }))
+          : ops
+        // Clip holes to contact height range with adjacent product
+        const adj = room.products[panel.adjacentProductIndex]
+        const contactBottom = adj ? Math.max(0, adj.elev - panel.elev) : 0
+        const contactTop = adj ? Math.min(panel.height, (adj.elev + adj.height) - panel.elev) : panel.height
+        const clippedOps = flippedOps.filter(op => op.x >= contactBottom - 0.1 && op.x <= contactTop + 0.1)
+        if (clippedOps.length === 0) return null
+        return (
+          <group position={bbPos} rotation={[0, 0, -Math.PI / 2]}>
+            <OperationMarkers
+              operations={clippedOps}
+              centerX={panel.height / 2}
+              centerY={panel.depth / 2}
+              thick={PANEL_THICK}
+              isShape={true}
+              partL={panel.height}
+              partW={panel.depth}
+            />
+          </group>
+        )
+      })()}
     </group>
   )
 }
@@ -120,7 +150,7 @@ polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits
 export default function AutoEndPanels({
   room, renderMode, flipOps = false, edgeOpacity = 0, polyFactor = 1, polyUnits = 1,
   textureFolder = null, textureId = null, textureFilename = null,
-  singleDrawBrand = null, singleDrawTexture = null,
+  singleDrawBrand = null, singleDrawTexture = null, showOperations = true,
 }: AutoEndPanelsProps) {
   const panels = useMemo(
     () => computeAutoEndPanels(room.products, room.walls, room.wallJoints, flipOps),
@@ -148,6 +178,7 @@ export default function AutoEndPanels({
           edgeOpacity={edgeOpacity}
           polyFactor={polyFactor}
           polyUnits={polyUnits}
+          showOperations={showOperations}
         />
       ))}
     </group>

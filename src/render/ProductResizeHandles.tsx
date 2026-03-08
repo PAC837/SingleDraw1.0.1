@@ -495,7 +495,9 @@ function DepthDragBall({
       const dy = ev.clientY - startMouse.current
       const dyMm = dy * scale
       const raw = startDepth.current + dyMm
-      const snapped = snapValue(Math.max(MODULAR_DEPTHS[0], raw), 'depth')
+      const snapped = product.isRectShape === false
+        ? Math.round(Math.max(MODULAR_DEPTHS[0], raw) / INCH) * INCH  // 1" increments for CRN
+        : snapValue(Math.max(MODULAR_DEPTHS[0], raw), 'depth')
       onResize(productIndex, 'depth', snapped)
     }
 

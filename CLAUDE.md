@@ -86,6 +86,32 @@ src/
 - Card padding: `p-2`, flex gap: `gap-2` (standard) / `gap-1` (tight)
 - All transitions: `transition-colors` or `transition-all`
 
+## Library.ndx (Product Organization)
+
+**Library.ndx** is the source of truth for how products are organized into folders in a Mozaik product library. Always look for it in the library folder root (alongside the `Products/` subfolder).
+
+**XML structure:**
+- Root: `<ProductLibrary>` containing `<Node>` elements
+- Folders: `<Node Name="FS 96 Sections" ID="1276" ParentID="1241" IsFolder="True">`
+- Products: `<Node Name="96 DH" ID="730" ParentID="1276" IsFolder="False">`
+- Product Name → MOZ filename: `"96 DH"` → `"96 DH.moz"`
+- Hierarchy is max 3 levels deep (root category → sub-category → products)
+- `ParentID="0"` = root-level folder
+
+**Key folders (PAC Library V2):**
+- Floor Standing Panels (standard, LED, hanging, back)
+- Floor Standing Sections (84/87/96/108 sub-folders + corners)
+- Wall Mounted Panels (76/72/48 sub-folders + LED)
+- Wall Mounted Sections (76/72/48 + corners)
+- Islands, Upper Stack, Hutch, Bench, Desk, Sub Assemblies, Misc, Custom
+
+**Also contains:** ModularHeight (93 values), ModularDepth (5 values), ModularFFHeight (57 values)
+
+**Parser:** `src/mozaik/libraryNdxParser.ts` — `parseLibraryNdx(xml)` returns `LibraryFolder[]` tree
+**Admin panel:** `src/render/AdminPanel.tsx` — reads Library.ndx and displays folder-based product tree
+
+**Do NOT auto-categorize** products by filename patterns. Always use Library.ndx as the authority.
+
 ## Mozaik File Rules
 
 When reading any Mozaik file (DES/MOZ/MOS/SBK/BAK), always announce:

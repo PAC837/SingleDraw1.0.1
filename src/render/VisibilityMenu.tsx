@@ -4,6 +4,7 @@
  */
 import { useEffect, useRef } from 'react'
 import type { Visibility, MozWall } from '../mozaik/types'
+import ToolbarButton from '../ui/ToolbarButton'
 
 interface VisibilityMenuProps {
   open: boolean
@@ -93,17 +94,9 @@ export default function VisibilityMenu({
   return (
     <div ref={containerRef} className="relative">
       {/* Eyeball toggle button */}
-      <button
-        onClick={onToggle}
-        title="Toggle visibility"
-        className="w-16 h-16 rounded-full flex items-center justify-center transition-all"
-        style={{
-          background: open ? 'var(--bg-panel)' : '#1e1e1e',
-          border: `2px solid ${open ? 'var(--accent)' : '#555'}`,
-        }}
-      >
+      <ToolbarButton active={open} title="Toggle visibility" onClick={onToggle}>
         <EyeIcon active={open} />
-      </button>
+      </ToolbarButton>
 
       {/* Cone sub-menu */}
       {open && (

@@ -178,13 +178,6 @@ function warmthToColors(warmth: number): { sky: string; ground: string } {
   return { sky: lerp(from.sky, to.sky), ground: lerp(from.ground, to.ground) }
 }
 
-/** Sets scene.environmentIntensity reactively. */
-function EnvironmentIntensity({ intensity }: { intensity: number }) {
-  const { scene } = useThree()
-  useEffect(() => { scene.environmentIntensity = intensity }, [scene, intensity])
-  return null
-}
-
 export default function Scene({
   children, orbitTarget, orthographic, roomWalls, resetKey, onPointerMissed,
   ambientIntensity = 0.6, directionalIntensity = 0.7, warmth = 0,
@@ -213,10 +206,7 @@ export default function Scene({
       <directionalLight position={[5000, 10000, 5000]} intensity={directionalIntensity} />
       <directionalLight position={[-3000, 8000, -3000]} intensity={directionalIntensity * 0.43} />
       {hdriEnabled && (
-        <>
-          <Environment preset="apartment" background={false} />
-          <EnvironmentIntensity intensity={hdriIntensity} />
-        </>
+        <Environment preset="apartment" background={false} environmentIntensity={hdriIntensity} />
       )}
       {children}
       {orthographic && <OrthoCamera target={orbitTarget} walls={roomWalls} />}

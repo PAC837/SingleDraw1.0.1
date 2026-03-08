@@ -30,7 +30,7 @@ export function useProductActions() {
       const resized = resizeProduct(mozFile.product, 'height', sectionHeight)
       const usable = usableWallLength(wallNumber, state.room.walls, state.room.wallJoints)
       const elev = Math.max(0, state.wallMountTopAt - sectionHeight)
-      const nextX = findNextAvailableX(state.room.products, wallNumber, resized.width, sectionHeight, elev, resized.depth, usable, state.flipOps)
+      const nextX = findNextAvailableX(state.room.products, wallNumber, resized.width, sectionHeight, elev, resized.depth, usable, state.flipOps, state.room.walls, state.room.wallJoints, resized.isRectShape === false)
       if (nextX === null) {
         alert('No space on this wall for that product')
         return

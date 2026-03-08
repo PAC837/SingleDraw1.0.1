@@ -37,6 +37,9 @@ function axisToVector(axis: 'X' | 'Y' | 'Z'): Vector3 {
     case 'X': return new Vector3(1, 0, 0)
     case 'Y': return new Vector3(0, 1, 0)
     case 'Z': return new Vector3(0, 0, 1)
+    default:
+      console.warn(`[ROTATION] Invalid axis "${axis}" — defaulting to X`)
+      return new Vector3(1, 0, 0)
   }
 }
 
