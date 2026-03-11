@@ -102,25 +102,36 @@ function resolveToken(token: string, ctx: EvalContext): number {
 
 /**
  * Re-evaluate all TopShapeXml points using current product dimensions & parameters.
- * Points with equations get recomputed; static points (no equation) are delta-shifted
- * when oldWidth/oldDepth are provided (CRN resize only).
  *
- * Evidence: Mozaik shifts static X > 0 by widthDelta, static Y > 0 by depthDelta.
- * Points at 0 stay at 0. Called without old dims → no shift (safe for non-resize callers).
+ * Points with equations: recomputed from scratch (idempotent).
+ * Points without equations: classified by original value vs original W/D.
+ *   - If original X ≈ W → X tracks new W
+ *   - If original Y ≈ D → Y tracks new D
+ *   - If 0 or other constant → stays unchanged
+ *
+ * When `originalPts` is provided (from _crnDeps cache), uses those as the source
+ * of truth to avoid compounding shifts on repeated resize operations.
  */
 export function evaluateTopShape(
   product: MozProduct,
   oldWidth?: number,
   oldDepth?: number,
+  originalPts?: MozShapePoint[],
 ): MozShapePoint[] {
-  if (!product.topShapePoints || product.topShapePoints.length === 0) return []
+  const pts = originalPts ?? product.topShapePoints
+  if (!pts || pts.length === 0) return []
   const ctx = buildEvalContext(product)
-  const wDelta = oldWidth != null ? product.width - oldWidth : 0
-  const dDelta = oldDepth != null ? product.depth - oldDepth : 0
+  const origW = oldWidth ?? product.width
+  const origD = oldDepth ?? product.depth
 
-  return product.topShapePoints.map(pt => {
-    const x = pt.xEq ? evaluateShapeEq(pt.xEq, ctx) : (pt.x > 0 && wDelta ? pt.x + wDelta : pt.x)
-    const y = pt.yEq ? evaluateShapeEq(pt.yEq, ctx) : (pt.y > 0 && dDelta ? pt.y + dDelta : pt.y)
+  return pts.map(pt => {
+    // Equations: evaluate from scratch at new dimensions
+    const x = pt.xEq ? evaluateShapeEq(pt.xEq, ctx)
+      : Math.abs(pt.x - origW) < 1 ? ctx.W   // tracks W
+      : pt.x                                   // constant (0, param value, etc.)
+    const y = pt.yEq ? evaluateShapeEq(pt.yEq, ctx)
+      : Math.abs(pt.y - origD) < 1 ? ctx.D   // tracks D
+      : pt.y                                   // constant
     const data = pt.dataEq ? evaluateShapeEq(pt.dataEq, ctx) : pt.data
     return { ...pt, x, y, data }
   })

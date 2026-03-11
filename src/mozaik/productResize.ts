@@ -15,6 +15,7 @@
 import type { MozProduct, MozPart } from './types'
 import { evaluateTopShape, buildEvalContext } from './shapeEquations'
 import { inferDependency, getDimPref } from './formulaInference'
+import { applyPropagatedEqs, propagateEquations } from './shapeTopology'
 
 const TOLERANCE = 20  // mm — how close part.l must be to product dimension to be considered "spanning"
 
@@ -153,22 +154,28 @@ function resizeCrnProduct(
   newValue: number,
 ): MozProduct {
   // Get or compute dependency cache from original product state
+  type DepEntry = { dep: 'W' | 'D' | null; orig: number }
+  const clampDep = (d: 'W' | 'D' | 'H' | null): 'W' | 'D' | null => d === 'H' ? null : d
   let deps = product._crnDeps
-  if (!deps) {
+  let shapeEqMap = product._shapeEqMap
+  if (!deps || !deps.originalTopShapePoints) {
+    // Regenerate _shapeEqMap alongside deps (old caches lack xTrack/yTrack)
+    shapeEqMap = propagateEquations(product)
     const ctx = buildEvalContext(product)
     deps = {
       originalW: product.width,
       originalD: product.depth,
+      originalTopShapePoints: product.topShapePoints ?? [],
       parts: product.parts.map(part => {
         const a2 = part.rotation.a2
         return {
-          x: { dep: inferDependency(part.x, ctx, getDimPref('x', a2)), orig: part.x },
-          y: { dep: inferDependency(part.y, ctx, getDimPref('y', a2)), orig: part.y },
-          l: { dep: inferDependency(part.l, ctx, getDimPref('l', a2)), orig: part.l },
-          w: { dep: inferDependency(part.w, ctx, getDimPref('w', a2)), orig: part.w },
+          x: { dep: clampDep(inferDependency(part.x, ctx, getDimPref('x', a2))), orig: part.x },
+          y: { dep: clampDep(inferDependency(part.y, ctx, getDimPref('y', a2))), orig: part.y },
+          l: { dep: clampDep(inferDependency(part.l, ctx, getDimPref('l', a2))), orig: part.l },
+          w: { dep: clampDep(inferDependency(part.w, ctx, getDimPref('w', a2))), orig: part.w },
           sp: part.shapePoints.map(sp => ({
-            x: { dep: inferDependency(sp.x, ctx, getDimPref('spX', a2)), orig: sp.x },
-            y: { dep: inferDependency(sp.y, ctx, getDimPref('spY', a2)), orig: sp.y },
+            x: { dep: clampDep(inferDependency(sp.x, ctx, getDimPref('spX', a2))), orig: sp.x },
+            y: { dep: clampDep(inferDependency(sp.y, ctx, getDimPref('spY', a2))), orig: sp.y },
           })),
         }
       }),
@@ -178,31 +185,42 @@ function resizeCrnProduct(
   // Cumulative deltas from original dimensions
   const newW = field === 'width' ? newValue : product.width
   const newD = field === 'depth' ? newValue : product.depth
-  const wDelta = newW - deps.originalW
-  const dDelta = newD - deps.originalD
+  const wDelta = newW - deps!.originalW
+  const dDelta = newD - deps!.originalD
 
-  // Re-evaluate TopShapeXml equations at new dimensions
+  // Re-evaluate TopShapeXml equations at new dimensions (from cached originals to avoid compounding)
   const updated = { ...product, width: newW, depth: newD }
-  const newTopShape = evaluateTopShape(updated, deps.originalW, deps.originalD)
+  const newTopShape = evaluateTopShape(updated, deps!.originalW, deps!.originalD, deps!.originalTopShapePoints)
 
   // Helper: compute value from original + appropriate delta
-  const apply = (entry: { dep: 'W' | 'D' | null; orig: number }) =>
+  const apply = (entry: DepEntry) =>
     entry.orig + (entry.dep === 'W' ? wDelta : entry.dep === 'D' ? dDelta : 0)
+
+  // Build eval context at new dimensions for equation-based shape point evaluation
+  const eqCtx = buildEvalContext(updated)
 
   // Rebuild each part from original values + cumulative deltas
   const newParts = product.parts.map((part, i) => {
-    const pd = deps.parts[i]
+    const pd = deps!.parts[i]
+    const propagatedEqs = shapeEqMap?.get(i)
+    const newL = apply(pd.l)
+
+    // For shape points: use propagated equations if available, else inference
+    const newShapePoints = propagatedEqs
+      ? applyPropagatedEqs(part.shapePoints, propagatedEqs, eqCtx, newL)
+      : part.shapePoints.map((sp, j) => ({
+          ...sp,
+          x: apply(pd.sp[j].x),
+          y: apply(pd.sp[j].y),
+        }))
+
     return {
       ...part,
       x: apply(pd.x),
       y: apply(pd.y),
-      l: apply(pd.l),
+      l: newL,
       w: apply(pd.w),
-      shapePoints: part.shapePoints.map((sp, j) => ({
-        ...sp,
-        x: apply(pd.sp[j].x),
-        y: apply(pd.sp[j].y),
-      })),
+      shapePoints: newShapePoints,
     }
   })
 
@@ -213,5 +231,6 @@ function resizeCrnProduct(
     parts: newParts,
     topShapePoints: newTopShape,
     _crnDeps: deps,
+    _shapeEqMap: shapeEqMap,
   }
 }

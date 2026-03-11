@@ -204,6 +204,36 @@ If a needed file is missing: **stop and ask the user**. Specify exactly what is 
 - `formatDim()` in `src/math/units.ts` — fractional inches (nearest 1/16) or mm
 - `mmToInches()` / `inchesToMm()` for input field conversion in WallEditorPanel
 
+## TopShapeXml Formula Rules (CRN Products)
+
+**TopShapeXml** defines the product-level outline shape for non-rectangular (CRN/corner) products. Points may have parametric equations (X_Eq, Y_Eq, Data_Eq) referencing W, D, and CabProdParms.
+
+**Non-equation points track W/D implicitly:**
+- Points at X ≈ W (original product width) → X tracks W on resize (becomes new W)
+- Points at Y ≈ D (original product depth) → Y tracks D on resize (becomes new D)
+- Points at 0 → stay at 0 (constants)
+- This applies to ALL TopShape points, not just those with explicit equations
+
+**Part shape inheritance:**
+- L-shaped parts (Bottom, Top, FixedShelf, AdjustableShelf) inherit the TopShape outline
+- Part PartShapeXml has the same point count and topology as TopShapeXml
+- Manufacturing offsets (≤1mm typically) exist between part points and TopShape points
+- Shelves have full L-shaped PartShapeXml in the MOZ file (10 points, not 4)
+- Shelves have A1=180 rotation (R1='Y') — X axis is mirrored relative to product
+- Topology mapper detects A1=180 and mirrors X coords (`partL - sp.x`) before matching
+- `applyPropagatedEqs()` un-mirrors on resize: `partX = newPartL - (topXEval + offset)`
+- Y axis is NOT mirrored (rotation around Y preserves Y)
+
+**Equation tokens:**
+- `W`, `D` — product width and depth
+- `CornerEndWLeft`, `CornerEndWRight` — corner arm widths (~356mm)
+- `CornerRadius` — inner corner fillet radius (~60mm)
+- `CornerMargin` — fit gap between parts (~6.35mm / 0.25")
+- `Uend.th` — FEnd panel thickness (19mm default, from material library)
+- `DSlopW`, `DSlopD` — user parameters for dado/slope (~0.254mm / 0.01" typically)
+
+**Always ask the user** when encountering unfamiliar formula tokens, part relationships, or resize behaviors. The MOZ parser, operation mapping, part positioning, and formula system all need continuous refinement.
+
 ## Key Invariants
 
 - **Round-trip fidelity**: import → export → re-import must yield identical values (epsilon = 0 unless Mozaik quantizes, only relax if proven).

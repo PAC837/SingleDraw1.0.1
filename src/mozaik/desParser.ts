@@ -6,6 +6,7 @@ import {
   parseXmlString, getAttrFloat, getAttrStr, getAttrBool,
   getAttrInt, getChildren, getChild, getAllAttrs,
 } from './xmlUtils'
+import { propagateEquations } from './shapeTopology'
 
 /** Parse a DES file text into a MozRoom. */
 export function parseDes(fileText: string): MozRoom {
@@ -152,7 +153,7 @@ function parseProduct(el: Element): MozProduct {
   const topShapeEl = getChild(el, 'TopShapeXml')
   const topShapePoints = topShapeEl ? parseShapePoints(topShapeEl) : []
 
-  return {
+  const product: MozProduct = {
     uniqueId: getAttrStr(el, 'UniqueID'),
     prodName: getAttrStr(el, 'ProdName'),
     idTag: getAttrInt(el, 'IDTag'),
@@ -171,6 +172,13 @@ function parseProduct(el: Element): MozProduct {
     rawAttributes: getAllAttrs(el),
     rawInnerXml: '',  // DES-loaded products use rawText passthrough
   }
+
+  // Propagate TopShapeXml equations to L-shaped part shape points
+  if (!product.isRectShape && topShapePoints.length >= 3) {
+    product._shapeEqMap = propagateEquations(product)
+  }
+
+  return product
 }
 
 function parsePart(el: Element): MozPart {

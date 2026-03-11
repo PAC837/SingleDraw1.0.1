@@ -3,6 +3,7 @@ import {
   parseXmlString, getAttrFloat, getAttrStr, getAttrInt,
   getChildren, getChild, getAllAttrs,
 } from './xmlUtils'
+import { propagateEquations } from './shapeTopology'
 
 /**
  * Parse a MOZ file content string into a MozFile.
@@ -32,6 +33,14 @@ export function parseMoz(fileContent: string): MozFile {
   const rawInnerXml = closeTagStart > openTagEnd ? rawXml.slice(openTagEnd, closeTagStart) : ''
 
   const product = parseProduct(root, rawInnerXml)
+
+  // Propagate TopShapeXml equations to matching L-shaped part shape points
+  if (!product.isRectShape && product.topShapePoints.length >= 3) {
+    product._shapeEqMap = propagateEquations(product)
+    if (product._shapeEqMap.size > 0) {
+      console.log(`[MOZ] Propagated shape equations to ${product._shapeEqMap.size} L-shaped parts`)
+    }
+  }
 
   console.log(`[MOZ] Product: "${product.prodName}" (ID: ${product.uniqueId})`)
   console.log(`[MOZ] Dimensions: W=${product.width} H=${product.height} D=${product.depth}`)

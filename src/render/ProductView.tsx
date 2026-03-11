@@ -11,6 +11,7 @@ import { buildPartGeometry, panelThickness, computeProductOutline } from './shap
 import { generateSystemHoles } from '../mozaik/systemHoles'
 import OperationMarkers from './OperationMarkers'
 import ProductResizeHandles from './ProductResizeHandles'
+import ShapeDebugOverlay from './ShapeDebugOverlay'
 
 interface ProductViewProps {
   product: MozProduct
@@ -35,6 +36,7 @@ interface ProductViewProps {
   polyFactor?: number
   polyUnits?: number
   showOperations?: boolean
+  showShapeDebug?: boolean
   singleDrawBrand?: string | null
   singleDrawTexture?: string | null
   modelsFolder?: FileSystemDirectoryHandle | null
@@ -308,7 +310,7 @@ polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
 export default function ProductView({
   product, productIndex, worldOffset, wallAngleDeg, renderMode = 'ghosted',
   showBoundingBox = false, selected = false, onSelect, onResize, onResizeWidth, onUpdateElev, onUpdateX,
-  onBumpLeft, onBumpRight, onRemove, showOperations = true,
+  onBumpLeft, onBumpRight, onRemove, showOperations = true, showShapeDebug = false,
   edgeOpacity = 0, polyFactor = 1, polyUnits = 1,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null, modelsFolder = null,
@@ -378,6 +380,11 @@ export default function ProductView({
       {/* Shaped outline when selected or debug overlay enabled */}
       {showBox && (
         <ProductOutline outline={outline} height={product.height} />
+      )}
+
+      {/* CRN shape debug overlay — shows TopShape (green) vs Bottom part (red) */}
+      {showShapeDebug && selected && !product.isRectShape && (
+        <ShapeDebugOverlay product={product} />
       )}
 
       {/* Resize handles only when selected */}

@@ -10,14 +10,16 @@ interface AdvancedSettingsButtonProps {
   open: boolean
   flipOps: boolean
   showOperations: boolean
+  showShapeDebug: boolean
   onToggle: () => void
   onToggleFlipOps: () => void
   onToggleShowOps: () => void
+  onToggleShapeDebug: () => void
   onAlignWallTops: () => void
 }
 
 export default function AdvancedSettingsButton({
-  open, flipOps, showOperations, onToggle, onToggleFlipOps, onToggleShowOps, onAlignWallTops,
+  open, flipOps, showOperations, showShapeDebug, onToggle, onToggleFlipOps, onToggleShowOps, onToggleShapeDebug, onAlignWallTops,
 }: AdvancedSettingsButtonProps) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -80,6 +82,22 @@ export default function AdvancedSettingsButton({
           </button>
           <p className="text-[9px] text-gray-500 leading-tight">
             Display drill holes and shelf pins on parts
+          </p>
+
+          {/* Shape Debug overlay toggle */}
+          <button
+            onClick={onToggleShapeDebug}
+            className="w-full flex items-center justify-between text-xs px-2 py-1.5 rounded transition-colors mt-1"
+            style={{
+              background: showShapeDebug ? 'var(--accent)' : '#333',
+              color: showShapeDebug ? '#000' : '#aaa',
+            }}
+          >
+            <span className="font-medium">Shape Debug</span>
+            <span className="text-[10px] opacity-70">{showShapeDebug ? 'ON' : 'OFF'}</span>
+          </button>
+          <p className="text-[9px] text-gray-500 leading-tight">
+            Show TopShape outline (green) vs part shapes (red) on selected CRN products
           </p>
 
           {/* Align Wall Tops — one-shot action */}

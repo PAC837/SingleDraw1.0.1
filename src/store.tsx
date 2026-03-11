@@ -105,6 +105,7 @@ const initialState: AppState = {
   hdriIntensity: 0.5,
   adminOpen: false,
   showOperations: true,
+  showShapeDebug: false,
   libraryConfig: { activeProducts: [], variantMappings: [], unitTypeColumns: createDefaultColumns(), productAssignments: {}, version: 2 },
   hoveredPart: null,
 }
@@ -170,6 +171,7 @@ type Action =
   | { type: 'TOGGLE_LIBRARY' }
   | { type: 'TOGGLE_FLIP_OPS' }
   | { type: 'TOGGLE_SHOW_OPERATIONS' }
+  | { type: 'TOGGLE_SHAPE_DEBUG' }
   | { type: 'SET_EDGE_OPACITY'; value: number }
   | { type: 'SET_POLYGON_OFFSET_FACTOR'; value: number }
   | { type: 'SET_POLYGON_OFFSET_UNITS'; value: number }
@@ -550,6 +552,8 @@ function reducer(state: AppState, action: Action): AppState {
     }
     case 'TOGGLE_SHOW_OPERATIONS':
       return { ...state, showOperations: !state.showOperations }
+    case 'TOGGLE_SHAPE_DEBUG':
+      return { ...state, showShapeDebug: !state.showShapeDebug }
     case 'SET_EDGE_OPACITY':
       return { ...state, edgeOpacity: action.value, renderPreset: null }
     case 'SET_POLYGON_OFFSET_FACTOR':

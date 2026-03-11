@@ -170,10 +170,18 @@ export interface MozProduct {
   parameters: CabProdParm[]  // parsed from <CabProdParms>
   rawAttributes: Record<string, string>
   rawInnerXml: string  // everything between <Product> and </Product> from MOZ file
+  /** Propagated TopShapeXml equations for L-shaped parts (partIndex → per-point equations) */
+  _shapeEqMap?: Map<number, Array<{
+    xEq?: string; yEq?: string; dataEq?: string
+    offsetX: number; offsetY: number
+    xTrack?: 'W' | 'D'  // non-equation coordinate tracks product dimension
+    yTrack?: 'W' | 'D'
+  }>>
   /** Cached CRN dependency map — computed once from original product, reused on resize */
   _crnDeps?: {
     originalW: number
     originalD: number
+    originalTopShapePoints: MozShapePoint[]
     parts: Array<{
       x: { dep: 'W' | 'D' | null; orig: number }
       y: { dep: 'W' | 'D' | null; orig: number }
@@ -292,6 +300,7 @@ export interface AppState {
   hdriIntensity: number            // environment intensity (0–2)
   adminOpen: boolean               // admin panel visible
   showOperations: boolean           // show drill holes / shelf pins on parts
+  showShapeDebug: boolean           // show CRN shape debug overlay (TopShape vs part shapes)
   libraryConfig: LibraryConfig     // persisted library product config
   hoveredPart: { productIndex: number; partIndex: number } | null  // part inspector highlight
 }

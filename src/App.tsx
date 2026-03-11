@@ -340,6 +340,7 @@ function AppInner() {
                 textureId={resolvedTextureId}
                 textureFilename={resolvedTextureFilename}
                 showOperations={state.showOperations}
+                showShapeDebug={state.showShapeDebug}
                 singleDrawBrand={state.selectedSingleDrawBrand}
                 singleDrawTexture={state.selectedSingleDrawTexture}
                 modelsFolder={state.modelsFolder}
@@ -433,9 +434,11 @@ function AppInner() {
             open={advancedOpen}
             flipOps={state.flipOps}
             showOperations={state.showOperations}
+            showShapeDebug={state.showShapeDebug}
             onToggle={() => setAdvancedOpen(o => !o)}
             onToggleFlipOps={() => dispatch({ type: 'TOGGLE_FLIP_OPS' })}
             onToggleShowOps={() => dispatch({ type: 'TOGGLE_SHOW_OPERATIONS' })}
+            onToggleShapeDebug={() => dispatch({ type: 'TOGGLE_SHAPE_DEBUG' })}
             onAlignWallTops={() => dispatch({ type: 'ALIGN_WALL_TOPS' })}
           />
           <AdminButton

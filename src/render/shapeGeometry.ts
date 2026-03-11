@@ -203,7 +203,15 @@ export function buildPartGeometry(part: MozPart): {
  */
 export function computeProductOutline(product: MozProduct): [number, number][] {
   if (!product.isRectShape && product.topShapePoints && product.topShapePoints.length >= 3) {
-    return product.topShapePoints.map(p => [p.x, p.y] as [number, number])
+    const pts = product.topShapePoints.map(p => [p.x, p.y] as [number, number])
+    // Debug: check for outlier points that are way beyond product dimensions
+    const maxCoord = Math.max(product.width, product.depth) * 2
+    const outlier = pts.find(([x, y]) => Math.abs(x) > maxCoord || Math.abs(y) > maxCoord)
+    if (outlier) {
+      console.warn(`[Outline] CRN "${product.prodName}" has outlier TopShape point: (${outlier[0]}, ${outlier[1]})`,
+        { W: product.width, D: product.depth, pts })
+    }
+    return pts
   }
   if (!product.isRectShape) {
     const bottom = product.parts.find(p => p.type.toLowerCase() === 'bottom')
