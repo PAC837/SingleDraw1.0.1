@@ -51,22 +51,22 @@ export function useControlledLibrary(
     [assignments, folderTree],
   )
 
-  // Resolve variant and place a dynamic product group
+  // Resolve variant and place a dynamic product group on a specific wall
   const handlePlaceGroup = useCallback(
-    (group: DynamicProductGroup) => {
-      if (!state.room || state.selectedWall === null) return
+    (group: DynamicProductGroup, wallNumber: number) => {
+      if (!state.room) return
       const wm = group.unitTypeId === 'wall'
       const targetHeight = wm ? state.wallSectionHeight : state.unitHeight
       const { filename } = resolveVariant(group, targetHeight)
       const baseName = filename.replace(/\.moz$/i, '')
       const idx = state.standaloneProducts.findIndex(mf => mf.product.prodName === baseName)
       if (idx >= 0) {
-        handlePlaceProduct(idx, state.selectedWall)
+        handlePlaceProduct(idx, wallNumber)
       } else {
         console.warn(`[LIBRARY] Variant "${filename}" not loaded — check it in the admin panel`)
       }
     },
-    [state.room, state.selectedWall, state.wallSectionHeight, state.unitHeight, state.standaloneProducts, handlePlaceProduct],
+    [state.room, state.wallSectionHeight, state.unitHeight, state.standaloneProducts, handlePlaceProduct],
   )
 
   return { folderTree, columns, assignments, dynamicGroups, handlePlaceGroup }

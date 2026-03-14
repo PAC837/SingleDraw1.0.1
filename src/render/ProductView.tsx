@@ -29,6 +29,8 @@ interface ProductViewProps {
   onBumpLeft?: (index: number) => void
   onBumpRight?: (index: number) => void
   onRemove?: (index: number) => void
+  onDragStart?: () => void
+  onDragEnd?: () => void
   textureFolder?: FileSystemDirectoryHandle | null
   textureId?: number | null
   textureFilename?: string | null
@@ -41,6 +43,8 @@ interface ProductViewProps {
   singleDrawTexture?: string | null
   modelsFolder?: FileSystemDirectoryHandle | null
   hoveredPart?: { productIndex: number; partIndex: number } | null
+  inspectedPart?: { productIndex: number; partIndex: number } | null
+  onInspectPart?: (productIndex: number, partIndex: number) => void
 }
 
 /**
@@ -143,9 +147,11 @@ interface PartMeshProps {
   polyUnits?: number
   showOperations?: boolean
   highlighted?: boolean
+  inspected?: boolean
+  onInspect?: () => void
 }
 
-function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null, edgeOpacity = 0, polyFactor = 1, polyUnits = 1, showOperations = true, highlighted = false }: PartMeshProps) {
+function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null, edgeOpacity = 0, polyFactor = 1, polyUnits = 1, showOperations = true, highlighted = false, inspected = false, onInspect }: PartMeshProps) {
   const length = Math.max(part.l, 1)
   const width = Math.max(part.w, 1)
   const isRodPart = part.name.toLowerCase().includes('rod')
@@ -231,9 +237,11 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
     )
   })() : null
 
+  const handleDblClick = onInspect ? (e: any) => { e.stopPropagation(); onInspect() } : undefined
+
   if (renderMode === 'wireframe') {
     return (
-      <group>
+      <group onDoubleClick={handleDblClick}>
         {isRodPart ? (
           <group position={position} quaternion={quaternion}>
             <lineSegments rotation={[0, 0, Math.PI / 2]} geometry={edgesGeo}>
@@ -245,6 +253,11 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
             <lineBasicMaterial color={color} />
           </lineSegments>
         )}
+        {inspected && (
+          <lineSegments position={position} quaternion={quaternion} geometry={edgesGeo} renderOrder={998}>
+            <lineBasicMaterial color="#ff3333" depthTest={false} />
+          </lineSegments>
+        )}
         {opsJsx}
       </group>
     )
@@ -254,7 +267,7 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
   if (isRodPart) {
     return (
       <group position={position} quaternion={quaternion}>
-        <mesh rotation={[0, 0, Math.PI / 2]}>
+        <mesh rotation={[0, 0, Math.PI / 2]} onDoubleClick={handleDblClick}>
           <cylinderGeometry args={[width / 2, width / 2, length, 16]} />
           {renderMode === 'solid' ? (
             <meshStandardMaterial color={color} roughness={0.7} metalness={0.3}
@@ -269,6 +282,11 @@ polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
             <lineBasicMaterial color="#000000" transparent opacity={edgeOpacity} />
           </lineSegments>
         )}
+        {inspected && (
+          <lineSegments rotation={[0, 0, Math.PI / 2]} geometry={edgesGeo} renderOrder={998}>
+            <lineBasicMaterial color="#ff3333" depthTest={false} />
+          </lineSegments>
+        )}
       </group>
     )
   }
@@ -277,6 +295,7 @@ polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
     <group>
       <mesh position={position} quaternion={quaternion}
         geometry={partGeo?.isShape ? partGeo.geometry : undefined}
+        onDoubleClick={handleDblClick}
       >
         {!partGeo?.isShape && <boxGeometry args={[length, thick, width]} />}
         {renderMode === 'solid' ? (
@@ -302,6 +321,11 @@ polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
           <lineBasicMaterial color="#000000" transparent opacity={edgeOpacity} />
         </lineSegments>
       )}
+      {inspected && (
+        <lineSegments position={position} quaternion={quaternion} geometry={edgesGeo} renderOrder={998}>
+          <lineBasicMaterial color="#ff3333" depthTest={false} />
+        </lineSegments>
+      )}
       {opsJsx}
     </group>
   )
@@ -310,11 +334,13 @@ polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
 export default function ProductView({
   product, productIndex, worldOffset, wallAngleDeg, renderMode = 'ghosted',
   showBoundingBox = false, selected = false, onSelect, onResize, onResizeWidth, onUpdateElev, onUpdateX,
-  onBumpLeft, onBumpRight, onRemove, showOperations = true, showShapeDebug = false,
+  onBumpLeft, onBumpRight, onRemove, onDragStart, onDragEnd, showOperations = true, showShapeDebug = false,
   edgeOpacity = 0, polyFactor = 1, polyUnits = 1,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null, modelsFolder = null,
   hoveredPart = null,
+  inspectedPart = null,
+  onInspectPart,
 }: ProductViewProps) {
   const [hovered, setHovered] = useState(false)
   // Priority: SingleDraw (brand picker) → filename-based (user override) → textureId-based (DES default)
@@ -356,6 +382,8 @@ export default function ProductView({
           polyUnits={polyUnits}
           showOperations={showOperations}
           highlighted={hoveredPart?.productIndex === productIndex && hoveredPart?.partIndex === i}
+          inspected={inspectedPart?.productIndex === productIndex && inspectedPart?.partIndex === i}
+          onInspect={productIndex !== undefined && onInspectPart ? () => onInspectPart(productIndex, i) : undefined}
         />
       ))}
 
@@ -400,6 +428,8 @@ export default function ProductView({
           onBumpLeft={onBumpLeft}
           onBumpRight={onBumpRight}
           onRemove={onRemove}
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
         />
       )}
     </group>

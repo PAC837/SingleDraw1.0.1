@@ -24,6 +24,8 @@ interface PlanViewOverlayProps {
   onMoveFixture: (fixtureIdTag: number, newX: number) => void
   onUpdateFixture: (fixtureIdTag: number, fields: Partial<Pick<MozFixture, 'width' | 'height' | 'elev' | 'x'>>) => void
   onExitPlanView?: () => void
+  onDragStart?: () => void
+  onDragEnd?: () => void
 }
 
 const handleGeo = new CircleGeometry(80, 24)
@@ -120,6 +122,7 @@ function Row({ label, defaultValue, onCommit, iCls, lCls }: {
 
 export default function PlanViewOverlay({
   room, useInches, dragTarget, onSetDragTarget, onMoveJoint, onMoveFixture, onUpdateFixture, onExitPlanView,
+  onDragStart, onDragEnd,
 }: PlanViewOverlayProps) {
   const { camera, gl } = useThree()
   const [hoveredHandle, setHoveredHandle] = useState<number | null>(null)
@@ -174,17 +177,19 @@ export default function PlanViewOverlay({
 
   const handlePointerDown = useCallback((jointIndex: number, nativeEvent: PointerEvent) => {
     isDragging.current = true
+    onDragStart?.()
     onSetDragTarget({ type: 'joint', jointIndex })
     gl.domElement.setPointerCapture(nativeEvent.pointerId)
-  }, [onSetDragTarget, gl])
+  }, [onSetDragTarget, gl, onDragStart])
 
   const handleFixturePointerDown = useCallback((fixtureIdTag: number, nativeEvent: PointerEvent) => {
     isDragging.current = true
     didDrag.current = false
     pointerDownPos.current = { x: nativeEvent.clientX, y: nativeEvent.clientY, idTag: fixtureIdTag }
+    onDragStart?.()
     onSetDragTarget({ type: 'fixture', fixtureIdTag })
     gl.domElement.setPointerCapture(nativeEvent.pointerId)
-  }, [onSetDragTarget, gl])
+  }, [onSetDragTarget, gl, onDragStart])
 
   const handlePointerMove = useCallback((nativeEvent: PointerEvent) => {
     if (!isDragging.current || !dragTarget) return
@@ -231,7 +236,8 @@ export default function PlanViewOverlay({
     pointerDownPos.current = null
     onSetDragTarget(null)
     gl.domElement.releasePointerCapture(nativeEvent.pointerId)
-  }, [onSetDragTarget, gl])
+    onDragEnd?.()
+  }, [onSetDragTarget, gl, onDragEnd])
 
   const wallHeight = room.walls[0]?.height ?? 2438
 

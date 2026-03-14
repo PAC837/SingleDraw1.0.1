@@ -176,6 +176,7 @@ export interface MozProduct {
     offsetX: number; offsetY: number
     xTrack?: 'W' | 'D'  // non-equation coordinate tracks product dimension
     yTrack?: 'W' | 'D'
+    mirroredX?: boolean  // part X axis is mirrored (A1=180, R1='Y')
   }>>
   /** Cached CRN dependency map — computed once from original product, reused on resize */
   _crnDeps?: {
@@ -187,6 +188,7 @@ export interface MozProduct {
       y: { dep: 'W' | 'D' | null; orig: number }
       l: { dep: 'W' | 'D' | null; orig: number }
       w: { dep: 'W' | 'D' | null; orig: number }
+      ops: MozOperation[]  // cached original operations
       sp: Array<{ x: { dep: 'W' | 'D' | null; orig: number }; y: { dep: 'W' | 'D' | null; orig: number } }>
     }>
   }
@@ -301,8 +303,12 @@ export interface AppState {
   adminOpen: boolean               // admin panel visible
   showOperations: boolean           // show drill holes / shelf pins on parts
   showShapeDebug: boolean           // show CRN shape debug overlay (TopShape vs part shapes)
+  spinning3DCards: boolean           // show spinning 3D models in product cards instead of SVG wireframes
+  dragProduct: { product: MozProduct; productIndex: number; group?: DynamicProductGroup } | null
+  dragHoveredWall: number | null    // wall number hovered during product drag
   libraryConfig: LibraryConfig     // persisted library product config
   hoveredPart: { productIndex: number; partIndex: number } | null  // part inspector highlight
+  inspectedPart: { productIndex: number; partIndex: number } | null  // double-click part inspection
 }
 
 // ── Library config types ────────────────────────────────────────────

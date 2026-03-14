@@ -19,6 +19,9 @@ interface RoomWallsProps {
   selectedWallType: string | null
   selectedWallTexture: string | null
   hiddenWalls?: Record<number, boolean>
+  dragActive?: boolean
+  dragHoveredWall?: number | null
+  onDragHoverWall?: (wallNumber: number | null) => void
 }
 
 /** Describes a rectangular section of a wall (used to render around fixture cutouts). */
@@ -240,6 +243,7 @@ function createMergedWallGeo(
 function WallWithCutouts({
   segments, fixtures, thickness, renderLen, trimStart, wallHeight,
   pos, rotY, color, opacity, doubleSided, renderMode, onSelect, wallTexture,
+  highlighted, onPointerOver, onPointerOut,
 }: {
   segments: WallSegment[]
   fixtures: MozFixture[]
@@ -255,6 +259,9 @@ function WallWithCutouts({
   renderMode: RenderMode
   onSelect: () => void
   wallTexture: Texture | null
+  highlighted?: boolean
+  onPointerOver?: () => void
+  onPointerOut?: () => void
 }) {
   const mergedGeo = useMemo(
     () => createMergedWallGeo(segments, fixtures, thickness, renderLen, trimStart),
@@ -273,10 +280,17 @@ function WallWithCutouts({
 
   const side = doubleSided ? DoubleSide : FrontSide
 
+  const effectiveColor = highlighted ? '#00ff00' : color
+
   if (renderMode === 'wireframe') {
     return (
       <group position={pos} rotation={[0, rotY, 0]}>
-        <mesh position={[0, wallHeight / 2, 0]} onClick={(e) => { e.stopPropagation(); onSelect() }}>
+        <mesh
+          position={[0, wallHeight / 2, 0]}
+          onClick={(e) => { e.stopPropagation(); onSelect() }}
+          onPointerOver={onPointerOver ? (e) => { e.stopPropagation(); onPointerOver() } : undefined}
+          onPointerOut={onPointerOut ? (e) => { e.stopPropagation(); onPointerOut() } : undefined}
+        >
           <boxGeometry args={[renderLen, wallHeight, thickness]} />
           <meshBasicMaterial visible={false} />
         </mesh>
@@ -290,12 +304,14 @@ function WallWithCutouts({
       rotation={[0, rotY, 0]}
       geometry={mergedGeo}
       onClick={(e) => { e.stopPropagation(); onSelect() }}
+      onPointerOver={onPointerOver ? (e) => { e.stopPropagation(); onPointerOver() } : undefined}
+      onPointerOut={onPointerOut ? (e) => { e.stopPropagation(); onPointerOut() } : undefined}
     >
       {renderMode === 'solid' ? (
         <meshStandardMaterial
-          key={`solid-${tiledTex?.id ?? 'none'}`}
-          map={tiledTex ?? undefined}
-          color={tiledTex ? '#ffffff' : color}
+          key={`solid-${tiledTex?.id ?? 'none'}-${highlighted}`}
+          map={highlighted ? undefined : (tiledTex ?? undefined)}
+          color={highlighted ? effectiveColor : (tiledTex ? '#ffffff' : color)}
           roughness={0.6}
           metalness={0}
           side={side}
@@ -303,11 +319,11 @@ function WallWithCutouts({
         />
       ) : (
         <meshStandardMaterial
-          key={`ghosted-${tiledTex?.id ?? 'none'}`}
-          map={tiledTex ?? undefined}
-          color={tiledTex ? '#ffffff' : color}
+          key={`ghosted-${tiledTex?.id ?? 'none'}-${highlighted}`}
+          map={highlighted ? undefined : (tiledTex ?? undefined)}
+          color={highlighted ? effectiveColor : (tiledTex ? '#ffffff' : color)}
           transparent
-          opacity={opacity}
+          opacity={highlighted ? 0.7 : opacity}
           side={side}
           depthWrite={false}
           polygonOffset polygonOffsetFactor={1} polygonOffsetUnits={1}
@@ -317,7 +333,7 @@ function WallWithCutouts({
   )
 }
 
-export default function RoomWalls({ room, doubleSided, selectedWall, hoveredWall, onSelectWall, renderMode = 'ghosted', textureFolder, selectedWallType, selectedWallTexture, hiddenWalls }: RoomWallsProps) {
+export default function RoomWalls({ room, doubleSided, selectedWall, hoveredWall, onSelectWall, renderMode = 'ghosted', textureFolder, selectedWallType, selectedWallTexture, hiddenWalls, dragActive, dragHoveredWall, onDragHoverWall }: RoomWallsProps) {
   const wallTex = useWallTexture(textureFolder, selectedWallType, selectedWallTexture)
   const geometries = useMemo(
     () => computeWallGeometries(room.walls),
@@ -397,6 +413,9 @@ export default function RoomWalls({ room, doubleSided, selectedWall, hoveredWall
             renderMode={renderMode}
             onSelect={() => onSelectWall(g.wallNumber)}
             wallTexture={wallTex}
+            highlighted={dragActive && dragHoveredWall === g.wallNumber}
+            onPointerOver={dragActive && onDragHoverWall ? () => onDragHoverWall(g.wallNumber) : undefined}
+            onPointerOut={dragActive && onDragHoverWall ? () => onDragHoverWall(null) : undefined}
           />
         )
       })}

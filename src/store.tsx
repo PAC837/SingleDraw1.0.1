@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, type Dispatch, type ReactNode } from 'react'
 import { LinearToneMapping, ACESFilmicToneMapping } from 'three'
 import { isWallMount } from './mozaik/types'
-import type { AppState, Visibility, RenderMode, MozRoom, MozFile, MozProduct, MozFixture, MozWall, DebugOverlays, DragTarget, LibraryConfig } from './mozaik/types'
+import type { AppState, Visibility, RenderMode, MozRoom, MozFile, MozProduct, MozFixture, MozWall, DebugOverlays, DragTarget, LibraryConfig, DynamicProductGroup } from './mozaik/types'
 import { updateWallLength, updateWallHeight, moveJoint, splitWallAtCenter, rebuildJoints, toggleFollowAngle, toggleJointMiter } from './math/wallEditor'
 import { adjustNeighborGaps } from './mozaik/wallPlacement'
 import { resizeProduct } from './mozaik/productResize'
@@ -106,8 +106,12 @@ const initialState: AppState = {
   adminOpen: false,
   showOperations: true,
   showShapeDebug: false,
+  spinning3DCards: false,
+  dragProduct: null,
+  dragHoveredWall: null,
   libraryConfig: { activeProducts: [], variantMappings: [], unitTypeColumns: createDefaultColumns(), productAssignments: {}, version: 2 },
   hoveredPart: null,
+  inspectedPart: null,
 }
 
 type Action =
@@ -172,6 +176,7 @@ type Action =
   | { type: 'TOGGLE_FLIP_OPS' }
   | { type: 'TOGGLE_SHOW_OPERATIONS' }
   | { type: 'TOGGLE_SHAPE_DEBUG' }
+  | { type: 'TOGGLE_SPINNING_3D_CARDS' }
   | { type: 'SET_EDGE_OPACITY'; value: number }
   | { type: 'SET_POLYGON_OFFSET_FACTOR'; value: number }
   | { type: 'SET_POLYGON_OFFSET_UNITS'; value: number }
@@ -185,9 +190,17 @@ type Action =
   | { type: 'ALIGN_WALL_TOPS' }
   | { type: 'TOGGLE_HDRI' }
   | { type: 'SET_HDRI_INTENSITY'; value: number }
+  | { type: 'CLOSE_PANELS' }
   | { type: 'TOGGLE_ADMIN' }
   | { type: 'SET_LIBRARY_CONFIG'; config: LibraryConfig }
   | { type: 'SET_HOVERED_PART'; part: { productIndex: number; partIndex: number } | null }
+  | { type: 'INSPECT_PART'; part: { productIndex: number; partIndex: number } }
+  | { type: 'CLEAR_INSPECTION' }
+  | { type: 'START_PRODUCT_DRAG'; product: MozProduct; productIndex: number; group?: DynamicProductGroup }
+  | { type: 'SET_DRAG_HOVERED_WALL'; wallNumber: number | null }
+  | { type: 'END_PRODUCT_DRAG' }
+  | { type: 'BEGIN_DRAG' }
+  | { type: 'END_DRAG' }
   | { type: 'UNDO' }
 
 function reducer(state: AppState, action: Action): AppState {
@@ -198,6 +211,7 @@ function reducer(state: AppState, action: Action): AppState {
         wallEditorActive: false,
         selectedWall: null,
         selectedProducts: [],
+        inspectedPart: null,
         dragTarget: null,
         visibilityMenuOpen: false,
         productConfigOpen: false,
@@ -459,6 +473,8 @@ function reducer(state: AppState, action: Action): AppState {
     }
     case 'SET_WALL_MOUNT_TOP_AT':
       return { ...state, wallMountTopAt: action.height }
+    case 'CLOSE_PANELS':
+      return { ...state, productConfigOpen: false, visibilityMenuOpen: false, adminOpen: false, wallEditorActive: false, selectedWall: null }
     case 'TOGGLE_PRODUCT_CONFIG':
       return { ...state, productConfigOpen: !state.productConfigOpen }
     case 'SET_WALL_HEIGHT': {
@@ -503,14 +519,14 @@ function reducer(state: AppState, action: Action): AppState {
     case 'TOGGLE_LIBRARY':
       return { ...state, libraryOpen: !state.libraryOpen }
     case 'SELECT_PRODUCT':
-      return { ...state, selectedProducts: action.index !== null ? [action.index] : [] }
+      return { ...state, selectedProducts: action.index !== null ? [action.index] : [], inspectedPart: null }
     case 'TOGGLE_PRODUCT_SELECTION': {
       const idx = action.index
       const has = state.selectedProducts.includes(idx)
       return { ...state, selectedProducts: has ? state.selectedProducts.filter(i => i !== idx) : [...state.selectedProducts, idx] }
     }
     case 'CLEAR_SELECTION':
-      return { ...state, selectedProducts: [] }
+      return { ...state, selectedProducts: [], inspectedPart: null }
     case 'UPDATE_ROOM_PRODUCT_ELEV': {
       if (!state.room) return state
       return {
@@ -554,6 +570,8 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, showOperations: !state.showOperations }
     case 'TOGGLE_SHAPE_DEBUG':
       return { ...state, showShapeDebug: !state.showShapeDebug }
+    case 'TOGGLE_SPINNING_3D_CARDS':
+      return { ...state, spinning3DCards: !state.spinning3DCards }
     case 'SET_EDGE_OPACITY':
       return { ...state, edgeOpacity: action.value, renderPreset: null }
     case 'SET_POLYGON_OFFSET_FACTOR':
@@ -592,6 +610,20 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, libraryConfig: action.config }
     case 'SET_HOVERED_PART':
       return { ...state, hoveredPart: action.part }
+    case 'INSPECT_PART': {
+      const sel = state.selectedProducts.includes(action.part.productIndex)
+        ? state.selectedProducts
+        : [action.part.productIndex]
+      return { ...state, inspectedPart: action.part, selectedProducts: sel }
+    }
+    case 'CLEAR_INSPECTION':
+      return { ...state, inspectedPart: null }
+    case 'START_PRODUCT_DRAG':
+      return { ...state, dragProduct: { product: action.product, productIndex: action.productIndex, group: action.group }, dragHoveredWall: null }
+    case 'SET_DRAG_HOVERED_WALL':
+      return { ...state, dragHoveredWall: action.wallNumber }
+    case 'END_PRODUCT_DRAG':
+      return { ...state, dragProduct: null, dragHoveredWall: null }
     case 'ALIGN_WALL_TOPS': {
       if (!state.room || state.room.products.length === 0) return state
       const targetTop = state.unitHeight
@@ -621,25 +653,35 @@ const UNDOABLE = new Set([
 ])
 
 function undoReducer(
-  swh: { current: AppState; undoStack: AppState[] }, action: Action,
-): { current: AppState; undoStack: AppState[] } {
+  swh: { current: AppState; undoStack: AppState[]; dragSnapshot: AppState | null }, action: Action,
+): { current: AppState; undoStack: AppState[]; dragSnapshot: AppState | null } {
   if (action.type === 'UNDO') {
     const prev = swh.undoStack[swh.undoStack.length - 1]
-    return prev ? { current: prev, undoStack: swh.undoStack.slice(0, -1) } : swh
+    return prev ? { current: prev, undoStack: swh.undoStack.slice(0, -1), dragSnapshot: null } : swh
+  }
+  if (action.type === 'BEGIN_DRAG') {
+    return { ...swh, dragSnapshot: swh.current }
+  }
+  if (action.type === 'END_DRAG') {
+    if (!swh.dragSnapshot) return swh
+    return { current: swh.current, undoStack: [...swh.undoStack.slice(-49), swh.dragSnapshot], dragSnapshot: null }
   }
   const next = reducer(swh.current, action)
   if (next === swh.current) return swh
-  if (UNDOABLE.has(action.type)) {
-    return { current: next, undoStack: [...swh.undoStack.slice(-49), swh.current] }
+  if (swh.dragSnapshot !== null) {
+    return { ...swh, current: next }
   }
-  return { current: next, undoStack: swh.undoStack }
+  if (UNDOABLE.has(action.type)) {
+    return { current: next, undoStack: [...swh.undoStack.slice(-49), swh.current], dragSnapshot: null }
+  }
+  return { ...swh, current: next }
 }
 
 const StateCtx = createContext<AppState>(initialState)
 const DispatchCtx = createContext<Dispatch<Action>>(() => {})
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [swh, dispatch] = useReducer(undoReducer, { current: initialState, undoStack: [] })
+  const [swh, dispatch] = useReducer(undoReducer, { current: initialState, undoStack: [], dragSnapshot: null })
   return (
     <StateCtx.Provider value={swh.current}>
       <DispatchCtx.Provider value={dispatch}>

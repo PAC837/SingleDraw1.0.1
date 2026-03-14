@@ -93,6 +93,7 @@ export default function PartInspector() {
   const useInches = state.useInches
   const fmt = (mm: number) => formatDim(mm, useInches)
   const hoveredPart = state.hoveredPart
+  const inspectedPart = state.inspectedPart
   const isCRN = !product.isRectShape
 
   // Sort parts: by Z (bottom to top), then X (left to right)
@@ -131,13 +132,16 @@ export default function PartInspector() {
           </div>
           {sortedParts.map(({ part, index }) => {
             const isHovered = hoveredPart?.productIndex === productIndex && hoveredPart?.partIndex === index
+            const isInspected = inspectedPart?.productIndex === productIndex && inspectedPart?.partIndex === index
             const isExpanded = expandedPart === index
             const hasEqs = product._shapeEqMap?.has(index)
             return (
               <div key={`${part.name}-${index}`}>
                 <div
                   className={`flex items-center text-[10px] px-1 py-0.5 rounded cursor-pointer transition-colors ${
-                    isHovered ? 'bg-[var(--accent)] bg-opacity-20 text-white' : 'text-[var(--text-secondary)] hover:bg-gray-800'
+                    isInspected ? 'border-l-2 border-red-500 bg-red-500/10 text-white'
+                    : isHovered ? 'bg-[var(--accent)] bg-opacity-20 text-white'
+                    : 'text-[var(--text-secondary)] hover:bg-gray-800'
                   }`}
                   onPointerEnter={() => onHover(index)}
                   onClick={() => {
@@ -165,6 +169,16 @@ export default function PartInspector() {
                   <span className="w-14 text-right tabular-nums">{fmt(part.x)}</span>
                   <span className="w-14 text-right tabular-nums">{fmt(part.y)}</span>
                   <span className="w-14 text-right tabular-nums">{fmt(part.z)}</span>
+                  <button
+                    className="ml-1 px-1 text-[9px] rounded bg-[#333] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      dispatch({ type: 'INSPECT_PART', part: { productIndex, partIndex: index } })
+                    }}
+                    title="Inspect shape (or double-click part in 3D)"
+                  >
+                    View
+                  </button>
                 </div>
                 {isExpanded && (
                   <ShapePointDetail part={part} partIndex={index} product={product} fmt={fmt} />

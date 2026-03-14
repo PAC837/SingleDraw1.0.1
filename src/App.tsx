@@ -23,6 +23,8 @@ import UnitTypePills from './render/UnitTypePills'
 import AdminButton from './render/AdminButton'
 import AdminPanel from './render/AdminPanel'
 import PartInspector from './render/PartInspector'
+import PartShapeInspector from './render/PartShapeInspector'
+import DragOverlay from './render/DragOverlay'
 import { loadLibraryConfig } from './export/libraryConfigStore'
 import { useControlledLibrary } from './hooks/useControlledLibrary'
 import { createRectangularRoom, createReachInRoom, createWalkInRoom, createWalkInDeepRoom, createAngledRoom } from './mozaik/roomFactory'
@@ -40,6 +42,16 @@ function AppInner() {
   const [hoveredWall, setHoveredWall] = useState<number | null>(null)
   const [advancedOpen, setAdvancedOpen] = useState(false)
 
+  // Close all panels when any panel fires 'panel-will-open'
+  useEffect(() => {
+    const handler = () => {
+      dispatch({ type: 'CLOSE_PANELS' })
+      setAdvancedOpen(false)
+    }
+    window.addEventListener('panel-will-open', handler)
+    return () => window.removeEventListener('panel-will-open', handler)
+  }, [dispatch])
+
   // Folder & export actions (persisted folder linking, library loading, DES/MOZ export)
   const {
     linkJobFolder, linkTextureFolder, linkLibraryFolder,
@@ -53,6 +65,13 @@ function AppInner() {
     handleRemoveProducts, selectProduct, handleUpdateProductElev, handleUpdateProductX,
     handleBumpLeft, handleBumpRight,
   } = useProductActions()
+
+  const handleInspectPart = useCallback(
+    (productIndex: number, partIndex: number) => {
+      dispatch({ type: 'INSPECT_PART', part: { productIndex, partIndex } })
+    },
+    [dispatch],
+  )
 
   // Controlled Library Method: folder tree, dynamic groups, unit type pills
   const { folderTree, columns, assignments, dynamicGroups, handlePlaceGroup } =
@@ -81,14 +100,32 @@ function AppInner() {
         e.preventDefault()
         handleRemoveProducts([...state.selectedProducts])
       }
-      if (e.key === 'Escape' && state.selectedProducts.length > 0) {
+      if (e.key === 'Escape') {
+        if (state.inspectedPart) {
+          e.preventDefault()
+          dispatch({ type: 'CLEAR_INSPECTION' })
+        } else if (state.selectedProducts.length > 0) {
+          e.preventDefault()
+          dispatch({ type: 'CLEAR_SELECTION' })
+        }
+      }
+      // Arrow keys cycle parts while inspector is open
+      if (state.inspectedPart && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
         e.preventDefault()
-        dispatch({ type: 'CLEAR_SELECTION' })
+        const { productIndex, partIndex } = state.inspectedPart
+        const product = state.room?.products[productIndex] ?? state.standaloneProducts[productIndex]?.product
+        if (product) {
+          const count = product.parts.length
+          const next = e.key === 'ArrowLeft'
+            ? (partIndex - 1 + count) % count
+            : (partIndex + 1) % count
+          dispatch({ type: 'INSPECT_PART', part: { productIndex, partIndex: next } })
+        }
       }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [dispatch, state.selectedProducts, handleRemoveProducts])
+  }, [dispatch, state.selectedProducts, state.inspectedPart, state.room, state.standaloneProducts, handleRemoveProducts])
 
   // Load persisted library config on startup
   useEffect(() => {
@@ -293,6 +330,9 @@ function AppInner() {
                     ? state.visibility.walls
                     : Object.fromEntries(state.room.walls.map(w => [w.wallNumber, false]))
                 }
+                dragActive={!!state.dragProduct}
+                dragHoveredWall={state.dragHoveredWall}
+                onDragHoverWall={(wallNumber) => dispatch({ type: 'SET_DRAG_HOVERED_WALL', wallNumber })}
               />
               {state.wallEditorActive && (
                 <PlanViewOverlay
@@ -304,6 +344,8 @@ function AppInner() {
                   onMoveFixture={(fixtureIdTag, x) => dispatch({ type: 'MOVE_FIXTURE', fixtureIdTag, x })}
                   onUpdateFixture={(fixtureIdTag, fields) => dispatch({ type: 'UPDATE_FIXTURE', fixtureIdTag, fields })}
                   onExitPlanView={() => dispatch({ type: 'TOGGLE_WALL_EDITOR' })}
+                  onDragStart={() => dispatch({ type: 'BEGIN_DRAG' })}
+                  onDragEnd={() => dispatch({ type: 'END_DRAG' })}
                 />
               )}
             </>
@@ -333,6 +375,8 @@ function AppInner() {
                 onBumpLeft={isLastSelected ? handleBumpLeft : undefined}
                 onBumpRight={isLastSelected ? handleBumpRight : undefined}
                 onRemove={isLastSelected ? () => handleRemoveProducts([...state.selectedProducts]) : undefined}
+                onDragStart={isLastSelected ? () => dispatch({ type: 'BEGIN_DRAG' }) : undefined}
+                onDragEnd={isLastSelected ? () => dispatch({ type: 'END_DRAG' }) : undefined}
                 edgeOpacity={state.edgeOpacity}
                 polyFactor={state.polygonOffsetFactor}
                 polyUnits={state.polygonOffsetUnits}
@@ -345,6 +389,8 @@ function AppInner() {
                 singleDrawTexture={state.selectedSingleDrawTexture}
                 modelsFolder={state.modelsFolder}
                 hoveredPart={state.hoveredPart}
+                inspectedPart={state.inspectedPart}
+                onInspectPart={handleInspectPart}
               />
             )
           })}
@@ -385,6 +431,8 @@ function AppInner() {
               singleDrawTexture={state.selectedSingleDrawTexture}
               modelsFolder={state.modelsFolder}
               hoveredPart={state.hoveredPart}
+              inspectedPart={state.inspectedPart}
+              onInspectPart={handleInspectPart}
             />
           ))}
         </Scene>
@@ -402,7 +450,10 @@ function AppInner() {
             wallMountTopAt={state.wallMountTopAt}
             wallHeight={state.wallHeight}
             useInches={state.useInches}
-            onToggle={() => dispatch({ type: 'TOGGLE_PRODUCT_CONFIG' })}
+            onToggle={() => {
+              if (!state.productConfigOpen) window.dispatchEvent(new Event('panel-will-open'))
+              dispatch({ type: 'TOGGLE_PRODUCT_CONFIG' })
+            }}
             onSetMode={(mode) => dispatch({ type: 'SET_PLACEMENT_MODE', mode })}
             onSetUnitHeight={(height) => dispatch({ type: 'SET_UNIT_HEIGHT', height })}
             onSetWallSectionHeight={(height) => dispatch({ type: 'SET_WALL_SECTION_HEIGHT', height })}
@@ -412,13 +463,19 @@ function AppInner() {
           <WallEditorButton
             active={state.wallEditorActive}
             disabled={!state.room}
-            onToggle={() => dispatch({ type: 'TOGGLE_WALL_EDITOR' })}
+            onToggle={() => {
+              if (!state.wallEditorActive) window.dispatchEvent(new Event('panel-will-open'))
+              dispatch({ type: 'TOGGLE_WALL_EDITOR' })
+            }}
           />
           <VisibilityMenu
             open={state.visibilityMenuOpen}
             visibility={state.visibility}
             walls={state.room?.walls ?? []}
-            onToggle={() => dispatch({ type: 'TOGGLE_VISIBILITY_MENU' })}
+            onToggle={() => {
+              if (!state.visibilityMenuOpen) window.dispatchEvent(new Event('panel-will-open'))
+              dispatch({ type: 'TOGGLE_VISIBILITY_MENU' })
+            }}
             onToggleVisibility={(key) => dispatch({ type: 'TOGGLE_VISIBILITY', key })}
             onToggleWall={(wallNumber) => dispatch({ type: 'TOGGLE_WALL_VISIBILITY', wallNumber })}
             onHoverWall={setHoveredWall}
@@ -435,15 +492,23 @@ function AppInner() {
             flipOps={state.flipOps}
             showOperations={state.showOperations}
             showShapeDebug={state.showShapeDebug}
-            onToggle={() => setAdvancedOpen(o => !o)}
+            spinning3DCards={state.spinning3DCards}
+            onToggle={() => {
+              if (!advancedOpen) window.dispatchEvent(new Event('panel-will-open'))
+              setAdvancedOpen(o => !o)
+            }}
             onToggleFlipOps={() => dispatch({ type: 'TOGGLE_FLIP_OPS' })}
             onToggleShowOps={() => dispatch({ type: 'TOGGLE_SHOW_OPERATIONS' })}
             onToggleShapeDebug={() => dispatch({ type: 'TOGGLE_SHAPE_DEBUG' })}
+            onToggleSpinning3DCards={() => dispatch({ type: 'TOGGLE_SPINNING_3D_CARDS' })}
             onAlignWallTops={() => dispatch({ type: 'ALIGN_WALL_TOPS' })}
           />
           <AdminButton
             open={state.adminOpen}
-            onToggle={() => dispatch({ type: 'TOGGLE_ADMIN' })}
+            onToggle={() => {
+              if (!state.adminOpen) window.dispatchEvent(new Event('panel-will-open'))
+              dispatch({ type: 'TOGGLE_ADMIN' })
+            }}
           />
         </div>
 
@@ -453,13 +518,12 @@ function AppInner() {
             assignments={assignments}
             dynamicGroups={dynamicGroups}
             products={state.standaloneProducts}
-            selectedWall={state.selectedWall}
             unitHeight={state.unitHeight}
             wallSectionHeight={state.wallSectionHeight}
-            onPlaceProduct={(productIndex) => {
-              if (state.selectedWall !== null) handlePlaceProduct(productIndex, state.selectedWall)
-            }}
-            onPlaceGroup={handlePlaceGroup}
+            spinning3DCards={state.spinning3DCards}
+            onStartDrag={(product, productIndex, group) =>
+              dispatch({ type: 'START_PRODUCT_DRAG', product, productIndex, group })
+            }
           />
         </div>
 
@@ -518,6 +582,24 @@ function AppInner() {
 
         <PartInspector />
 
+        {state.inspectedPart && (() => {
+          const product = state.room?.products[state.inspectedPart.productIndex]
+            ?? state.standaloneProducts[state.inspectedPart.productIndex]?.product
+          const part = product?.parts[state.inspectedPart.partIndex]
+          if (!product || !part) return null
+          return (
+            <PartShapeInspector
+              product={product}
+              part={part}
+              partIndex={state.inspectedPart.partIndex}
+              partCount={product.parts.length}
+              useInches={state.useInches}
+              onClose={() => dispatch({ type: 'CLEAR_INSPECTION' })}
+              onCyclePart={(idx) => dispatch({ type: 'INSPECT_PART', part: { productIndex: state.inspectedPart!.productIndex, partIndex: idx } })}
+            />
+          )
+        })()}
+
         {state.adminOpen && (
           <AdminPanel
             folderTree={folderTree}
@@ -529,6 +611,22 @@ function AppInner() {
             onRemoveProduct={(filename) => dispatch({ type: 'REMOVE_MOZ', filename })}
             onLoadProducts={loadFromLibrary}
             onClose={() => dispatch({ type: 'TOGGLE_ADMIN' })}
+          />
+        )}
+
+        {state.dragProduct && (
+          <DragOverlay
+            dragProduct={state.dragProduct}
+            dragHoveredWall={state.dragHoveredWall}
+            onDrop={(productIndex, wallNumber, group) => {
+              if (group) {
+                handlePlaceGroup(group, wallNumber)
+              } else {
+                handlePlaceProduct(productIndex, wallNumber)
+              }
+              dispatch({ type: 'END_PRODUCT_DRAG' })
+            }}
+            onCancel={() => dispatch({ type: 'END_PRODUCT_DRAG' })}
           />
         )}
       </div>

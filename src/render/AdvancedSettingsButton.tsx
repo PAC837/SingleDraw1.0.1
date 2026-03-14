@@ -11,15 +11,17 @@ interface AdvancedSettingsButtonProps {
   flipOps: boolean
   showOperations: boolean
   showShapeDebug: boolean
+  spinning3DCards: boolean
   onToggle: () => void
   onToggleFlipOps: () => void
   onToggleShowOps: () => void
   onToggleShapeDebug: () => void
+  onToggleSpinning3DCards: () => void
   onAlignWallTops: () => void
 }
 
 export default function AdvancedSettingsButton({
-  open, flipOps, showOperations, showShapeDebug, onToggle, onToggleFlipOps, onToggleShowOps, onToggleShapeDebug, onAlignWallTops,
+  open, flipOps, showOperations, showShapeDebug, spinning3DCards, onToggle, onToggleFlipOps, onToggleShowOps, onToggleShapeDebug, onToggleSpinning3DCards, onAlignWallTops,
 }: AdvancedSettingsButtonProps) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -98,6 +100,22 @@ export default function AdvancedSettingsButton({
           </button>
           <p className="text-[9px] text-gray-500 leading-tight">
             Show TopShape outline (green) vs part shapes (red) on selected CRN products
+          </p>
+
+          {/* 3D Cards toggle */}
+          <button
+            onClick={onToggleSpinning3DCards}
+            className="w-full flex items-center justify-between text-xs px-2 py-1.5 rounded transition-colors mt-1"
+            style={{
+              background: spinning3DCards ? 'var(--accent)' : '#333',
+              color: spinning3DCards ? '#000' : '#aaa',
+            }}
+          >
+            <span className="font-medium">3D Cards</span>
+            <span className="text-[10px] opacity-70">{spinning3DCards ? 'ON' : 'OFF'}</span>
+          </button>
+          <p className="text-[9px] text-gray-500 leading-tight">
+            Show spinning 3D models in product cards instead of wireframe previews
           </p>
 
           {/* Align Wall Tops — one-shot action */}

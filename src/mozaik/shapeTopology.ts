@@ -63,7 +63,19 @@ export function propagateEquations(
       ? part.shapePoints.map(sp => ({ ...sp, x: part.l - sp.x }))
       : part.shapePoints
 
-    const eqs = mapPartToTopShape(matchPts, topPts, ctx)
+    let eqs = mapPartToTopShape(matchPts, topPts, ctx)
+
+    // For mirrored parts: X-mirror reverses winding order for indices 1..N-1
+    // (index 0 = arc start stays fixed, rest reverse CW→CCW)
+    if (!eqs && isMirroredX && matchPts.length > 2) {
+      const remapped = [matchPts[0], ...matchPts.slice(1).reverse()]
+      eqs = mapPartToTopShape(remapped, topPts, ctx)
+      if (eqs) {
+        // Un-remap equations back to original part point indices
+        eqs = [eqs[0], ...eqs.slice(1).reverse()]
+      }
+    }
+
     if (eqs) {
       if (isMirroredX) eqs.forEach(eq => eq.mirroredX = true)
       result.set(pi, eqs)

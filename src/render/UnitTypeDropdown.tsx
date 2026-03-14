@@ -2,24 +2,25 @@
  * Dropdown content for a single unit type pill button.
  * Shows dynamic product groups as single cards and
  * ungrouped products as individual cards.
+ * Cards are dragged onto walls to place products.
  */
-import type { MozFile, DynamicProductGroup } from '../mozaik/types'
+import type { MozFile, MozProduct, DynamicProductGroup } from '../mozaik/types'
 import { getGroupedFiles } from '../mozaik/unitTypes'
 import { resolveVariant } from '../mozaik/variantResolver'
 import FloatingPanel from '../ui/FloatingPanel'
 import ProductPreview from './ProductPreview'
+import SpinningProductCard from './SpinningProductCard'
 
 interface UnitTypeDropdownProps {
   unitTypeId: string
   unitTypeLabel: string
-  products: MozFile[]                  // all standalone products
+  products: MozFile[]
   assignments: Record<string, string[]>
   dynamicGroups: DynamicProductGroup[]
-  selectedWall: number | null
   unitHeight: number
   wallSectionHeight: number
-  onPlaceProduct: (productIndex: number) => void
-  onPlaceGroup: (group: DynamicProductGroup) => void
+  spinning3DCards?: boolean
+  onStartDrag: (product: MozProduct, productIndex: number, group?: DynamicProductGroup) => void
 }
 
 const cardW = 125
@@ -30,7 +31,7 @@ const gapBot = 10
 
 export default function UnitTypeDropdown({
   unitTypeId, unitTypeLabel, products, assignments, dynamicGroups,
-  selectedWall, unitHeight, wallSectionHeight, onPlaceProduct, onPlaceGroup,
+  unitHeight, wallSectionHeight, spinning3DCards = false, onStartDrag,
 }: UnitTypeDropdownProps) {
   // Groups for this unit type
   const groups = dynamicGroups.filter(g => g.unitTypeId === unitTypeId)
@@ -42,7 +43,7 @@ export default function UnitTypeDropdown({
     const filename = mf.product.prodName + '.moz'
     const cols = assignments[filename]
     if (!cols || !cols.includes(unitTypeId)) return
-    if (groupedFiles.has(filename)) return  // part of a group
+    if (groupedFiles.has(filename)) return
     individualProducts.push({ mf, index: i })
   })
 
@@ -65,44 +66,38 @@ export default function UnitTypeDropdown({
         <p className="text-xs text-gray-500">No products assigned</p>
       )}
 
-      {selectedWall === null && totalItems > 0 && (
-        <p className="text-[10px] text-yellow-500 mb-2">Select a wall to place</p>
-      )}
-
       <div className="grid grid-cols-3 gap-2">
 
       {/* Dynamic group cards */}
       {groups.map(group => {
-        // Resolve preview to the variant matching current height setting
         const wm = group.unitTypeId === 'wall'
         const targetH = wm ? wallSectionHeight : unitHeight
         const { filename } = resolveVariant(group, targetH)
         const previewFile = products.find(
           mf => (mf.product.prodName + '.moz') === filename
         )
+        const previewIdx = previewFile ? products.indexOf(previewFile) : -1
         return (
           <div
             key={`group-${group.groupName}-${group.rootFolderName}`}
-            className="bg-[var(--bg-dark)] rounded p-2 transition-all"
-            style={{
-              cursor: selectedWall !== null ? 'pointer' : 'not-allowed',
-              opacity: selectedWall !== null ? 1 : 0.5,
+            className="bg-[var(--bg-dark)] rounded p-2 transition-all cursor-grab active:cursor-grabbing"
+            onPointerDown={() => {
+              if (previewFile && previewIdx >= 0) onStartDrag(previewFile.product, previewIdx, group)
             }}
-            onClick={() => {
-              if (selectedWall !== null) onPlaceGroup(group)
-            }}
-            onMouseEnter={e => {
-              if (selectedWall !== null) e.currentTarget.style.outline = '1px solid var(--accent)'
-            }}
+            onMouseEnter={e => { e.currentTarget.style.outline = '1px solid var(--accent)' }}
             onMouseLeave={e => { e.currentTarget.style.outline = 'none' }}
           >
             <p className="text-xs font-medium text-white truncate mb-1">{group.groupName}</p>
             {previewFile && (
-              <ProductPreview
-                product={previewFile.product}
-                cardWidth={cardW} cardHeight={cardH}
-                sectionWidth={secW} gapTop={gapTop} gapBottom={gapBot}
-              />
+              spinning3DCards ? (
+                <SpinningProductCard product={previewFile.product} width={cardW - 8} height={cardH - 24} />
+              ) : (
+                <ProductPreview
+                  product={previewFile.product}
+                  cardWidth={cardW} cardHeight={cardH}
+                  sectionWidth={secW} gapTop={gapTop} gapBottom={gapBot}
+                />
+              )
             )}
           </div>
         )
@@ -112,27 +107,23 @@ export default function UnitTypeDropdown({
       {individualProducts.map(({ mf, index }) => (
         <div
           key={index}
-          className="bg-[var(--bg-dark)] rounded p-2 transition-all"
-          style={{
-            cursor: selectedWall !== null ? 'pointer' : 'not-allowed',
-            opacity: selectedWall !== null ? 1 : 0.5,
-          }}
-          onClick={() => {
-            if (selectedWall !== null) onPlaceProduct(index)
-          }}
-          onMouseEnter={e => {
-            if (selectedWall !== null) e.currentTarget.style.outline = '1px solid var(--accent)'
-          }}
+          className="bg-[var(--bg-dark)] rounded p-2 transition-all cursor-grab active:cursor-grabbing"
+          onPointerDown={() => onStartDrag(mf.product, index)}
+          onMouseEnter={e => { e.currentTarget.style.outline = '1px solid var(--accent)' }}
           onMouseLeave={e => { e.currentTarget.style.outline = 'none' }}
         >
           <p className="text-xs font-medium text-white mb-1 truncate">
             {mf.product.prodName}
           </p>
-          <ProductPreview
-            product={mf.product}
-            cardWidth={cardW} cardHeight={cardH}
-            sectionWidth={secW} gapTop={gapTop} gapBottom={gapBot}
-          />
+          {spinning3DCards ? (
+            <SpinningProductCard product={mf.product} width={cardW - 8} height={cardH - 24} />
+          ) : (
+            <ProductPreview
+              product={mf.product}
+              cardWidth={cardW} cardHeight={cardH}
+              sectionWidth={secW} gapTop={gapTop} gapBottom={gapBot}
+            />
+          )}
         </div>
       ))}
       </div>

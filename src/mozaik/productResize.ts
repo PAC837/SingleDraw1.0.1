@@ -12,7 +12,7 @@
  *           All part Z positions scale proportionally.
  */
 
-import type { MozProduct, MozPart } from './types'
+import type { MozProduct, MozPart, MozOperation } from './types'
 import { evaluateTopShape, buildEvalContext } from './shapeEquations'
 import { inferDependency, getDimPref } from './formulaInference'
 import { applyPropagatedEqs, propagateEquations } from './shapeTopology'
@@ -24,6 +24,39 @@ const WIDTH_SPANNING_TYPES = new Set(['top', 'bottom', 'fixedshelf', 'adjustable
 
 /** Types whose L spans the product height (vertical end panels). */
 const HEIGHT_SPANNING_TYPES = new Set(['fend', 'uend'])
+
+/**
+ * Scale operation coordinates to maintain edge distances when part dimensions change.
+ * Operations near an edge (within EDGE mm) track that edge; middle operations scale proportionally.
+ */
+function scaleOperations(ops: MozOperation[], oldL: number, newL: number, oldW: number, newW: number): MozOperation[] {
+  if (!ops.length || (oldL === newL && oldW === newW)) return ops
+  const EDGE = 65 // mm — captures fastener holes: FEnd_thickness(19) + standoff(10) + 32mm grid
+  const scaleX = (x: number) => {
+    if (oldL === newL) return x
+    if (x > oldL - EDGE) return x + (newL - oldL)      // near right edge → track edge
+    if (x > EDGE) return x * (newL / oldL)              // middle → proportional
+    return x                                             // near left edge → fixed
+  }
+  const scaleY = (y: number) => {
+    if (oldW === newW) return y
+    if (y > oldW - EDGE) return y + (newW - oldW)
+    if (y > EDGE) return y * (newW / oldW)
+    return y
+  }
+  return ops.map(op => {
+    const x = scaleX(op.x)
+    const y = scaleY(op.y)
+    if (x === op.x && y === op.y && !(op.type === 'pocket' && op.toolPathNodes?.length)) return op
+    const result = { ...op, x, y } as MozOperation
+    if (op.type === 'pocket' && op.toolPathNodes?.length) {
+      (result as typeof op).toolPathNodes = op.toolPathNodes.map(n => ({
+        x: scaleX(n.x), y: scaleY(n.y),
+      }))
+    }
+    return result
+  })
+}
 
 function isRod(part: MozPart): boolean {
   return part.name.toLowerCase().includes('rod')
@@ -43,6 +76,7 @@ function resizePart(
   const delta = newValue - oldValue
   const typeLower = part.type.toLowerCase()
   let { x, y, z, l, w, shapePoints } = part
+  const origL = l, origW = w
 
   switch (field) {
     case 'width':
@@ -104,7 +138,7 @@ function resizePart(
       break
   }
 
-  return { ...part, x, y, z, l, w, shapePoints }
+  return { ...part, x, y, z, l, w, shapePoints, operations: scaleOperations(part.operations, origL, l, origW, w) }
 }
 
 /**
@@ -172,7 +206,8 @@ function resizeCrnProduct(
           x: { dep: clampDep(inferDependency(part.x, ctx, getDimPref('x', a2))), orig: part.x },
           y: { dep: clampDep(inferDependency(part.y, ctx, getDimPref('y', a2))), orig: part.y },
           l: { dep: clampDep(inferDependency(part.l, ctx, getDimPref('l', a2))), orig: part.l },
-          w: { dep: clampDep(inferDependency(part.w, ctx, getDimPref('w', a2))), orig: part.w },
+          w: { dep: isToe(part) ? null : clampDep(inferDependency(part.w, ctx, getDimPref('w', a2))), orig: part.w },
+          ops: part.operations,  // cache original operations for non-compounding scaling
           sp: part.shapePoints.map(sp => ({
             x: { dep: clampDep(inferDependency(sp.x, ctx, getDimPref('spX', a2))), orig: sp.x },
             y: { dep: clampDep(inferDependency(sp.y, ctx, getDimPref('spY', a2))), orig: sp.y },
@@ -180,6 +215,14 @@ function resizeCrnProduct(
         }
       }),
     }
+    // Diagnostic: dump dep classifications for debugging CRN resize issues
+    console.log('[CRN Resize] Dependency cache built:')
+    console.table(product.parts.map((part, i) => ({
+      name: part.name, type: part.type, a2: part.rotation.a2,
+      x: deps!.parts[i].x.dep ?? 'const', y: deps!.parts[i].y.dep ?? 'const',
+      l: deps!.parts[i].l.dep ?? 'const', w: deps!.parts[i].w.dep ?? 'const',
+      eqMapped: shapeEqMap?.has(i) ? 'yes' : 'no',
+    })))
   }
 
   // Cumulative deltas from original dimensions
@@ -214,13 +257,25 @@ function resizeCrnProduct(
           y: apply(pd.sp[j].y),
         }))
 
+    // For topology-mapped parts: derive L/W from actual shape extent
+    // This is more robust than inference when W===D (common for CRN products)
+    let finalL = newL
+    let finalW = apply(pd.w)
+    if (propagatedEqs && newShapePoints.length >= 3) {
+      const maxX = Math.max(...newShapePoints.map(sp => sp.x))
+      const maxY = Math.max(...newShapePoints.map(sp => sp.y))
+      if (maxX > 1) finalL = maxX
+      if (maxY > 1) finalW = maxY
+    }
+
     return {
       ...part,
       x: apply(pd.x),
       y: apply(pd.y),
-      l: newL,
-      w: apply(pd.w),
+      l: finalL,
+      w: finalW,
       shapePoints: newShapePoints,
+      operations: scaleOperations(pd.ops, pd.l.orig, finalL, pd.w.orig, finalW),
     }
   })
 

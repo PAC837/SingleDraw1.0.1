@@ -3,7 +3,7 @@
  * Panels are computed (not stored) from the product arrangement.
  */
 
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { BoxGeometry, EdgesGeometry, RepeatWrapping } from 'three'
 import type { Texture } from 'three'
 import type { MozRoom, MozProduct, RenderMode } from '../mozaik/types'
@@ -118,12 +118,51 @@ polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits
         </lineSegments>
       )}
       {showOperations && (() => {
+        if (panel.side === 'shared' && panel.leftAdjacentIndex != null && panel.rightAdjacentIndex != null) {
+          // Shared panel: holes on BOTH sides, each generated for its section's contact height
+          const elements: React.ReactElement[] = []
+
+          // Left-facing holes (flipSideOp: false) — generated for left product's height
+          const leftAdj = room.products[panel.leftAdjacentIndex]
+          if (leftAdj) {
+            const cBot = Math.max(0, leftAdj.elev - panel.elev)
+            const cTop = Math.min(panel.height, (leftAdj.elev + leftAdj.height) - panel.elev)
+            const leftOps = generateSystemHoles(cTop - cBot, panel.depth)
+              .map(op => ({ ...op, x: op.x + cBot }))
+            if (leftOps.length > 0) elements.push(
+              <group key="holes-left" position={bbPos} rotation={[0, 0, -Math.PI / 2]}>
+                <OperationMarkers operations={leftOps}
+                  centerX={panel.height / 2} centerY={panel.depth / 2}
+                  thick={PANEL_THICK} isShape partL={panel.height} partW={panel.depth} />
+              </group>,
+            )
+          }
+
+          // Right-facing holes (flipSideOp: true) — generated for right product's height
+          const rightAdj = room.products[panel.rightAdjacentIndex]
+          if (rightAdj) {
+            const cBot = Math.max(0, rightAdj.elev - panel.elev)
+            const cTop = Math.min(panel.height, (rightAdj.elev + rightAdj.height) - panel.elev)
+            const rightOps = generateSystemHoles(cTop - cBot, panel.depth)
+              .map(op => ({ ...op, x: op.x + cBot, flipSideOp: true }))
+            if (rightOps.length > 0) elements.push(
+              <group key="holes-right" position={bbPos} rotation={[0, 0, -Math.PI / 2]}>
+                <OperationMarkers operations={rightOps}
+                  centerX={panel.height / 2} centerY={panel.depth / 2}
+                  thick={PANEL_THICK} isShape partL={panel.height} partW={panel.depth} />
+              </group>,
+            )
+          }
+
+          return elements.length > 0 ? <>{elements}</> : null
+        }
+
+        // Non-shared: single side — generate holes for panel height, clip to contact range
         const ops = generateSystemHoles(panel.height, panel.depth)
         if (ops.length === 0) return null
         const flippedOps = panel.side === 'left'
           ? ops.map(op => ({ ...op, flipSideOp: true }))
           : ops
-        // Clip holes to contact height range with adjacent product
         const adj = room.products[panel.adjacentProductIndex]
         const contactBottom = adj ? Math.max(0, adj.elev - panel.elev) : 0
         const contactTop = adj ? Math.min(panel.height, (adj.elev + adj.height) - panel.elev) : panel.height
@@ -131,15 +170,9 @@ polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits
         if (clippedOps.length === 0) return null
         return (
           <group position={bbPos} rotation={[0, 0, -Math.PI / 2]}>
-            <OperationMarkers
-              operations={clippedOps}
-              centerX={panel.height / 2}
-              centerY={panel.depth / 2}
-              thick={PANEL_THICK}
-              isShape={true}
-              partL={panel.height}
-              partW={panel.depth}
-            />
+            <OperationMarkers operations={clippedOps}
+              centerX={panel.height / 2} centerY={panel.depth / 2}
+              thick={PANEL_THICK} isShape partL={panel.height} partW={panel.depth} />
           </group>
         )
       })()}

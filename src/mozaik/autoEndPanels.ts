@@ -101,6 +101,8 @@ export interface AutoEndPanel {
   elev: number
   adjacentProductIndex: number // index into room.products for texture
   side: 'left' | 'right' | 'shared'
+  leftAdjacentIndex?: number   // product touching panel's LEFT face (for hole clipping)
+  rightAdjacentIndex?: number  // product touching panel's RIGHT face (for hole clipping)
 }
 
 /** Compute auto end panels for all walls in a room. */
@@ -162,6 +164,7 @@ export function computeAutoEndPanels(
                   wallNumber: wn, x: phRight, width: PANEL_THICK,
                   height: taller.height, depth: deeper, elev: taller.elev,
                   adjacentProductIndex: deeperIdx, side: 'shared',
+                  leftAdjacentIndex: crnStart.productIndex, rightAdjacentIndex: prodIdx,
                 })
               }
             } else if (gap >= 2 * PANEL_THICK) {
@@ -188,6 +191,7 @@ export function computeAutoEndPanels(
                   wallNumber: wn, x: phRight, width: PANEL_THICK,
                   height: taller.height, depth: deeper, elev: taller.elev,
                   adjacentProductIndex: deeperIdx, side: 'shared',
+                  leftAdjacentIndex: crnStart.productIndex, rightAdjacentIndex: prodIdx,
                 })
               }
             }
@@ -250,6 +254,7 @@ export function computeAutoEndPanels(
                   wallNumber: wn, x: rightEdge, width: PANEL_THICK,
                   height: taller.height, depth: deeper, elev: taller.elev,
                   adjacentProductIndex: deeperIdx, side: 'shared',
+                  leftAdjacentIndex: prodIdx, rightAdjacentIndex: crnEnd.productIndex,
                 })
               }
             } else if (gap >= 2 * PANEL_THICK) {
@@ -276,6 +281,7 @@ export function computeAutoEndPanels(
                   wallNumber: wn, x: rightEdge, width: PANEL_THICK,
                   height: taller.height, depth: deeper, elev: taller.elev,
                   adjacentProductIndex: deeperIdx, side: 'shared',
+                  leftAdjacentIndex: prodIdx, rightAdjacentIndex: crnEnd.productIndex,
                 })
               }
             }
@@ -315,6 +321,7 @@ export function computeAutoEndPanels(
                 depth: deeper,
                 elev: taller.elev,
                 adjacentProductIndex: deeperIdx, side: 'shared',
+                leftAdjacentIndex: prodIdx, rightAdjacentIndex: prodIndices[i + 1],
               })
             } else if (!prodHasRightEnd) {
               // Next has built-in left end — current still needs right panel

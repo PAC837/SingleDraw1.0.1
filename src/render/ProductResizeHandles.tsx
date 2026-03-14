@@ -297,13 +297,15 @@ interface HandleBallProps {
   onResizeWidth: (index: number, value: number, anchor: 'left' | 'right') => void
   onUpdateElev: (index: number, elev: number) => void
   onUpdateX: (index: number, x: number) => void
+  onDragStart?: () => void
+  onDragEnd?: () => void
 }
 
 function HandleBall({
   mozPos, role, sign, wallAngleDeg, product, productIndex, onResize, onResizeWidth, onUpdateElev, onUpdateX,
+  onDragStart, onDragEnd,
 }: HandleBallProps) {
   const groupRotY = ((wallAngleDeg ?? 0) + product.rot) * Math.PI / 180
-  const screenSign = Math.cos(groupRotY) < 0 ? -1 : 1
   const { camera, gl, controls } = useThree()
   const [hovered, setHovered] = useState(false)
   const [active, setActive] = useState(false)
@@ -328,6 +330,7 @@ function HandleBall({
     dragging.current = true
     moveAxis.current = null
     setActive(true)
+    onDragStart?.()
     startMouse.current = {
       x: e.clientX ?? e.nativeEvent?.clientX ?? 0,
       y: e.clientY ?? e.nativeEvent?.clientY ?? 0,
@@ -347,7 +350,18 @@ function HandleBall({
 
       switch (role) {
         case 'width': {
-          const raw = startVals.current.width + dxMm * sign * screenSign
+          // Transform product's width axis into camera view space
+          const widthDirView = new Vector3(1, 0, 0)
+            .applyAxisAngle(new Vector3(0, 1, 0), groupRotY)
+            .transformDirection(camera.matrixWorldInverse)
+          // Screen projection: x = screen-right, y = screen-up
+          const sx = widthDirView.x, sy = widthDirView.y
+          const sLen = Math.sqrt(sx * sx + sy * sy)
+          if (sLen < 0.01) break // width axis pointing directly at/away from camera
+          const nx = sx / sLen, ny = sy / sLen
+          // Project mouse delta onto width's screen direction
+          const projectedMm = (dx * nx - dy * ny) * scale
+          const raw = startVals.current.width + projectedMm * sign
           const snapped = snapValue(Math.max(MIN_WIDTH, raw), 'width')
           const anchor: 'left' | 'right' = sign < 0 ? 'left' : 'right'
           onResizeWidth(productIndex, snapped, anchor)
@@ -391,12 +405,13 @@ function HandleBall({
       if (ctrl) ctrl.enabled = true
       window.removeEventListener('pointermove', onMove)
       window.removeEventListener('pointerup', onUp)
+      onDragEnd?.()
     }
 
     document.body.style.cursor = 'grabbing'
     window.addEventListener('pointermove', onMove)
     window.addEventListener('pointerup', onUp)
-  }, [role, sign, screenSign, product, productIndex, onResize, onResizeWidth, onUpdateElev, onUpdateX, gl, controls, mmPerPixel])
+  }, [role, sign, groupRotY, product, productIndex, onResize, onResizeWidth, onUpdateElev, onUpdateX, gl, controls, mmPerPixel, onDragStart, onDragEnd])
 
   const greenColor = active ? '#FFFF00' : hovered ? '#CCFF44' : '#AAFF00'
   const s = active ? 1.2 : hovered ? 1.3 : 1.0
@@ -455,12 +470,14 @@ function BumpBall({
 
 /** Red forward/backward arrows — drag to resize depth. */
 function DepthDragBall({
-  mozPos, productIndex, product, onResize,
+  mozPos, productIndex, product, onResize, onDragStart, onDragEnd,
 }: {
   mozPos: [number, number, number]
   productIndex: number
   product: MozProduct
   onResize: (index: number, field: 'width' | 'depth' | 'height', value: number) => void
+  onDragStart?: () => void
+  onDragEnd?: () => void
 }) {
   const [hovered, setHovered] = useState(false)
   const [active, setActive] = useState(false)
@@ -483,6 +500,7 @@ function DepthDragBall({
     e.stopPropagation()
     dragging.current = true
     setActive(true)
+    onDragStart?.()
     startMouse.current = e.clientY ?? e.nativeEvent?.clientY ?? 0
     startDepth.current = product.depth
 
@@ -508,12 +526,13 @@ function DepthDragBall({
       if (ctrl) ctrl.enabled = true
       window.removeEventListener('pointermove', onMove)
       window.removeEventListener('pointerup', onUp)
+      onDragEnd?.()
     }
 
     document.body.style.cursor = 'ns-resize'
     window.addEventListener('pointermove', onMove)
     window.addEventListener('pointerup', onUp)
-  }, [product, productIndex, onResize, controls, mmPerPixel])
+  }, [product, productIndex, onResize, controls, mmPerPixel, onDragStart, onDragEnd])
 
   const redColor = active ? '#FF6666' : hovered ? '#FF4444' : '#CC0000'
   const s = active ? 1.2 : hovered ? 1.3 : 1.0
@@ -548,11 +567,13 @@ interface ProductResizeHandlesProps {
   onBumpLeft?: (index: number) => void
   onBumpRight?: (index: number) => void
   onRemove?: (index: number) => void
+  onDragStart?: () => void
+  onDragEnd?: () => void
 }
 
 export default function ProductResizeHandles({
   product, productIndex, wallAngleDeg, onResize, onResizeWidth, onUpdateElev, onUpdateX,
-  onBumpLeft, onBumpRight, onRemove,
+  onBumpLeft, onBumpRight, onRemove, onDragStart, onDragEnd,
 }: ProductResizeHandlesProps) {
   const w = product.width, h = product.height
 
@@ -579,6 +600,8 @@ export default function ProductResizeHandles({
           onResizeWidth={onResizeWidth}
           onUpdateElev={onUpdateElev}
           onUpdateX={onUpdateX}
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
         />
       ))}
       {/* Bump arrows — callbacks swapped to compensate for 180° product rotation */}
@@ -592,9 +615,9 @@ export default function ProductResizeHandles({
       )}
       {/* Depth drag arrows at bottom corners */}
       <DepthDragBall mozPos={[0, 0, 0]} productIndex={productIndex}
-        product={product} onResize={onResize} />
+        product={product} onResize={onResize} onDragStart={onDragStart} onDragEnd={onDragEnd} />
       <DepthDragBall mozPos={[w, 0, 0]} productIndex={productIndex}
-        product={product} onResize={onResize} />
+        product={product} onResize={onResize} onDragStart={onDragStart} onDragEnd={onDragEnd} />
 
       {/* Red X delete button at top-right corner */}
       {onRemove && (

@@ -192,11 +192,11 @@ export default function Scene({
       camera={{
         position: [5000, 4000, 5000],
         fov: 50,
-        near: 1,
+        near: 10,
         far: 100000,
         up: [0, 1, 0],
       }}
-      gl={{ antialias: true, preserveDrawingBuffer: true }}
+      gl={{ antialias: true, preserveDrawingBuffer: true, logarithmicDepthBuffer: true }}
       style={{ background: bgColor }}
       onPointerMissed={onPointerMissed}
     >

@@ -332,7 +332,7 @@ export function adjustNeighborGaps(
     const prevEdgeGap = prev.p.isRectShape === false ? 0 : PANEL_THICK
     const clampedX = Math.max(prevEdgeGap, idealX)
 
-    if (prev.p.x > clampedX + 0.5) {
+    if (curr.phantom ? Math.abs(prev.p.x - clampedX) > 0.5 : prev.p.x > clampedX + 0.5) {
       wallProds[k - 1] = { ...prev, p: { ...prev.p, x: clampedX } }
       adjusted.set(prev.i, clampedX)
     }

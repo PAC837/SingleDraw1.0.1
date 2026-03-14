@@ -3,7 +3,7 @@
  * Each pill opens a dropdown showing product cards for that unit type.
  */
 import { useEffect, useState } from 'react'
-import type { MozFile, DynamicProductGroup, UnitTypeColumn, ProductAssignments } from '../mozaik/types'
+import type { MozFile, MozProduct, DynamicProductGroup, UnitTypeColumn, ProductAssignments } from '../mozaik/types'
 import UnitTypeDropdown from './UnitTypeDropdown'
 
 interface UnitTypePillsProps {
@@ -11,26 +11,31 @@ interface UnitTypePillsProps {
   assignments: ProductAssignments
   dynamicGroups: DynamicProductGroup[]
   products: MozFile[]
-  selectedWall: number | null
   unitHeight: number
   wallSectionHeight: number
-  onPlaceProduct: (productIndex: number) => void
-  onPlaceGroup: (group: DynamicProductGroup) => void
+  spinning3DCards?: boolean
+  onStartDrag: (product: MozProduct, productIndex: number, group?: DynamicProductGroup) => void
 }
 
 export default function UnitTypePills({
   columns, assignments, dynamicGroups, products,
-  selectedWall, unitHeight, wallSectionHeight, onPlaceProduct, onPlaceGroup,
+  unitHeight, wallSectionHeight, spinning3DCards = false, onStartDrag,
 }: UnitTypePillsProps) {
   const [openId, setOpenId] = useState<string | null>(null)
 
-  // Close only when clicking the 3D canvas background (onPointerMissed)
+  // Close when clicking 3D canvas background or when another panel opens
   useEffect(() => {
     if (!openId) return
     const handler = () => setOpenId(null)
     window.addEventListener('canvas-bg-click', handler)
     return () => window.removeEventListener('canvas-bg-click', handler)
   }, [openId])
+
+  useEffect(() => {
+    const handler = () => setOpenId(null)
+    window.addEventListener('panel-will-open', handler)
+    return () => window.removeEventListener('panel-will-open', handler)
+  }, [])
 
   // Only show pills for columns that have at least one assigned product
   const activePills = columns.filter(col => {
@@ -46,7 +51,10 @@ export default function UnitTypePills({
         return (
           <div key={col.id} className="relative">
             <button
-              onClick={() => setOpenId(isOpen ? null : col.id)}
+              onClick={() => {
+                if (!isOpen) window.dispatchEvent(new Event('panel-will-open'))
+                setOpenId(isOpen ? null : col.id)
+              }}
               title={col.label}
               className="h-9 px-4 rounded-full flex items-center justify-center transition-all"
               style={{
@@ -65,11 +73,10 @@ export default function UnitTypePills({
                 products={products}
                 assignments={assignments}
                 dynamicGroups={dynamicGroups}
-                selectedWall={selectedWall}
                 unitHeight={unitHeight}
                 wallSectionHeight={wallSectionHeight}
-                onPlaceProduct={onPlaceProduct}
-                onPlaceGroup={onPlaceGroup}
+                spinning3DCards={spinning3DCards}
+                onStartDrag={onStartDrag}
               />
             )}
           </div>

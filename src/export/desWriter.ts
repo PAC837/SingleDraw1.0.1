@@ -1,7 +1,8 @@
 import type { MozRoom, MozWall, MozWallJoint, MozFixture, MozProduct, MozPart, WallGeometry } from '../mozaik/types'
 import { roomParmsXml, ROOM_SET_XML } from './desTemplate'
-import { computeWallGeometries } from '../math/wallMath'
+import { computeWallGeometries, computeWallTrims } from '../math/wallMath'
 import { computeAutoEndPanels, createSyntheticPanelProduct } from '../mozaik/autoEndPanels'
+import { usableWallLength } from '../mozaik/wallPlacement'
 
 /**
  * Serialize a MozRoom back to the DES file format.
@@ -64,6 +65,95 @@ function renumberForExport(room: MozRoom): MozRoom {
   return { ...room, walls, wallJoints, products, fixtures }
 }
 
+/**
+ * Transform a CRN product from SingleDraw convention (X=0 on next wall)
+ * to Mozaik convention (X=wallLen-crnWidth on previous wall).
+ *
+ * Mozaik determines corner product orientation from the wall reference,
+ * so using the wrong wall causes a 90° rotation error.
+ */
+function transformCrnForExport(prod: MozProduct, walls: MozWall[]): MozProduct {
+  if (prod.isRectShape !== false) return prod
+  if (prod.x > 19) return prod  // Not at wall start — already in Mozaik convention
+
+  const wallNum = parseInt(prod.wall.split('_')[0], 10)
+  const wallIdx = walls.findIndex(w => w.wallNumber === wallNum)
+  if (wallIdx < 0) return prod
+
+  const prevIdx = (wallIdx - 1 + walls.length) % walls.length
+  const prevWall = walls[prevIdx]
+  return {
+    ...prod,
+    wall: `${prevWall.wallNumber}_1`,
+    x: prevWall.len - prod.width,
+  }
+}
+
+/**
+ * Shift rect product X positions on CRN-adjacent walls for export.
+ *
+ * Runtime phantom uses usableWallLength (visual matches CRN arm extent).
+ * Mozaik stores CRN at wallLen - crnWidth (extends into trim zone).
+ * Products packed against the CRN-end phantom are trimStart+trimEnd too far left.
+ *
+ * On walls with BOTH a CRN body at end AND a CRN arm at start, only shift
+ * products closer to the end — start-arm products are already correct.
+ */
+function adjustProductsForCrnExport(
+  products: MozProduct[], walls: MozWall[], joints: MozWallJoint[],
+): MozProduct[] {
+  const trims = computeWallTrims(walls, joints)
+
+  // Find walls with a transformed CRN at their end
+  const crnWalls = new Map<number, { trimDelta: number; crnEndDepth: number }>()
+  for (const p of products) {
+    if (p.isRectShape !== false) continue
+    const wn = parseInt(p.wall.split('_')[0], 10)
+    const wall = walls.find(w => w.wallNumber === wn)
+    if (!wall) continue
+    // After transformCrnForExport, CRN right edge ≈ wallLen
+    if (p.x + p.width > wall.len - 1) {
+      const trim = trims.get(wn) ?? { trimStart: 0, trimEnd: 0 }
+      crnWalls.set(wn, { trimDelta: trim.trimStart + trim.trimEnd, crnEndDepth: p.depth })
+    }
+  }
+
+  if (crnWalls.size === 0) return products
+
+  // Detect walls with a CRN arm at START (CRN body on wall N end → arm on wall N+1 start)
+  const crnStartArmDepth = new Map<number, number>()
+  for (const [wn] of crnWalls) {
+    const wallIdx = walls.findIndex(w => w.wallNumber === wn)
+    if (wallIdx < 0) continue
+    const nextIdx = (wallIdx + 1) % walls.length
+    const crnProd = products.find(p =>
+      p.isRectShape === false &&
+      parseInt(p.wall.split('_')[0], 10) === wn &&
+      p.x + p.width > walls[wallIdx].len - 1,
+    )
+    if (crnProd) crnStartArmDepth.set(walls[nextIdx].wallNumber, crnProd.depth)
+  }
+
+  return products.map(p => {
+    if (p.isRectShape === false) return p
+    const wn = parseInt(p.wall.split('_')[0], 10)
+    const info = crnWalls.get(wn)
+    if (!info) return p
+
+    // If wall also has CRN arm at start, only shift products closer to the END
+    const armDepth = crnStartArmDepth.get(wn)
+    if (armDepth !== undefined) {
+      const usable = usableWallLength(wn, walls, joints)
+      const crnEndPhantom = usable - info.crnEndDepth
+      const distToEnd = crnEndPhantom - (p.x + p.width)
+      const distToStart = p.x - armDepth
+      if (distToStart <= distToEnd) return p  // Closer to start arm → no shift
+    }
+
+    return { ...p, x: p.x + info.trimDelta }
+  })
+}
+
 /** Generate complete DES file content from a MozRoom. */
 function generateDesXml(inputRoom: MozRoom, flipOps = false): string {
   const room = renumberForExport(inputRoom)
@@ -73,8 +163,12 @@ function generateDesXml(inputRoom: MozRoom, flipOps = false): string {
   lines.push('15')
   lines.push('<?xml version="1.0" encoding="utf-8" standalone="yes"?>')
 
+  // Transform CRN products to Mozaik convention, then shift rect products on CRN walls
+  const crnTransformed = room.products.map(p => transformCrnForExport(p, room.walls))
+  const exportProducts = adjustProductsForCrnExport(crnTransformed, room.walls, room.wallJoints)
+
   // Pre-compute auto end panels so we can include them in IdTagCount
-  const autoPanels = computeAutoEndPanels(room.products, room.walls, room.wallJoints, flipOps)
+  const autoPanels = computeAutoEndPanels(exportProducts, room.walls, room.wallJoints, flipOps)
 
   // <Room> root element
   // Base IDTag max from walls + fixtures only — product IDTags are stale template values
@@ -134,14 +228,16 @@ function generateDesXml(inputRoom: MozRoom, flipOps = false): string {
   }
 
   // <Products> — includes auto-generated end panels
+  // (exportProducts already has CRN transform applied from above)
+
   // Panel IDTags start after all real products; CabNo is irrelevant for panels but kept sequential
-  let nextPanelIdTag = baseIdTagMax + 1 + room.products.length
-  let nextPanelCabNo = room.products.length + 1
+  let nextPanelIdTag = baseIdTagMax + 1 + exportProducts.length
+  let nextPanelCabNo = exportProducts.length + 1
   const panelProducts = autoPanels.map(panel => {
-    const adjacent = room.products[panel.adjacentProductIndex] ?? room.products[0]
+    const adjacent = exportProducts[panel.adjacentProductIndex] ?? exportProducts[0]
     return createSyntheticPanelProduct(panel, adjacent, nextPanelIdTag++, nextPanelCabNo++)
   })
-  const allProducts = [...room.products, ...panelProducts]
+  const allProducts = [...exportProducts, ...panelProducts]
 
   if (allProducts.length === 0) {
     lines.push('  <Products />')
