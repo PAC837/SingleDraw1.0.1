@@ -7,6 +7,7 @@ import { adjustNeighborGaps } from './mozaik/wallPlacement'
 import { resizeProduct } from './mozaik/productResize'
 import { snapModularHeight } from './mozaik/modularValues'
 import { createDefaultColumns } from './mozaik/unitTypes'
+import { createWalkInRoom } from './mozaik/roomFactory'
 
 /** Pre-configured render setting combos with lighting. */
 export const RENDER_PRESETS: Record<string, {
@@ -54,14 +55,14 @@ const defaultVisibility: Visibility = {
 }
 
 const initialState: AppState = {
-  room: null,
+  room: createWalkInRoom(2438.4),
   standaloneProducts: [],
   overlays: defaultOverlays,
   selectedWall: null,
   wallEditorActive: false,
   dragTarget: null,
   useInches: false,
-  renderMode: 'ghosted',
+  renderMode: 'solid',
   jobFolder: null,
   textureFolder: null,
   availableTextures: [],
@@ -94,7 +95,7 @@ const initialState: AppState = {
   edgeOpacity: 0.5,
   polygonOffsetFactor: 1,
   polygonOffsetUnits: 1,
-  renderPreset: 'ghosted-default',
+  renderPreset: 'clean-solid',
   ambientIntensity: 0.6,
   directionalIntensity: 0.7,
   warmth: 0,
@@ -106,7 +107,7 @@ const initialState: AppState = {
   adminOpen: false,
   showOperations: true,
   showShapeDebug: false,
-  spinning3DCards: false,
+  spinning3DCards: true,
   dragProduct: null,
   dragHoveredWall: null,
   libraryConfig: { activeProducts: [], variantMappings: [], unitTypeColumns: createDefaultColumns(), productAssignments: {}, version: 2 },

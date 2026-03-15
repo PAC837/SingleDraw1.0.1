@@ -92,6 +92,7 @@ function profileGap(
   if (sameHeight && sameElev && sameDepth) return PANEL_THICK
 
   if (flipOps) {
+    if (!sameDepth) return 2 * PANEL_THICK // depth must match for shared panel
     const topA = hA + elevA, topB = hB + elevB
     // Share panel if shorter section fits within taller's vertical range (±1mm tolerance)
     const aContainsB = elevB >= elevA - 1 && topB <= topA + 1

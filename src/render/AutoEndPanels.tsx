@@ -3,7 +3,7 @@
  * Panels are computed (not stored) from the product arrangement.
  */
 
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { BoxGeometry, EdgesGeometry, RepeatWrapping } from 'three'
 import type { Texture } from 'three'
 import type { MozRoom, MozProduct, RenderMode } from '../mozaik/types'
@@ -105,10 +105,10 @@ polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits
         ) : (
           panelTex ? (
             <meshStandardMaterial key="ghosted-tex" map={panelTex} transparent opacity={0.8} roughness={0.8} metalness={0}
-/>
+depthWrite />
           ) : (
             <meshStandardMaterial key="ghosted" color={PANEL_COLOR} transparent opacity={0.8} roughness={0.8} metalness={0}
-/>
+depthWrite />
           )
         )}
       </mesh>
@@ -119,17 +119,28 @@ polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits
       )}
       {showOperations && (() => {
         if (panel.side === 'shared' && panel.leftAdjacentIndex != null && panel.rightAdjacentIndex != null) {
-          // Shared panel: holes on BOTH sides, each generated for its section's contact height
-          const elements: React.ReactElement[] = []
-
-          // Left-facing holes (flipSideOp: false) — generated for left product's height
+          // Per-face clipping: each face only has holes where its section contacts
           const leftAdj = room.products[panel.leftAdjacentIndex]
-          if (leftAdj) {
-            const cBot = Math.max(0, leftAdj.elev - panel.elev)
-            const cTop = Math.min(panel.height, (leftAdj.elev + leftAdj.height) - panel.elev)
-            const leftOps = generateSystemHoles(cTop - cBot, panel.depth)
-              .map(op => ({ ...op, x: op.x + cBot }))
-            if (leftOps.length > 0) elements.push(
+          const rightAdj = room.products[panel.rightAdjacentIndex]
+          if (!leftAdj || !rightAdj) return null
+
+          const lBot = Math.max(0, leftAdj.elev - panel.elev)
+          const lTop = Math.min(panel.height, (leftAdj.elev + leftAdj.height) - panel.elev)
+          const rBot = Math.max(0, rightAdj.elev - panel.elev)
+          const rTop = Math.min(panel.height, (rightAdj.elev + rightAdj.height) - panel.elev)
+
+          // opX→Y is inverted by -π/2 Z rotation: low opX = 3D top, high opX = 3D bottom
+          const allOps = generateSystemHoles(panel.height, panel.depth)
+          if (allOps.length === 0) return null
+
+          const elements: React.JSX.Element[] = []
+
+          // Left face — clip to left section's contact range (inverted coords)
+          const lClipLow = panel.height - lTop
+          const lClipHigh = panel.height - lBot
+          const leftOps = allOps.filter(op => op.x >= lClipLow - 0.1 && op.x <= lClipHigh + 0.1)
+          if (leftOps.length > 0) {
+            elements.push(
               <group key="holes-left" position={bbPos} rotation={[0, 0, -Math.PI / 2]}>
                 <OperationMarkers operations={leftOps}
                   centerX={panel.height / 2} centerY={panel.depth / 2}
@@ -138,14 +149,14 @@ polygonOffset polygonOffsetFactor={polyFactor + 1} polygonOffsetUnits={polyUnits
             )
           }
 
-          // Right-facing holes (flipSideOp: true) — generated for right product's height
-          const rightAdj = room.products[panel.rightAdjacentIndex]
-          if (rightAdj) {
-            const cBot = Math.max(0, rightAdj.elev - panel.elev)
-            const cTop = Math.min(panel.height, (rightAdj.elev + rightAdj.height) - panel.elev)
-            const rightOps = generateSystemHoles(cTop - cBot, panel.depth)
-              .map(op => ({ ...op, x: op.x + cBot, flipSideOp: true }))
-            if (rightOps.length > 0) elements.push(
+          // Right face — clip to right section's contact range (inverted coords)
+          const rClipLow = panel.height - rTop
+          const rClipHigh = panel.height - rBot
+          const rightOps = allOps
+            .filter(op => op.x >= rClipLow - 0.1 && op.x <= rClipHigh + 0.1)
+            .map(op => ({ ...op, flipSideOp: true }))
+          if (rightOps.length > 0) {
+            elements.push(
               <group key="holes-right" position={bbPos} rotation={[0, 0, -Math.PI / 2]}>
                 <OperationMarkers operations={rightOps}
                   centerX={panel.height / 2} centerY={panel.depth / 2}
