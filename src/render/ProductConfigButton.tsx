@@ -5,6 +5,7 @@
 import { useEffect } from 'react'
 import { mmToInches, inchesToMm, formatDim } from '../math/units'
 import { snapModularHeight } from '../mozaik/modularValues'
+import { snapToGrid } from '../mozaik/shelfEditor'
 import ToolbarButton from '../ui/ToolbarButton'
 import FloatingPanel from '../ui/FloatingPanel'
 
@@ -15,10 +16,16 @@ interface ProductConfigButtonProps {
   wallSectionHeight: number      // mm — wall section height
   wallMountTopAt: number         // mm
   wallHeight: number             // mm — room wall height
+  fixedShelfHeight: number       // mm — preferred fixed shelf Z
+  baseCabHeight: number          // mm — base cabinet height
+  hutchSectionHeight: number     // mm — hutch/upper-stack section height
   useInches: boolean
   onToggle: () => void
   onSetMode: (mode: 'floor' | 'wall') => void
   onSetUnitHeight: (mm: number) => void
+  onSetFixedShelfHeight: (mm: number) => void
+  onSetBaseCabHeight: (mm: number) => void
+  onSetHutchSectionHeight: (mm: number) => void
   onSetWallSectionHeight: (mm: number) => void
   onSetWallHeight: (mm: number) => void
   onCreatePresetRoom: (preset: 'reach-in' | 'walk-in' | 'walk-in-deep' | 'angled') => void
@@ -27,10 +34,13 @@ interface ProductConfigButtonProps {
 const WALL_HEIGHT_PRESETS = [96, 120]
 const FLOOR_SECTION_PRESETS = [84, 87, 96, 108]
 const WALL_SECTION_PRESETS = [72, 76, 84, 87, 96, 108]
+const FIXED_SHELF_PRESETS = [36, 42, 48]
+const BASE_CAB_PRESETS = [30, 34.5, 36]
+const HUTCH_SECTION_PRESETS = [36, 42, 48]
 
 export default function ProductConfigButton({
-  open, placementMode, unitHeight, wallSectionHeight, wallMountTopAt, wallHeight, useInches,
-  onToggle, onSetMode, onSetUnitHeight, onSetWallSectionHeight, onSetWallHeight, onCreatePresetRoom,
+  open, placementMode, unitHeight, wallSectionHeight, wallMountTopAt, wallHeight, fixedShelfHeight, baseCabHeight, hutchSectionHeight, useInches,
+  onToggle, onSetMode, onSetUnitHeight, onSetFixedShelfHeight, onSetBaseCabHeight, onSetHutchSectionHeight, onSetWallSectionHeight, onSetWallHeight, onCreatePresetRoom,
 }: ProductConfigButtonProps) {
   // Close only when clicking the 3D canvas background (onPointerMissed)
   useEffect(() => {
@@ -129,6 +139,112 @@ export default function ProductConfigButton({
                   </button>
                 )
               })}
+            </div>
+          </div>
+
+          {/* Fixed Shelf Height */}
+          <div>
+            <label className="text-[10px] uppercase tracking-wider" style={{ color: '#9ca3af' }}>
+              Fixed Shelf Height
+              <span className="text-gray-500 normal-case ml-1">{formatDim(fixedShelfHeight, useInches)}</span>
+            </label>
+            <div className="flex gap-1 mt-1">
+              {FIXED_SHELF_PRESETS.map(p => {
+                const isActive = fixedShelfHeight === snapToGrid(inchesToMm(p))
+                return (
+                  <button
+                    key={p}
+                    onClick={() => onSetFixedShelfHeight(inchesToMm(p))}
+                    className="text-xs px-2 py-1 rounded transition-colors"
+                    style={{
+                      background: isActive ? 'var(--accent)' : '#333',
+                      color: isActive ? '#000' : '#aaa',
+                    }}
+                  >
+                    {p}
+                  </button>
+                )
+              })}
+              <input
+                type="number"
+                value={useInches ? Math.round(mmToInches(fixedShelfHeight)) : Math.round(fixedShelfHeight)}
+                onChange={e => {
+                  const v = Number(e.target.value)
+                  onSetFixedShelfHeight(useInches ? inchesToMm(v) : v)
+                }}
+                className="w-14 text-xs px-1.5 py-1 bg-gray-800 rounded border border-gray-600 text-white text-center"
+              />
+            </div>
+          </div>
+
+          {/* Base Cabinet Height */}
+          <div>
+            <label className="text-[10px] uppercase tracking-wider" style={{ color: '#9ca3af' }}>
+              Base Cabinet Height
+              <span className="text-gray-500 normal-case ml-1">{formatDim(baseCabHeight, useInches)}</span>
+            </label>
+            <div className="flex gap-1 mt-1">
+              {BASE_CAB_PRESETS.map(p => {
+                const isActive = Math.abs(baseCabHeight - inchesToMm(p)) < 1
+                return (
+                  <button
+                    key={p}
+                    onClick={() => onSetBaseCabHeight(inchesToMm(p))}
+                    className="text-xs px-2 py-1 rounded transition-colors"
+                    style={{
+                      background: isActive ? 'var(--accent)' : '#333',
+                      color: isActive ? '#000' : '#aaa',
+                    }}
+                  >
+                    {p}
+                  </button>
+                )
+              })}
+              <input
+                type="number"
+                step="0.5"
+                value={useInches ? +(mmToInches(baseCabHeight)).toFixed(1) : Math.round(baseCabHeight)}
+                onChange={e => {
+                  const v = Number(e.target.value)
+                  onSetBaseCabHeight(useInches ? inchesToMm(v) : v)
+                }}
+                className="w-14 text-xs px-1.5 py-1 bg-gray-800 rounded border border-gray-600 text-white text-center"
+              />
+            </div>
+          </div>
+
+          {/* Hutch Section Height */}
+          <div>
+            <label className="text-[10px] uppercase tracking-wider" style={{ color: '#9ca3af' }}>
+              Hutch Section Height
+              <span className="text-gray-500 normal-case ml-1">{formatDim(hutchSectionHeight, useInches)}</span>
+            </label>
+            <div className="flex gap-1 mt-1">
+              {HUTCH_SECTION_PRESETS.map(p => {
+                const isActive = hutchSectionHeight === snapModularHeight(inchesToMm(p))
+                return (
+                  <button
+                    key={p}
+                    onClick={() => onSetHutchSectionHeight(inchesToMm(p))}
+                    className="text-xs px-2 py-1 rounded transition-colors"
+                    style={{
+                      background: isActive ? 'var(--accent)' : '#333',
+                      color: isActive ? '#000' : '#aaa',
+                    }}
+                  >
+                    {p}
+                  </button>
+                )
+              })}
+              <input
+                type="number"
+                value={useInches ? Math.round(mmToInches(hutchSectionHeight)) : Math.round(hutchSectionHeight)}
+                onChange={e => {
+                  const v = Number(e.target.value)
+                  onSetHutchSectionHeight(useInches ? inchesToMm(v) : v)
+                }}
+                className="w-14 text-xs px-1.5 py-1 bg-gray-800 rounded border border-gray-600 text-white text-center"
+              />
             </div>
           </div>
 

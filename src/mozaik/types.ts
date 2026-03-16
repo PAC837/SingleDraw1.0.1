@@ -205,6 +205,9 @@ export interface MozFile {
 
 // ── App state types ─────────────────────────────────────────────────
 
+import type { RoomSettingsTemplate, RoomSettingsFile } from './settingsTemplateParser'
+import type { HardwareCatalog } from './hardwareDatParser'
+
 /** Complete DES room. */
 export interface MozRoom {
   uniqueId: string
@@ -218,6 +221,7 @@ export interface MozRoom {
   primaryTextureId: number | null   // from MaterialTemplateSelection (cabinet parts)
   wallTextureId: number | null      // from RoomSet WallsTextureId
   rawText: string      // original file text for round-trip
+  roomSettings: RoomSettingsTemplate | null  // parsed from RoomSet (DES load or template)
 }
 
 /** Scene visibility toggles. */
@@ -304,11 +308,18 @@ export interface AppState {
   showOperations: boolean           // show drill holes / shelf pins on parts
   showShapeDebug: boolean           // show CRN shape debug overlay (TopShape vs part shapes)
   spinning3DCards: boolean           // show spinning 3D models in product cards instead of SVG wireframes
-  dragProduct: { product: MozProduct; productIndex: number; group?: DynamicProductGroup } | null
+  dragProduct: { product: MozProduct; productIndex: number; group?: DynamicProductGroup; unitTypeId?: string } | null
   dragHoveredWall: number | null    // wall number hovered during product drag
   libraryConfig: LibraryConfig     // persisted library product config
   hoveredPart: { productIndex: number; partIndex: number } | null  // part inspector highlight
   inspectedPart: { productIndex: number; partIndex: number } | null  // double-click part inspection
+  elevationViewerProduct: number | null  // product index open in elevation viewer
+  fixedShelfHeight: number               // mm — preferred fixed shelf Z (snapped to 32mm grid)
+  baseCabHeight: number                  // mm — base cabinet height (default 876.3 = 34.5")
+  hutchSectionHeight: number             // mm — hutch/upper-stack section height (default 48" = 1219.2mm)
+  settingsFile: RoomSettingsFile | null         // loaded RoomSettingsTemplates.dat
+  activeTemplateName: string | null             // selected template name
+  hardwareCatalog: HardwareCatalog | null       // loaded Hardware.dat
 }
 
 // ── Library config types ────────────────────────────────────────────

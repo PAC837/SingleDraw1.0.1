@@ -9,6 +9,7 @@ import { findNextAvailableX, placeProductOnWall, usableWallLength, computeProduc
 import { PANEL_THICK } from '../mozaik/autoEndPanels'
 import { resizeProduct } from '../mozaik/productResize'
 import { isWallMount } from '../mozaik/types'
+import { heightForUnitType } from '../mozaik/unitTypes'
 
 export function useProductActions() {
   const state = useAppState()
@@ -20,16 +21,17 @@ export function useProductActions() {
   stateRef.current = state
 
   const handlePlaceProduct = useCallback(
-    (productIndex: number, wallNumber: number) => {
+    (productIndex: number, wallNumber: number, unitTypeId?: string) => {
       if (!state.room) return
       const mozFile = state.standaloneProducts[productIndex]
       if (!mozFile) return
-      // Auto-detect floor vs wall from product name (PAC Library convention)
+      // Determine unit type: explicit from caller, or auto-detect from product name
       const wm = isWallMount(mozFile.product.prodName)
-      const sectionHeight = wm ? state.wallSectionHeight : state.unitHeight
+      const effectiveType = unitTypeId ?? (wm ? 'wall' : 'floor')
+      const sectionHeight = heightForUnitType(effectiveType, state)
       const resized = resizeProduct(mozFile.product, 'height', sectionHeight)
       const usable = usableWallLength(wallNumber, state.room.walls, state.room.wallJoints)
-      const elev = Math.max(0, state.wallMountTopAt - sectionHeight)
+      const elev = wm ? Math.max(0, state.wallMountTopAt - sectionHeight) : 0
       const nextX = findNextAvailableX(state.room.products, wallNumber, resized.width, sectionHeight, elev, resized.depth, usable, state.flipOps, state.room.walls, state.room.wallJoints, resized.isRectShape === false)
       if (nextX === null) {
         alert('No space on this wall for that product')
@@ -38,9 +40,9 @@ export function useProductActions() {
       const placed = placeProductOnWall(resized, wallNumber, nextX, elev)
       dispatch({ type: 'PLACE_PRODUCT', product: placed })
       dispatch({ type: 'SET_PLACEMENT_MODE', mode: wm ? 'wall' : 'floor' })
-      console.log(`[ROOM] Placed "${resized.prodName}" (${wm ? 'wall' : 'floor'}) on wall ${wallNumber} at x=${nextX} elev=${elev}`)
+      console.log(`[ROOM] Placed "${resized.prodName}" (${effectiveType}) on wall ${wallNumber} at x=${nextX} elev=${elev} height=${sectionHeight.toFixed(0)}mm`)
     },
-    [dispatch, state.room, state.standaloneProducts, state.wallMountTopAt, state.unitHeight, state.wallSectionHeight],
+    [dispatch, state.room, state.standaloneProducts, state.wallMountTopAt, state.unitHeight, state.wallSectionHeight, state.hutchSectionHeight, state.baseCabHeight],
   )
 
   const handleUpdateProductDimension = useCallback(

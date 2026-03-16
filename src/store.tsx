@@ -2,9 +2,12 @@ import { createContext, useContext, useReducer, type Dispatch, type ReactNode } 
 import { LinearToneMapping, ACESFilmicToneMapping } from 'three'
 import { isWallMount } from './mozaik/types'
 import type { AppState, Visibility, RenderMode, MozRoom, MozFile, MozProduct, MozFixture, MozWall, DebugOverlays, DragTarget, LibraryConfig, DynamicProductGroup } from './mozaik/types'
+import type { RoomSettingsFile, RoomSetHardware } from './mozaik/settingsTemplateParser'
+import type { HardwareCatalog } from './mozaik/hardwareDatParser'
 import { updateWallLength, updateWallHeight, moveJoint, splitWallAtCenter, rebuildJoints, toggleFollowAngle, toggleJointMiter } from './math/wallEditor'
 import { adjustNeighborGaps } from './mozaik/wallPlacement'
 import { resizeProduct } from './mozaik/productResize'
+import { moveShelfGroup, applyFixedShelfHeight, snapToGrid, removePartByIndexFromRawXml, removeFixedShelfSection } from './mozaik/shelfEditor'
 import { snapModularHeight } from './mozaik/modularValues'
 import { createDefaultColumns } from './mozaik/unitTypes'
 import { createWalkInRoom } from './mozaik/roomFactory'
@@ -113,6 +116,13 @@ const initialState: AppState = {
   libraryConfig: { activeProducts: [], variantMappings: [], unitTypeColumns: createDefaultColumns(), productAssignments: {}, version: 2 },
   hoveredPart: null,
   inspectedPart: null,
+  elevationViewerProduct: null,
+  fixedShelfHeight: 1632,  // mm — ~64.25" (default for 96" DH), snapped to 32mm grid
+  baseCabHeight: 876.3,    // mm — 34.5" (standard base cabinet), from H_BaseCab
+  hutchSectionHeight: snapModularHeight(48 * 25.4), // 48" hutch/upper-stack default
+  settingsFile: null,
+  activeTemplateName: null,
+  hardwareCatalog: null,
 }
 
 type Action =
@@ -160,6 +170,9 @@ type Action =
   | { type: 'TOGGLE_VISIBILITY_MENU' }
   | { type: 'SET_PLACEMENT_MODE'; mode: 'floor' | 'wall' }
   | { type: 'SET_UNIT_HEIGHT'; height: number }
+  | { type: 'SET_FIXED_SHELF_HEIGHT'; height: number }
+  | { type: 'SET_BASE_CAB_HEIGHT'; height: number }
+  | { type: 'SET_HUTCH_SECTION_HEIGHT'; height: number }
   | { type: 'SET_WALL_SECTION_HEIGHT'; height: number }
   | { type: 'SET_WALL_MOUNT_TOP_AT'; height: number }
   | { type: 'TOGGLE_PRODUCT_CONFIG' }
@@ -197,12 +210,20 @@ type Action =
   | { type: 'SET_HOVERED_PART'; part: { productIndex: number; partIndex: number } | null }
   | { type: 'INSPECT_PART'; part: { productIndex: number; partIndex: number } }
   | { type: 'CLEAR_INSPECTION' }
-  | { type: 'START_PRODUCT_DRAG'; product: MozProduct; productIndex: number; group?: DynamicProductGroup }
+  | { type: 'OPEN_ELEVATION_VIEWER'; productIndex: number }
+  | { type: 'CLOSE_ELEVATION_VIEWER' }
+  | { type: 'UPDATE_SHELF_HEIGHT'; productIndex: number; shelfPartIndex: number; newZ: number }
+  | { type: 'DELETE_PRODUCT_PART'; productIndex: number; partIndex: number }
+  | { type: 'START_PRODUCT_DRAG'; product: MozProduct; productIndex: number; group?: DynamicProductGroup; unitTypeId?: string }
   | { type: 'SET_DRAG_HOVERED_WALL'; wallNumber: number | null }
   | { type: 'END_PRODUCT_DRAG' }
   | { type: 'BEGIN_DRAG' }
   | { type: 'END_DRAG' }
   | { type: 'UNDO' }
+  | { type: 'LOAD_SETTINGS_FILE'; file: RoomSettingsFile }
+  | { type: 'SET_ACTIVE_TEMPLATE'; name: string }
+  | { type: 'SET_HARDWARE_CATALOG'; catalog: HardwareCatalog }
+  | { type: 'UPDATE_ROOM_HARDWARE'; field: keyof RoomSetHardware; value: string | boolean | number }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -213,6 +234,7 @@ function reducer(state: AppState, action: Action): AppState {
         selectedWall: null,
         selectedProducts: [],
         inspectedPart: null,
+        elevationViewerProduct: null,
         dragTarget: null,
         visibilityMenuOpen: false,
         productConfigOpen: false,
@@ -267,8 +289,15 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, selectedSingleDrawBrand: action.brand, selectedSingleDrawTexture: null }
     case 'SET_SINGLEDRAW_TEXTURE':
       return { ...state, selectedSingleDrawTexture: action.filename }
-    case 'CREATE_ROOM':
-      return { ...state, room: action.room, selectedWall: null, visibility: defaultVisibility, wallHeight: action.room.parms.H_Walls }
+    case 'CREATE_ROOM': {
+      const newRoom = { ...action.room }
+      // Auto-apply active settings template to new room
+      if (!newRoom.roomSettings && state.activeTemplateName && state.settingsFile) {
+        const tmpl = state.settingsFile.templates.find(t => t.name === state.activeTemplateName)
+        if (tmpl) newRoom.roomSettings = JSON.parse(JSON.stringify(tmpl))
+      }
+      return { ...state, room: newRoom, selectedWall: null, visibility: defaultVisibility, wallHeight: newRoom.parms.H_Walls }
+    }
     case 'PLACE_PRODUCT': {
       if (!state.room) return state
       let products = [...state.room.products, action.product]
@@ -442,8 +471,12 @@ function reducer(state: AppState, action: Action): AppState {
       }
       const products = state.room.products.map(p => {
         if (!isWallMount(p.prodName)) {
-          // Floor product → resize to new floor height
-          return resizeProduct(p, 'height', snapped)
+          // Floor product → resize to new floor height, then apply shelf preference
+          let resized = resizeProduct(p, 'height', snapped)
+          if (state.fixedShelfHeight > 0) {
+            resized = applyFixedShelfHeight(resized, state.fixedShelfHeight)
+          }
+          return resized
         }
         // Wall product → reposition so top aligns to new unitHeight
         return { ...p, elev: Math.max(0, snapped - p.height) }
@@ -454,6 +487,40 @@ function reducer(state: AppState, action: Action): AppState {
         wallMountTopAt: snapped,
         room: { ...state.room, products },
       }
+    }
+    case 'SET_FIXED_SHELF_HEIGHT': {
+      const snapped = snapToGrid(action.height)
+      console.log(`[SHELF] SET_FIXED_SHELF_HEIGHT: raw=${action.height.toFixed(1)}mm → snapped=${snapped}mm`)
+      if (!state.room || state.room.products.length === 0) {
+        return { ...state, fixedShelfHeight: snapped }
+      }
+      const shelfProducts = state.room.products.map(p => {
+        if (!isWallMount(p.prodName)) {
+          return applyFixedShelfHeight(p, snapped)
+        }
+        return p
+      })
+      return {
+        ...state,
+        fixedShelfHeight: snapped,
+        room: { ...state.room, products: shelfProducts, rawText: '' },
+      }
+    }
+    case 'SET_BASE_CAB_HEIGHT': {
+      const rounded = Math.round(action.height)
+      const newState = { ...state, baseCabHeight: rounded }
+      if (state.room) {
+        newState.room = {
+          ...state.room,
+          parms: { ...state.room.parms, H_BaseCab: rounded },
+          rawText: '',
+        }
+      }
+      return newState
+    }
+    case 'SET_HUTCH_SECTION_HEIGHT': {
+      const snapped = snapModularHeight(action.height)
+      return { ...state, hutchSectionHeight: snapped }
     }
     case 'SET_WALL_SECTION_HEIGHT': {
       const snapped = snapModularHeight(action.height)
@@ -475,7 +542,7 @@ function reducer(state: AppState, action: Action): AppState {
     case 'SET_WALL_MOUNT_TOP_AT':
       return { ...state, wallMountTopAt: action.height }
     case 'CLOSE_PANELS':
-      return { ...state, productConfigOpen: false, visibilityMenuOpen: false, adminOpen: false, wallEditorActive: false, selectedWall: null }
+      return { ...state, productConfigOpen: false, visibilityMenuOpen: false, adminOpen: false, wallEditorActive: false, selectedWall: null, elevationViewerProduct: null }
     case 'TOGGLE_PRODUCT_CONFIG':
       return { ...state, productConfigOpen: !state.productConfigOpen }
     case 'SET_WALL_HEIGHT': {
@@ -619,8 +686,52 @@ function reducer(state: AppState, action: Action): AppState {
     }
     case 'CLEAR_INSPECTION':
       return { ...state, inspectedPart: null }
+    case 'OPEN_ELEVATION_VIEWER':
+      return { ...state, elevationViewerProduct: action.productIndex, selectedProducts: [action.productIndex] }
+    case 'CLOSE_ELEVATION_VIEWER':
+      return { ...state, elevationViewerProduct: null }
+    case 'UPDATE_SHELF_HEIGHT': {
+      if (!state.room) return state
+      const prod = state.room.products[action.productIndex]
+      if (!prod) return state
+      const updated = moveShelfGroup(prod, action.shelfPartIndex, action.newZ)
+      if (updated === prod) return state
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          products: state.room.products.map((p, i) => i === action.productIndex ? updated : p),
+          rawText: '',
+        },
+      }
+    }
+    case 'DELETE_PRODUCT_PART': {
+      if (!state.room) return state
+      const dProd = state.room.products[action.productIndex]
+      if (!dProd || !dProd.parts[action.partIndex]) return state
+      const deletedPart = dProd.parts[action.partIndex]
+      const newParts = dProd.parts.filter((_, i) => i !== action.partIndex)
+      let newRawXml = removePartByIndexFromRawXml(dProd.rawInnerXml, action.partIndex)
+      // If deleted part is a FixedShelf, also remove the FS section from ProductInterior
+      // so Mozaik doesn't regenerate the shelf on import
+      const dt = deletedPart.type.toLowerCase()
+      if (dt === 'fixedshelf' || dt === 'fixed shelf' || deletedPart.reportName.includes('F.Shelf')) {
+        newRawXml = removeFixedShelfSection(newRawXml)
+      }
+      console.log(`[DELETE] Removed part "${deletedPart.name}" (index ${action.partIndex}), rawXml: ${dProd.rawInnerXml.length} → ${newRawXml.length}`)
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          products: state.room.products.map((p, i) =>
+            i === action.productIndex ? { ...p, parts: newParts, rawInnerXml: newRawXml } : p
+          ),
+          rawText: '',
+        },
+      }
+    }
     case 'START_PRODUCT_DRAG':
-      return { ...state, dragProduct: { product: action.product, productIndex: action.productIndex, group: action.group }, dragHoveredWall: null }
+      return { ...state, dragProduct: { product: action.product, productIndex: action.productIndex, group: action.group, unitTypeId: action.unitTypeId }, dragHoveredWall: null }
     case 'SET_DRAG_HOVERED_WALL':
       return { ...state, dragHoveredWall: action.wallNumber }
     case 'END_PRODUCT_DRAG':
@@ -641,6 +752,49 @@ function reducer(state: AppState, action: Action): AppState {
       })
       return { ...state, room: { ...state.room, products } }
     }
+    case 'LOAD_SETTINGS_FILE':
+      return { ...state, settingsFile: action.file }
+    case 'SET_ACTIVE_TEMPLATE': {
+      const tmpl = state.settingsFile?.templates.find(t => t.name === action.name)
+      if (!tmpl) return { ...state, activeTemplateName: action.name }
+      // Deep-copy template settings into current room
+      const roomSettings = JSON.parse(JSON.stringify(tmpl))
+      if (state.room) {
+        return {
+          ...state,
+          activeTemplateName: action.name,
+          room: { ...state.room, roomSettings, rawText: '' },
+        }
+      }
+      return { ...state, activeTemplateName: action.name }
+    }
+    case 'SET_HARDWARE_CATALOG':
+      return { ...state, hardwareCatalog: action.catalog }
+    case 'UPDATE_ROOM_HARDWARE': {
+      if (!state.room?.roomSettings) return state
+      const hw = { ...state.room.roomSettings.hardware, [action.field]: action.value }
+      const rs = { ...state.room.roomSettings, hardware: hw, rawAttributes: { ...state.room.roomSettings.rawAttributes } }
+      // Also update the rawAttributes record so serialization picks up the change
+      const attrMap: Record<string, string> = {
+        drawerBox: 'DrawerBox', drawerGuide: 'DrawerGuide',
+        drawerGuideSlowCloseOn: 'DrawerGuideSlowCloseOn',
+        drawerGuideSpacerState: 'DrawerGuideSpacerState',
+        roTray: 'ROTray', roTrayGuide: 'ROTrayGuide',
+        roTrayGuideSlowCloseOn: 'ROTrayGuideSlowCloseOn',
+        roTrayGuideSpacerState: 'ROTrayGuideSpacerState',
+        roShelfGuide: 'ROShelfGuide',
+        drwPulls: 'DrwPulls', basePulls: 'BasePulls', wallPulls: 'WallPulls',
+        baseHinges: 'BaseHinges', wallHinges: 'WallHinges',
+        closetRod: 'ClosetRod', shelfPins: 'ShelfPins', locks: 'Locks',
+        legs: 'Legs', spotLights: 'SpotLights', linearLights: 'LinearLights',
+      }
+      const xmlKey = attrMap[action.field]
+      if (xmlKey) {
+        const v = action.value
+        rs.rawAttributes[xmlKey] = typeof v === 'boolean' ? (v ? 'True' : 'False') : String(v)
+      }
+      return { ...state, room: { ...state.room, roomSettings: rs, rawText: '' } }
+    }
     default:
       return state
   }
@@ -651,6 +805,7 @@ const UNDOABLE = new Set([
   'PLACE_PRODUCT', 'REMOVE_ROOM_PRODUCT', 'REMOVE_ROOM_PRODUCTS', 'UPDATE_ROOM_PRODUCT',
   'MOVE_FIXTURE', 'UPDATE_FIXTURE', 'ADD_FIXTURE', 'REMOVE_FIXTURE',
   'MOVE_JOINT', 'SPLIT_WALL', 'UPDATE_WALL', 'CREATE_ROOM', 'CLEAR_ROOM',
+  'UPDATE_SHELF_HEIGHT',
 ])
 
 function undoReducer(

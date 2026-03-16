@@ -16,6 +16,7 @@ export default function FloatingPanel({ children, className = '', style }: Float
         border: '1px solid var(--accent)',
         ...style,
       }}
+      onPointerDown={e => e.stopPropagation()}
     >
       {children}
     </div>

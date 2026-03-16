@@ -85,7 +85,7 @@ export default function PartInspector() {
     })
   }, [dispatch, productIndex])
 
-  if (!room || sel.length !== 1) return null
+  if (!room || sel.length !== 1 || state.elevationViewerProduct !== null) return null
 
   const product: MozProduct | undefined = room.products[productIndex]
   if (!product) return null

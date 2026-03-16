@@ -24,14 +24,18 @@ import AdminButton from './render/AdminButton'
 import AdminPanel from './render/AdminPanel'
 import PartInspector from './render/PartInspector'
 import PartShapeInspector from './render/PartShapeInspector'
+import ElevationViewer from './render/ElevationViewer'
 import DragOverlay from './render/DragOverlay'
 import { loadLibraryConfig } from './export/libraryConfigStore'
+import { loadSettingsConfig } from './export/settingsConfigStore'
+import { parseHardwareDat } from './mozaik/hardwareDatParser'
 import { useControlledLibrary } from './hooks/useControlledLibrary'
 import { createRectangularRoom, createReachInRoom, createWalkInRoom, createWalkInDeepRoom, createAngledRoom } from './mozaik/roomFactory'
 import { computeProductWorldOffset, computeWallGeometries } from './math/wallMath'
 import { mozPosToThree } from './math/basis'
 import { lookupTextureByFilename } from './render/useProductTexture'
 import { useMissingModels } from './render/useProductModel'
+import { computeAutoEndPanels } from './mozaik/autoEndPanels'
 import { useFolderActions } from './hooks/useFolderActions'
 import { useProductActions } from './hooks/useProductActions'
 
@@ -73,6 +77,13 @@ function AppInner() {
     [dispatch],
   )
 
+  const handleOpenElevation = useCallback(
+    (productIndex: number) => {
+      dispatch({ type: 'OPEN_ELEVATION_VIEWER', productIndex })
+    },
+    [dispatch],
+  )
+
   // Controlled Library Method: folder tree, dynamic groups, unit type pills
   const { folderTree, columns, assignments, dynamicGroups, handlePlaceGroup } =
     useControlledLibrary(handlePlaceProduct)
@@ -96,12 +107,15 @@ function AppInner() {
         e.preventDefault()
         dispatch({ type: 'UNDO' })
       }
-      if (e.key === 'Delete' && state.selectedProducts.length > 0) {
+      if (e.key === 'Delete' && state.selectedProducts.length > 0 && state.elevationViewerProduct === null) {
         e.preventDefault()
         handleRemoveProducts([...state.selectedProducts])
       }
       if (e.key === 'Escape') {
-        if (state.inspectedPart) {
+        if (state.elevationViewerProduct !== null) {
+          e.preventDefault()
+          dispatch({ type: 'CLOSE_ELEVATION_VIEWER' })
+        } else if (state.inspectedPart) {
           e.preventDefault()
           dispatch({ type: 'CLEAR_INSPECTION' })
         } else if (state.selectedProducts.length > 0) {
@@ -125,12 +139,33 @@ function AppInner() {
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [dispatch, state.selectedProducts, state.inspectedPart, state.room, state.standaloneProducts, handleRemoveProducts])
+  }, [dispatch, state.selectedProducts, state.inspectedPart, state.elevationViewerProduct, state.room, state.standaloneProducts, handleRemoveProducts])
 
   // Load persisted library config on startup
   useEffect(() => {
     loadLibraryConfig().then(config => {
       if (config) dispatch({ type: 'SET_LIBRARY_CONFIG', config })
+    })
+  }, [dispatch])
+
+  // Load persisted settings config (templates + hardware catalog) on startup
+  useEffect(() => {
+    loadSettingsConfig().then(config => {
+      if (!config) return
+      if (config.settingsFile) {
+        dispatch({ type: 'LOAD_SETTINGS_FILE', file: config.settingsFile })
+        if (config.activeTemplateName) {
+          dispatch({ type: 'SET_ACTIVE_TEMPLATE', name: config.activeTemplateName })
+        }
+      }
+      if (config.hardwareCatalogRaw) {
+        try {
+          const catalog = parseHardwareDat(config.hardwareCatalogRaw)
+          dispatch({ type: 'SET_HARDWARE_CATALOG', catalog })
+        } catch (e) {
+          console.warn('[SETTINGS] Failed to parse persisted Hardware.dat:', e)
+        }
+      }
     })
   }, [dispatch])
 
@@ -391,6 +426,7 @@ function AppInner() {
                 hoveredPart={state.hoveredPart}
                 inspectedPart={state.inspectedPart}
                 onInspectPart={handleInspectPart}
+                onOpenElevation={handleOpenElevation}
               />
             )
           })}
@@ -449,6 +485,9 @@ function AppInner() {
             wallSectionHeight={state.wallSectionHeight}
             wallMountTopAt={state.wallMountTopAt}
             wallHeight={state.wallHeight}
+            fixedShelfHeight={state.fixedShelfHeight}
+            baseCabHeight={state.baseCabHeight}
+            hutchSectionHeight={state.hutchSectionHeight}
             useInches={state.useInches}
             onToggle={() => {
               if (!state.productConfigOpen) window.dispatchEvent(new Event('panel-will-open'))
@@ -456,6 +495,9 @@ function AppInner() {
             }}
             onSetMode={(mode) => dispatch({ type: 'SET_PLACEMENT_MODE', mode })}
             onSetUnitHeight={(height) => dispatch({ type: 'SET_UNIT_HEIGHT', height })}
+            onSetFixedShelfHeight={(height) => dispatch({ type: 'SET_FIXED_SHELF_HEIGHT', height })}
+            onSetBaseCabHeight={(height) => dispatch({ type: 'SET_BASE_CAB_HEIGHT', height })}
+            onSetHutchSectionHeight={(height) => dispatch({ type: 'SET_HUTCH_SECTION_HEIGHT', height })}
             onSetWallSectionHeight={(height) => dispatch({ type: 'SET_WALL_SECTION_HEIGHT', height })}
             onSetWallHeight={(height) => dispatch({ type: 'SET_WALL_HEIGHT', height })}
             onCreatePresetRoom={handleCreatePresetRoom}
@@ -520,9 +562,11 @@ function AppInner() {
             products={state.standaloneProducts}
             unitHeight={state.unitHeight}
             wallSectionHeight={state.wallSectionHeight}
+            hutchSectionHeight={state.hutchSectionHeight}
+            baseCabHeight={state.baseCabHeight}
             spinning3DCards={state.spinning3DCards}
-            onStartDrag={(product, productIndex, group) =>
-              dispatch({ type: 'START_PRODUCT_DRAG', product, productIndex, group })
+            onStartDrag={(product, productIndex, group, unitTypeId) =>
+              dispatch({ type: 'START_PRODUCT_DRAG', product, productIndex, group, unitTypeId })
             }
           />
         </div>
@@ -614,15 +658,45 @@ function AppInner() {
           />
         )}
 
+        {state.elevationViewerProduct !== null && state.room && (() => {
+          const evProduct = state.room.products[state.elevationViewerProduct]
+          if (!evProduct) return null
+          const allPanels = computeAutoEndPanels(
+            state.room.products, state.room.walls, state.room.wallJoints, state.flipOps,
+          )
+          const adjPanels = allPanels.filter(p =>
+            p.adjacentProductIndex === state.elevationViewerProduct ||
+            p.leftAdjacentIndex === state.elevationViewerProduct ||
+            p.rightAdjacentIndex === state.elevationViewerProduct
+          )
+          return (
+            <ElevationViewer
+              product={evProduct}
+              productIndex={state.elevationViewerProduct}
+              useInches={state.useInches}
+              adjacentPanels={adjPanels}
+              onClose={() => dispatch({ type: 'CLOSE_ELEVATION_VIEWER' })}
+              onMoveShelf={(shelfPartIndex, newZ) =>
+                dispatch({ type: 'UPDATE_SHELF_HEIGHT', productIndex: state.elevationViewerProduct!, shelfPartIndex, newZ })
+              }
+              onDeletePart={(partIndex) =>
+                dispatch({ type: 'DELETE_PRODUCT_PART', productIndex: state.elevationViewerProduct!, partIndex })
+              }
+              onDragStart={() => dispatch({ type: 'BEGIN_DRAG' })}
+              onDragEnd={() => dispatch({ type: 'END_DRAG' })}
+            />
+          )
+        })()}
+
         {state.dragProduct && (
           <DragOverlay
             dragProduct={state.dragProduct}
             dragHoveredWall={state.dragHoveredWall}
-            onDrop={(productIndex, wallNumber, group) => {
+            onDrop={(productIndex, wallNumber, group, unitTypeId) => {
               if (group) {
                 handlePlaceGroup(group, wallNumber)
               } else {
-                handlePlaceProduct(productIndex, wallNumber)
+                handlePlaceProduct(productIndex, wallNumber, unitTypeId)
               }
               dispatch({ type: 'END_PRODUCT_DRAG' })
             }}

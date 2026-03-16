@@ -7,9 +7,9 @@ import type { MozProduct, DynamicProductGroup } from '../mozaik/types'
 import SpinningProductCard from './SpinningProductCard'
 
 interface DragOverlayProps {
-  dragProduct: { product: MozProduct; productIndex: number; group?: DynamicProductGroup }
+  dragProduct: { product: MozProduct; productIndex: number; group?: DynamicProductGroup; unitTypeId?: string }
   dragHoveredWall: number | null
-  onDrop: (productIndex: number, wallNumber: number, group?: DynamicProductGroup) => void
+  onDrop: (productIndex: number, wallNumber: number, group?: DynamicProductGroup, unitTypeId?: string) => void
   onCancel: () => void
 }
 
@@ -29,7 +29,7 @@ export default function DragOverlay({ dragProduct, dragHoveredWall, onDrop, onCa
         return
       }
       if (dragHoveredWall !== null) {
-        onDrop(dragProduct.productIndex, dragHoveredWall, dragProduct.group)
+        onDrop(dragProduct.productIndex, dragHoveredWall, dragProduct.group, dragProduct.unitTypeId)
       } else {
         onCancel()
       }

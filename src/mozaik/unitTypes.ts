@@ -55,6 +55,24 @@ export function createDefaultColumns(): UnitTypeColumn[] {
   return [...builtins, ...userCols]
 }
 
+// ── Height resolver ────────────────────────────────────────────────
+
+/**
+ * Map a unit type column ID to the correct section height.
+ * Used during product placement and variant resolution.
+ */
+export function heightForUnitType(
+  unitTypeId: string,
+  heights: { unitHeight: number; wallSectionHeight: number; hutchSectionHeight: number; baseCabHeight: number },
+): number {
+  switch (unitTypeId) {
+    case 'wall': return heights.wallSectionHeight
+    case 'hutch':
+    case 'upper-stack': return heights.hutchSectionHeight
+    default: return heights.unitHeight
+  }
+}
+
 // ── Suffix extraction ──────────────────────────────────────────────
 
 /**

@@ -7,11 +7,11 @@ import { useAppState } from '../store'
 import { parseLibraryNdx } from '../mozaik/libraryNdxParser'
 import type { LibraryFolder } from '../mozaik/libraryNdxParser'
 import type { DynamicProductGroup } from '../mozaik/types'
-import { computeDynamicGroups, createDefaultColumns } from '../mozaik/unitTypes'
+import { computeDynamicGroups, createDefaultColumns, heightForUnitType } from '../mozaik/unitTypes'
 import { resolveVariant } from '../mozaik/variantResolver'
 
 export function useControlledLibrary(
-  handlePlaceProduct: (productIndex: number, wallNumber: number) => void,
+  handlePlaceProduct: (productIndex: number, wallNumber: number, unitTypeId?: string) => void,
 ) {
   const state = useAppState()
   const [folderTree, setFolderTree] = useState<LibraryFolder[]>([])
@@ -55,18 +55,17 @@ export function useControlledLibrary(
   const handlePlaceGroup = useCallback(
     (group: DynamicProductGroup, wallNumber: number) => {
       if (!state.room) return
-      const wm = group.unitTypeId === 'wall'
-      const targetHeight = wm ? state.wallSectionHeight : state.unitHeight
+      const targetHeight = heightForUnitType(group.unitTypeId, state)
       const { filename } = resolveVariant(group, targetHeight)
       const baseName = filename.replace(/\.moz$/i, '')
       const idx = state.standaloneProducts.findIndex(mf => mf.product.prodName === baseName)
       if (idx >= 0) {
-        handlePlaceProduct(idx, wallNumber)
+        handlePlaceProduct(idx, wallNumber, group.unitTypeId)
       } else {
         console.warn(`[LIBRARY] Variant "${filename}" not loaded — check it in the admin panel`)
       }
     },
-    [state.room, state.wallSectionHeight, state.unitHeight, state.standaloneProducts, handlePlaceProduct],
+    [state.room, state.unitHeight, state.wallSectionHeight, state.hutchSectionHeight, state.baseCabHeight, state.standaloneProducts, handlePlaceProduct],
   )
 
   return { folderTree, columns, assignments, dynamicGroups, handlePlaceGroup }

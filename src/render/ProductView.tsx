@@ -45,6 +45,7 @@ interface ProductViewProps {
   hoveredPart?: { productIndex: number; partIndex: number } | null
   inspectedPart?: { productIndex: number; partIndex: number } | null
   onInspectPart?: (productIndex: number, partIndex: number) => void
+  onOpenElevation?: (index: number) => void
 }
 
 /**
@@ -237,7 +238,10 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
     )
   })() : null
 
-  const handleDblClick = onInspect ? (e: any) => { e.stopPropagation(); onInspect() } : undefined
+  const handleDblClick = onInspect ? (e: any) => {
+    if (e.shiftKey) { e.stopPropagation(); onInspect() }
+    // Regular double-click: let event bubble up for elevation viewer
+  } : undefined
 
   if (renderMode === 'wireframe') {
     return (
@@ -341,6 +345,7 @@ export default function ProductView({
   hoveredPart = null,
   inspectedPart = null,
   onInspectPart,
+  onOpenElevation,
 }: ProductViewProps) {
   const [hovered, setHovered] = useState(false)
   // Priority: SingleDraw (brand picker) → filename-based (user override) → textureId-based (DES default)
@@ -368,7 +373,12 @@ export default function ProductView({
   const showBox = showBoundingBox || selected
 
   return (
-    <group position={groupPos} rotation={[0, groupRotY, 0]} scale={[1, 1, -1]}>
+    <group position={groupPos} rotation={[0, groupRotY, 0]} scale={[1, 1, -1]}
+      onDoubleClick={productIndex !== undefined && onOpenElevation ? (e: any) => {
+        e.stopPropagation()
+        onOpenElevation(productIndex)
+      } : undefined}
+    >
       {product.parts.map((part, i) => (
         <PartMesh
           key={`${part.name}-${i}`}

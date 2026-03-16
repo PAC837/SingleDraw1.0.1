@@ -35,6 +35,7 @@ export function createRectangularRoom(params: CreateRoomParams): MozRoom {
     primaryTextureId: null,
     wallTextureId: null,
     rawText: '',
+    roomSettings: null,
   }
 }
 
@@ -247,5 +248,6 @@ export function createAngledRoom(height = 2438.4, thickness = 101.6): MozRoom {
     primaryTextureId: null,
     wallTextureId: null,
     rawText: '',
+    roomSettings: null,
   }
 }

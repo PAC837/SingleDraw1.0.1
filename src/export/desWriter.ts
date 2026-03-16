@@ -1,5 +1,6 @@
 import type { MozRoom, MozWall, MozWallJoint, MozFixture, MozProduct, MozPart, WallGeometry } from '../mozaik/types'
-import { roomParmsXml, ROOM_SET_XML } from './desTemplate'
+import { roomParmsXml } from './desTemplate'
+import { serializeRoomSetXml, defaultRoomSetXml } from './roomSetSerializer'
 import { computeWallGeometries, computeWallTrims } from '../math/wallMath'
 import { computeAutoEndPanels, createSyntheticPanelProduct } from '../mozaik/autoEndPanels'
 import { usableWallLength } from '../mozaik/wallPlacement'
@@ -184,7 +185,11 @@ function generateDesXml(inputRoom: MozRoom, flipOps = false): string {
   lines.push(roomParmsXml(room.parms))
 
   // <RoomSet> — required by Mozaik (door settings, material templates, hardware, textures)
-  lines.push(ROOM_SET_XML)
+  if (room.roomSettings) {
+    lines.push(serializeRoomSetXml(room.roomSettings))
+  } else {
+    lines.push(defaultRoomSetXml())
+  }
 
   // Compute wall geometries for shaped wall export + joint miterBack decisions
   const geos = computeWallGeometries(room.walls)

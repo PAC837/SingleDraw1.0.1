@@ -13,13 +13,15 @@ interface UnitTypePillsProps {
   products: MozFile[]
   unitHeight: number
   wallSectionHeight: number
+  hutchSectionHeight: number
+  baseCabHeight: number
   spinning3DCards?: boolean
-  onStartDrag: (product: MozProduct, productIndex: number, group?: DynamicProductGroup) => void
+  onStartDrag: (product: MozProduct, productIndex: number, group?: DynamicProductGroup, unitTypeId?: string) => void
 }
 
 export default function UnitTypePills({
   columns, assignments, dynamicGroups, products,
-  unitHeight, wallSectionHeight, spinning3DCards = false, onStartDrag,
+  unitHeight, wallSectionHeight, hutchSectionHeight, baseCabHeight, spinning3DCards = false, onStartDrag,
 }: UnitTypePillsProps) {
   const [openId, setOpenId] = useState<string | null>(null)
 
@@ -75,6 +77,8 @@ export default function UnitTypePills({
                 dynamicGroups={dynamicGroups}
                 unitHeight={unitHeight}
                 wallSectionHeight={wallSectionHeight}
+                hutchSectionHeight={hutchSectionHeight}
+                baseCabHeight={baseCabHeight}
                 spinning3DCards={spinning3DCards}
                 onStartDrag={onStartDrag}
               />

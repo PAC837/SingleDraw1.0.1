@@ -7,6 +7,7 @@ import {
   getAttrInt, getChildren, getChild, getAllAttrs,
 } from './xmlUtils'
 import { propagateEquations } from './shapeTopology'
+import { extractRoomSet, type RoomSettingsTemplate } from './settingsTemplateParser'
 
 /** Parse a DES file text into a MozRoom. */
 export function parseDes(fileText: string): MozRoom {
@@ -20,6 +21,11 @@ export function parseDes(fileText: string): MozRoom {
   const { primaryTextureId, wallTextureId } = parseTextureIds(root)
   console.log(`[DES] Texture IDs — primary: ${primaryTextureId}, walls: ${wallTextureId}`)
 
+  const roomSettings = parseRoomSetSettings(root, getAttrStr(root, 'Name'))
+  if (roomSettings) {
+    console.log(`[DES] RoomSet settings: DrawerGuide="${roomSettings.hardware.drawerGuide}", DrawerBox="${roomSettings.hardware.drawerBox}"`)
+  }
+
   return {
     uniqueId: getAttrStr(root, 'UniqueID'),
     name: getAttrStr(root, 'Name'),
@@ -32,6 +38,19 @@ export function parseDes(fileText: string): MozRoom {
     primaryTextureId,
     wallTextureId,
     rawText: fileText,
+    roomSettings,
+  }
+}
+
+/** Extract RoomSet settings from a DES Room element. */
+function parseRoomSetSettings(root: Element, roomName: string): RoomSettingsTemplate | null {
+  const roomSetEl = getChild(root, 'RoomSet')
+  if (!roomSetEl) return null
+  try {
+    return extractRoomSet(roomSetEl, roomName)
+  } catch (e) {
+    console.warn('[DES] Failed to parse RoomSet settings:', e)
+    return null
   }
 }
 

@@ -12,6 +12,7 @@ import { createDefaultColumns, deriveActiveProducts } from '../mozaik/unitTypes'
 import { parseMozParams } from '../mozaik/mozParser'
 import AdminColumnHeaders from './AdminColumnHeaders'
 import AdminProductTable from './AdminProductTable'
+import SettingsTemplatePanel from './SettingsTemplatePanel'
 
 interface AdminPanelProps {
   folderTree: LibraryFolder[]
@@ -31,6 +32,7 @@ export default function AdminPanel({
 }: AdminPanelProps) {
   const [search, setSearch] = useState('')
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set())
+  const [activeTab, setActiveTab] = useState<'library' | 'settings'>('library')
 
   // Scan all MOZ files for CabProdParms when admin panel opens
   const [scannedParams, setScannedParams] = useState<Record<string, CabProdParm[]>>({})
@@ -163,10 +165,34 @@ export default function AdminPanel({
         style={{ borderColor: '#333' }}
       >
         <div className="flex items-center gap-4">
-          <h1 className="text-xl font-bold text-white">Library Manager</h1>
-          <span className="text-xs text-[var(--text-secondary)]">
-            {activeCount} / {totalCount} active
-          </span>
+          <h1 className="text-xl font-bold text-white">Admin</h1>
+          <div className="flex gap-1">
+            <button
+              onClick={() => setActiveTab('library')}
+              className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                activeTab === 'library'
+                  ? 'bg-[var(--accent)] text-black'
+                  : 'bg-[#333] text-[#aaa] hover:bg-[#444]'
+              }`}
+            >
+              Library
+            </button>
+            <button
+              onClick={() => setActiveTab('settings')}
+              className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                activeTab === 'settings'
+                  ? 'bg-[var(--accent)] text-black'
+                  : 'bg-[#333] text-[#aaa] hover:bg-[#444]'
+              }`}
+            >
+              Settings
+            </button>
+          </div>
+          {activeTab === 'library' && (
+            <span className="text-xs text-[var(--text-secondary)]">
+              {activeCount} / {totalCount} active
+            </span>
+          )}
         </div>
         <button
           onClick={onClose}
@@ -179,63 +205,71 @@ export default function AdminPanel({
         </button>
       </div>
 
-      {/* Search bar */}
-      <div className="px-6 py-3 border-b" style={{ borderColor: '#333' }}>
-        <input
-          type="text"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          placeholder="Search products..."
-          className="w-full text-sm px-3 py-2 bg-gray-800 border border-gray-600 text-white rounded focus:border-[var(--accent)] focus:outline-none transition-colors"
-        />
-      </div>
-
-      {/* Column headers + folder tree */}
-      <div className="flex-1 overflow-y-auto overflow-x-auto px-6 py-0">
-        {folderTree.length === 0 && (
-          <div className="text-center py-12 text-[var(--text-secondary)] text-sm">
-            No library folder linked. Link a library folder from the sidebar first.
-          </div>
-        )}
-
-        {folderTree.length > 0 && filteredTree.length === 0 && (
-          <div className="text-center py-12 text-[var(--text-secondary)] text-sm">
-            {search ? 'No products match your search.' : 'No MOZ files found in library folder.'}
-          </div>
-        )}
-
-        {filteredTree.length > 0 && (
-          <div style={{ minWidth: `${200 + columns.length * 44 + 48}px` }}>
-            <AdminColumnHeaders
-              columns={columns}
-              onRenameColumn={renameColumn}
-            />
-            <AdminProductTable
-              folderTree={filteredTree}
-              columns={columns}
-              assignments={assignments}
-              fileSet={fileSet}
-              expandedFolders={expandedFolders}
-              productParams={mergedParams}
-              onToggleExpand={toggleExpand}
-              onToggleAssignment={toggleAssignment}
+      {activeTab === 'library' ? (
+        <>
+          {/* Search bar */}
+          <div className="px-6 py-3 border-b" style={{ borderColor: '#333' }}>
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search products..."
+              className="w-full text-sm px-3 py-2 bg-gray-800 border border-gray-600 text-white rounded focus:border-[var(--accent)] focus:outline-none transition-colors"
             />
           </div>
-        )}
-      </div>
 
-      {/* Footer status bar */}
-      <div
-        className="flex items-center justify-between px-6 py-3 border-t text-xs text-[var(--text-secondary)]"
-        style={{ borderColor: '#333' }}
-      >
-        <span>
-          {filteredTree.length} top-level folder{filteredTree.length !== 1 ? 's' : ''} · {totalCount} product{totalCount !== 1 ? 's' : ''} total
-        </span>
-        <span>
-          Selections auto-saved · Double-click user column headers to rename
-        </span>
-      </div>
+          {/* Column headers + folder tree */}
+          <div className="flex-1 overflow-y-auto overflow-x-auto px-6 py-0">
+            {folderTree.length === 0 && (
+              <div className="text-center py-12 text-[var(--text-secondary)] text-sm">
+                No library folder linked. Link a library folder from the sidebar first.
+              </div>
+            )}
+
+            {folderTree.length > 0 && filteredTree.length === 0 && (
+              <div className="text-center py-12 text-[var(--text-secondary)] text-sm">
+                {search ? 'No products match your search.' : 'No MOZ files found in library folder.'}
+              </div>
+            )}
+
+            {filteredTree.length > 0 && (
+              <div style={{ minWidth: `${200 + columns.length * 44 + 48}px` }}>
+                <AdminColumnHeaders
+                  columns={columns}
+                  onRenameColumn={renameColumn}
+                />
+                <AdminProductTable
+                  folderTree={filteredTree}
+                  columns={columns}
+                  assignments={assignments}
+                  fileSet={fileSet}
+                  expandedFolders={expandedFolders}
+                  productParams={mergedParams}
+                  onToggleExpand={toggleExpand}
+                  onToggleAssignment={toggleAssignment}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Footer status bar */}
+          <div
+            className="flex items-center justify-between px-6 py-3 border-t text-xs text-[var(--text-secondary)]"
+            style={{ borderColor: '#333' }}
+          >
+            <span>
+              {filteredTree.length} top-level folder{filteredTree.length !== 1 ? 's' : ''} · {totalCount} product{totalCount !== 1 ? 's' : ''} total
+            </span>
+            <span>
+              Selections auto-saved · Double-click user column headers to rename
+            </span>
+          </div>
+        </>
+      ) : (
+        <div className="flex-1 overflow-y-auto">
+          <SettingsTemplatePanel />
+        </div>
+      )}
     </div>
   )
 }

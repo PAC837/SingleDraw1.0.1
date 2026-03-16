@@ -5,7 +5,7 @@
  * Cards are dragged onto walls to place products.
  */
 import type { MozFile, MozProduct, DynamicProductGroup } from '../mozaik/types'
-import { getGroupedFiles } from '../mozaik/unitTypes'
+import { getGroupedFiles, heightForUnitType } from '../mozaik/unitTypes'
 import { resolveVariant } from '../mozaik/variantResolver'
 import FloatingPanel from '../ui/FloatingPanel'
 import ProductPreview from './ProductPreview'
@@ -19,8 +19,10 @@ interface UnitTypeDropdownProps {
   dynamicGroups: DynamicProductGroup[]
   unitHeight: number
   wallSectionHeight: number
+  hutchSectionHeight: number
+  baseCabHeight: number
   spinning3DCards?: boolean
-  onStartDrag: (product: MozProduct, productIndex: number, group?: DynamicProductGroup) => void
+  onStartDrag: (product: MozProduct, productIndex: number, group?: DynamicProductGroup, unitTypeId?: string) => void
 }
 
 const cardW = 125
@@ -31,7 +33,7 @@ const gapBot = 10
 
 export default function UnitTypeDropdown({
   unitTypeId, unitTypeLabel, products, assignments, dynamicGroups,
-  unitHeight, wallSectionHeight, spinning3DCards = false, onStartDrag,
+  unitHeight, wallSectionHeight, hutchSectionHeight, baseCabHeight, spinning3DCards = false, onStartDrag,
 }: UnitTypeDropdownProps) {
   // Groups for this unit type
   const groups = dynamicGroups.filter(g => g.unitTypeId === unitTypeId)
@@ -70,8 +72,7 @@ export default function UnitTypeDropdown({
 
       {/* Dynamic group cards */}
       {groups.map(group => {
-        const wm = group.unitTypeId === 'wall'
-        const targetH = wm ? wallSectionHeight : unitHeight
+        const targetH = heightForUnitType(group.unitTypeId, { unitHeight, wallSectionHeight, hutchSectionHeight, baseCabHeight })
         const { filename } = resolveVariant(group, targetH)
         const previewFile = products.find(
           mf => (mf.product.prodName + '.moz') === filename
@@ -82,7 +83,7 @@ export default function UnitTypeDropdown({
             key={`group-${group.groupName}-${group.rootFolderName}`}
             className="bg-[var(--bg-dark)] rounded p-2 transition-all cursor-grab active:cursor-grabbing"
             onPointerDown={() => {
-              if (previewFile && previewIdx >= 0) onStartDrag(previewFile.product, previewIdx, group)
+              if (previewFile && previewIdx >= 0) onStartDrag(previewFile.product, previewIdx, group, unitTypeId)
             }}
             onMouseEnter={e => { e.currentTarget.style.outline = '1px solid var(--accent)' }}
             onMouseLeave={e => { e.currentTarget.style.outline = 'none' }}
@@ -108,7 +109,7 @@ export default function UnitTypeDropdown({
         <div
           key={index}
           className="bg-[var(--bg-dark)] rounded p-2 transition-all cursor-grab active:cursor-grabbing"
-          onPointerDown={() => onStartDrag(mf.product, index)}
+          onPointerDown={() => onStartDrag(mf.product, index, undefined, unitTypeId)}
           onMouseEnter={e => { e.currentTarget.style.outline = '1px solid var(--accent)' }}
           onMouseLeave={e => { e.currentTarget.style.outline = 'none' }}
         >
