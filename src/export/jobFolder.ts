@@ -34,14 +34,20 @@ export async function exportDesRoom(
   // Write .des file
   const desHandle = await dir.getFileHandle(desName, { create: true })
   const desWritable = await desHandle.createWritable()
-  await desWritable.write(content)
-  await desWritable.close()
+  try {
+    await desWritable.write(content)
+  } finally {
+    await desWritable.close()
+  }
 
   // Write .bak file (same content — Mozaik requires this)
   const bakHandle = await dir.getFileHandle(bakName, { create: true })
   const bakWritable = await bakHandle.createWritable()
-  await bakWritable.write(content)
-  await bakWritable.close()
+  try {
+    await bakWritable.write(content)
+  } finally {
+    await bakWritable.close()
+  }
 
   console.log(`[EXPORT] Wrote ${desName} + ${bakName} to job folder`)
   return desName

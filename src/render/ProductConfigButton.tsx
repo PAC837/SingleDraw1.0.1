@@ -19,6 +19,8 @@ interface ProductConfigButtonProps {
   fixedShelfHeight: number       // mm — preferred fixed shelf Z
   baseCabHeight: number          // mm — base cabinet height
   hutchSectionHeight: number     // mm — hutch/upper-stack section height
+  toeRecess: number              // mm — toe recess behind end panel front face
+  toeHeight: number              // mm — toe kick height (32mm grid)
   useInches: boolean
   onToggle: () => void
   onSetMode: (mode: 'floor' | 'wall') => void
@@ -28,6 +30,8 @@ interface ProductConfigButtonProps {
   onSetHutchSectionHeight: (mm: number) => void
   onSetWallSectionHeight: (mm: number) => void
   onSetWallHeight: (mm: number) => void
+  onSetToeRecess: (mm: number) => void
+  onSetToeHeight: (mm: number) => void
   onCreatePresetRoom: (preset: 'reach-in' | 'walk-in' | 'walk-in-deep' | 'angled') => void
 }
 
@@ -36,11 +40,13 @@ const FLOOR_SECTION_PRESETS = [84, 87, 96, 108]
 const WALL_SECTION_PRESETS = [72, 76, 84, 87, 96, 108]
 const FIXED_SHELF_PRESETS = [36, 42, 48]
 const BASE_CAB_PRESETS = [30, 34.5, 36]
+const TOE_RECESS_PRESETS = [0, 1, 1.5, 2, 2.5, 3]
+const TOE_HEIGHT_PRESETS_MM = [64, 96, 128, 160]  // 32mm grid only
 const HUTCH_SECTION_PRESETS = [36, 42, 48]
 
 export default function ProductConfigButton({
-  open, placementMode, unitHeight, wallSectionHeight, wallMountTopAt, wallHeight, fixedShelfHeight, baseCabHeight, hutchSectionHeight, useInches,
-  onToggle, onSetMode, onSetUnitHeight, onSetFixedShelfHeight, onSetBaseCabHeight, onSetHutchSectionHeight, onSetWallSectionHeight, onSetWallHeight, onCreatePresetRoom,
+  open, placementMode, unitHeight, wallSectionHeight, wallMountTopAt, wallHeight, fixedShelfHeight, baseCabHeight, hutchSectionHeight, toeRecess, toeHeight, useInches,
+  onToggle, onSetMode, onSetUnitHeight, onSetFixedShelfHeight, onSetBaseCabHeight, onSetHutchSectionHeight, onSetWallSectionHeight, onSetWallHeight, onSetToeRecess, onSetToeHeight, onCreatePresetRoom,
 }: ProductConfigButtonProps) {
   // Close only when clicking the 3D canvas background (onPointerMissed)
   useEffect(() => {
@@ -210,6 +216,68 @@ export default function ProductConfigButton({
                 }}
                 className="w-14 text-xs px-1.5 py-1 bg-gray-800 rounded border border-gray-600 text-white text-center"
               />
+            </div>
+          </div>
+
+          {/* Toe Recess */}
+          <div>
+            <label className="text-[10px] uppercase tracking-wider" style={{ color: '#9ca3af' }}>
+              Toe Recess
+              <span className="text-gray-500 normal-case ml-1">{formatDim(toeRecess, useInches)}</span>
+            </label>
+            <div className="flex flex-wrap gap-1 mt-1">
+              {TOE_RECESS_PRESETS.map(p => {
+                const isActive = Math.abs(toeRecess - inchesToMm(p)) < 1
+                return (
+                  <button
+                    key={p}
+                    onClick={() => onSetToeRecess(inchesToMm(p))}
+                    className="text-xs px-2 py-1 rounded transition-colors"
+                    style={{
+                      background: isActive ? 'var(--accent)' : '#333',
+                      color: isActive ? '#000' : '#aaa',
+                    }}
+                  >
+                    {p}
+                  </button>
+                )
+              })}
+              <input
+                type="number"
+                step="0.5"
+                value={useInches ? +(mmToInches(toeRecess)).toFixed(1) : Math.round(toeRecess)}
+                onChange={e => {
+                  const v = Number(e.target.value)
+                  onSetToeRecess(useInches ? inchesToMm(v) : v)
+                }}
+                className="w-14 text-xs px-1.5 py-1 bg-gray-800 rounded border border-gray-600 text-white text-center"
+              />
+            </div>
+          </div>
+
+          {/* Toe Height */}
+          <div>
+            <label className="text-[10px] uppercase tracking-wider" style={{ color: '#9ca3af' }}>
+              Toe Height
+              <span className="text-gray-500 normal-case ml-1">{formatDim(toeHeight, useInches)}</span>
+            </label>
+            <div className="flex gap-1 mt-1">
+              {TOE_HEIGHT_PRESETS_MM.map(p => {
+                const isActive = Math.abs(toeHeight - p) < 1
+                return (
+                  <button
+                    key={p}
+                    onClick={() => onSetToeHeight(p)}
+                    className="text-xs px-2 py-1 rounded transition-colors"
+                    style={{
+                      background: isActive ? 'var(--accent)' : '#333',
+                      color: isActive ? '#000' : '#aaa',
+                    }}
+                  >
+                    {p}
+                  </button>
+                )
+              })}
             </div>
           </div>
 

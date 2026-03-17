@@ -106,6 +106,40 @@ export default function SettingsTemplatePanel() {
 
   return (
     <div className="p-4 space-y-6 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 140px)' }}>
+      {/* Fastener Holes Section */}
+      <section>
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] border-b border-[var(--accent)] pb-1 mb-3">
+          Fasteners
+        </h3>
+        <p className="text-[10px] text-[#666] mb-2">Synthetic fastener holes on Toe / Bottom / Top parts (not exported)</p>
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <label className="text-xs text-[#999] w-28 shrink-0">Large Hole (mm)</label>
+            <input
+              type="number"
+              value={state.fastenerLargeDia}
+              onChange={e => dispatch({ type: 'SET_FASTENER_LARGE_DIA', value: parseFloat(e.target.value) || 0 })}
+              min={0}
+              step={1}
+              className="text-xs px-2 py-1 bg-gray-800 border border-[var(--accent)] text-white rounded w-20"
+            />
+            <span className="text-[10px] text-[#666]">0 = hidden</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <label className="text-xs text-[#999] w-28 shrink-0">Small Hole (mm)</label>
+            <input
+              type="number"
+              value={state.fastenerSmallDia}
+              onChange={e => dispatch({ type: 'SET_FASTENER_SMALL_DIA', value: parseFloat(e.target.value) || 0 })}
+              min={0}
+              step={1}
+              className="text-xs px-2 py-1 bg-gray-800 border border-[var(--accent)] text-white rounded w-20"
+            />
+            <span className="text-[10px] text-[#666]">0 = hidden</span>
+          </div>
+        </div>
+      </section>
+
       {/* Data Files Section */}
       <section>
         <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--accent)] border-b border-[var(--accent)] pb-1 mb-3">

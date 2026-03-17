@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { StoreProvider, useAppState, useAppDispatch } from './store'
-import type { DebugOverlays, RenderMode } from './mozaik/types'
+import type { RenderMode, DebugOverlays } from './mozaik/types'
 import Scene from './render/Scene'
 import UIPanel from './render/UIPanel'
 import RoomWalls from './render/RoomWalls'
@@ -9,35 +9,22 @@ import DebugOverlaysComponent from './render/DebugOverlays'
 import ProbeScene from './render/ProbeScene'
 import FloorPlane from './render/FloorPlane'
 import RoomFloor from './render/RoomFloor'
-import HomeButton from './render/HomeButton'
-import WallEditorButton from './render/WallEditorButton'
-import VisibilityMenu from './render/VisibilityMenu'
-import RenderModeButton from './render/RenderModeButton'
-import ProductConfigButton from './render/ProductConfigButton'
-import WallEditorPanel from './render/WallEditorPanel'
-import PlanViewOverlay from './render/PlanViewOverlay'
-import MiniRoomPreview from './render/MiniRoomPreview'
 import AutoEndPanels from './render/AutoEndPanels'
-import AdvancedSettingsButton from './render/AdvancedSettingsButton'
 import UnitTypePills from './render/UnitTypePills'
-import AdminButton from './render/AdminButton'
-import AdminPanel from './render/AdminPanel'
-import PartInspector from './render/PartInspector'
-import PartShapeInspector from './render/PartShapeInspector'
-import ElevationViewer from './render/ElevationViewer'
-import DragOverlay from './render/DragOverlay'
-import { loadLibraryConfig } from './export/libraryConfigStore'
-import { loadSettingsConfig } from './export/settingsConfigStore'
-import { parseHardwareDat } from './mozaik/hardwareDatParser'
+import PlanViewOverlay from './render/PlanViewOverlay'
+import AppToolbar from './render/AppToolbar'
+import AppOverlays from './render/AppOverlays'
+import WallEditorSection from './render/WallEditorSection'
 import { useControlledLibrary } from './hooks/useControlledLibrary'
 import { createRectangularRoom, createReachInRoom, createWalkInRoom, createWalkInDeepRoom, createAngledRoom } from './mozaik/roomFactory'
 import { computeProductWorldOffset, computeWallGeometries } from './math/wallMath'
 import { mozPosToThree } from './math/basis'
 import { lookupTextureByFilename } from './render/useProductTexture'
 import { useMissingModels } from './render/useProductModel'
-import { computeAutoEndPanels } from './mozaik/autoEndPanels'
 import { useFolderActions } from './hooks/useFolderActions'
 import { useProductActions } from './hooks/useProductActions'
+import { useAppInitialization } from './hooks/useAppInitialization'
+import { useAppKeyboardShortcuts } from './hooks/useAppKeyboardShortcuts'
 
 function AppInner() {
   const state = useAppState()
@@ -46,29 +33,23 @@ function AppInner() {
   const [hoveredWall, setHoveredWall] = useState<number | null>(null)
   const [advancedOpen, setAdvancedOpen] = useState(false)
 
-  // Close all panels when any panel fires 'panel-will-open'
-  useEffect(() => {
-    const handler = () => {
-      dispatch({ type: 'CLOSE_PANELS' })
-      setAdvancedOpen(false)
-    }
-    window.addEventListener('panel-will-open', handler)
-    return () => window.removeEventListener('panel-will-open', handler)
-  }, [dispatch])
-
-  // Folder & export actions (persisted folder linking, library loading, DES/MOZ export)
   const {
     linkJobFolder, linkTextureFolder, linkLibraryFolder,
     linkSketchUpFolder, linkModelsFolder,
     generateGlbScript, loadFromLibrary, exportDes, exportMoz,
   } = useFolderActions()
 
-  // Product placement, manipulation, collision-clamped movement, bump
   const {
     handlePlaceProduct, handleUpdateProductDimension, handleResizeProductWidth, handleRemoveProduct,
     handleRemoveProducts, selectProduct, handleUpdateProductElev, handleUpdateProductX,
     handleBumpLeft, handleBumpRight,
   } = useProductActions()
+
+  // Initialization effects (panel-close, library config, settings config, auto-load)
+  useAppInitialization(setAdvancedOpen, loadFromLibrary)
+
+  // Keyboard shortcuts (Ctrl+Z, Delete, Escape, arrow keys)
+  useAppKeyboardShortcuts(handleRemoveProducts)
 
   const handleInspectPart = useCallback(
     (productIndex: number, partIndex: number) => {
@@ -84,11 +65,9 @@ function AppInner() {
     [dispatch],
   )
 
-  // Controlled Library Method: folder tree, dynamic groups, unit type pills
   const { folderTree, columns, assignments, dynamicGroups, handlePlaceGroup } =
     useControlledLibrary(handlePlaceProduct)
 
-  // Build product parameter map for admin panel (filename → CabProdParm[])
   const productParams = useMemo(() => {
     const map: Record<string, import('./mozaik/types').CabProdParm[]> = {}
     for (const mf of state.standaloneProducts) {
@@ -99,82 +78,6 @@ function AppInner() {
     }
     return map
   }, [state.standaloneProducts])
-
-  // Keyboard shortcuts: Ctrl+Z undo, Delete batch-remove, Escape clear selection
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
-        e.preventDefault()
-        dispatch({ type: 'UNDO' })
-      }
-      if (e.key === 'Delete' && state.selectedProducts.length > 0 && state.elevationViewerProduct === null) {
-        e.preventDefault()
-        handleRemoveProducts([...state.selectedProducts])
-      }
-      if (e.key === 'Escape') {
-        if (state.elevationViewerProduct !== null) {
-          e.preventDefault()
-          dispatch({ type: 'CLOSE_ELEVATION_VIEWER' })
-        } else if (state.inspectedPart) {
-          e.preventDefault()
-          dispatch({ type: 'CLEAR_INSPECTION' })
-        } else if (state.selectedProducts.length > 0) {
-          e.preventDefault()
-          dispatch({ type: 'CLEAR_SELECTION' })
-        }
-      }
-      // Arrow keys cycle parts while inspector is open
-      if (state.inspectedPart && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
-        e.preventDefault()
-        const { productIndex, partIndex } = state.inspectedPart
-        const product = state.room?.products[productIndex] ?? state.standaloneProducts[productIndex]?.product
-        if (product) {
-          const count = product.parts.length
-          const next = e.key === 'ArrowLeft'
-            ? (partIndex - 1 + count) % count
-            : (partIndex + 1) % count
-          dispatch({ type: 'INSPECT_PART', part: { productIndex, partIndex: next } })
-        }
-      }
-    }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [dispatch, state.selectedProducts, state.inspectedPart, state.elevationViewerProduct, state.room, state.standaloneProducts, handleRemoveProducts])
-
-  // Load persisted library config on startup
-  useEffect(() => {
-    loadLibraryConfig().then(config => {
-      if (config) dispatch({ type: 'SET_LIBRARY_CONFIG', config })
-    })
-  }, [dispatch])
-
-  // Load persisted settings config (templates + hardware catalog) on startup
-  useEffect(() => {
-    loadSettingsConfig().then(config => {
-      if (!config) return
-      if (config.settingsFile) {
-        dispatch({ type: 'LOAD_SETTINGS_FILE', file: config.settingsFile })
-        if (config.activeTemplateName) {
-          dispatch({ type: 'SET_ACTIVE_TEMPLATE', name: config.activeTemplateName })
-        }
-      }
-      if (config.hardwareCatalogRaw) {
-        try {
-          const catalog = parseHardwareDat(config.hardwareCatalogRaw)
-          dispatch({ type: 'SET_HARDWARE_CATALOG', catalog })
-        } catch (e) {
-          console.warn('[SETTINGS] Failed to parse persisted Hardware.dat:', e)
-        }
-      }
-    })
-  }, [dispatch])
-
-  // Auto-load active products from persisted config when library folder is ready
-  useEffect(() => {
-    if (state.libraryFolder && state.libraryConfig.activeProducts.length > 0) {
-      loadFromLibrary(state.libraryConfig.activeProducts)
-    }
-  }, [state.libraryFolder, state.libraryConfig.activeProducts, loadFromLibrary])
 
   const toggleOverlay = useCallback(
     (key: keyof DebugOverlays) => dispatch({ type: 'TOGGLE_OVERLAY', key }),
@@ -216,20 +119,17 @@ function AppInner() {
     [dispatch, state.wallHeight],
   )
 
-  // Resolve texture: user override → DES primaryTextureId → none
   const primaryTextureId = state.room?.primaryTextureId ?? null
   const resolvedTextureId = state.selectedTexture
     ? (lookupTextureByFilename(state.selectedTexture)?.id ?? null)
     : primaryTextureId
   const resolvedTextureFilename = state.selectedTexture ?? null
 
-  // Pre-compute wall geometries for product wall-normal lookup
   const wallGeometries = useMemo(
     () => state.room ? computeWallGeometries(state.room.walls) : [],
     [state.room?.walls],
   )
 
-  // Orbit target: center of the room footprint (or origin if no room)
   const roomCenter = useMemo((): [number, number, number] => {
     if (!state.room || state.room.walls.length === 0) return [0, 0, 0]
     const geos = wallGeometries.length > 0 ? wallGeometries : computeWallGeometries(state.room.walls)
@@ -335,9 +235,7 @@ function AppInner() {
           hdriIntensity={state.hdriIntensity}
         >
           <DebugOverlaysComponent overlays={state.overlays} room={state.room} />
-
           {state.overlays.probeScene && <ProbeScene />}
-
           {state.visibility.floor && <FloorPlane />}
 
           {state.room && state.room.walls.length > 0 && (
@@ -386,7 +284,6 @@ function AppInner() {
             </>
           )}
 
-          {/* Render room products — placed on their referenced walls */}
           {state.visibility.products && state.room?.products.map((product, i) => {
             const offset = computeProductWorldOffset(product, state.room!.walls, state.room!.wallJoints)
             if (!offset) console.warn(`[RENDER] Product "${product.prodName}" on wall "${product.wall}" — offset is null!`)
@@ -419,6 +316,8 @@ function AppInner() {
                 textureId={resolvedTextureId}
                 textureFilename={resolvedTextureFilename}
                 showOperations={state.showOperations}
+                fastenerLargeDia={state.fastenerLargeDia}
+                fastenerSmallDia={state.fastenerSmallDia}
                 showShapeDebug={state.showShapeDebug}
                 singleDrawBrand={state.selectedSingleDrawBrand}
                 singleDrawTexture={state.selectedSingleDrawTexture}
@@ -431,7 +330,6 @@ function AppInner() {
             )
           })}
 
-          {/* Auto end panels — computed from product arrangement on walls */}
           {state.visibility.products && state.room && state.room.products.length > 0 && (
             <AutoEndPanels
               room={state.room}
@@ -449,7 +347,6 @@ function AppInner() {
             />
           )}
 
-          {/* Render standalone MOZ products — only when no room (preview mode) */}
           {!state.room && state.standaloneProducts.map((mf, i) => (
             <ProductView
               key={`moz-${i}`}
@@ -463,6 +360,8 @@ function AppInner() {
               textureId={resolvedTextureId}
               textureFilename={resolvedTextureFilename}
               showOperations={state.showOperations}
+              fastenerLargeDia={state.fastenerLargeDia}
+              fastenerSmallDia={state.fastenerSmallDia}
               singleDrawBrand={state.selectedSingleDrawBrand}
               singleDrawTexture={state.selectedSingleDrawTexture}
               modelsFolder={state.modelsFolder}
@@ -473,88 +372,15 @@ function AppInner() {
           ))}
         </Scene>
 
-        <div className="absolute top-3 left-3 z-10 flex items-start gap-2">
-          <HomeButton
-            active={state.wallEditorActive || state.productConfigOpen || state.visibilityMenuOpen || state.libraryOpen || state.adminOpen}
-            onGoHome={() => dispatch({ type: 'GO_HOME' })}
-          />
-          <ProductConfigButton
-            open={state.productConfigOpen}
-            placementMode={state.placementMode}
-            unitHeight={state.unitHeight}
-            wallSectionHeight={state.wallSectionHeight}
-            wallMountTopAt={state.wallMountTopAt}
-            wallHeight={state.wallHeight}
-            fixedShelfHeight={state.fixedShelfHeight}
-            baseCabHeight={state.baseCabHeight}
-            hutchSectionHeight={state.hutchSectionHeight}
-            useInches={state.useInches}
-            onToggle={() => {
-              if (!state.productConfigOpen) window.dispatchEvent(new Event('panel-will-open'))
-              dispatch({ type: 'TOGGLE_PRODUCT_CONFIG' })
-            }}
-            onSetMode={(mode) => dispatch({ type: 'SET_PLACEMENT_MODE', mode })}
-            onSetUnitHeight={(height) => dispatch({ type: 'SET_UNIT_HEIGHT', height })}
-            onSetFixedShelfHeight={(height) => dispatch({ type: 'SET_FIXED_SHELF_HEIGHT', height })}
-            onSetBaseCabHeight={(height) => dispatch({ type: 'SET_BASE_CAB_HEIGHT', height })}
-            onSetHutchSectionHeight={(height) => dispatch({ type: 'SET_HUTCH_SECTION_HEIGHT', height })}
-            onSetWallSectionHeight={(height) => dispatch({ type: 'SET_WALL_SECTION_HEIGHT', height })}
-            onSetWallHeight={(height) => dispatch({ type: 'SET_WALL_HEIGHT', height })}
-            onCreatePresetRoom={handleCreatePresetRoom}
-          />
-          <WallEditorButton
-            active={state.wallEditorActive}
-            disabled={!state.room}
-            onToggle={() => {
-              if (!state.wallEditorActive) window.dispatchEvent(new Event('panel-will-open'))
-              dispatch({ type: 'TOGGLE_WALL_EDITOR' })
-            }}
-          />
-          <VisibilityMenu
-            open={state.visibilityMenuOpen}
-            visibility={state.visibility}
-            walls={state.room?.walls ?? []}
-            onToggle={() => {
-              if (!state.visibilityMenuOpen) window.dispatchEvent(new Event('panel-will-open'))
-              dispatch({ type: 'TOGGLE_VISIBILITY_MENU' })
-            }}
-            onToggleVisibility={(key) => dispatch({ type: 'TOGGLE_VISIBILITY', key })}
-            onToggleWall={(wallNumber) => dispatch({ type: 'TOGGLE_WALL_VISIBILITY', wallNumber })}
-            onHoverWall={setHoveredWall}
-          />
-          <RenderModeButton
-            mode={state.renderMode}
-            onCycle={() => {
-              const next: RenderMode = state.renderMode === 'ghosted' ? 'solid' : state.renderMode === 'solid' ? 'wireframe' : 'ghosted'
-              dispatch({ type: 'SET_RENDER_MODE', mode: next })
-            }}
-          />
-          <AdvancedSettingsButton
-            open={advancedOpen}
-            flipOps={state.flipOps}
-            showOperations={state.showOperations}
-            showShapeDebug={state.showShapeDebug}
-            spinning3DCards={state.spinning3DCards}
-            onToggle={() => {
-              if (!advancedOpen) window.dispatchEvent(new Event('panel-will-open'))
-              setAdvancedOpen(o => !o)
-            }}
-            onToggleFlipOps={() => dispatch({ type: 'TOGGLE_FLIP_OPS' })}
-            onToggleShowOps={() => dispatch({ type: 'TOGGLE_SHOW_OPERATIONS' })}
-            onToggleShapeDebug={() => dispatch({ type: 'TOGGLE_SHAPE_DEBUG' })}
-            onToggleSpinning3DCards={() => dispatch({ type: 'TOGGLE_SPINNING_3D_CARDS' })}
-            onAlignWallTops={() => dispatch({ type: 'ALIGN_WALL_TOPS' })}
-          />
-          <AdminButton
-            open={state.adminOpen}
-            onToggle={() => {
-              if (!state.adminOpen) window.dispatchEvent(new Event('panel-will-open'))
-              dispatch({ type: 'TOGGLE_ADMIN' })
-            }}
-          />
-        </div>
+        <AppToolbar
+          advancedOpen={advancedOpen}
+          setAdvancedOpen={setAdvancedOpen}
+          hoveredWall={hoveredWall}
+          setHoveredWall={setHoveredWall}
+          handleCreatePresetRoom={handleCreatePresetRoom}
+        />
 
-        <div className="absolute top-[96px] left-3 z-10">
+        <div className="absolute top-[96px] left-3 z-10" style={{ display: state.productConfigOpen ? 'none' : undefined }}>
           <UnitTypePills
             columns={columns}
             assignments={assignments}
@@ -571,138 +397,16 @@ function AppInner() {
           />
         </div>
 
-        {state.wallEditorActive && state.selectedWall !== null && state.room && (() => {
-          const wall = state.room.walls.find(w => w.wallNumber === state.selectedWall)
-          if (!wall) return null
-          const wallIdx = state.room.walls.findIndex(w => w.wallNumber === state.selectedWall)
-          const prevWall = state.room.walls[(wallIdx - 1 + state.room.walls.length) % state.room.walls.length]
-          const nextWall = state.room.walls[(wallIdx + 1) % state.room.walls.length]
-          const hasTallerNeighbor = prevWall.height > wall.height || nextWall.height > wall.height
-          const wallFixtures = state.room.fixtures.filter(f => f.wall === wall.wallNumber)
-          const maxIdTag = Math.max(
-            0,
-            ...state.room.walls.map(w => w.idTag),
-            ...state.room.fixtures.map(f => f.idTag),
-            ...state.room.products.map(p => p.idTag),
-          )
-          return (
-            <WallEditorPanel
-              wall={wall}
-              useInches={state.useInches}
-              hasTallerNeighbor={hasTallerNeighbor}
-              fixtures={wallFixtures}
-              onUpdateLength={(len) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { len } })}
-              onUpdateHeight={(height) => dispatch({ type: 'UPDATE_WALL', wallNumber: wall.wallNumber, fields: { height } })}
-              onSplitWall={() => dispatch({ type: 'SPLIT_WALL', wallNumber: wall.wallNumber })}
-              onToggleFollowAngle={() => dispatch({ type: 'TOGGLE_FOLLOW_ANGLE', wallNumber: wall.wallNumber })}
-              onAddFixture={(fixture) => dispatch({ type: 'ADD_FIXTURE', fixture })}
-              onRemoveFixture={(idTag) => dispatch({ type: 'REMOVE_FIXTURE', fixtureIdTag: idTag })}
-              nextIdTag={maxIdTag + 1}
-              hasProducts={state.room.products.length > 0}
-            />
-          )
-        })()}
+        <WallEditorSection roomCenter={roomCenter} selectWall={selectWall} />
 
-        {state.wallEditorActive && state.room && (
-          <MiniRoomPreview
-            room={state.room}
-            roomCenter={roomCenter}
-            selectedWall={state.selectedWall}
-            onSelectWall={selectWall}
-            textureFolder={state.textureFolder}
-            selectedFloorType={state.selectedFloorType}
-            selectedFloorTexture={state.selectedFloorTexture}
-            selectedWallType={state.selectedWallType}
-            selectedWallTexture={state.selectedWallTexture}
-          />
-        )}
-
-        {missingModels.length > 0 && (
-          <div className="absolute bottom-2 left-2 right-2 bg-yellow-900/80 text-yellow-200 text-xs p-2 rounded max-h-24 overflow-y-auto font-mono">
-            <div className="font-bold mb-1">Missing GLB models ({missingModels.length}):</div>
-            {missingModels.map(name => <div key={name}>{name}</div>)}
-          </div>
-        )}
-
-        <PartInspector />
-
-        {state.inspectedPart && (() => {
-          const product = state.room?.products[state.inspectedPart.productIndex]
-            ?? state.standaloneProducts[state.inspectedPart.productIndex]?.product
-          const part = product?.parts[state.inspectedPart.partIndex]
-          if (!product || !part) return null
-          return (
-            <PartShapeInspector
-              product={product}
-              part={part}
-              partIndex={state.inspectedPart.partIndex}
-              partCount={product.parts.length}
-              useInches={state.useInches}
-              onClose={() => dispatch({ type: 'CLEAR_INSPECTION' })}
-              onCyclePart={(idx) => dispatch({ type: 'INSPECT_PART', part: { productIndex: state.inspectedPart!.productIndex, partIndex: idx } })}
-            />
-          )
-        })()}
-
-        {state.adminOpen && (
-          <AdminPanel
-            folderTree={folderTree}
-            availableLibraryFiles={state.availableLibraryFiles}
-            libraryConfig={state.libraryConfig}
-            productParams={productParams}
-            libraryFolder={state.libraryFolder}
-            onUpdateConfig={(config) => dispatch({ type: 'SET_LIBRARY_CONFIG', config })}
-            onRemoveProduct={(filename) => dispatch({ type: 'REMOVE_MOZ', filename })}
-            onLoadProducts={loadFromLibrary}
-            onClose={() => dispatch({ type: 'TOGGLE_ADMIN' })}
-          />
-        )}
-
-        {state.elevationViewerProduct !== null && state.room && (() => {
-          const evProduct = state.room.products[state.elevationViewerProduct]
-          if (!evProduct) return null
-          const allPanels = computeAutoEndPanels(
-            state.room.products, state.room.walls, state.room.wallJoints, state.flipOps,
-          )
-          const adjPanels = allPanels.filter(p =>
-            p.adjacentProductIndex === state.elevationViewerProduct ||
-            p.leftAdjacentIndex === state.elevationViewerProduct ||
-            p.rightAdjacentIndex === state.elevationViewerProduct
-          )
-          return (
-            <ElevationViewer
-              product={evProduct}
-              productIndex={state.elevationViewerProduct}
-              useInches={state.useInches}
-              adjacentPanels={adjPanels}
-              onClose={() => dispatch({ type: 'CLOSE_ELEVATION_VIEWER' })}
-              onMoveShelf={(shelfPartIndex, newZ) =>
-                dispatch({ type: 'UPDATE_SHELF_HEIGHT', productIndex: state.elevationViewerProduct!, shelfPartIndex, newZ })
-              }
-              onDeletePart={(partIndex) =>
-                dispatch({ type: 'DELETE_PRODUCT_PART', productIndex: state.elevationViewerProduct!, partIndex })
-              }
-              onDragStart={() => dispatch({ type: 'BEGIN_DRAG' })}
-              onDragEnd={() => dispatch({ type: 'END_DRAG' })}
-            />
-          )
-        })()}
-
-        {state.dragProduct && (
-          <DragOverlay
-            dragProduct={state.dragProduct}
-            dragHoveredWall={state.dragHoveredWall}
-            onDrop={(productIndex, wallNumber, group, unitTypeId) => {
-              if (group) {
-                handlePlaceGroup(group, wallNumber)
-              } else {
-                handlePlaceProduct(productIndex, wallNumber, unitTypeId)
-              }
-              dispatch({ type: 'END_PRODUCT_DRAG' })
-            }}
-            onCancel={() => dispatch({ type: 'END_PRODUCT_DRAG' })}
-          />
-        )}
+        <AppOverlays
+          missingModels={missingModels}
+          folderTree={folderTree}
+          productParams={productParams}
+          loadFromLibrary={loadFromLibrary}
+          handlePlaceProduct={handlePlaceProduct}
+          handlePlaceGroup={handlePlaceGroup}
+        />
       </div>
     </div>
   )

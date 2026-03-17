@@ -9,6 +9,7 @@ import { useProductTexture, useTextureByFilename, useSingleDrawTexture, lookupTe
 import { useProductModel } from './useProductModel'
 import { buildPartGeometry, panelThickness, computeProductOutline } from './shapeGeometry'
 import { generateSystemHoles } from '../mozaik/systemHoles'
+import { generateFastenerHoles, isFastenerTarget } from '../mozaik/fastenerHoles'
 import OperationMarkers from './OperationMarkers'
 import ProductResizeHandles from './ProductResizeHandles'
 import ShapeDebugOverlay from './ShapeDebugOverlay'
@@ -38,6 +39,8 @@ interface ProductViewProps {
   polyFactor?: number
   polyUnits?: number
   showOperations?: boolean
+  fastenerLargeDia?: number
+  fastenerSmallDia?: number
   showShapeDebug?: boolean
   singleDrawBrand?: string | null
   singleDrawTexture?: string | null
@@ -147,12 +150,14 @@ interface PartMeshProps {
   polyFactor?: number
   polyUnits?: number
   showOperations?: boolean
+  fastenerLargeDia?: number
+  fastenerSmallDia?: number
   highlighted?: boolean
   inspected?: boolean
   onInspect?: () => void
 }
 
-function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null, edgeOpacity = 0, polyFactor = 1, polyUnits = 1, showOperations = true, highlighted = false, inspected = false, onInspect }: PartMeshProps) {
+function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId = null, modelsFolder = null, edgeOpacity = 0, polyFactor = 1, polyUnits = 1, showOperations = true, fastenerLargeDia = 0, fastenerSmallDia = 0, highlighted = false, inspected = false, onInspect }: PartMeshProps) {
   const length = Math.max(part.l, 1)
   const width = Math.max(part.w, 1)
   const isRodPart = part.name.toLowerCase().includes('rod')
@@ -217,11 +222,16 @@ function PartMesh({ part, renderMode = 'ghosted', baseTexture = null, textureId 
 
   // Shared operations JSX — used in wireframe and solid/ghosted returns
   const opsJsx = showOperations ? (() => {
-    const ops = part.operations.length > 0
+    let ops = part.operations.length > 0
       ? part.operations
       : part.type.toLowerCase() === 'fend'
         ? generateSystemHoles(length, width)
         : []
+    // Merge synthetic fastener holes for toe/bottom/top parts
+    if (isFastenerTarget(part) && (fastenerLargeDia > 0 || fastenerSmallDia > 0)) {
+      const fasteners = generateFastenerHoles(part, fastenerLargeDia, fastenerSmallDia)
+      ops = [...ops, ...fasteners]
+    }
     if (ops.length === 0) return null
     return (
       <group position={position} quaternion={quaternion}>
@@ -338,7 +348,7 @@ polygonOffset polygonOffsetFactor={polyFactor} polygonOffsetUnits={polyUnits} />
 export default function ProductView({
   product, productIndex, worldOffset, wallAngleDeg, renderMode = 'ghosted',
   showBoundingBox = false, selected = false, onSelect, onResize, onResizeWidth, onUpdateElev, onUpdateX,
-  onBumpLeft, onBumpRight, onRemove, onDragStart, onDragEnd, showOperations = true, showShapeDebug = false,
+  onBumpLeft, onBumpRight, onRemove, onDragStart, onDragEnd, showOperations = true, fastenerLargeDia = 0, fastenerSmallDia = 0, showShapeDebug = false,
   edgeOpacity = 0, polyFactor = 1, polyUnits = 1,
   textureFolder = null, textureId = null, textureFilename = null,
   singleDrawBrand = null, singleDrawTexture = null, modelsFolder = null,
@@ -391,6 +401,8 @@ export default function ProductView({
           polyFactor={polyFactor}
           polyUnits={polyUnits}
           showOperations={showOperations}
+          fastenerLargeDia={fastenerLargeDia}
+          fastenerSmallDia={fastenerSmallDia}
           highlighted={hoveredPart?.productIndex === productIndex && hoveredPart?.partIndex === i}
           inspected={inspectedPart?.productIndex === productIndex && inspectedPart?.partIndex === i}
           onInspect={productIndex !== undefined && onInspectPart ? () => onInspectPart(productIndex, i) : undefined}

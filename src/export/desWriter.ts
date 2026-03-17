@@ -2,7 +2,8 @@ import type { MozRoom, MozWall, MozWallJoint, MozFixture, MozProduct, MozPart, W
 import { roomParmsXml } from './desTemplate'
 import { serializeRoomSetXml, defaultRoomSetXml } from './roomSetSerializer'
 import { computeWallGeometries, computeWallTrims } from '../math/wallMath'
-import { computeAutoEndPanels, createSyntheticPanelProduct } from '../mozaik/autoEndPanels'
+import { computeAutoEndPanels } from '../mozaik/autoEndPanels'
+import { createSyntheticPanelProduct } from './syntheticProducts'
 import { usableWallLength } from '../mozaik/wallPlacement'
 
 /**

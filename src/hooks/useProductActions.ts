@@ -10,6 +10,7 @@ import { PANEL_THICK } from '../mozaik/autoEndPanels'
 import { resizeProduct } from '../mozaik/productResize'
 import { isWallMount } from '../mozaik/types'
 import { heightForUnitType } from '../mozaik/unitTypes'
+import { updatePartAttrByIndex, upsertCabProdParm } from '../mozaik/xmlMutations'
 
 export function useProductActions() {
   const state = useAppState()
@@ -38,11 +39,49 @@ export function useProductActions() {
         return
       }
       const placed = placeProductOnWall(resized, wallNumber, nextX, elev)
+      // Apply toe recess and toe height at placement time (parts + rawInnerXml)
+      if (state.toeRecess > 0 || state.toeHeight !== 96) {
+        const toeIdx = placed.parts.findIndex(p => p.type.toLowerCase() === 'toe')
+        const botIdx = placed.parts.findIndex(p => p.type.toLowerCase() === 'bottom')
+        placed.parts = placed.parts.map((p, i) => {
+          if (i === toeIdx) {
+            return {
+              ...p,
+              y: state.toeRecess > 0 ? state.toeRecess : p.y,
+              w: state.toeHeight !== 96 ? state.toeHeight : p.w,
+              z: state.toeHeight !== 96 ? state.toeHeight : p.z,
+            }
+          }
+          if (i === botIdx && state.toeHeight !== 96) {
+            return { ...p, z: state.toeHeight }
+          }
+          return p
+        })
+        // Patch rawInnerXml so in-memory and XML stay in sync for export
+        if (placed.rawInnerXml) {
+          let xml = placed.rawInnerXml
+          if (toeIdx >= 0) {
+            const toeChanges: Array<{ attr: string; newValue: number }> = []
+            if (state.toeRecess > 0) toeChanges.push({ attr: 'Y', newValue: state.toeRecess })
+            if (state.toeHeight !== 96) {
+              toeChanges.push({ attr: 'W', newValue: state.toeHeight })
+              toeChanges.push({ attr: 'Z', newValue: state.toeHeight })
+            }
+            if (toeChanges.length > 0) xml = updatePartAttrByIndex(xml, toeIdx, toeChanges)
+          }
+          if (botIdx >= 0 && state.toeHeight !== 96) {
+            xml = updatePartAttrByIndex(xml, botIdx, [{ attr: 'Z', newValue: state.toeHeight }])
+          }
+          if (state.toeRecess > 0) xml = upsertCabProdParm(xml, 'ToeR', state.toeRecess)
+          if (state.toeHeight !== 96) xml = upsertCabProdParm(xml, 'ToeH', state.toeHeight)
+          placed.rawInnerXml = xml
+        }
+      }
       dispatch({ type: 'PLACE_PRODUCT', product: placed })
       dispatch({ type: 'SET_PLACEMENT_MODE', mode: wm ? 'wall' : 'floor' })
       console.log(`[ROOM] Placed "${resized.prodName}" (${effectiveType}) on wall ${wallNumber} at x=${nextX} elev=${elev} height=${sectionHeight.toFixed(0)}mm`)
     },
-    [dispatch, state.room, state.standaloneProducts, state.wallMountTopAt, state.unitHeight, state.wallSectionHeight, state.hutchSectionHeight, state.baseCabHeight],
+    [dispatch, state.room, state.standaloneProducts, state.wallMountTopAt, state.unitHeight, state.wallSectionHeight, state.hutchSectionHeight, state.baseCabHeight, state.flipOps, state.toeRecess, state.toeHeight],
   )
 
   const handleUpdateProductDimension = useCallback(

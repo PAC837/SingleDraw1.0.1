@@ -5,22 +5,10 @@
  */
 import type { LibraryConfig } from '../mozaik/types'
 import { createDefaultColumns } from '../mozaik/unitTypes'
+import { createStore } from './indexedDbHelper'
 
-const DB_NAME = 'singledraw-library-config'
-const STORE_NAME = 'config'
-const DB_VERSION = 1
+const { save, load } = createStore('singledraw-library-config', 'config')
 const KEY = 'libraryConfig'
-
-function openDb(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open(DB_NAME, DB_VERSION)
-    req.onupgradeneeded = () => {
-      req.result.createObjectStore(STORE_NAME)
-    }
-    req.onsuccess = () => resolve(req.result)
-    req.onerror = () => reject(req.error)
-  })
-}
 
 /** Migrate v1 config (flat activeProducts) → v2 (controlled library). */
 export function migrateConfig(raw: any): LibraryConfig {
@@ -44,27 +32,11 @@ export function migrateConfig(raw: any): LibraryConfig {
 }
 
 export async function saveLibraryConfig(config: LibraryConfig): Promise<void> {
-  const db = await openDb()
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE_NAME, 'readwrite')
-    tx.objectStore(STORE_NAME).put(config, KEY)
-    tx.oncomplete = () => { db.close(); resolve() }
-    tx.onerror = () => { db.close(); reject(tx.error) }
-  })
+  await save(KEY, config)
 }
 
 export async function loadLibraryConfig(): Promise<LibraryConfig | null> {
-  try {
-    const db = await openDb()
-    const raw = await new Promise<any>((resolve, reject) => {
-      const tx = db.transaction(STORE_NAME, 'readonly')
-      const req = tx.objectStore(STORE_NAME).get(KEY)
-      req.onsuccess = () => { db.close(); resolve(req.result) }
-      req.onerror = () => { db.close(); reject(req.error) }
-    })
-    if (!raw) return null
-    return migrateConfig(raw)
-  } catch {
-    return null
-  }
+  const raw = await load<any>(KEY)
+  if (!raw) return null
+  return migrateConfig(raw)
 }

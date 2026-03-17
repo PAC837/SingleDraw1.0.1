@@ -320,6 +320,10 @@ export interface AppState {
   settingsFile: RoomSettingsFile | null         // loaded RoomSettingsTemplates.dat
   activeTemplateName: string | null             // selected template name
   hardwareCatalog: HardwareCatalog | null       // loaded Hardware.dat
+  toeRecess: number                              // mm — toe recess behind end panel front face (0=flush)
+  toeHeight: number                              // mm — toe kick height (32mm grid: 64, 96, 128, 160)
+  fastenerLargeDia: number                       // mm — large fastener hole diameter (0=hidden)
+  fastenerSmallDia: number                       // mm — small fastener hole diameter (0=hidden)
 }
 
 // ── Library config types ────────────────────────────────────────────

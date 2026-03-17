@@ -7,6 +7,11 @@
  */
 
 import type { MozProduct, MozPart } from './types'
+import { parseSections, sectionAttr, updateSectionDimensions } from './sectionEditor'
+import { updatePartZByIndex } from './xmlMutations'
+
+// Re-export for backward compatibility (dimensionReducer imports from here)
+export { removePartByIndexFromRawXml } from './xmlMutations'
 
 /** A shelf group: the shelf and all parts that move with it. */
 export interface ShelfGroup {
@@ -33,6 +38,12 @@ const SNAP_GRID = 32            // mm — shelf snap increment
 function isFixedShelf(part: MozPart): boolean {
   const t = part.type.toLowerCase()
   return t === 'fixedshelf' || t === 'fixed shelf' || part.reportName.includes('F.Shelf')
+}
+
+/** Determine if a part is an adjustable shelf. */
+function isAdjustableShelf(part: MozPart): boolean {
+  const t = part.type.toLowerCase()
+  return t === 'adjustableshelf' || t === 'adjustable shelf'
 }
 
 /**
@@ -72,6 +83,132 @@ export function findFixedShelves(product: MozProduct): number[] {
   return product.parts
     .map((p, i) => isFixedShelf(p) ? i : -1)
     .filter(i => i >= 0)
+}
+
+/**
+ * Find the "group" for an adjustable shelf (just the shelf itself, no rods/hangers).
+ */
+export function findAdjShelfGroup(product: MozProduct, shelfPartIndex: number): ShelfGroup | null {
+  const shelf = product.parts[shelfPartIndex]
+  if (!shelf || !isAdjustableShelf(shelf)) return null
+  return { shelfIndex: shelfPartIndex, rodIndices: [], hangerIndices: [], shelfZ: shelf.z }
+}
+
+/** A vertical zone between structural boundaries. */
+export interface ElevationZone {
+  minZ: number      // top of lower boundary
+  maxZ: number      // bottom of upper boundary
+  hasDrawers: boolean
+}
+
+/**
+ * Compute all vertical zones in a product, classified as open or blocked.
+ * Zones are the vertical spans between structural boundaries (bottom/toe, fixed shelves, top).
+ */
+export function computeZones(product: MozProduct): ElevationZone[] {
+  // Collect structural boundary Z values
+  let floorZ = 0
+  let ceilingZ = product.height
+  const fixedShelfZs: number[] = []
+
+  for (const p of product.parts) {
+    const t = p.type.toLowerCase()
+    if (t === 'bottom' || t === 'toe') {
+      const topOfPart = p.z + 19
+      if (topOfPart > floorZ) floorZ = topOfPart
+    } else if (t === 'top') {
+      if (p.z < ceilingZ) ceilingZ = p.z
+    } else if (isFixedShelf(p)) {
+      fixedShelfZs.push(p.z)
+    }
+  }
+
+  // Sort boundary Z values and build zone list
+  const boundaries = [floorZ, ...fixedShelfZs.sort((a, b) => a - b), ceilingZ]
+  // Deduplicate
+  const unique = boundaries.filter((z, i) => i === 0 || z > boundaries[i - 1])
+
+  // Collect drawer faces
+  const drawers = product.parts
+    .filter(p => p.type.toLowerCase() === 'drawer')
+    .map(p => ({ z: p.z, top: p.z + p.w }))
+
+  const zones: ElevationZone[] = []
+  for (let i = 0; i < unique.length - 1; i++) {
+    const minZ = unique[i]
+    const maxZ = unique[i + 1]
+    // Zone has drawers if any drawer face overlaps it
+    const hasDrawers = drawers.some(d => d.top > minZ + 1 && d.z < maxZ - 1)
+    zones.push({ minZ, maxZ, hasDrawers })
+  }
+  return zones
+}
+
+/**
+ * Compute bounds for an adjustable shelf with opening-aware logic.
+ * Adj shelves can pass through fixed shelves as long as the zone on
+ * the other side is open (no drawers).
+ */
+export function computeAdjShelfBounds(product: MozProduct, shelfPartIndex: number): ShelfBounds {
+  const shelf = product.parts[shelfPartIndex]
+  if (!shelf) return { minZ: 0, maxZ: product.height }
+
+  const zones = computeZones(product)
+  if (zones.length === 0) return { minZ: 0, maxZ: product.height }
+
+  // Find which zone the shelf is currently in
+  const currentIdx = zones.findIndex(z => shelf.z >= z.minZ - 0.5 && shelf.z <= z.maxZ + 0.5)
+  if (currentIdx < 0) return computeShelfBounds(product, shelfPartIndex)
+
+  // Expand downward through contiguous open zones
+  let minZ = zones[currentIdx].minZ
+  for (let i = currentIdx - 1; i >= 0; i--) {
+    if (zones[i].hasDrawers) break
+    minZ = zones[i].minZ
+  }
+
+  // Expand upward through contiguous open zones
+  let maxZ = zones[currentIdx].maxZ
+  for (let i = currentIdx + 1; i < zones.length; i++) {
+    if (zones[i].hasDrawers) break
+    maxZ = zones[i].maxZ
+  }
+
+  return {
+    minZ: minZ + MIN_CLEARANCE,
+    maxZ: maxZ - MIN_CLEARANCE,
+  }
+}
+
+/**
+ * Move an adjustable shelf to a new Z position.
+ * Updates parts and rawInnerXml (section dimensions are a no-op for adj shelves).
+ */
+export function moveAdjShelfGroup(
+  product: MozProduct,
+  shelfPartIndex: number,
+  newZ: number,
+): MozProduct {
+  const group = findAdjShelfGroup(product, shelfPartIndex)
+  if (!group) return product
+
+  const bounds = computeAdjShelfBounds(product, shelfPartIndex)
+  const clampedZ = Math.max(bounds.minZ, Math.min(bounds.maxZ, snapToGrid(newZ)))
+  const delta = clampedZ - group.shelfZ
+
+  if (Math.abs(delta) < 0.1) return product
+
+  const newParts = product.parts.map((p, i) =>
+    i === shelfPartIndex ? { ...p, z: p.z + delta } : p,
+  )
+
+  let newRawInnerXml = product.rawInnerXml
+    ? updatePartZByIndex(product.rawInnerXml, [{ partIndex: shelfPartIndex, newZ: product.parts[shelfPartIndex].z + delta }])
+    : ''
+  // updateSectionDimensions is a safe no-op for adj shelves (no FS section match)
+  newRawInnerXml = updateSectionDimensions(newRawInnerXml, product, shelfPartIndex, delta)
+
+  return { ...product, parts: newParts, rawInnerXml: newRawInnerXml }
 }
 
 /**
@@ -147,38 +284,6 @@ export function applyFixedShelfHeight(product: MozProduct, preferredZ: number): 
 }
 
 /**
- * Remove the Nth CabProdPart element from rawInnerXml by index.
- * Parts in the parts[] array are in the same order as CabProdPart elements in XML,
- * so index-based removal is correct even when multiple parts share the same Name.
- */
-export function removePartByIndexFromRawXml(rawXml: string, partIndex: number): string {
-  if (!rawXml) return rawXml
-  const openTag = /<CabProdPart\b/g
-  let match: RegExpExecArray | null
-  let count = 0
-  while ((match = openTag.exec(rawXml)) !== null) {
-    if (count === partIndex) {
-      // Include leading whitespace/newline for clean removal
-      const lineStart = rawXml.lastIndexOf('\n', match.index)
-      const elemStart = lineStart >= 0 ? lineStart : match.index
-      // Check if self-closing (ends with />)
-      const closeAngle = rawXml.indexOf('>', match.index)
-      if (closeAngle >= 0 && rawXml[closeAngle - 1] === '/') {
-        return rawXml.slice(0, elemStart) + rawXml.slice(closeAngle + 1)
-      }
-      // Open+close: find </CabProdPart>
-      const closeTag = rawXml.indexOf('</CabProdPart>', match.index)
-      if (closeTag >= 0) {
-        return rawXml.slice(0, elemStart) + rawXml.slice(closeTag + '</CabProdPart>'.length)
-      }
-      return rawXml // couldn't find close, return unchanged
-    }
-    count++
-  }
-  return rawXml
-}
-
-/**
  * Remove the FS (Fixed Shelf) section from ProductInterior in rawInnerXml.
  *
  * Mozaik uses the ProductInterior section tree as the authoritative structure
@@ -247,229 +352,6 @@ export function removeFixedShelfSection(rawXml: string): string {
 }
 
 /**
- * Format a number to match Mozaik XML output: max 4 decimals, strip trailing zeros.
- * Must match desWriter.ts `num()` format for regex matching.
- */
-function numStr(n: number): string {
-  if (Number.isInteger(n)) return String(n)
-  return parseFloat(n.toFixed(4)).toString()
-}
-
-/** Escape special regex characters in a string. */
-function escapeRegex(s: string): string {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
-
-/**
- * Update Z attribute values in rawInnerXml for specific parts.
- * Matches <CabProdPart> elements by Name + Z value, replaces Z with newZ.
- *
- * Handles multiple parts with the same Name at the same Z
- * (e.g., 3 Hangers all at Z=1066.7 — all updated together).
- */
-function updatePartZInRawXml(
-  rawXml: string,
-  changes: Array<{ partName: string; oldZ: number; newZ: number }>,
-): string {
-  let xml = rawXml
-  for (const { partName, oldZ, newZ } of changes) {
-    if (Math.abs(oldZ - newZ) < 0.01) continue
-
-    const oldZStr = escapeRegex(numStr(oldZ))
-    const newZStr = numStr(newZ)
-    const nameEsc = escapeRegex(partName)
-
-    // Match CabProdPart with this Name, then find and replace Z attribute value.
-    // Pattern: <CabProdPart ... Name="partName" ... Z="oldZ" ...>
-    // The Name and Z attrs can appear in any order in the tag.
-    const regex = new RegExp(
-      `(<CabProdPart\\b[^>]*?\\bName="${nameEsc}"[^>]*?\\bZ=")${oldZStr}(")`,
-      'g',
-    )
-    xml = xml.replace(regex, `$1${newZStr}$2`)
-
-    // Also try the reverse order (Z before Name) for robustness
-    const regexRev = new RegExp(
-      `(<CabProdPart\\b[^>]*?\\bZ=")${oldZStr}("[^>]*?\\bName="${nameEsc}")`,
-      'g',
-    )
-    xml = xml.replace(regexRev, `$1${newZStr}$2`)
-  }
-  return xml
-}
-
-// ── ProductInterior section parsing & update ──────────────────────────
-
-/** Parsed section from ProductInterior XML. */
-interface ParsedSection {
-  id: number
-  pParent: number
-  parentABC: string  // 'A', 'C', or 'N' — which side of parent's split
-  divideType: string
-  dy: number
-  da: number
-  db: number
-  y: number
-  rawTag: string  // original XML tag for replacement
-}
-
-/** Extract an attribute value from an XML tag string. */
-function sectionAttr(tag: string, name: string): string {
-  const m = tag.match(new RegExp(`\\b${name}="([^"]*)"`))
-  return m ? m[1] : ''
-}
-
-/** Parse all <Section> elements from rawInnerXml. */
-function parseSections(rawXml: string): ParsedSection[] {
-  const sections: ParsedSection[] = []
-  const regex = /<Section\s[^>]*>/g
-  let match
-  while ((match = regex.exec(rawXml)) !== null) {
-    const tag = match[0]
-    sections.push({
-      id: parseInt(sectionAttr(tag, 'ID') || '0'),
-      pParent: parseInt(sectionAttr(tag, 'pParent') || '0'),
-      parentABC: sectionAttr(tag, 'ParentABC') || 'N',
-      divideType: sectionAttr(tag, 'DivideType') || 'N',
-      dy: parseInt(sectionAttr(tag, 'DY') || '0'),
-      da: parseInt(sectionAttr(tag, 'DA') || '0'),
-      db: parseInt(sectionAttr(tag, 'DB') || '0'),
-      y: parseInt(sectionAttr(tag, 'Y') || '0'),
-      rawTag: tag,
-    })
-  }
-  return sections
-}
-
-/** Replace an attribute value in an XML tag string. */
-function replAttrInTag(tag: string, name: string, value: number): string {
-  return tag.replace(
-    new RegExp(`(\\b${name}=")[^"]*"`),
-    `$1${value}"`,
-  )
-}
-
-/**
- * Compute tree depth of a section via pParent chain (distance to root).
- */
-function sectionDepth(section: ParsedSection, all: ParsedSection[]): number {
-  let depth = 0, id = section.pParent
-  while (id !== 0 && depth < 20) {
-    depth++
-    const parent = all.find(s => s.id === id)
-    if (!parent) break
-    id = parent.pParent
-  }
-  return depth
-}
-
-/**
- * Find a child section by scanning pParent + ParentABC.
- *
- * pAChild/pCChild IDs on FS sections can be stale (referencing deleted IDs).
- * The reliable path is: child.pParent === parent.id && child.parentABC === side.
- */
-function findChild(
-  sections: ParsedSection[],
-  parentId: number,
-  side: 'A' | 'C',
-): ParsedSection | undefined {
-  return sections.find(s => s.pParent === parentId && s.parentABC === side)
-}
-
-/**
- * Update ProductInterior section dimensions when a shelf moves.
- *
- * Mozaik uses the section tree (DY/DA/DB/Y in 0.1mm units) to compute
- * shelf positions, overriding CabProdPart Z values. When a shelf moves
- * by delta mm, the FS section's DA changes and child sections adjust.
- *
- * Child resolution uses pParent + ParentABC (not pAChild/pCChild which
- * can reference stale IDs — e.g. 87 DH has pAChild=4 but real A-child is ID=8).
- *
- * Values are SET for consistency (not incremented) to match Mozaik's pattern:
- *   DA === A-child.DY,  C-child.DY = parent.DY - DA - DB
- */
-function updateSectionDimensions(
-  rawXml: string,
-  product: MozProduct,
-  shelfPartIndex: number,
-  delta: number,
-): string {
-  if (Math.abs(delta) < 0.1) return rawXml
-
-  const sections = parseSections(rawXml)
-  if (sections.length === 0) return rawXml
-
-  const deltaUnits = Math.round(delta * 10) // mm → 0.1mm
-
-  // Find FS (Fixed Shelf) sections
-  const fsSections = sections.filter(s => s.divideType === 'FS')
-  if (fsSections.length === 0) return rawXml
-
-  // Sort shelves by Z (lowest first)
-  const shelves = findFixedShelves(product)
-    .map(i => ({ index: i, z: product.parts[i].z }))
-    .sort((a, b) => a.z - b.z)
-
-  // Sort FS sections by tree depth (deepest first = lowest shelf)
-  const fsByDepth = [...fsSections].sort(
-    (a, b) => sectionDepth(b, sections) - sectionDepth(a, sections),
-  )
-
-  // Map moved shelf to its FS section by ordering
-  const shelfOrder = shelves.findIndex(s => s.index === shelfPartIndex)
-  if (shelfOrder < 0 || shelfOrder >= fsByDepth.length) return rawXml
-
-  const targetFS = fsByDepth[shelfOrder]
-  const modified = new Set<number>()
-
-  // 1. Target FS section: update DA (A-child allocation)
-  targetFS.da += deltaUnits
-  modified.add(targetFS.id)
-
-  // 2. A-child: SET DY to match parent's DA (consistent section tree)
-  const aChild = findChild(sections, targetFS.id, 'A')
-  if (aChild) {
-    aChild.dy = targetFS.da
-    modified.add(aChild.id)
-
-    // 3. If A-child is also FS, its C-grandchild absorbs the DY growth
-    if (aChild.divideType === 'FS') {
-      const grandC = findChild(sections, aChild.id, 'C')
-      if (grandC) {
-        grandC.dy = aChild.dy - aChild.da - aChild.db
-        modified.add(grandC.id)
-      }
-    }
-  }
-
-  // 4. C-child: SET DY to remainder, SET Y to after A-child + shelf
-  const cChild = findChild(sections, targetFS.id, 'C')
-  if (cChild) {
-    cChild.dy = targetFS.dy - targetFS.da - targetFS.db
-    cChild.y = (aChild?.y ?? targetFS.y) + targetFS.da + targetFS.db
-    modified.add(cChild.id)
-  }
-
-  // Apply changes by replacing attribute values in XML
-  let xml = rawXml
-  for (const section of sections) {
-    if (!modified.has(section.id)) continue
-    const origTag = section.rawTag
-    let newTag = origTag
-    newTag = replAttrInTag(newTag, 'DY', section.dy)
-    newTag = replAttrInTag(newTag, 'DA', section.da)
-    newTag = replAttrInTag(newTag, 'Y', section.y)
-    if (newTag !== origTag) {
-      xml = xml.replace(origTag, newTag)
-    }
-  }
-
-  return xml
-}
-
-/**
  * Move a shelf and its associated rod/hangers to a new Z position.
  * Returns a new MozProduct with updated parts and rawInnerXml.
  */
@@ -490,11 +372,10 @@ export function moveShelfGroup(
   // Collect all indices that need Z shift
   const moveIndices = new Set([group.shelfIndex, ...group.rodIndices, ...group.hangerIndices])
 
-  // Build XML change list before modifying parts
-  const xmlChanges: Array<{ partName: string; oldZ: number; newZ: number }> = []
+  // Build index-based XML change list before modifying parts
+  const xmlChanges: Array<{ partIndex: number; newZ: number }> = []
   for (const idx of moveIndices) {
-    const part = product.parts[idx]
-    xmlChanges.push({ partName: part.name, oldZ: part.z, newZ: part.z + delta })
+    xmlChanges.push({ partIndex: idx, newZ: product.parts[idx].z + delta })
   }
 
   // Update parts
@@ -504,7 +385,7 @@ export function moveShelfGroup(
 
   // Update rawInnerXml: CabProdPart Z values + ProductInterior section dimensions
   let newRawInnerXml = product.rawInnerXml
-    ? updatePartZInRawXml(product.rawInnerXml, xmlChanges)
+    ? updatePartZByIndex(product.rawInnerXml, xmlChanges)
     : ''
   newRawInnerXml = updateSectionDimensions(newRawInnerXml, product, shelfPartIndex, delta)
 

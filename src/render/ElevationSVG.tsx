@@ -6,7 +6,7 @@
 
 import { useCallback, useMemo, useRef, useState } from 'react'
 import type { MozProduct, MozPart } from '../mozaik/types'
-import { findShelfGroup, findFixedShelves, computeShelfBounds, snapToGrid } from '../mozaik/shelfEditor'
+import { findShelfGroup, findAdjShelfGroup, findFixedShelves, computeShelfBounds, computeAdjShelfBounds, computeZones, snapToGrid } from '../mozaik/shelfEditor'
 import { formatDim } from '../math/units'
 
 interface ElevationSVGProps {
@@ -81,21 +81,14 @@ export default function ElevationSVG({ product, useInches, selectedPart, onMoveS
     [product],
   )
 
-  // Diagnostic: dump drawer parts for debugging
-  const drawerParts = categorized.filter(c => c.category === 'drawer')
-  if (drawerParts.length > 0) {
-    console.log(`[ELEVATION] ${drawerParts.length} drawer faces:`, drawerParts.map(d => ({
-      idx: d.index, type: d.part.type, w: d.part.w, l: d.part.l, z: d.part.z, x: d.part.x,
-      svgH: d.part.w * scale, svgW: Math.min(d.part.l, prodW) * scale,
-    })))
-  } else {
-    console.log(`[ELEVATION] NO drawer faces. Part types:`, product.parts.map(p => p.type))
-  }
+  // Compute opening zones for visual highlights
+  const zones = useMemo(() => computeZones(product), [product])
 
   // Get shelf group for drag preview
   const dragGroup = useMemo(() => {
     if (!dragState) return null
     return findShelfGroup(product, dragState.shelfIndex)
+      ?? findAdjShelfGroup(product, dragState.shelfIndex)
   }, [product, dragState])
 
   // Compute effective Z for a part (accounting for drag)
@@ -109,12 +102,12 @@ export default function ElevationSVG({ product, useInches, selectedPart, onMoveS
   }, [dragState, dragGroup])
 
   // Pointer handlers for shelf dragging
-  const handlePointerDown = useCallback((e: React.PointerEvent, shelfIndex: number) => {
+  const handlePointerDown = useCallback((e: React.PointerEvent, shelfIndex: number, category: PartCategory) => {
     e.preventDefault()
     e.stopPropagation()
     const svgEl = svgRef.current
     if (!svgEl) return
-    onSelectPart({ index: shelfIndex, category: 'fixedshelf' })
+    onSelectPart({ index: shelfIndex, category })
     const shelf = product.parts[shelfIndex]
     setDragState({ shelfIndex, startY: e.clientY, startZ: shelf.z, currentZ: shelf.z })
     onDragStart?.()
@@ -127,7 +120,11 @@ export default function ElevationSVG({ product, useInches, selectedPart, onMoveS
     const deltaMozZ = -deltaY / scale // SVG Y is inverted
     const rawZ = dragState.startZ + deltaMozZ
     const snappedZ = snapToGrid(rawZ)
-    const bounds = computeShelfBounds(product, dragState.shelfIndex)
+    const dragPart = product.parts[dragState.shelfIndex]
+    const isAdj = dragPart && (dragPart.type.toLowerCase() === 'adjustableshelf' || dragPart.type.toLowerCase() === 'adjustable shelf')
+    const bounds = isAdj
+      ? computeAdjShelfBounds(product, dragState.shelfIndex)
+      : computeShelfBounds(product, dragState.shelfIndex)
     const clampedZ = Math.max(bounds.minZ, Math.min(bounds.maxZ, snappedZ))
     setDragState(prev => prev ? { ...prev, currentZ: clampedZ } : null)
   }, [dragState, scale, product])
@@ -184,6 +181,14 @@ export default function ElevationSVG({ product, useInches, selectedPart, onMoveS
         stroke="#444"
         strokeWidth={1}
       />
+
+      {/* Opening zone highlights */}
+      {zones.filter(z => !z.hasDrawers).map((zone, i) => (
+        <rect key={`zone-${i}`} x={toSvgX(0)} y={toSvgY(zone.maxZ)}
+          width={prodW * scale} height={(zone.maxZ - zone.minZ) * scale}
+          fill="#AAFF00" fillOpacity={0.04} stroke="#AAFF00"
+          strokeWidth={0.5} strokeOpacity={0.15} strokeDasharray="6,4" pointerEvents="none" />
+      ))}
 
       {/* FEnd panels (side panels) */}
       {categorized
@@ -298,7 +303,7 @@ export default function ElevationSVG({ product, useInches, selectedPart, onMoveS
                 stroke={isSelected || isDragging ? 'var(--accent)' : '#ccc'}
                 strokeWidth={isSelected || isDragging ? 1.5 : 0.5}
                 style={{ cursor: 'grab' }}
-                onPointerDown={(e) => handlePointerDown(e, index)}
+                onPointerDown={(e) => handlePointerDown(e, index, 'fixedshelf')}
                 onClick={() => onSelectPart({ index, category: 'fixedshelf' })}
               />
               {/* Dimension label */}
@@ -328,13 +333,14 @@ export default function ElevationSVG({ product, useInches, selectedPart, onMoveS
           )
         })}
 
-      {/* Adjustable shelves (dashed, not draggable) */}
+      {/* Adjustable shelves (draggable, dashed style) */}
       {categorized
         .filter(c => c.category === 'adjustableshelf')
         .map(({ part, index }) => {
           const z = effectiveZ(index, part.z)
           const shelfY = toSvgY(z)
           const isSelected = selectedPart?.index === index
+          const isDragging = dragState?.shelfIndex === index
           return (
             <g key={`adj-shelf-${index}`}>
               <rect
@@ -342,14 +348,25 @@ export default function ElevationSVG({ product, useInches, selectedPart, onMoveS
                 y={shelfY - SHELF_THICK_PX / 2}
                 width={prodW * scale}
                 height={SHELF_THICK_PX}
-                fill={isSelected ? '#88cc00' : '#888'}
-                fillOpacity={0.4}
-                stroke={isSelected ? 'var(--accent)' : '#999'}
-                strokeWidth={0.5}
-                strokeDasharray="4,3"
-                style={{ cursor: 'pointer' }}
+                fill={isDragging ? 'var(--accent)' : isSelected ? '#88cc00' : '#888'}
+                fillOpacity={isDragging ? 0.8 : 0.4}
+                stroke={isSelected || isDragging ? 'var(--accent)' : '#999'}
+                strokeWidth={isSelected || isDragging ? 1.5 : 0.5}
+                strokeDasharray={isDragging ? 'none' : '4,3'}
+                style={{ cursor: 'grab' }}
+                onPointerDown={(e) => handlePointerDown(e, index, 'adjustableshelf')}
                 onClick={() => onSelectPart({ index, category: 'adjustableshelf' })}
               />
+              {(isSelected || isDragging) && (
+                <text x={drawLeft - 8} y={shelfY + 4} textAnchor="end"
+                  fill={isDragging ? 'var(--accent)' : '#999'} fontSize={11} fontFamily="system-ui, sans-serif">
+                  {formatDim(z, useInches)}
+                </text>
+              )}
+              {isDragging && (
+                <line x1={SVG_PAD} y1={shelfY} x2={drawLeft + prodW * scale + 10} y2={shelfY}
+                  stroke="var(--accent)" strokeWidth={0.5} strokeDasharray="4,3" />
+              )}
             </g>
           )
         })}

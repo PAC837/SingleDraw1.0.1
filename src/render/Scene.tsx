@@ -47,7 +47,7 @@ function SceneOrbitControls({ target, disableRotate, resetKey }: { target?: [num
     camera.updateProjectionMatrix()
     ref.current.target.set(target[0], target[1], target[2])
     ref.current.update()
-  }, [resetKey]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [resetKey, camera, target])
 
   // Fallback: if OrbitControls wasn't ready during useEffect, apply on next frame
   useFrame(() => {
@@ -98,7 +98,7 @@ function OrthoCamera({ target, walls }: { target?: [number, number, number]; wal
     cam.updateProjectionMatrix()
     cam.updateMatrixWorld(true)
     return cam
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, []) // intentional — camera created once, size/frustum updates in separate effect
 
   // Resize + frustum change handling
   useEffect(() => {
@@ -147,7 +147,7 @@ function OrthoCamera({ target, walls }: { target?: [number, number, number]; wal
       prev.updateProjectionMatrix()
       set({ camera: prev })
     }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [set, camera]) // set is stable from useThree, camera is stable from useMemo
 
   return null
 }

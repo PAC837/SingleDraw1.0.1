@@ -70,58 +70,42 @@ export function useFolderActions() {
   // Restore persisted folder handles on mount
   useEffect(() => {
     loadFolderHandle('jobFolder').then((folder) => {
-      if (folder) {
-        dispatch({ type: 'SET_JOB_FOLDER', folder })
-        console.log(`[JOB] Restored job folder: ${folder.name}`)
-      }
-    })
+      if (folder) dispatch({ type: 'SET_JOB_FOLDER', folder })
+    }).catch(e => console.warn('[INIT] Job folder restore failed:', e))
     loadFolderHandle('textureFolder').then(async (folder) => {
       if (!folder) return
       dispatch({ type: 'SET_TEXTURE_FOLDER', folder })
-      console.log(`[TEXTURE] Restored texture folder: ${folder.name}`)
       try {
         const filenames = await scanTextureFolder(folder)
         dispatch({ type: 'SET_AVAILABLE_TEXTURES', filenames })
-        console.log(`[TEXTURE] Scanned ${filenames.length} textures`)
-      } catch (e) { console.warn('[TEXTURE] Scan failed on restore:', e) }
+      } catch (e) { console.warn('[INIT] Texture scan failed:', e) }
       try {
         const floorTextures = await scanSubfolderTextures(folder, 'SingleDraw_Floor')
         dispatch({ type: 'SET_SINGLEDRAW_FLOOR_TEXTURES', textures: floorTextures })
-        console.log(`[TEXTURE] Floor types: ${Object.keys(floorTextures).length}`)
-      } catch (e) { console.warn('[TEXTURE] Floor scan failed:', e) }
+      } catch (e) { console.warn('[INIT] Floor scan failed:', e) }
       try {
         const wallTextures = await scanSubfolderTextures(folder, 'SingleDraw_Walls')
         dispatch({ type: 'SET_SINGLEDRAW_WALL_TEXTURES', textures: wallTextures })
-        console.log(`[TEXTURE] Wall types: ${Object.keys(wallTextures).length}`)
-      } catch (e) { console.warn('[TEXTURE] Wall scan failed:', e) }
+      } catch (e) { console.warn('[INIT] Wall scan failed:', e) }
       try {
         const sdTextures = await scanSubfolderTextures(folder, 'SingleDraw_Textures')
         dispatch({ type: 'SET_SINGLEDRAW_TEXTURES', textures: sdTextures })
-        console.log(`[TEXTURE] SingleDraw brands: ${Object.keys(sdTextures).length}`)
-      } catch (e) { console.warn('[TEXTURE] SingleDraw scan failed:', e) }
-    })
+      } catch (e) { console.warn('[INIT] SingleDraw scan failed:', e) }
+    }).catch(e => console.warn('[INIT] Texture folder restore failed:', e))
     loadFolderHandle('libraryFolder').then(async (folder) => {
       if (!folder) return
       dispatch({ type: 'SET_LIBRARY_FOLDER', folder })
-      console.log(`[LIBRARY] Restored library folder: ${folder.name}`)
       try {
         const filenames = await scanLibraryFolder(folder)
         dispatch({ type: 'SET_AVAILABLE_LIBRARY_FILES', filenames })
-        console.log(`[LIBRARY] Scanned ${filenames.length} .moz files`)
-      } catch (e) { console.warn('[LIBRARY] Scan failed on restore:', e) }
-    })
+      } catch (e) { console.warn('[INIT] Library scan failed:', e) }
+    }).catch(e => console.warn('[INIT] Library folder restore failed:', e))
     loadFolderHandle('sketchUpFolder').then((folder) => {
-      if (folder) {
-        dispatch({ type: 'SET_SKETCHUP_FOLDER', folder })
-        console.log(`[SKETCHUP] Restored SketchUp folder: ${folder.name}`)
-      }
-    })
+      if (folder) dispatch({ type: 'SET_SKETCHUP_FOLDER', folder })
+    }).catch(e => console.warn('[INIT] SketchUp folder restore failed:', e))
     loadFolderHandle('modelsFolder').then((folder) => {
-      if (folder) {
-        dispatch({ type: 'SET_MODELS_FOLDER', folder })
-        console.log(`[MODELS] Restored models folder: ${folder.name}`)
-      }
-    })
+      if (folder) dispatch({ type: 'SET_MODELS_FOLDER', folder })
+    }).catch(e => console.warn('[INIT] Models folder restore failed:', e))
   }, [dispatch])
 
   const linkJobFolder = useCallback(async () => {
@@ -129,10 +113,7 @@ export function useFolderActions() {
       const folder = await window.showDirectoryPicker({ mode: 'readwrite' })
       dispatch({ type: 'SET_JOB_FOLDER', folder })
       await saveFolderHandle('jobFolder', folder)
-      console.log(`[JOB] Linked job folder: ${folder.name}`)
-    } catch {
-      console.log('[JOB] Folder picker cancelled')
-    }
+    } catch { /* picker cancelled */ }
   }, [dispatch])
 
   const linkTextureFolder = useCallback(async () => {
@@ -140,32 +121,25 @@ export function useFolderActions() {
       const folder = await window.showDirectoryPicker({ mode: 'read' })
       dispatch({ type: 'SET_TEXTURE_FOLDER', folder })
       await saveFolderHandle('textureFolder', folder)
-      console.log(`[TEXTURE] Linked texture folder: ${folder.name}`)
       const filenames = await scanTextureFolder(folder)
       dispatch({ type: 'SET_AVAILABLE_TEXTURES', filenames })
       dispatch({ type: 'SET_SELECTED_TEXTURE', filename: null })
-      console.log(`[TEXTURE] Scanned ${filenames.length} textures`)
       try {
         const floorTextures = await scanSubfolderTextures(folder, 'SingleDraw_Floor')
         dispatch({ type: 'SET_SINGLEDRAW_FLOOR_TEXTURES', textures: floorTextures })
         dispatch({ type: 'SET_FLOOR_TYPE', floorType: null })
-        console.log(`[TEXTURE] Floor types: ${Object.keys(floorTextures).length}`)
       } catch (e) { console.warn('[TEXTURE] Floor scan failed:', e) }
       try {
         const wallTextures = await scanSubfolderTextures(folder, 'SingleDraw_Walls')
         dispatch({ type: 'SET_SINGLEDRAW_WALL_TEXTURES', textures: wallTextures })
         dispatch({ type: 'SET_WALL_TYPE', wallType: null })
-        console.log(`[TEXTURE] Wall types: ${Object.keys(wallTextures).length}`)
       } catch (e) { console.warn('[TEXTURE] Wall scan failed:', e) }
       try {
         const sdTextures = await scanSubfolderTextures(folder, 'SingleDraw_Textures')
         dispatch({ type: 'SET_SINGLEDRAW_TEXTURES', textures: sdTextures })
         dispatch({ type: 'SET_SINGLEDRAW_BRAND', brand: null })
-        console.log(`[TEXTURE] SingleDraw brands: ${Object.keys(sdTextures).length}`)
       } catch (e) { console.warn('[TEXTURE] SingleDraw scan failed:', e) }
-    } catch {
-      console.log('[TEXTURE] Folder picker cancelled')
-    }
+    } catch { /* picker cancelled */ }
   }, [dispatch])
 
   const linkLibraryFolder = useCallback(async () => {
@@ -173,13 +147,9 @@ export function useFolderActions() {
       const folder = await window.showDirectoryPicker({ mode: 'read' })
       dispatch({ type: 'SET_LIBRARY_FOLDER', folder })
       await saveFolderHandle('libraryFolder', folder)
-      console.log(`[LIBRARY] Linked library folder: ${folder.name}`)
       const filenames = await scanLibraryFolder(folder)
       dispatch({ type: 'SET_AVAILABLE_LIBRARY_FILES', filenames })
-      console.log(`[LIBRARY] Scanned ${filenames.length} .moz files`)
-    } catch {
-      console.log('[LIBRARY] Folder picker cancelled')
-    }
+    } catch { /* picker cancelled */ }
   }, [dispatch])
 
   const linkSketchUpFolder = useCallback(async () => {
@@ -187,10 +157,7 @@ export function useFolderActions() {
       const folder = await window.showDirectoryPicker({ mode: 'read' })
       dispatch({ type: 'SET_SKETCHUP_FOLDER', folder })
       await saveFolderHandle('sketchUpFolder', folder)
-      console.log(`[SKETCHUP] Linked SketchUp folder: ${folder.name}`)
-    } catch {
-      console.log('[SKETCHUP] Folder picker cancelled')
-    }
+    } catch { /* picker cancelled */ }
   }, [dispatch])
 
   const linkModelsFolder = useCallback(async () => {
@@ -198,10 +165,7 @@ export function useFolderActions() {
       const folder = await window.showDirectoryPicker({ mode: 'read' })
       dispatch({ type: 'SET_MODELS_FOLDER', folder })
       await saveFolderHandle('modelsFolder', folder)
-      console.log(`[MODELS] Linked models folder: ${folder.name}`)
-    } catch {
-      console.log('[MODELS] Folder picker cancelled')
-    }
+    } catch { /* picker cancelled */ }
   }, [dispatch])
 
   const generateGlbScript = useCallback(async () => {
@@ -271,10 +235,7 @@ end`
 
     const alreadyLoaded = new Set(state.standaloneProducts.map(mf => mf.product.prodName))
     const toLoad = filenames.filter(f => !alreadyLoaded.has(f.replace(/\.moz$/i, '')))
-    if (toLoad.length === 0) {
-      console.log(`[LIBRARY] All ${filenames.length} products already loaded — skipping`)
-      return
-    }
+    if (toLoad.length === 0) return
 
     let targetFolder: FileSystemDirectoryHandle = state.libraryFolder
     try {
@@ -295,12 +256,11 @@ end`
       if (r.status === 'fulfilled') {
         dispatch({ type: 'LOAD_MOZ', file: r.value })
         loaded++
-        console.log(`[LIBRARY] Loaded "${r.value.product.prodName}"`)
       } else {
-        console.error(`[LIBRARY] Failed to load:`, r.reason)
+        console.warn('[LIBRARY] Failed to load:', r.reason)
       }
     }
-    console.log(`[LIBRARY] Batch loaded ${loaded}/${toLoad.length} products (${filenames.length - toLoad.length} already loaded)`)
+    if (loaded > 0) console.log(`[LIBRARY] Loaded ${loaded}/${toLoad.length} products`)
   }, [dispatch, state.libraryFolder, state.standaloneProducts])
 
   const exportDes = useCallback(async () => {
